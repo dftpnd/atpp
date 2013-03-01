@@ -15,7 +15,7 @@
         $day_text = 'Четверг';
     } else if ($dn == 5) {
         $day = '5';
-        $day_text = 'Пятнмца';
+        $day_text = 'Пятница';
     } else if ($dn == 6) {
         $day = '6';
         $day_text = 'Суббота';
