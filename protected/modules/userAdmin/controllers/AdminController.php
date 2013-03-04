@@ -37,7 +37,7 @@ class AdminController extends Controller {
             $model->predmet_id = $psg->predmet_id;
             $model->semestr_id = $psg->semestr_id;
             $model->group_id = $_POST['group_id'];
-            $model->hash_psg = md5($model->semestr_id * $model->group_id * $model->predmet_id);
+            $model->hash_psg = PredmetSemestrGroup::model()->hash_psg_model($model->predmet_id, $model->group_id, $model->semestr_id);
             $model->save();
         }
         echo json_encode(array('status' => 'good'));
@@ -82,6 +82,22 @@ class AdminController extends Controller {
     }
 
     public function actionGroupview($group) {
+//        $lkps = PredmetSemestrGroup::model()->findAll();
+//        $index = 1;
+//        echo 'коунт = ' . count($lkps);
+//        foreach ($lkps as $ikp) {
+//            $ikp->hash_psg = PredmetSemestrGroup::model()->hash_psg_model($ikp->predmet_id, $ikp->group_id, $ikp->semestr_id);
+//            if ($ikp->save(false)) {
+//                echo $index . '<br/>';
+//            } else {
+//                $PSG->getErrors();
+//            }
+//            $index++;
+//        }
+        //------------------------------------
+
+
+
         $model = Group::model()->findByPk($group);
         $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $group));
         $this->render('groupview', array('model' => $model, 'psg_model' => $psg_model));
@@ -100,7 +116,7 @@ class AdminController extends Controller {
         $group_id = $_POST['group_id'];
         $model = Group::model()->findByPk($group_id);
         $model->attributes = $_POST['Group'];
-       
+
         if ($model->save()) {
             echo json_encode(array('status' => 'good'));
         } else {
@@ -135,8 +151,17 @@ class AdminController extends Controller {
                         $PSG->predmet_id = $predmet;
                         $PSG->semestr_id = $semestr_id;
                         $PSG->group_id = $group;
-                        $PSG->hash_psg = md5($PSG->semestr_id * $PSG->group_id * $PSG->predmet_id);
-                        $PSG->save();
+                        $PSG->hash_psg = PredmetSemestrGroup::model()->hash_psg_model($PSG->predmet_id, $PSG->group_id, $PSG->semestr_id);
+                        if ($PSG->save()) {
+                            
+                        } else {
+                            continue;
+                            var_dump($predmet);
+                            var_dump($semestr_id);
+                            var_dump($group);
+                            var_dump($PSG->getErrors());
+                            die();
+                        }
                     }
             }
             if (isset($_POST['otm_predmets_id'])) {
@@ -144,9 +169,8 @@ class AdminController extends Controller {
                 $otm_predmets = $_POST['otm_predmets_id'];
                 if (!is_null($otm_predmets)) {
                     foreach ($otm_predmets as $predmet_otm) {
-                        $hash = md5($semestr_id * $group * $predmet_otm);
-                        $otm_PSG = PredmetSemestrGroup::model()->findByAttributes(array('hash_psg' => $hash));
-                        $otm_bypk_PSG = PredmetSemestrGroup::model()->deleteByPk($otm_PSG->id);
+                        $hash = PredmetSemestrGroup::model()->hash_psg_model($predmet_otm, $group, $semestr_id);
+                        $otm_PSG = PredmetSemestrGroup::model()->deleteAllByAttributes(array('hash_psg' => $hash));
                     }
 
                     $users = Profile::model()->findAllByAttributes(array('group_id' => $group));
@@ -160,8 +184,6 @@ class AdminController extends Controller {
                     foreach ($otm_predmets as $otm_predmet) {
                         $predmets[] = $otm_predmet;
                     }
-//                    var_dump($predmets);
-//                    die();
                     UserSemestrPredmet::model()->deleteAllByAttributes(array('user_id' => $users_id, 'semestr_id' => $semestr_id, 'predmet_id' => $predmets));
                 }
             }

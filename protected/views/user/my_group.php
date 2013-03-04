@@ -75,7 +75,7 @@
         <div class="student_vew">
           <?php
           if ($classmate->leader == 1) {
-            echo '<div class="web_staroste" >web-староста</div>';
+            echo '<div class="web_staroste" >Администратор группы</div>';
           }
           ?>
           <?php

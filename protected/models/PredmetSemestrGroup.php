@@ -36,9 +36,10 @@ class PredmetSemestrGroup extends CActiveRecord {
         return array(
             array('predmet_id, semestr_id, group_id', 'required'),
             array('predmet_id, semestr_id, group_id', 'numerical', 'integerOnly' => true),
+            array('hash_psg', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, predmet_id, semestr_id, group_id', 'safe', 'on' => 'search'),
+            array('id, predmet_id, semestr_id, group_id, hash_psg', 'safe', 'on' => 'search'),
         );
     }
 
@@ -87,39 +88,38 @@ class PredmetSemestrGroup extends CActiveRecord {
     }
 
     public static function NowKurs($start_year) {
-        if( date('n') > 6 ){
-        $index_god = date('Y') - $start_year;
-        if ($index_god == 0) {
-            $kurs = 1;
-        } else if ($index_god == 1) {
-            $kurs = 2;
-        } else if ($index_god == 2) {
-            $kurs = 3;
-        } else if ($index_god == 3) {
-            $kurs = 4;
-        } else if ($index_god == 4) {
-            $kurs = 5;
+        if (date('n') > 6) {
+            $index_god = date('Y') - $start_year;
+            if ($index_god == 0) {
+                $kurs = 1;
+            } else if ($index_god == 1) {
+                $kurs = 2;
+            } else if ($index_god == 2) {
+                $kurs = 3;
+            } else if ($index_god == 3) {
+                $kurs = 4;
+            } else if ($index_god == 4) {
+                $kurs = 5;
+            } else {
+                $kurs = '';
+            }
+            return $kurs;
         } else {
-            $kurs = '';
-        }
-        return $kurs;
-        }
-        else{
-        $index_god = date('Y') - $start_year;
-        if ($index_god == 1) {
-            $kurs = 1;
-        } else if ($index_god == 2) {
-            $kurs = 2;
-        } else if ($index_god == 3) {
-            $kurs = 3;
-        } else if ($index_god == 4) {
-            $kurs = 4;
-        } else if ($index_god == 5) {
-            $kurs = 5;
-        } else {
-            $kurs = '';
-        }
-        return $kurs;
+            $index_god = date('Y') - $start_year;
+            if ($index_god == 1) {
+                $kurs = 1;
+            } else if ($index_god == 2) {
+                $kurs = 2;
+            } else if ($index_god == 3) {
+                $kurs = 3;
+            } else if ($index_god == 4) {
+                $kurs = 4;
+            } else if ($index_god == 5) {
+                $kurs = 5;
+            } else {
+                $kurs = '';
+            }
+            return $kurs;
         }
     }
 
@@ -135,8 +135,8 @@ class PredmetSemestrGroup extends CActiveRecord {
         return $semest;
     }
 
-//    public function Uniq() {
-//        $this->hash_psg = md5($this->semestr_id * $this->group_id * $this->predmet_id);
-//        $this->save();
-//    }
+    public static function hash_psg_model($predmet_id, $group_id, $semestr_id) {
+        return $predmet_id . '0' . $group_id . '0' . $semestr_id;
+    }
+
 }
