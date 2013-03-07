@@ -369,16 +369,7 @@ a.current-page {
   padding-right:20px;
   height:100%;*/
 }
-.wrapper{
-  min-height:100%;
-  height:auto !important;
-  height:100%;
-  /*    margin:0  3% -120px;
-      margin-right: calc(3% + 20px)!important;*/
-  background:#fff;
-  max-width:1200px;
-  margin:0 auto -200px;
-}
+
 .footer{
   position:relative;
   border-top: 1px solid transperant;

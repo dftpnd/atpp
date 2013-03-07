@@ -60,14 +60,10 @@ class User extends CActiveRecord {
         $mailer->Username = $mail_config['user']; //user@gmail.com
         $mailer->Password = $mail_config['password']; //mypassword
         $mailer->From = $mail_config['user']; //user@gmail.com
-        //кому письмо
         $mailer->AddAddress($email);
-        //задаем тему письма
         $mailer->Subject = 'Подтверждение регистрации';
         $mailer->FromName = 'Сайт кафедры АТПП';
-        //задаем вьюху
         $mailer->setPathViews('application.views.mailTemplates');
-        //задаем тело письма
         $mailer->getView($view, $params);
         if (!$mailer->Send()) {
             Yii::log('Try to login with params: ' . print_r($mail_config, 1), 'warning');
