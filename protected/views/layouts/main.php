@@ -97,21 +97,22 @@
 
         <div class="footer ">
           <div class="footer_spa <?php echo $spec_class_2; ?> ">
+            <a class="git-hub" href="https://github.com/lkdnvc/atpp"></a>
             <div class="table_t foter_menu">
               <div class="tr_t">
                 <div class="td_t">
-                  <span class="aspx_7">Кафедра в лицах</span>
+                  <a href="/site/photos" class="aspx_7">Кафедра в лицах</a>
                 </div>
                 <div class="td_t">
-                  <span class="aspx_4">История кафедры</span>
+                  <a href="site/photos" class="aspx_4">История кафедры</a>
                 </div>
               </div>
               <div class="tr_t">
                 <div class="td_t">
-                  <span class="aspx_3">Что такое АТПП?</span>
+                  <a href="site/photos" class="aspx_3">Что такое АТПП?</a>
                 </div>
                 <div class="td_t">
-                  <span class="aspx_8">Научная работа</span>
+                  <a href="site/photos" class="aspx_8">Научная работа</a>
                 </div>
               </div>
 

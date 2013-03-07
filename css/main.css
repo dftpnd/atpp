@@ -155,8 +155,8 @@ form{
 
 a {
   color: #404040;
-  -webkit-transition-duration: .3s;
-  -moz-transition-duration: .3s;
+  /*  -webkit-transition-duration: .3s;
+    -moz-transition-duration: .3s;*/
   outline:none!important;
   text-decoration: none;
 }
@@ -231,9 +231,50 @@ a:hover  {
 .menu ul li a{
   border-bottom:1px solid;
 }
-.menu ul li.active{
+.menu ul li:hover a{
+  color: #fff;
+  border:none;
+}
+
+.menu ul li.active:first-child{
   background: #505050;
 }
+.menu ul li.active:nth-child(2){
+  background: #00BCF2;
+}
+.menu ul li.active:nth-child(3){
+  background:  #BA141A;
+}
+.menu ul li.active:nth-child(4){
+  background: #99439A;
+}
+.menu ul li.active:nth-child(5){
+  background: #00ABA9;
+}
+.menu ul li:last-child:hover{
+  background:none;
+}
+.menu ul li:last-child:hover a{
+  background:none;
+  color:#404040!important;
+}
+
+.menu ul li:first-child:hover{
+  background: #505050;
+}
+.menu ul li:nth-child(2):hover{
+  background: #00BCF2;
+}
+.menu ul li:nth-child(3):hover{
+  background:  #BA141A;
+}
+.menu ul li:nth-child(4):hover{
+  background: #99439A;
+}
+.menu ul li:nth-child(5):hover{
+  background: #00ABA9;
+}
+
 .menu ul li.active a{
   border-bottom:none;
   color:#fff;
@@ -336,11 +377,12 @@ a.current-page {
       margin-right: calc(3% + 20px)!important;*/
   background:#fff;
   max-width:1200px;
-  margin:0 auto -120px;
+  margin:0 auto -200px;
 }
 .footer{
+  position:relative;
   border-top: 1px solid transperant;
-  height: 120px;
+  height: 200px;
   max-width:1200px;
   margin:0  auto;
 }
@@ -349,12 +391,13 @@ a.current-page {
   border-top:1px solid #fff;
   padding:10px 20px;
   background:url("../i/header/footer.png") repeat-x;
+  position: relative;
 }
 #reformal_tab{
 
 }
 .push{
-  height:120px;
+  height:200px;
   clear: both; 
 }
 
@@ -4433,6 +4476,10 @@ div.logo > div.logo_x > div.logo_x_3 {
 .aspx_10{/*зеленый как в windows 8*/
   background:#029801;
 }
+.aspx_11{/*MAGENTA как в windows 8*/
+  background:#FF0097;
+}
+
 
 .foter_menu{
   width:auto!important;
@@ -4442,7 +4489,7 @@ div.logo > div.logo_x > div.logo_x_3 {
   text-align:center;
   padding:6px!important;
 }
-.foter_menu .tr_t .td_t span {
+.foter_menu .tr_t .td_t a {
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -4744,4 +4791,13 @@ div.fc-body div.fc-row div.fc-content{
   position: relative;
   top:6px;
   left:5;
+}
+.git-hub{
+  background:url(../i/git-hub.jpg);
+  display:block;
+  width:184px;
+  height:50px;
+  position: absolute;
+  top:115px;
+  left:0;
 }

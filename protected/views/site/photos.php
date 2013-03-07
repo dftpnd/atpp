@@ -2,7 +2,7 @@
     <?php
     $this->widget('zii.widgets.CBreadcrumbs', array(
         'links' => array(
-            'Фотоальбомы'
+            'Кафедра в лицах'
         ),
         'separator' => '<span> / <span>'
     ));

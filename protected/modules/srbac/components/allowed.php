@@ -1,6 +1,8 @@
 <?php 
  return array(
 	'CommentUpdate',
+	'ForumIndex',
+	'LibraryIndex',
 	'PostView',
 	'PostScrapbook',
 	'PostIndex',
