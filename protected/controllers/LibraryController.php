@@ -112,7 +112,6 @@ class LibraryController extends Controller {
 
     public function actionDownloads($id) {
         $file = PredmetFile::model()->with('uploadedfiles')->findByPk($id);
-        var_dump($file->uploadedfiles->orig_name);die();
         if (!empty($file)) {
             $ds = DIRECTORY_SEPARATOR;
             $path = Yii::app()->basePath . $ds . '..' . $ds . 'uploads' . $ds . 'predmet' . $ds . $file->predmet_id . $ds . $file->uploadedfiles->name;
