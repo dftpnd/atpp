@@ -4,7 +4,6 @@
             var uploader = new qq.FileUploader({
                 element: document.getElementById('file-uploader-demo1'),
                 action: '/user/UploadAvatar',
-                debug: true, 
                 onComplete: function(id, fileName, responseText)
                 {   
                     $('.avatar img').remove();
