@@ -14,7 +14,7 @@
         <div class="td_t">
             <div class="prepods_for_predmet resume__emptyblock">
                 <h4><?php echo $model->name; ?></h4>
-                описание предмета
+                <span class="tobudet">(Здесь будет описание предмета)</span>
             </div>
         </div>
         <div class="td_t prepods_for_predmet_td" >
