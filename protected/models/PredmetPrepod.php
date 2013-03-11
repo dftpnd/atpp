@@ -37,10 +37,10 @@ class PredmetPrepod extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('predmet_id, profile_id', 'required'),
-            array('predmet_id, profile_id, rating, uploads_count, created', 'numerical', 'integerOnly' => true),
+            array('predmet_id, profile_id', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, predmet_id, profile_id, rating, uploads_count, created', 'safe', 'on' => 'search'),
+            array('id, predmet_id, profile_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -62,9 +62,6 @@ class PredmetPrepod extends CActiveRecord {
             'id' => 'ID',
             'predmet_id' => 'Predmet',
             'profile_id' => 'Profile',
-            'rating' => 'Rating',
-            'uploads_count' => 'Uploads Count',
-            'created' => 'Created',
         );
     }
 
@@ -81,9 +78,6 @@ class PredmetPrepod extends CActiveRecord {
         $criteria->compare('id', $this->id);
         $criteria->compare('predmet_id', $this->predmet_id);
         $criteria->compare('profile_id', $this->profile_id);
-        $criteria->compare('rating', $this->rating);
-        $criteria->compare('uploads_count', $this->uploads_count);
-        $criteria->compare('created', $this->created);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

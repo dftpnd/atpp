@@ -1,6 +1,5 @@
 <?php
 
-
 $ds = DIRECTORY_SEPARATOR;
 
 ini_set('date.timezone', 'Europe/Moscow');
