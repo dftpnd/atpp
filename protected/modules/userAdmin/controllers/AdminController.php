@@ -82,18 +82,18 @@ class AdminController extends Controller {
     }
 
     public function actionGroupview($group) {
-        $lkps = PredmetSemestrGroup::model()->findAll();
-        $index = 1;
-        echo 'коунт = ' . count($lkps);
-        foreach ($lkps as $ikp) {
-            $ikp->hash_psg = PredmetSemestrGroup::model()->hash_psg_model($ikp->predmet_id, $ikp->group_id, $ikp->semestr_id);
-            if ($ikp->save(false)) {
-                echo $index . '<br/>';
-            } else {
-                $PSG->getErrors();
-            }
-            $index++;
-        }
+//        $lkps = PredmetSemestrGroup::model()->findAll();
+//        $index = 1;
+//        echo 'коунт = ' . count($lkps);
+//        foreach ($lkps as $ikp) {
+//            $ikp->hash_psg = PredmetSemestrGroup::model()->hash_psg_model($ikp->predmet_id, $ikp->group_id, $ikp->semestr_id);
+//            if ($ikp->save(false)) {
+//                echo $index . '<br/>';
+//            } else {
+//                $PSG->getErrors();
+//            }
+//            $index++;
+//        }
         //------------------------------------
 
 
