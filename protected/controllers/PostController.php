@@ -132,40 +132,40 @@ class PostController extends Controller {
                 'size' => $result['size'],
                 'ext' => $result['ext'],
             );
-            $UploadedFiles = new UploadedFiles();
-            $UploadedFiles->attributes = $file;
-            $UploadedFiles->save();
-            $result['file_id'] = $UploadedFiles->id;
+            $Uploadedfiles = new Uploadedfiles();
+            $Uploadedfiles->attributes = $file;
+            $Uploadedfiles->save();
+            $result['file_id'] = $Uploadedfiles->id;
 
             $img = Yii::app()->ih
-                    ->load($basePath . $UploadedFiles->name);
-            $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/' . $UploadedFiles->name);
+                    ->load($basePath . $Uploadedfiles->name);
+            $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/' . $Uploadedfiles->name);
 
             if ($img->width > 1000) {
                 $img->resize(900, 800)//обрезаем изображение для фотогалерии
-                        ->save($basePath . 'oli_' . $UploadedFiles->name);
-                $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/oli_' . $UploadedFiles->name);
+                        ->save($basePath . 'oli_' . $Uploadedfiles->name);
+                $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/oli_' . $Uploadedfiles->name);
             } else {
-                $source = $basePath . $UploadedFiles->name;
-                $dest = $basePath . 'oli_' . $UploadedFiles->name;
+                $source = $basePath . $Uploadedfiles->name;
+                $dest = $basePath . 'oli_' . $Uploadedfiles->name;
                 copy($source, $dest);
             }
 
             if ($img->width > 650) {
                 $img->resize(650, 500)//обрезаем изображение для поста
-                        ->save($basePath . '/sm_' . $UploadedFiles->name);
-                $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/sm_' . $UploadedFiles->name);
+                        ->save($basePath . '/sm_' . $Uploadedfiles->name);
+                $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/sm_' . $Uploadedfiles->name);
             } else {
-                $source = $basePath . $UploadedFiles->name; //делаем копию для маленького изображения
-                $dest = $basePath . 'oli_' . $UploadedFiles->name;
+                $source = $basePath . $Uploadedfiles->name; //делаем копию для маленького изображения
+                $dest = $basePath . 'oli_' . $Uploadedfiles->name;
                 copy($source, $dest);
             }
             $img->crop(220, 220)
-                    ->save(Yii::app()->basePath . '/../uploads/thumb_' . $UploadedFiles->name);
+                    ->save(Yii::app()->basePath . '/../uploads/thumb_' . $Uploadedfiles->name);
 
             $img->resize(45, 45)
-                    ->save(Yii::app()->basePath . '/../uploads/mini_' . $UploadedFiles->name);
-            $result['file_url_mini'] = Yii::app()->createAbsoluteUrl('uploads/mini_' . $UploadedFiles->name);
+                    ->save(Yii::app()->basePath . '/../uploads/mini_' . $Uploadedfiles->name);
+            $result['file_url_mini'] = Yii::app()->createAbsoluteUrl('uploads/mini_' . $Uploadedfiles->name);
         }
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
     }
@@ -173,7 +173,7 @@ class PostController extends Controller {
     public function actionDeletePicterPost() {
         $uf = DIRECTORY_SEPARATOR;
         if (isset($_POST['id'])) {
-            $model = UploadedFiles::model()->findByPk($_POST['id']);
+            $model = Uploadedfiles::model()->findByPk($_POST['id']);
             if (!empty($model)) {
                 if (file_exists(Yii::app()->basePath . "..{$uf}..{$uf}uploads{$uf}mini_" . $model->name)) {
                     unlink(Yii::app()->basePath . "..{$uf}..{$uf}uploads{$uf}mini_" . $model->name);
@@ -203,7 +203,7 @@ class PostController extends Controller {
             // we only allow deletion via POST request
             $model = $this->loadModel();
             foreach ($model->filetopost as $filetopost) {
-                UploadedFiles::DeleteFiles($filetopost->file);
+                Uploadedfiles::DeleteFiles($filetopost->file);
             }
             $model->delete();
             if (!isset($_GET['ajax']))

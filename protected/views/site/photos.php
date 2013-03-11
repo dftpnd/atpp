@@ -13,7 +13,7 @@ foreach ($posts as $post) {
     $file_name = null;
     $post_name = $post->title;
     $count_all = count($post->filetopost);
-    $hide_cont = count(UploadedFiles::model()->findAllByAttributes(array('invisible' => '1')));
+    $hide_cont = count(Uploadedfiles::model()->findAllByAttributes(array('invisible' => '1')));
     $count = $count_all - $hide_cont;
     if ($post->cover != null) {
         $file_name = $post->cover->name;

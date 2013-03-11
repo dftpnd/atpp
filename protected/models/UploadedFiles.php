@@ -1,6 +1,6 @@
 <?php
 
-class UploadedFiles extends CActiveRecord {
+class Uploadedfiles extends CActiveRecord {
 
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -82,7 +82,7 @@ class UploadedFiles extends CActiveRecord {
 /**
  *функция для удаления файлов и связей с постом
  * 
- * @param type $obj mixed обьект класса UploadedFiles 
+ * @param type $obj mixed обьект класса Uploadedfiles 
  */
     public static function DeleteFiles($obj) {
         if(empty($obj)){
@@ -98,7 +98,7 @@ class UploadedFiles extends CActiveRecord {
             @unlink($basePath . 'oli_' . $file->name); //удаляем физ oli_оригинал
             @unlink($basePath . 'sm_' . $file->name); //удаляем физ sm_оригинал
             @unlink($basePath . 'thumb_' . $file->name); //удаляем физ thumb_оригинал
-//                UploadedFiles::model()->deleteByPk($file->id); //удаляем из базы
+//                Uploadedfiles::model()->deleteByPk($file->id); //удаляем из базы
             Filetopost::model()->deleteAllByAttributes(array('file_id' => $file->id));
             $file->delete();
         }

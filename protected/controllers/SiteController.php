@@ -592,9 +592,9 @@ class SiteController extends Controller {
 
   public function actionFileDelete() {
     $file_id = $_POST['file_id'];
-    $obj = UploadedFiles::model()->findByPk($file_id);
+    $obj = Uploadedfiles::model()->findByPk($file_id);
     try {
-      UploadedFiles::DeleteFiles($obj);
+      Uploadedfiles::DeleteFiles($obj);
     } catch (Exception $e) {
       echo json_encode(false);
     }
@@ -603,14 +603,14 @@ class SiteController extends Controller {
 
   public function actionFileHide() {
     $file_id = $_POST['file_id'];
-    $file = UploadedFiles::model()->findByPk($file_id);
+    $file = Uploadedfiles::model()->findByPk($file_id);
     $file->invisible = 1;
     echo json_decode($file->save());
   }
 
   public function actionFileShow() {
     $file_id = $_POST['file_id'];
-    $file = UploadedFiles::model()->findByPk($file_id);
+    $file = Uploadedfiles::model()->findByPk($file_id);
     $file->invisible = null;
     echo json_decode($file->save());
   }

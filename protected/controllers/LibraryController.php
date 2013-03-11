@@ -35,15 +35,15 @@ class LibraryController extends Controller {
                 'ext' => $result['ext'],
             );
 
-            $UploadedFiles = new UploadedFiles();
-            $UploadedFiles->attributes = $file;
-            $UploadedFiles->save();
+            $Uploadedfiles = new Uploadedfiles();
+            $Uploadedfiles->attributes = $file;
+            $Uploadedfiles->save();
 
-            $result['file_id'] = $UploadedFiles->id;
+            $result['file_id'] = $Uploadedfiles->id;
 
             $predmet_file = new PredmetFile();
             $predmet_file->profile_id = $profile->id;
-            $predmet_file->uploads_id = $UploadedFiles->id;
+            $predmet_file->uploads_id = $Uploadedfiles->id;
             $predmet_file->predmet_id = $id;
             $predmet_file->save();
         }
