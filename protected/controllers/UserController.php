@@ -443,7 +443,7 @@ class UserController extends Controller {
         if (file_exists($basePath)) {
             if (isset($_POST['id'])) {
 
-                $model = UploadedFiles::model()->findByPk($_POST['id']);
+                $model = Uploadedfiles::model()->findByPk($_POST['id']);
                 if (!empty($model)) {
                     if (file_exists($basePath . $model->name)) {
                         unlink($basePath . $model->name);
@@ -1168,11 +1168,11 @@ class UserController extends Controller {
                 'size' => $result['size'],
                 'ext' => $result['ext'],
             );
-            $UploadedFiles = new UploadedFiles();
-            $UploadedFiles->attributes = $file;
-            $UploadedFiles->save();
+            $Uploadedfiles = new Uploadedfiles();
+            $Uploadedfiles->attributes = $file;
+            $Uploadedfiles->save();
 
-            $result['file_id'] = $UploadedFiles->id;
+            $result['file_id'] = $Uploadedfiles->id;
 
             $profile = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
             if (!is_null($profile->file_id)) {
@@ -1187,26 +1187,26 @@ class UserController extends Controller {
                     unlink(Yii::app()->basePath . "{$uf}..{$uf}uploads{$uf}avatar{$uf}avatar_" . $file_name);
                 }
             }
-            $profile->file_id = $UploadedFiles->id;
+            $profile->file_id = $Uploadedfiles->id;
             $profile->save(false);
 
 
             $img = Yii::app()->ih
-                    ->load($basePath . $UploadedFiles->name);
-            $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/avatar/' . $UploadedFiles->name);
+                    ->load($basePath . $Uploadedfiles->name);
+            $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/avatar/' . $Uploadedfiles->name);
 
             if ($img->width > 150) {
                 $img->resize(150, 250)
-                        ->save($basePath . 'avatar_' . $UploadedFiles->name);
+                        ->save($basePath . 'avatar_' . $Uploadedfiles->name);
                 $result['file_url'] = Yii::app()->
-                        createAbsoluteUrl('uploads/avatar/avatar_' . $UploadedFiles->name);
+                        createAbsoluteUrl('uploads/avatar/avatar_' . $Uploadedfiles->name);
             } else {
-                $source = $basePath . $UploadedFiles->name;
-                $dest = $basePath . 'avatar_' . $UploadedFiles->name;
+                $source = $basePath . $Uploadedfiles->name;
+                $dest = $basePath . 'avatar_' . $Uploadedfiles->name;
                 copy($source, $dest);
             }
             $img->resize(45, 45)
-                    ->save($basePath . 'mini_' . $UploadedFiles->name);
+                    ->save($basePath . 'mini_' . $Uploadedfiles->name);
         }
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
     }
