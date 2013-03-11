@@ -4934,3 +4934,6 @@ div.fc-body div.fc-row div.fc-content{
 .predmets li:nth-child(2n){
     background:#ececec;
 }
+.uploded-predmet-but .qq-upload-button{
+    background: red;
+}
