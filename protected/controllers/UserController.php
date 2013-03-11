@@ -419,14 +419,14 @@ class UserController extends Controller {
                 'ext' => $result['ext'],
             );
 
-            $UploadedFiles = new UploadedFiles();
-            $UploadedFiles->attributes = $file;
-            $UploadedFiles->save();
+            $Uploadedfiles = new Uploadedfiles();
+            $Uploadedfiles->attributes = $file;
+            $Uploadedfiles->save();
 
-            $result['file_id'] = $UploadedFiles->id;
+            $result['file_id'] = $Uploadedfiles->id;
         }
         $gf_model = new GroupFile();
-        $gf_model->file_id = $UploadedFiles->id;
+        $gf_model->file_id = $Uploadedfiles->id;
         $gf_model->group_id = $profile->group_id;
         $gf_model->profile_id = $profile->id;
         $gf_model->create_time = time();
