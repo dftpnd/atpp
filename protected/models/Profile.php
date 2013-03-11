@@ -62,7 +62,7 @@ class Profile extends CActiveRecord {
    */
   public function relations() {
     return array(
-        'uploadedfiles' => array(self::BELONGS_TO, 'UploadedFiles', 'file_id'),
+        'uploadedfiles' => array(self::BELONGS_TO, 'Uploadedfiles', 'file_id'),
         'team' => array(self::BELONGS_TO, 'Group', 'group_id'),
         'user' => array(self::BELONGS_TO, 'User', 'user_id'),
     );

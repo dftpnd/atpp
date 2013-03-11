@@ -52,7 +52,7 @@ class GroupFile extends CActiveRecord {
     // class name for the relations automatically generated below.
     return array(
         'profile' => array(self::BELONGS_TO, 'Profile', 'profile_id'),
-        'uploadedfiles' => array(self::BELONGS_TO, 'UploadedFiles', 'file_id'),
+        'uploadedfiles' => array(self::BELONGS_TO, 'Uploadedfiles', 'file_id'),
     );
   }
 

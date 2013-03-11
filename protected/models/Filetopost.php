@@ -52,7 +52,7 @@ class Filetopost extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'post' => array(self::BELONGS_TO, 'Post', 'post_id'),
-                        'file' => array(self::BELONGS_TO, 'UploadedFiles', 'file_id'),
+                        'file' => array(self::BELONGS_TO, 'Uploadedfiles', 'file_id'),
 		);
 	}
 
