@@ -120,8 +120,8 @@ class qqFileUploader {
         if (!is_writable($uploadDirectory)) {
             return array('error' => "Server error. Upload directory($uploadDirectory) isn't writable.");
         }
-        var_dump($this->file);
-        die();
+//        var_dump($this->file);
+//        die();
         if (!$this->file) {
             return array('error' => 'No files were uploaded.');
         }
