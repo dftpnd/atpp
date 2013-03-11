@@ -1158,15 +1158,11 @@ class UserController extends Controller {
 
         $allowedExtensions = array("png", "jpg", "gif");
         $sizeLimit = 2 * 1024 * 1024;
-        var_dump($_POST);
         echo '=========================================';
         var_dump($_GET);
         echo '=========================================';
-        var_dump($_FILES);
-        echo '=========================================';
         var_dump($_REQUEST);
         echo '=========================================';
-        var_dump($_SERVER);
         die();
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
         $result = $uploader->handleUpload($basePath);
