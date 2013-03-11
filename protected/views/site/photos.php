@@ -41,3 +41,4 @@ foreach ($posts as $post) {
     }
 }
 ?>
+<div class="anchor"></div>

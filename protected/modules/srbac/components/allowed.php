@@ -3,6 +3,8 @@
 	'CommentUpdate',
 	'ForumIndex',
 	'LibraryIndex',
+	'LibraryUploadPredmetFile',
+	'LibraryPredmet',
 	'PostView',
 	'PostScrapbook',
 	'PostIndex',

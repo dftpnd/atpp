@@ -4799,3 +4799,138 @@ div.fc-body div.fc-row div.fc-content{
     top:115px;
     left:0;
 }
+.predmet-box{
+    display:block;
+    margin:20px auto;
+    padding:30px;
+    text-align:center;
+    max-width:500px;
+    font-size:2em;
+}
+.predmet_goupview{
+    padding-top:20px;
+}
+.predmet_goupview li{
+    display:block;
+    height:60px;
+}
+.predmet_goupview li.pol{
+    background:#f5f5f5;
+}
+.predmet_goupview li:hover{
+    background:#ececec;
+}
+.predmet_select{
+    float:right;
+    width:32px;
+    height:32px;
+    background:url('../i/check/checkbox.png');
+}
+.acupent .predmet_select{
+    background:url('../i/check/checkbox_checked.png')!important;
+}
+.prepods_for_predmet{
+
+}
+.prepods_for_predmet h4{
+    margin-bottom:20px;
+}
+.file-box{
+    margin:10px;
+    border:1px solid #ececec;
+    background:#ececec;
+    position: relative;
+}
+.file-box .table_t .tr_t .td_t:nth-child(2) a{
+    display:inline-block;
+}
+.file-box .table_t .tr_t .td_t:nth-child(2){
+    width:200px;
+    text-align:center;
+}
+.uploads_file{
+    width:46px;
+    height:60px;
+}
+
+.file_png{
+    background:url(../i/file_ext/png.png);
+}
+.file_jpg{
+    background:url(../i/file_ext/jpg.png);
+}
+.file_jpeg{
+    background:url(../i/file_ext/jpeg.png);
+} 
+.file_gif{
+    background:url(../i/file_ext/gif.png);
+}
+.file_rar{
+    background:url(../i/file_ext/rar.png);
+}
+.file_zip{
+    background:url(../i/file_ext/zip.png);
+}
+.file_doc{
+    background:url(../i/file_ext/doc.png);
+}
+.file_docx{
+    background:url(../i/file_ext/docx.png);
+}
+.file_xlsx{
+    background:url(../i/file_ext/xlsx.png);
+}
+.file_pdf{
+    background:url(../i/file_ext/pdf.png);
+}
+.file_txt{
+    background:url(../i/file_ext/txt.png);
+}
+.delet_file_library{
+    float: right;
+    color:red;
+    cursor: pointer;
+    text-decoration:underline;
+    margin-right:30px;
+}
+.delet_file_library:hover{
+    text-decoration:none;
+}
+.prepods_for_predmet_td{
+    width:500px;
+}
+.flowpit_1{
+    margin-top:5px;
+    border:1px solid #99439a;
+}
+.flowpit_2{
+    margin-top:5px;
+    border:1px solid #029801;
+}
+.flowpit_3{
+    margin-top:5px;
+    border:1px solid #FF0097;
+    margin-bottom:40px;
+}
+.uploded-predmet{
+    padding:10px;
+}
+.uploded-predmet{
+    background:#505050!important;
+    color:#fff!important;
+    font-size:16px;
+}
+.uplods-count-box{
+    width:40px;
+    height:40px;
+}
+.predmets li{
+    display:block;
+    padding:10px;
+}
+.predmets li a{
+    font-size:16px;
+}
+.predmets li:nth-child(2n){
+    background:#ececec;
+}

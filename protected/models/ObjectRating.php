@@ -21,6 +21,7 @@ class ObjectRating extends CActiveRecord {
     const TYPE_POST = 2;
     const TYPE_SMALL_POST = 3;
     const TYPE_WALL = 4;
+    const lIBRARY_FILES = 5;
     const PLUS = 1;
     const MINUS = 0;
 

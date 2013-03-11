@@ -50,6 +50,7 @@ class Group extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            // 'students' => array(self::HAS_ONE, 'Profile', '', 'on' => 't.group_id = profile.user_id'),
             //   'profile' => array(self::HAS_ONE, 'Profile', '', 'on' => 't.leader_id = profile.user_id'),
             'inseption' => array(self::BELONGS_TO, 'GroupYearCreate', 'id_year_create'),
             'students' => array(self::STAT, 'Profile', 'group_id', 'select' => 'COUNT(*)'),
