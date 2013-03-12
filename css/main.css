@@ -374,7 +374,6 @@ a.current-page {
     position:relative;
     border-top: 1px solid transperant;
     height: 200px;
-    max-width:1200px;
     margin:0  auto;
 }
 .footer_spa{
