@@ -167,12 +167,12 @@ a:hover{
   -webkit-transition-duration: 0s!important;
   -moz-transition-duration: 0s!important;
 }
-.classic, .student_group .table_t a{
+.classic, #student_group .table_t .tr_t .td_t a{
   cursor:pointer;
   color:#0099FF;
   text-decoration:underline;
 }
-.classic:hover, .student_group .table_t a:hover{
+.classic:hover, #student_group .table_t .tr_t .td_t a:hover{
   color:#3399FF;
   text-decoration:none;
 }
