@@ -4205,6 +4205,7 @@ ul.yiipager li.previous  a{
   height: 420px;
   padding-right:335px;
   padding-top:10px;
+  max-width:900px;
 }
 .pod{
   /*    height:100%;*/
