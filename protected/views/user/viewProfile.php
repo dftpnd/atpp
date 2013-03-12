@@ -192,7 +192,7 @@ if (isset($_GET['id'])) {
                         <?php endif; ?>
                         <div class="ldk">
                             Группа:
-                            <?php echo CHtml::link($group->name . ' 1-' . $group->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group', array('id' => $group->id, 'sect' => 'statistics_group')), array('class' => 'group classic')); ?>
+                            <?php echo CHtml::link($group->name . ' 1-' . $group->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group', array('id' => $group->id)), array('class' => 'group classic')); ?>
                         </div>
                         <ul class="social_contact">
                             <?php if (isset($profile->pthon) && $profile->pthon != ''): ?>
