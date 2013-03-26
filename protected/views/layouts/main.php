@@ -53,6 +53,7 @@
       </div>
       <div class="universe">
         <div class="header">
+          <div class="header-box-image"></div>
           <a href="<?php echo Yii::app()->urlManager->createUrl('site/index'); ?>" id="logo" title="Главная"></a>
         </div>
 
