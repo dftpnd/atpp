@@ -11,7 +11,7 @@
 
 
 <script charset="utf-8" type="text/javascript" src="http://firmsonmap.api.2gis.ru/js/DGWidgetLoader.js"></script>
-<script charset="utf-8" type="text/javascript">new DGWidgetLoader({"borderColor":"#a3a3a3","width":"755","height":"402","wid":"8792fc7ae80e6bf185ad982de35f14bf","pos":{"lon":"49.096504735463","lat":"55.816629980114","zoom":"16"},"opt":{"ref":"hidden","card":["name","schedule"],"city":"kazan"},"org":[{"id":"2956015536736124"}]});</script>
+<script charset="utf-8" type="text/javascript">new DGWidgetLoader({"borderColor":"#a3a3a3","width":"100%","height":"402","wid":"8792fc7ae80e6bf185ad982de35f14bf","pos":{"lon":"49.096504735463","lat":"55.816629980114","zoom":"16"},"opt":{"ref":"hidden","card":["name","schedule"],"city":"kazan"},"org":[{"id":"2956015536736124"}]});</script>
 <noscript style="color:#c00;font-size:16px;font-weight:bold;">Виджет карты использует JavaScript. Включите его в настройках вашего браузера.</noscript>
 <?php if (Yii::app()->user->hasFlash('contact')): ?>
     <div class="flash-success">

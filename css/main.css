@@ -4605,6 +4605,7 @@ div.logo > div.logo_x > div.logo_x_3 {
     -webkit-transform: scale(0.9) rotate(180deg);
     -o-transform: scale(0.9) rotate(180deg);
 }
+/*===================*/
 div.slides{
     height:380px;
     position: relative;
@@ -4626,17 +4627,7 @@ div.slide{
     overflow:hidden;
 }
 div.slide:hover{
-    /*    transform: translate(100px,0);
-        -ms-transform: translate(100px,0);  IE 9 
-        -webkit-transform: translate(100px,0);  Safari and Chrome 
-        -o-transform: translate(100px,0);  Opera 
-        -moz-transform: translate(100px,0);  Firefox 
-    
-        transition:all 1s ease-in-out;
-        -ms-transition:all 1s ease-in-out;
-        -webkit-transition:all 1s ease-in-out;
-        -o-transition:all 1s ease-in-out;
-        -moz-transition:all 1s ease-in-out;*/
+   
 }
 .slide-navigation-box{
     width:100%;
@@ -4663,6 +4654,7 @@ div.slide:hover{
     background:#000;
     border:3px solid #fff;
 }
+/*==================*/
 .danger_enter{
     font-size:13px;
     padding-top:15px;
