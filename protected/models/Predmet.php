@@ -36,7 +36,6 @@ class Predmet extends CActiveRecord {
             array('name', 'unique'),
             array('name', 'required'),
             array('name', 'length', 'max' => 128),
-            array('text', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, text', 'safe', 'on' => 'search'),
