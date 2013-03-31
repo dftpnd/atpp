@@ -193,15 +193,17 @@ class AdminController extends Controller {
 
     public function actionPredmetedet($id) {
         if (isset($id)) {
-            $model = Predmet::model()->findByPk($id);
+            if (isset($_POST['Predmet']['text'])) {
+                
+                $model = Predmet::model()->findByPk($id);
+                $model->text = $_POST['Predmet']['text'];
+                $model->save(false);
+            } else {
+                $model = Predmet::model()->findByPk($id);
+            }
+
             $this->render('predmetedet', array('model' => $model));
         }
-//        $model = Group::model()->findByPk($group);
-//        $profile = Profile::model()->findAllByAttributes(array('group_id' => $group));
-//        $predmets = Predmet::model()->findAll();
-//        $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $group));
-//
-//        $this->render('groupview', array('model' => $model, 'profile' => $profile, 'predmets' => $predmets, /* 'installation' => $installation, */ 'psg_model' => $psg_model));
     }
 
     public function actionAproveModer() {

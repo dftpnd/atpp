@@ -28,13 +28,12 @@ if ($schedule->week_razd == 1) {
     </div>
     <div class='td_t'>
         <?php
-        ;
         if (!empty($schedule->predmet->name))
-            echo $schedule->predmet->name;
+            echo CHtml::link($schedule->predmet->name, Yii::app()->urlManager->createUrl('/library/predmet/' . $schedule->predmet->id), array('class' => 'classic'));
         else if (!empty($schedule->predmet_1->name))
-            echo $schedule->predmet_1->name;
+            echo CHtml::link($schedule->predmet_1->name, Yii::app()->urlManager->createUrl('/library/predmet/' . $schedule->predmet_1->id), array('class' => 'classic'));
         else if (!empty($schedule->predmet_2->name))
-            echo $schedule->predmet_2->name;
+            echo CHtml::link($schedule->predmet_2->name, Yii::app()->urlManager->createUrl('/library/predmet/' . $schedule->predmet_2->id), array('class' => 'classic'));
         else
             echo 'Предмет не выбран старостой'
             ?>

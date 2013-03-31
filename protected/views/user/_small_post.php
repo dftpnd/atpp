@@ -8,7 +8,6 @@ $div_title_minus = 'Не нравится';
 
 <div class="view_small_post" id="sp_<?php echo $discussion->id; ?>">
     <?php if ($type == '4') : ?>
-
         <?php if ($discussion->profile_id == $profile->id) : ?>
             <div class="delete_small_post"  onclick="DeleteSmallPost(<?php echo $discussion->id; ?>,<?php echo $type; ?>,'<?php echo md5($profile->id * $profile->id + $profile->id + $profile->id); ?>')" title="Без возможности восстановления">удалить</div>
         <?php elseif (isset($hozyin->id)) : ?>
@@ -17,6 +16,11 @@ $div_title_minus = 'Не нравится';
             <?php endif; ?>
         <?php endif; ?>
     <?php elseif ($type == '3') : ?>
+
+        <?php if ($discussion->profile_id == $profile->id) : ?>
+            <div class="delete_small_post"  onclick="DeleteSmallPost(<?php echo $discussion->id; ?>,<?php echo $type; ?>,'<?php echo md5($profile->id * $profile->id + $profile->id + $profile->id); ?>')" title="Без возможности восстановления">удалить</div>
+        <?php endif; ?>
+    <?php elseif ($type == '6') : ?>
         <?php if ($discussion->profile_id == $profile->id) : ?>
             <div class="delete_small_post"  onclick="DeleteSmallPost(<?php echo $discussion->id; ?>,<?php echo $type; ?>,'<?php echo md5($profile->id * $profile->id + $profile->id + $profile->id); ?>')" title="Без возможности восстановления">удалить</div>
         <?php endif; ?>

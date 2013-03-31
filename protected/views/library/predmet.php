@@ -14,12 +14,12 @@
         <div class="td_t">
             <div class="prepods_for_predmet resume__emptyblock">
                 <h4><?php echo $model->name; ?></h4>
-                <span class="tobudet">(Здесь будет описание предмета)</span>
+                <?php echo $model->text; ?>
             </div>
         </div>
         <div class="td_t prepods_for_predmet_td" >
             <div class="prepods_for_predmet resume__emptyblock">
-                <h4>Преподаватели которые ведут предмет</h4>
+                <h4>Преподаватели</h4>
                 <?php foreach ($prepods_predmet as $predmet) : ?>
                     <div>
                         <?php echo CHtml::link($predmet->prepod->name . ' ' . $predmet->prepod->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $predmet->prepod->id)), array('class' => 'classic')); ?> 
