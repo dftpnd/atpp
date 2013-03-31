@@ -197,7 +197,7 @@ class AdminController extends Controller {
                 
                 $model = Predmet::model()->findByPk($id);
                 $model->text = $_POST['Predmet']['text'];
-                $model->save(false);
+                $model->save();
             } else {
                 $model = Predmet::model()->findByPk($id);
             }
