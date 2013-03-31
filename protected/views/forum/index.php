@@ -34,7 +34,7 @@
         </div>
     </div>
 <?php else: ?>
-    Чтобы задавать вопросы авторизуйтесь
+
 <?php endif; ?>
 <div class="anchor"></div>
 <div class="small_posts_view">

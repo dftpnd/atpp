@@ -21,8 +21,10 @@ $div_title_minus = 'Не нравится';
             <div class="delete_small_post"  onclick="DeleteSmallPost(<?php echo $discussion->id; ?>,<?php echo $type; ?>,'<?php echo md5($profile->id * $profile->id + $profile->id + $profile->id); ?>')" title="Без возможности восстановления">удалить</div>
         <?php endif; ?>
     <?php elseif ($type == '6') : ?>
-        <?php if ($discussion->profile_id == $profile->id) : ?>
-            <div class="delete_small_post"  onclick="DeleteSmallPost(<?php echo $discussion->id; ?>,<?php echo $type; ?>,'<?php echo md5($profile->id * $profile->id + $profile->id + $profile->id); ?>')" title="Без возможности восстановления">удалить</div>
+        <?php if (isset($profile->id)): ?>    
+            <?php if ($discussion->profile_id == $profile->id) : ?>
+                <div class="delete_small_post"  onclick="DeleteSmallPost(<?php echo $discussion->id; ?>,<?php echo $type; ?>,'<?php echo md5($profile->id * $profile->id + $profile->id + $profile->id); ?>')" title="Без возможности восстановления">удалить</div>
+            <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>
 
@@ -135,29 +137,31 @@ $div_title_minus = 'Не нравится';
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        <div class="new_comment">
-            <div class="new_comment_psevdo" id="ncp_<?php echo $discussion->id; ?>">
-                <textarea class="psedo_area" onfocus="zamenaTextArea(<?php echo $discussion->id; ?>)">Комментировать...</textarea>
-            </div>
-            <div class="new_comment_real" id="ncr_<?php echo $discussion->id; ?>">
-                <div class="box_new_com_1">
-                    <?php
-                    $my_picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
-                    if (!is_null($profile->file_id)) {
-                        $file_name = $profile->uploadedfiles->name;
-                        $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
-                    }
-                    ?>
-                    <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id))); ?>
+        <?php if (!Yii::app()->user->isGuest): ?>
+            <div class="new_comment">
+                <div class="new_comment_psevdo" id="ncp_<?php echo $discussion->id; ?>">
+                    <textarea class="psedo_area" onfocus="zamenaTextArea(<?php echo $discussion->id; ?>)">Комментировать...</textarea>
                 </div>
-                <div class="box_new_com">
-                    <div class="div_textare" id="dt_<?php echo $discussion->id; ?>" contentEditable="true" onblur="getBackCom(<?php echo $discussion->id; ?>)"></div>
-                    <div class="inp_sub" class="" onclick="newSmallPostComment(<?php echo $discussion->id; ?>, $(this),<?php echo $type; ?>)">Отправить</div>
-                </div>
-                <div class="anchor"></div>
+                <div class="new_comment_real" id="ncr_<?php echo $discussion->id; ?>">
+                    <div class="box_new_com_1">
+                        <?php
+                        $my_picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
+                        if (!is_null($profile->file_id)) {
+                            $file_name = $profile->uploadedfiles->name;
+                            $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
+                        }
+                        ?>
+                        <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id))); ?>
+                    </div>
+                    <div class="box_new_com">
+                        <div class="div_textare" id="dt_<?php echo $discussion->id; ?>" contentEditable="true" onblur="getBackCom(<?php echo $discussion->id; ?>)"></div>
+                        <div class="inp_sub" class="" onclick="newSmallPostComment(<?php echo $discussion->id; ?>, $(this),<?php echo $type; ?>)">Отправить</div>
+                    </div>
+                    <div class="anchor"></div>
 
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
 
 </div>

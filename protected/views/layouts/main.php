@@ -7,7 +7,7 @@
     <meta name="language" content="ru" />
     <meta name="verify-reformal" content="76a271c64a315732aa56eeb7" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-    <title>АТПП</title>
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/door.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/maine.js"></script>
     <script type="text/javascript">
