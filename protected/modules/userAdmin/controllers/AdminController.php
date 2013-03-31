@@ -26,6 +26,19 @@ class AdminController extends Controller {
         echo json_encode(array('div' => $data));
     }
 
+    public function actionInstitute() {
+        $model = array();
+        if (isset($_POST['institute'])) {
+            $institute = new Institute();
+            $institute->name = $_POST['institute'];
+            $institute->save();
+        }
+        $institutes = Institute::model()->findAll();
+        $this->render('institute', array('model' => $model, 'institutes' => $institutes));
+    }
+    public function actiondeleteInstitute(){
+        
+    }
     public function actionZapolnit() {
         if (!isset($_POST['group_id']) || !isset($_POST['group_podobiu']))
             die('нет пост параметров');
@@ -194,7 +207,7 @@ class AdminController extends Controller {
     public function actionPredmetedet($id) {
         if (isset($id)) {
             if (isset($_POST['Predmet']['text'])) {
-                
+
                 $model = Predmet::model()->findByPk($id);
                 $model->text = $_POST['Predmet']['text'];
                 $model->save();

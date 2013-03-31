@@ -400,8 +400,8 @@ a.current-page {
     height: 100%;
     margin: 0 auto -200px;
     position: relative;
-/*    max-width:1500px;
-    border:1px solid black;*/
+    /*    max-width:1500px;
+        border:1px solid black;*/
 }
 .push{
     height:200px;
@@ -4958,4 +4958,10 @@ div.fc-body div.fc-row div.fc-content{
 }
 .tobudet{
     font-size:12px;
+}
+.table_library .tr_t:nth-child(2n+1){
+    background:#ececec;
+}
+.reestr .td_t{
+    background: #fff;
 }

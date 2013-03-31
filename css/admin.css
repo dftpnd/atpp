@@ -845,3 +845,22 @@ a.ui-datepicker-prev span{
     right:20px;
     top:0px;
 }
+.create_institute{
+    display:block;
+    background: yellow;
+    margin-bottom:50px;
+    padding:20px;
+}
+.view_institute{
+    border-bottom:1px solid black;
+    padding:20px;
+    position: relative;
+}
+.delete_institute{
+    color: red;
+    font-size:12px;
+    position: absolute;
+    right:0;
+    top:0;
+    cursor:pointer;
+}

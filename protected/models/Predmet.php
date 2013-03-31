@@ -49,6 +49,8 @@ class Predmet extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'predmetfile' => array(self::HAS_MANY, 'PredmetFile', 'predmet_id'),
+            'predmetprepod' => array(self::HAS_MANY, 'PredmetPrepod', 'predmet_id'),
         );
     }
 
