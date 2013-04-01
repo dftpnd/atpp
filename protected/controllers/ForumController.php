@@ -1,36 +1,20 @@
 <?php
 
-class ForumController extends Controller
-{
-	public function actionIndex()
-	{
-		$this->render('index');
-	}
+class ForumController extends Controller {
 
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
+    public function actionIndex() {
+        $type = ObjectRating::FORUM;
+        $plus = ObjectRating::PLUS;
+        $minus = ObjectRating::MINUS;
+        $athor = array();
+        if (!Yii::app()->user->isGuest)
+            $athor = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.last_update DESC';
+
+        $discussions = Discussion::model()->findAllByAttributes(array('group_id' => '999999'), $criteria);
+        $this->render('index', array('athor' => $athor, 'profile' => $athor, 'type' => $type, 'plus' => $plus, 'minus' => $minus, 'discussions' => $discussions));
+    }
+
 }

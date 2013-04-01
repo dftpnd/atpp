@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{predmet}}':
  * @property integer $id
  * @property string $name
+ * @property string $text
  */
 class Predmet extends CActiveRecord {
 
@@ -37,7 +38,7 @@ class Predmet extends CActiveRecord {
             array('name', 'length', 'max' => 128),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name', 'safe', 'on' => 'search'),
+            array('id, name, text', 'safe', 'on' => 'search'),
         );
     }
 
@@ -48,6 +49,8 @@ class Predmet extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'predmetfile' => array(self::HAS_MANY, 'PredmetFile', 'predmet_id'),
+            'predmetprepod' => array(self::HAS_MANY, 'PredmetPrepod', 'predmet_id'),
         );
     }
 
@@ -58,6 +61,7 @@ class Predmet extends CActiveRecord {
         return array(
             'id' => 'ID',
             'name' => 'Name',
+            'text' => 'text'
         );
     }
 
@@ -73,6 +77,7 @@ class Predmet extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
+        $criteria->compare('name', $this->text, true);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

@@ -76,7 +76,21 @@ function saveInfogroup(){
         }
     });
 }
-
+function deleteInstitute(el, intitute_id){
+    loader.show();
+    $.ajax({
+        url:'/userAdmin/admin/deleteInstitute',
+        type: 'POST',
+        dataType: 'json',
+        data: ({
+            'intitute_id':intitute_id
+        }),
+        success: function(data){
+            el.parent().hide();
+            loader.hide();
+        }
+    });
+}
 function EditList(group_id,semestr_id){
     loader.show();
     $.ajax({

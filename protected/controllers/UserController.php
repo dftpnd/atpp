@@ -464,9 +464,9 @@ class UserController extends Controller {
             $profile = Profile::model()->findByAttributes(array('user_id' => $user_id));
 
 
-            if ($_POST['type'] == '3') {
+            if ($_POST['type'] == '3' || $_POST['type'] == '6') {
                 $small_posts = Discussion::model()->findByPk($_POST['sp_id']);
-            } elseif ($_POST['type'] == '4') {
+            } elseif ($_POST['type'] == '4' ) {
                 $small_posts = Wall::model()->findByPk($_POST['sp_id']);
             }
 
@@ -488,7 +488,7 @@ class UserController extends Controller {
             $user_id = Yii::app()->user->id;
             $profile = Profile::model()->findByAttributes(array('user_id' => $user_id));
 
-            if ($_POST['type'] == '3') {
+            if ($_POST['type'] == '3' || $_POST['type'] == '6') {
                 $small_posts = Discussion::model()->findByPk($_POST['id_sp_comment']);
             } elseif ($_POST['type'] == '4') {
                 $small_posts = Wall::model()->findByPk($_POST['id_sp_comment']);
@@ -529,6 +529,9 @@ class UserController extends Controller {
                     } else {
                         die();
                     }
+                } else if ($type == '6') {//FORUM
+                    $discussion = new Discussion();
+                    $discussion->group_id = 999999;
                 } else {
                     die('error');
                 }
@@ -587,6 +590,13 @@ class UserController extends Controller {
             $discussion_parent->last_update = time();
             $discussion_parent->update();
             $discussion->belong_id = $profile->id;
+        } else if ($_POST['type'] == '6') {
+            $discussion = new Discussion();
+            $discussion->parent_id = $_POST['small_post_id'];
+            $discussion_parent = Discussion::model()->findByPk($_POST['small_post_id']);
+            $discussion_parent->last_update = time();
+            $discussion_parent->update();
+            $discussion->group_id = '9999999';
         }
 
         $discussion->profile_id = $profile->id;
@@ -599,6 +609,8 @@ class UserController extends Controller {
             $parentDiscussion = Discussion::model()->findByPk($_POST['small_post_id']);
         } else if ($_POST['type'] == '4') {
             $parentDiscussion = Wall::model()->findByPk($_POST['small_post_id']);
+        } else if ($_POST['type'] == '6') {
+            $parentDiscussion = Discussion::model()->findByPk($_POST['small_post_id']);
         }
         $parentDiscussion->last_update = time();
         $parentDiscussion->update();
@@ -1232,6 +1244,8 @@ class UserController extends Controller {
             $model = Wall::model()->findByPk($_POST['object_id']);
         } else if ($_POST['type'] == ObjectRating::lIBRARY_FILES) {//пост
             $model = PredmetFile::model()->findByPk($_POST['object_id']);
+        } else if ($_POST['type'] == ObjectRating::FORUM) {//пост
+            $model = Discussion::model()->findByPk($_POST['object_id']);
         } else {
             exit();
         }
