@@ -76,14 +76,14 @@ function saveInfogroup(){
         }
     });
 }
-function deleteInstitute(el, intitute_id){
+function deleteInstitute(el, institute_id){
     loader.show();
     $.ajax({
         url:'/userAdmin/admin/deleteInstitute',
         type: 'POST',
         dataType: 'json',
         data: ({
-            'intitute_id':intitute_id
+            'institute_id':institute_id
         }),
         success: function(data){
             el.parent().hide();

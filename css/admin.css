@@ -852,9 +852,10 @@ a.ui-datepicker-prev span{
     padding:20px;
 }
 .view_institute{
-    border-bottom:1px solid black;
+    border:1px solid black;
     padding:20px;
     position: relative;
+    margin-bottom:50px;
 }
 .delete_institute{
     color: red;
@@ -863,4 +864,7 @@ a.ui-datepicker-prev span{
     right:0;
     top:0;
     cursor:pointer;
+}
+.box-view-caf{
+  padding-left:50px;
 }
