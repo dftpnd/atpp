@@ -131,6 +131,7 @@ class LibraryController extends Controller {
         header("Content-Type: application/octet-stream");
         header("Content-Type: application/download");
         header("Content-Description: File Transfer");
+        header('Content-Length: ' . $file->uploadedfiles->size);
 
         //скачивание
         echo file_get_contents($path);
