@@ -34,7 +34,7 @@ if ($my_prof) {
             if ($prdemt_semestr->semestr_id == $do_increment) {
                 if (isset($prdemt_semestr->predmet)) {
                     echo "<li>";
-                    echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/user/predmetview', array('id' => $prdemt_semestr->predmet_id)), array('class' => 'predmets_group'));
+                    echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $prdemt_semestr->predmet_id)), array('class' => 'classic'));
                     $avdug = '';
                     if (isset($entry[$do_increment][$prdemt_semestr->predmet_id])) {
                         $avdug = $entry[$do_increment][$prdemt_semestr->predmet_id];
@@ -53,7 +53,7 @@ if ($my_prof) {
         foreach ($psg_model as $prdemt_semestr) {
             if ($prdemt_semestr->semestr_id == $posle_increment) {
                 echo "<li>";
-                echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/user/predmetview', array('id' => $prdemt_semestr->predmet_id)), array('class' => 'predmets_group'));
+                echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $prdemt_semestr->predmet_id)), array('class' => 'classic'));
                 $avdrug = '';
                 if (isset($entry[$posle_increment][$prdemt_semestr->predmet_id])) {
                     $avdrug = $entry[$posle_increment][$prdemt_semestr->predmet_id];

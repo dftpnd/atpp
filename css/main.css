@@ -5005,3 +5005,11 @@ div.fc-body div.fc-row div.fc-content{
   margin-right:50px;
   margin-bottom:50px;
 }
+img {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+img {
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
