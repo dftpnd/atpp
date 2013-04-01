@@ -4962,28 +4962,47 @@ div.fc-body div.fc-row div.fc-content{
 .table_library .tr_t:nth-child(2n+1){
   background:#ececec;
 }
-.table_library .tr_t:hover, .active_tr{
-  background:#777!important;
+.table_library .tr_t:hover{
+  background:#ccc;
+}
+.table_library .active_tr{
+  background:#999!important;
   color:#fff!important;
+}
+.active_tr .td_t a{
+  color: #fff;
 }
 .ins_id_2 , .ins_id_4, .ins_id_3, .ins_id_{
   display:inline-block;
   padding:2px 5px;
   color: #fff;
-/*  width:150px;
-  text-align:left;*/
+  /*  width:150px;
+    text-align:left;*/
 }
 .reestr .td_t{
   background: #fff;
   color: black!important;
 }
-.ins_id_2{
+.cli_2{
   background:goldenrod;
 }
-.ins_id_3{
+.cli_3{
   background:green;
 }
-.ins_id_4{/*ite*/
+.cli_4{/*ite*/
   background:blue;
 }
-
+.legend_library{
+  width:20px;
+  height:20px;
+  display:inline-block;
+  background:black;
+}
+.legend_library_name{
+  display:inline-block;
+}
+.koppas{
+  display: inline-block;
+  margin-right:50px;
+  margin-bottom:50px;
+}

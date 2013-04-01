@@ -9,6 +9,15 @@
   ?>
 </div>
 
+<?php foreach ($ins as $in): ?>
+  <div class="koppas">
+    <div class="legend_library lb_box_<?php echo $in->id ?> cli_<?php echo $in->id ?>"></div>
+    <div class="legend_library_name">
+      <?php echo $in->name; ?>
+    </div>
+  </div>
+<?php endforeach; ?>
+<div class="anchor"></div>
 <div class="table_t table_library">
   <div class="tr_t reestr">
     <div class="td_t">
@@ -64,7 +73,7 @@
         ?>
 
 
-        <label class="ins_id_<?php echo $ind_ins; ?>">
+        <label class="ins_id_<?php echo $ind_ins; ?> cli_<?php echo $ind_ins; ?>">
           <?php echo $caf_name; ?>
         </label>
       </div>

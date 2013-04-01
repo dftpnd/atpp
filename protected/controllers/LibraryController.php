@@ -6,14 +6,14 @@ class LibraryController extends Controller {
     $institute = array();
     $predmets = Predmet::model()->findAll(array('order' => 'name ASC'));
     $ins = Institute::model()->with('institutecafedra.cafedra')->findAll();
-    
+
     foreach ($ins as $value) {
       foreach ($value->institutecafedra as $val) {
         $institute[$value->id][] = $val->cafedra->id;
       }
     }
 
-    $this->render('index', array('predmets' => $predmets, 'institute' => $institute));
+    $this->render('index', array('predmets' => $predmets, 'institute' => $institute, 'ins' => $ins));
   }
 
   public function actionUpload($id) {
