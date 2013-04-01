@@ -51,13 +51,12 @@
         if (isset($predmet->cafedra->id)) {
           $caf_id = $predmet->cafedra->id;
           $caf_name = $predmet->cafedra->name;
-          
+
           foreach ($institute as $key => $v) {
             if (in_array($predmet->cafedra->id, $v)) {
               $ind_ins = $key;
             }
           }
-          
         } else {
           $caf_id = '';
           $caf_name = '';
@@ -66,11 +65,17 @@
 
 
         <label class="ins_id_<?php echo $ind_ins; ?>">
-        <?php echo $caf_name; ?>
+          <?php echo $caf_name; ?>
         </label>
       </div>
     </div>
-  <?php $index++; ?>
-        <?php endforeach; ?>
+    <?php $index++; ?>
+  <?php endforeach; ?>
 
 </div>
+<script>
+  $('.table_library .tr_t').click(function(){
+    $('.table_library .tr_t').removeClass('active_tr');
+    $(this).addClass('active_tr');
+  });
+</script>

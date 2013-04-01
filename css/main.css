@@ -4962,17 +4962,28 @@ div.fc-body div.fc-row div.fc-content{
 .table_library .tr_t:nth-child(2n+1){
   background:#ececec;
 }
-.reestr .td_t{
-  background: #fff;
+.table_library .tr_t:hover, .active_tr{
+  background:#777!important;
+  color:#fff!important;
 }
-.ins_id_6{
-  background:green;
-}
-.ins_id_7{
-  background:blue;
-}
-.ins_id_7, .ins_id_6, .ins_id_{
+.ins_id_2 , .ins_id_4, .ins_id_3, .ins_id_{
   display:inline-block;
   padding:2px 5px;
   color: #fff;
+/*  width:150px;
+  text-align:left;*/
 }
+.reestr .td_t{
+  background: #fff;
+  color: black!important;
+}
+.ins_id_2{
+  background:goldenrod;
+}
+.ins_id_3{
+  background:green;
+}
+.ins_id_4{/*ite*/
+  background:blue;
+}
+
