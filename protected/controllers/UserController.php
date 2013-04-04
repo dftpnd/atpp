@@ -1168,7 +1168,7 @@ class UserController extends Controller {
         $uf = DIRECTORY_SEPARATOR;
         $basePath = Yii::app()->basePath . "{$uf}..{$uf}uploads{$uf}avatar{$uf}";
 
-        $allowedExtensions = array("png", "jpg", "gif");
+        $allowedExtensions = array("png", "jpg", "gif", "jpeg");
         $sizeLimit = 2 * 1024 * 1024;
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
         $result = $uploader->handleUpload($basePath);
