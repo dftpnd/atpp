@@ -131,9 +131,9 @@
       </div>
       <script type="text/javascript">
         $(function(){
-          if ( $.browser.msie ){
-            ieblokad();
-          }
+            //          if ( $.browser.msie ){
+        //            ieblokad();
+        //          }
         })
         //реформер
         var reformalOptions = {
