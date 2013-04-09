@@ -557,14 +557,13 @@ class SiteController extends Controller {
     echo json_encode(array('div' => $data));
   }
 
-  public function actionPhototools() {
+  public function actionPhototools($post_id) {
     $cs = Yii::app()->getClientScript();
     $cs->registerCoreScript('jquery');
     $cs->registerCoreScript('jquery.ui');
     $cs->registerCssFile(Yii::app()->request->baseUrl . '/css/jquery.lightbox-0.5.css');
     $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/jquery.lightbox-0.5.js');
 
-    $post_id = $_GET['post_id'];
 
     $model = Post::model()->with('filetopost', 'filetopost.file')->findByAttributes(array('id' => $post_id));
 
