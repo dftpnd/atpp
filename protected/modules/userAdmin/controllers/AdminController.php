@@ -105,6 +105,12 @@ class AdminController extends Controller {
     $this->render('users', array('model' => $model));
   }
 
+  public function actionBanuser($id) {
+    $user = User::model()->findByPk($id);
+    $user->active = 0;
+    $user->save(false);
+  }
+
   public function actionDeleteUser() {
     $user = User::model()->deleteByPk($_POST['user_id']);
 

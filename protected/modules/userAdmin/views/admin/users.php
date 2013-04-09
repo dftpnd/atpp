@@ -49,7 +49,14 @@
         <div class="td_t">
 
         </div>
-        <div class="td_t"><a href="#" title="В разработке" >Заморозить</a></div>
+        <div class="td_t">
+
+          <?php if ($user->active == 1): ?>
+            <?php echo CHtml::link('Забанить', Yii::app()->urlManager->createUrl('/userAdmin/admin/banuser', array('id' => $user->id))); ?>
+          <?php else: ?>
+            ЗАБАНЕН
+          <?php endif; ?>
+        </div>
         <div class="td_t"><span class="delete_user" onclick="deleteUser('<?php echo $user->id; ?>','<?php if (isset($user->prof)) echo $user->prof->id;else echo '0' ?>')">Удалить</span></div>
       </div>
     <?php endforeach; ?>
