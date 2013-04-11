@@ -10,14 +10,7 @@
     ?>
 </div>
 
-<?php foreach ($ins as $in): ?>
-    <div class="koppas">
-        <div class="legend_library lb_box_<?php echo $in->id ?> cli_<?php echo $in->id ?>"></div>
-        <div class="legend_library_name">
-            <?php echo $in->name; ?>
-        </div>
-    </div>
-<?php endforeach; ?>
+
 <div class="anchor"></div>
 <div class="table_t table_library">
     <div class="tr_t reestr">
@@ -64,7 +57,15 @@
 
                 if (isset($predmet->cafedra->id)) {
                     $caf_name = $predmet->cafedra->name;
-                    $ins_name = $predmet->institutecafedra->institute_id;
+                    $ins_name = '';
+
+                    if ($predmet->institutecafedra->institute_id == 2) {
+                        $ins_name = "ИТЭ";
+                    } elseif (($predmet->institutecafedra->institute_id == 3)) {
+                        $ins_name = "ИЭИТ";
+                    } elseif (($predmet->institutecafedra->institute_id == 4)) {
+                        $ins_name = "ИЭЭ";
+                    }
                 }
                 ?>
                 <label >
