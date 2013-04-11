@@ -65,12 +65,17 @@ class LibraryController extends Controller {
     $plus = ObjectRating::PLUS;
     $minus = ObjectRating::MINUS;
     $profile = FALSE;
-
+    $redact = FALSE;
     $cs = Yii::app()->getClientScript();
     $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/fileuploader.js');
 
     if (!Yii::app()->user->isGuest) {
       $profile = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+      if ($profile->status == 3) {
+        if (!is_null(PredmetPrepod::model()->findAllByAttributes(array('profile_id' => $profile->id)))) {
+          $redact = TRUE;
+        }
+      }
     }
     $files = PredmetFile::model()->findAllByAttributes(array('predmet_id' => $id));
     $prepods_predmet = PredmetPrepod::model()->findAllByAttributes(array('predmet_id' => $id));
@@ -83,7 +88,8 @@ class LibraryController extends Controller {
         'plus' => $plus,
         'minus' => $minus,
         'prepods_predmet' => $prepods_predmet,
-        'profile' => $profile
+        'profile' => $profile,
+        'redact' => $redact
             )
     );
   }
@@ -152,6 +158,15 @@ class LibraryController extends Controller {
           echo json_encode(array('status' => 'good'));
         }
       }
+    }
+  }
+
+  public function actionEditText() {
+    if (isset($_POST['text']) && isset($_POST['predmet_id'])) {
+      $predmet = Predmet::model()->findByPk($_POST['predmet_id']);
+      $predmet->text = $_POST['text'];
+      $predmet->save();
+      echo json_encode(array('status' => 'good'));
     }
   }
 

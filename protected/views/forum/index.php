@@ -1,3 +1,4 @@
+<h1 class="pontel">Реестр групп</h1>
 <div id="breadcrambs">
     <?php
     $this->widget('zii.widgets.CBreadcrumbs', array(

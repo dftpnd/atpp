@@ -1,3 +1,4 @@
+<h1 class="pontel">Новости</h1>
 <?php $this->pageTitle = $model->title; ?>
 <?php
 $this->renderPartial('_view', array(

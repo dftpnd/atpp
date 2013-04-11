@@ -1,3 +1,4 @@
+<h1 class="pontel">Библиотека</h1>
 <div id="breadcrambs">
   <?php
   $this->widget('zii.widgets.CBreadcrumbs', array(
