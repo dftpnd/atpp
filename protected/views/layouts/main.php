@@ -115,15 +115,15 @@
                                         <a href="/site/photos" class="aspx_7">Кафедра в лицах</a>
                                     </div>
                                     <div class="td_t">
-                                        <a href="site/photos" class="aspx_4">История кафедры</a>
+                                        <a href="/site/contact" class="aspx_4">Контакты</a>
                                     </div>
                                 </div>
                                 <div class="tr_t">
                                     <div class="td_t">
-                                        <a href="site/photos" class="aspx_3">Что такое АТПП?</a>
+                                        <a href="#" class="aspx_3">Что такое АТПП?</a>
                                     </div>
                                     <div class="td_t">
-                                        <a href="site/photos" class="aspx_8">Научная работа</a>
+                                        <a href="#" class="aspx_8">Научная работа</a>
                                     </div>
                                 </div>
 
