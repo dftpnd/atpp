@@ -12,7 +12,9 @@ class LibraryController extends Controller {
                 $institute[$value->id][] = $val->cafedra->id;
             }
         }
+        echo '<pre>';
         var_dump($institute);
+        echo '</pre>';
         die();
         $this->render('index', array('predmets' => $predmets, 'institute' => $institute, 'ins' => $ins));
     }
