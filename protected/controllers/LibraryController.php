@@ -9,7 +9,7 @@ class LibraryController extends Controller {
 
         foreach ($ins as $value) {
             foreach ($value->institutecafedra as $val) {
-                $institute[$value->id][] = $val->cafedra->id;
+                $institute[$value->id][$value->name] = $val->cafedra->id;
             }
         }
         echo '<pre>';
