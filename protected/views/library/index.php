@@ -68,7 +68,6 @@
                     foreach ($institute as $key => $v) {
                         if (in_array($predmet->cafedra->id, $v)) {
                             $ind_ins = $key;
-                            $ins_name = $v->name;
                         }
                     }
                 } else {
