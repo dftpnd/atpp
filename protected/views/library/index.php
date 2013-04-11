@@ -64,7 +64,7 @@
 
                 if (isset($predmet->cafedra->id)) {
                     $caf_name = $predmet->cafedra->name;
-                    $ins_name = $predmet->institutecafedra->id;
+                    $ins_name = $predmet->institutecafedra->institute_id;
                 }
                 ?>
                 <label >
