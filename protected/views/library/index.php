@@ -60,7 +60,8 @@
             <div class="td_t">
                 <?php
                 $ind_ins = '';
-
+                $ins_name = '';
+                
                 if (isset($predmet->cafedra->id)) {
                     $caf_id = $predmet->cafedra->id;
                     $caf_name = $predmet->cafedra->name;
@@ -73,7 +74,7 @@
                 } else {
                     $caf_id = '';
                     $caf_name = '';
-                    $ins_name = '';
+                    
                 }
                 ?>
                 <label >
