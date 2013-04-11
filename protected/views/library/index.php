@@ -63,21 +63,17 @@
                 $ins_name = '';
 
                 if (isset($predmet->cafedra->id)) {
-                    $caf_id = $predmet->cafedra->id;
                     $caf_name = $predmet->cafedra->name;
 
                     foreach ($institute as $key => $v) {
-                        if (in_array($predmet->cafedra->id, $v)) {
-                            $ind_ins = $key;
-                        }
+                       $ins_name = $v[0]; 
                     }
                 } else {
-                    $caf_id = '';
                     $caf_name = '';
                 }
                 ?>
                 <label >
-                    <?php echo $caf_name; ?>
+                    <?php echo $ins_name; ?>
                 </label>
             </div>
             <div class="td_t">
