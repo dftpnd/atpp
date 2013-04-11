@@ -66,7 +66,7 @@
                     $caf_name = $predmet->cafedra->name;
 
                     foreach ($institute as $key => $v) {
-                       $ins_name = $v[0][0]; 
+                       $ins_name = var_dump($v[0]); 
                     }
                 } else {
                     $caf_name = '';
