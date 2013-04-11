@@ -29,7 +29,7 @@ class LibraryController extends Controller {
       mkdir($basePath);
 
     $allowedExtensions = array("png", "jpg", "jpeg", "gif", "rar", "zip", "doc", "docx", "xlsx", "pdf", "txt");
-    $sizeLimit = 20 * 1024 * 1024;
+    $sizeLimit = 50 * 1024 * 1024;
 
     $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
     $result = $uploader->handleUpload($basePath);
