@@ -67,7 +67,7 @@
                     $caf_name = $predmet->cafedra->name;
 
                     foreach ($institute as $key => $v) {
-                        if (in_array($predmet->cafedra->id, $key)) {
+                        if (in_array($predmet->cafedra->id, $v)) {
                             $ind_ins = $key;
                         }
                     }
