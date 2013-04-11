@@ -43,12 +43,12 @@
                 <?php echo CHtml::link($predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $predmet->id)), array('class' => 'classic')); ?>
             </div>
             <div class="td_t">
-                <label >   
+                <label class="fosee" >   
                     <?php echo count($predmet->predmetfile); ?>
                 </label>
             </div>
             <div class="td_t">
-                <label > <?php echo count($predmet->predmetprepod); ?></label>
+                <label class="fosee" > <?php echo count($predmet->predmetprepod); ?></label>
             </div>
             <div class="td_t">
                 <?php
