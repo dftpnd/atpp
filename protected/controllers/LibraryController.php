@@ -7,15 +7,7 @@ class LibraryController extends Controller {
         $predmets = Predmet::model()->findAll(array('order' => 'name ASC'));
         $ins = Institute::model()->with('institutecafedra.cafedra')->findAll();
 
-        foreach ($ins as $value) {
-            foreach ($value->institutecafedra as $val) {
-                $institute[$value->id][][$value->name] = $val->cafedra->id;
-            }
-        }
-//        echo '<pre>';
-//        var_dump($institute);
-//        echo '</pre>';
-//        die();
+        
         $this->render('index', array('predmets' => $predmets, 'institute' => $institute, 'ins' => $ins));
     }
 

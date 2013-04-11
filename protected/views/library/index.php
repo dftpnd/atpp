@@ -59,17 +59,12 @@
             </div>
             <div class="td_t">
                 <?php
-                $ind_ins = '';
                 $ins_name = '';
+                $caf_name = '';
 
                 if (isset($predmet->cafedra->id)) {
                     $caf_name = $predmet->cafedra->name;
-
-                    foreach ($institute as $key => $v) {
-                       $ins_name = var_dump($v[0]); 
-                    }
-                } else {
-                    $caf_name = '';
+                    $ins_name = $predmet->institutecafedra->id;
                 }
                 ?>
                 <label >
