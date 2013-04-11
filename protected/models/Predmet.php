@@ -51,7 +51,6 @@ class Predmet extends CActiveRecord {
     return array(
         'predmetfile' => array(self::HAS_MANY, 'PredmetFile', 'predmet_id'),
         'predmetprepod' => array(self::HAS_MANY, 'PredmetPrepod', 'predmet_id'),
-        'predmetprepod' => array(self::HAS_MANY, 'PredmetPrepod', 'predmet_id'),
         'cafedra' => array(self::BELONGS_TO, 'Cafedra', 'cafedra_id'),
     );
   }
