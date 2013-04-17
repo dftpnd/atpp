@@ -13,8 +13,10 @@ if (isset($count_sp_com)) {
 ?>
 
 <div class="sp_comment <?php echo $disp; ?>" id="lkasd_<?php echo $comment->id; ?>">
-    <?php if ($comment->profile->id == $profile->id) : ?>
-        <div class="delete_small_post"  onclick="DeleteSPComment(<?php echo $comment->id; ?>, <?php echo $type; ?>,'<?php echo md5($comment->profile->id * $comment->profile->id + $comment->profile->id + $comment->profile->id); ?>')" title="Без возможности восстановления" >удалить</div>
+    <?php if (isset($profile->id)): ?>
+        <?php if ($comment->profile->id == $profile->id) : ?>
+            <div class="delete_small_post"  onclick="DeleteSPComment(<?php echo $comment->id; ?>, <?php echo $type; ?>,'<?php echo md5($comment->profile->id * $comment->profile->id + $comment->profile->id + $comment->profile->id); ?>')" title="Без возможности восстановления" >удалить</div>
+        <?php endif; ?>
     <?php endif; ?>
     <div class="table_t ">
         <div class="tr_t">
