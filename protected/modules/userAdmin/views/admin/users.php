@@ -1,3 +1,63 @@
+<style>
+    #log {
+        width: 590px;
+        height: 290px;
+        border: 1px solid rgb(192, 192, 192);
+        padding: 5px;
+        margin-bottom: 5px;
+        font: 11pt 'Palatino Linotype';
+        overflow: auto;
+    }
+    #input {
+        width: 550px;
+    }
+    #send {
+        width: 50px;
+    }
+
+    .in {
+        color: rgb(0, 0, 0);
+    }
+    .out {
+        color: rgb(0, 0, 0);
+    }
+    .time {
+        color: rgb(144, 144, 144);
+        font: 10pt 'Courier New';
+    }
+    .system {
+        color: rgb(165, 42, 42);
+    }
+    .user {
+        color: rgb(25, 25, 112);
+    }
+</style>
+<div class="bb bl_gr mo" >
+    <h1>consultant</h1>
+    <script src="http://rti-client.new-techs.ru:8080/socket.io/socket.io.js"></script>
+    <div id="log"></div>
+    <input type="text" id="input" autofocus><input type="submit" id="send" value="Send">
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class='tabnav'>
   <ul class="tabnav-tabs">
     <l1 class="razdel1" >
