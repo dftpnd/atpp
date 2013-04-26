@@ -112,31 +112,7 @@ class SiteController extends Controller {
     $this->renderPartial('test');
   }
 
-//    public function actionSendToSocket() {
-//
-//
-//
-//
-//        if (!extension_loaded('openssl')) {
-//            var_dump('You need the openssl PHP extension to use SMTP/IMAP TLS!');
-//        }
-//
-//
-//        $ds = DIRECTORY_SEPARATOR; //давай сам
-//        require( Yii::app()->basePath . $ds . 'extensions' . $ds . 'ElephantIO' . $ds . 'Client.php');
-//        //use ElephantIO\Client as ElephantIOClient;
-//
-//        $elephant = new \ElephantIO\Client('http://localhost:8080', 'socket.io', 1, false, true, true);
-//
-//        $elephant->init();
-//
-//        $elephant->send(
-//                \ElephantIO\Client::TYPE_EVENT, null, null, json_encode(array('name' => 'message', 'args' => 'foo' . time()))
-//        );
-//        $elephant->close();
-//
-//        echo 'tryin to send `foo` to the event called action';
-//    }
+
 
   public function actionSearch() {
     if (isset($_POST['search'])) {
