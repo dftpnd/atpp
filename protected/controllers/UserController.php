@@ -544,10 +544,6 @@ class UserController extends Controller {
 
                 $data = $this->renderPartial('/user/_small_post', array('discussion' => $discussion, 'minus' => $minus, 'plus' => $plus, 'type' => $type, 'profile' => $profile), true);
 
-                $channel = 'profileWall';
-                $ns = new SendNode();
-                $ns->init($channel, array('div' => $data, 'type' => $type));
-
                 echo json_encode(array('div' => $data, 'status' => 'success', 'id' => $profile->id));
             } else {
                 echo CJSON::encode(array('status' => 'falure'));
