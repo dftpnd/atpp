@@ -3,6 +3,10 @@
 class ReestrController extends Controller {
 
   public function actionIndex() {
+    $this->render('index');
+  }
+  
+  public function actionGroupReestr() {
     $groups = Group::model()->findAll();
 
     foreach ($groups as $group)
@@ -14,9 +18,9 @@ class ReestrController extends Controller {
 
 
 
-    $this->render('index', array('groups' => $groups, 'year' => $year, 'name_group' => $name_group));
+    $this->render('group', array('groups' => $groups, 'year' => $year, 'name_group' => $name_group));
   }
-
+  
   public function actionGroup($id) {
     $week_num = '';
     $cs = Yii::app()->getClientScript();
@@ -86,7 +90,7 @@ class ReestrController extends Controller {
     }
     /* определение четности недели */
 
-    $this->render('group', array(
+    $this->render('group_card', array(
         'group' => $group,
         'profiles' => $profiles,
         'wekdays' => $wekdays,

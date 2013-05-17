@@ -227,7 +227,7 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
         <?php if (!empty($predmetprepod)): ?>
           <div class="resume__emptyblock">
-            Переподоваемые предметы
+            Преподоваемые предметы
             <div>
               <?php foreach ($predmetprepod as $predmet): ?>
                 <?php echo CHtml::link($predmet->predmet_prepod->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $predmet->predmet_id)), array('class' => 'classic')); ?>

@@ -466,7 +466,7 @@ class UserController extends Controller {
 
             if ($_POST['type'] == '3' || $_POST['type'] == '6') {
                 $small_posts = Discussion::model()->findByPk($_POST['sp_id']);
-            } elseif ($_POST['type'] == '4' ) {
+            } elseif ($_POST['type'] == '4') {
                 $small_posts = Wall::model()->findByPk($_POST['sp_id']);
             }
 
@@ -1150,14 +1150,24 @@ class UserController extends Controller {
 
     public function actionPrepods() {
         $prepods = array();
-        $prepods = Profile::model()->with('uploadedfiles')->findAllByAttributes(array('status' => '3'));
-        $this->render('prepods', array('models' => $prepods));
+
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.surname ASC';
+
+        $prepods = Profile::model()->with('uploadedfiles')->findAllByAttributes(array('status' => '3'), $criteria);
+
+        $this->render('/reestr/prepods', array('models' => $prepods));
     }
 
     public function actionStudents() {
         $students = array();
-        $students = Profile::model()->with('uploadedfiles')->findAllByAttributes(array('status' => '2'));
-        $this->render('prepods', array('models' => $students));
+
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.surname ASC';
+
+        $students = Profile::model()->with('uploadedfiles')->findAllByAttributes(array('status' => '2'), $criteria);
+
+        $this->render('/reestr/students', array('models' => $students));
     }
 
     public function actionUploadAvatar() {
@@ -1307,6 +1317,10 @@ class UserController extends Controller {
         } else {
             echo json_encode(array('status' => 'failure'));
         }
+    }
+
+    public function actionManageGroup() {
+        $this->render('manage_group');
     }
 
 }

@@ -1,8 +1,9 @@
-<h1 class="pontel">Предмет</h1>
+<h1 class="pontel"><?php echo  $model->name ?></h1>
 <div id="breadcrambs">
   <?php
   $this->widget('zii.widgets.CBreadcrumbs', array(
       'links' => array(
+          'Реестр' => '/reestr/index',
           'Библиотека' => '/library/index',
           $model->name
       ),

@@ -1,165 +1,101 @@
-<?php
-if (isset($_GET['sect'])) {
-    $se = $_GET['sect'];
-} else {
-    $se = 'staff_group';
-}
-?>
+<script type="text/javascript" src="../../js/jq-scrool_old.js"></script>
+  <?php
+  $this->widget('zii.widgets.CBreadcrumbs', array(
+      'links' => array(
+          'Реестр' => '/reestr/index',
+          'Группы'
+      ),
+      'separator' => '<span> / <span>'
+  ));
+  ?>
+<form id="student_group">
+    <div class="table_t reestr">
+        <div class="tr_t ">
+            <div class="td_t">
+                <span>
+                    <span class="compare_values" title="Сравнить" onclick="prepearGroup()"></span>
+                </span>
+                <div></div>
+            </div>
+            <div class="td_t">
+                <span>
+                    <label for="name">Имя:</label>
+                    <select>
+                        <option>все</option>
+                        <?php foreach ($name_group as $key => $value): ?>
+                            <option value="<?php echo $value; ?>"><?php echo $key; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </span>
+                <div></div>
+            </div>
+            <div class="td_t">
+                <span>
+                    <label for="year">Год:</label>
+                    <select>
+                        <option>все</option>
+                        <?php foreach ($year as $key => $value): ?>
+                            <option value="<?php echo $value; ?>"><?php echo $key; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </span>
+                <div></div>
+            </div>
+            <div class="td_t">
+                <span>
+                    <label > Средний балл</label>
+                </span>
+                <div></div>
+            </div>
+            <div class="td_t">
+                <span>
+                    <label >Процент зарегистрировавшихся</label>
+                </span>
+                <div></div>
+            </div>
+            <div class="td_t">
+                <span>
+                    <label >Куратор группы</label>
+                </span>
+                <div></div>
+            </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        
-        $('.slide_menu ul li[tab="<?php echo $se ?>"]').addClass('active');
-        openTab('<?php echo $se ?>');
-        
-        var url = '/reestr/group/<?php echo $group->id ?>';
-        
-        if("addEventListener" in window) { 
-            window.addEventListener('popstate', function(e){
-                if(e.state != undefined)
-                    openTab(e.state);
-            }, false);
 
-        } else if ("attachEvent" in window) { 
-            // выполнится для IE8 и ниже 
-            window.attachEvent('popstate', function(e){
-                if(e.state != undefined)
-                    openTab(e.state);
-            }, false); 
-            alert('asd');
-        } 
-  
-        function strpos (haystack, needle, offset) {
-            var i = (haystack + '').indexOf(needle, (offset || 0));
-            return i === -1 ? false : i;
-        }
-        $('.slide_menu ul li').click(function(){
-            var tab = $(this).attr('tab');
-            openTab(tab);
-            history.pushState(tab, '', url+'?sect='+tab );            
-        });
-        
-        
-        $('.slide_menu ul li').live('click', function (){
-            $('.slide_menu ul li').removeClass('active'); 
-            $(this).addClass('active');
-        });
-    });
-        
-</script>
-<div id="breadcrambs">
-    <?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => array(
-            'Реестр групп' => '/reestr/index',
-            'Просмотр группы ' . $group->name . ' 1-' . $group->inseption->prefix_year
-        ),
-        'separator' => '<span> / <span>'
-    ));
-    ?>
-</div>
-<div class="slide_menu">
-    <ul>
-        <li class='' id="card_menu_2" razdel="1" tab="staff_group" >
-            Состав группы
-            <div></div>
-        </li>
-        <li class='' id="card_menu_3" razdel="2" tab="items_group" >
-            Предметы группы
-            <div></div>
-        </li>
-        <li class='' id="card_menu_3" razdel="2" tab="schedule_group" >
-            Расписание группы
-            <div></div>
-        </li>
-    </ul>
-</div>
-<div class="anchor"></div>
+        </div>
 
-<div id="razdel1" class="ent-razdel" tab="staff_group" style="display: none;">
-    <form id="student_compare" >
-        <input type="hidden" name="group_id" value='<?php echo $group->id ?>' />
+
         <?php
-        if (isset($profiles)) {
-            echo "<div class='table_t'>";
-            echo "<div class='tr_t reestr'>
-                <div class='td_t'><span class='compare_values' title='Сравнить' onclick='prepearStudent()'></span></div>
-                <div class='td_t'>&nbsp;</div>
-                <div class='td_t'>Фамилия Имя</div>
-                <div class='td_t'>Средний бал</div>
-              </div>";
-
-
-            $sep = 'rator';
-            foreach ($profiles as $profile) {
-                $picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
-                if (!is_null($profile->file_id)) {
-                    $file_name = $profile->uploadedfiles->name;
-                    $picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
-                }
-
-                if ($sep == 'rator') {
-                    $sep = 'factor';
-                } else {
-                    $sep = 'rator';
-                }
-                echo "<div class='tr_t $sep studentd_reestr' profile_id='$profile->id' >";
-
-                echo "<div class='td_t'><input type='checkbox'  name='students[]' value='$profile->id' /></div>";
-                echo "<div class='td_t'><div class='face'><img onclick='getProfile($profile->id,$group->id)' src='$picter' /></div></div>";
-                if ($profile->name == '') {
-                    echo "<div class='td_t'><span class='st_login' >" . $profile->user->username . "</span></div>";
-                } else {
-                    echo "<div class='td_t'>";
-                    echo CHtml::link(
-                            $profile->surname
-                            . '&nbsp;' .
-                            $profile->name, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $profile->id)), array('class' => 'classic')
-                    );
-                    echo "</div>";
-                }
-                $sr_user_class = '';
-                if (isset($profile->mean)) {
-                    $mean = $profile->mean;
-                    $sr_user_class = 'hor';
-                    if (4.5 < $mean) {
-                        $sr_user_class = 'otl';
-                    }
-                    if (3.5 > $mean) {
-                        $sr_user_class = 'udov';
-                    }
-                } else {
-                    $mean = '&mdash;';
-                }
-                echo "<div class='td_t'><span class='sr_user $sr_user_class'>$mean</span></div>";
-                echo '</div>';
+        foreach ($groups as $group):
+            if (!is_null($group->students) && !is_null($group->all_man)) {
+                $percent = round(($group->students * 100) / $group->all_man);
+            } else {
+                $percent = 1;
             }
-            echo "</div>";
-        }
-        ?>
-    </form>
-</div>
-<div id="razdel2" class="ent-razdel" tab="items_group" style="display: none;">
-    <div class="stats_box"></div>
-</div>
-<div id="razdel3" class="ent-razdel"  tab="schedule_group" style="display: none;">
-    <?php
-    $this->renderPartial('application.views.user.new_schedule', array(
-        'wekdays' => $wekdays,
-        'data' => $data,
-        'data2' => $data2,
-        'data3' => $data3,
-        'type_pair' => $type_pair,
-        'time_pair' => $time_pair,
-        'semestr' => $semestr,
-        'we' => $we
-            )
-    )
-    ?>
-    <div class="stats_box_2"></div>
-</div>
+            ?>
+
+            <div class='tr_t' id='<?php echo $group->id; ?>'>
+                <div class='td_t'><input type='checkbox' name='groups[]' value='<?php echo $group->id; ?>' /></div>
+                <div class='td_t'>
+                    <?php echo CHtml::link($group->name . ' 1-' . $group->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group', array('id' => $group->id)), array('class' => 'group classic')); ?>
+                </div>
+                <div class='td_t'><?php echo $group->inseption->start_year; ?></div>
+                <div class='td_t'><?php echo $group->mean ?></div>
+                <div class='td_t'>
+                    <div class='maine_bar'  title='<?php echo $percent; ?>%' >
+                        <div class='' style='width:<?php echo $percent; ?>%'  title='<?php echo $percent; ?>%' >
+                        </div>
+                    </div>
+                </div>
+                <div class='td_t'><?php echo$group->curator; ?> </div>
+
+
+            </div>
+
+        <?php endforeach; ?>
+    </div>
+</form>
 <script>
-    $(function(){
-        uploadPredmetGroup(<?php echo $group->id ?>);
+    $(document).ready(function(){
+        $('.reestr').fixedtableheader(); 
     });
 </script>
