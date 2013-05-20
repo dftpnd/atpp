@@ -1097,3 +1097,48 @@ function submit_text_predmet(el, predmet_id){
         }
     })
 }
+function EditList(group_id,semestr_id){
+    loader.show();
+    $.ajax({
+        url:'/userAdmin/admin/EditList',
+        type: 'POST',
+        dataType: 'json',
+        data:({
+            'group_id':group_id,
+            'semestr_id':semestr_id
+        }),
+        success: function(data){
+            openDoor(data.div);
+            if (data.predmets != null)
+            {
+                for (property  in data.predmets)
+                {
+                    $('.predmet_goupview li#'+data.predmets[property].predmet_id).addClass('acupent').attr('check','check');
+                }
+            }
+            loader.hide();
+        }
+    });
+}
+function podobiu(group_id){
+    loader.show();
+    $.ajax({
+        url:'/userAdmin/admin/Podobiu',
+        type: 'POST',
+        dataType: 'json',
+        data:({
+            'group_id':group_id
+        }),
+        success: function(data){
+            openDoor(data.div);
+            if (data.predmets != null)
+            {
+                for (property  in data.predmets)
+                {
+                    $('.predmet_goupview li#'+data.predmets[property].predmet_id).addClass('acupent').attr('check','check');
+                }
+            }
+            loader.hide();
+        }
+    });
+}

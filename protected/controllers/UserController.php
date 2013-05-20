@@ -1320,7 +1320,28 @@ class UserController extends Controller {
     }
 
     public function actionManageGroup() {
-        $this->render('manage_group');
+
+        $user = User::model()->findByPk(Yii::app()->user->id);
+        $group_id = $user->prof->group_id;
+
+
+        $prepods = Profile::model()->findAllByAttributes(array('status' => '3'));
+
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.surname ASC';
+        $students = Profile::model()->findAllByAttributes(array('group_id' => $group_id), $criteria);
+
+        $group = Group::model()->findByPk($group_id);
+        $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $group_id));
+
+
+        $this->render('manage_group', array(
+            'prepods' => $prepods,
+            'students' => $students,
+            'group' => $group,
+            'psg_model' => $psg_model,
+            //'$semestr_id' => $semestr_id
+        ));
     }
 
 }
