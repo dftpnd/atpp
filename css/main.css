@@ -196,6 +196,15 @@ a:hover{
     color:#3399FF;
     text-decoration:none;
 }
+.classic_delete{
+    cursor:pointer;
+    color:#FF6666;
+    text-decoration:underline;
+}
+.classic_delete:hover{
+    color:#CC3333;
+    text-decoration:none;
+}
 #logo{
     display: block;
     width: 110px;

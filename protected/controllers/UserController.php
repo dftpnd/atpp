@@ -633,7 +633,7 @@ class UserController extends Controller {
         $type = ObjectRating::TYPE_WALL;
         $plus = ObjectRating::PLUS;
         $minus = ObjectRating::MINUS;
-        $profiles = Profile::model()->findAll(); //КАСТЫЛЬ!!!!!!!!!!!!!
+
 
         $cs = Yii::app()->getClientScript();
         $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/amcharts.js');
@@ -705,7 +705,6 @@ class UserController extends Controller {
 
             $this->render('viewprepod', array(
                 'athor' => $athor,
-                'profiles' => $profiles,
                 'profile' => $model,
                 'discussions' => $discussions,
                 'type' => $type,
@@ -801,7 +800,6 @@ class UserController extends Controller {
                 'athor' => $athor,
                 'user_author' => $user_author,
                 'group' => $group,
-                'profiles' => $profiles,
                 'profile' => $model,
                 'discussions' => $discussions,
                 'type' => $type,
@@ -1340,8 +1338,82 @@ class UserController extends Controller {
             'students' => $students,
             'group' => $group,
             'psg_model' => $psg_model,
-            //'$semestr_id' => $semestr_id
+                //'$semestr_id' => $semestr_id
         ));
+    }
+
+    public function actionDeleteStudent() {
+
+        if (!isset($_POST['user_id'])) {
+            echo json_encode(array('status' => 'failure', 'error' => '1'));
+            exit();
+        }
+
+
+        $user = User::model()->findByPk(Yii::app()->user->id);
+
+        $student = Profile::model()->findByPk($_POST['user_id']);
+
+        if (is_null($student)) {
+            echo json_encode(array('status' => 'failure', 'error' => '2'));
+            exit();
+        }
+
+        if (!$user->prof->group_id === $student->group_id) {
+            echo json_encode(array('status' => 'failure', 'error' => '3'));
+            exit();
+        }
+
+        if (!$user->prof->id === $student->id) {
+            echo json_encode(array('status' => 'failure', 'error' => '4'));
+            exit();
+        }
+
+        if (!$student->delete()) {
+            echo json_encode(array('status' => 'failure', 'error' => '5'));
+            exit();
+        }
+
+
+        echo json_encode(array('status' => 'success'));
+    }
+
+    public function actionBanStudent() {
+        if (!isset($_POST['user_id'])) {
+            echo json_encode(array('status' => 'failure', 'error' => '1'));
+            exit();
+        }
+
+        
+        $user = User::model()->findByPk(Yii::app()->user->id);
+
+        $student = Profile::model()->findByPk($_POST['user_id']);
+
+        if (is_null($student)) {
+            echo json_encode(array('status' => 'failure', 'error' => '2'));
+            exit();
+        }
+
+        if (!$user->prof->group_id === $student->group_id) {
+            echo json_encode(array('status' => 'failure', 'error' => '3'));
+            exit();
+        }
+
+//        if (!$user->prof->id === $student->id) {
+//            echo json_encode(array('status' => 'failure', 'error' => '4'));
+//            exit();
+//        }
+
+        $st_user = User::model()->findByPk($student->user_id);
+        $st_user->banned = 1;
+
+
+        if (!$st_user->save(false)) {
+            echo json_encode(array('status' => 'failure', 'error' => '5'));
+            exit();
+        }
+
+        echo json_encode(array('status' => 'success'));
     }
 
 }

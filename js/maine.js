@@ -1142,3 +1142,41 @@ function podobiu(group_id){
         }
     });
 }
+function deleteStudent(user_id){
+    loader.show();
+    $.ajax({
+        url:'/user/DeleteStudent',
+        type: 'POST',
+        dataType: 'json',
+        data:({
+            'user_id':user_id
+        }),
+        success: function(data){
+            if(data.status == 'success')
+                alert('success')
+            else
+                alert(data.error)
+            loader.hide();
+        }
+    });
+}
+function banStudent(user_id){
+    loader.show();
+    $.ajax({
+        url:'/user/BanStudent',
+        type: 'POST',
+        dataType: 'json',
+        data:({
+            'user_id':user_id
+        }),
+        success: function(data){
+            if(data.status == 'success')
+                alert('success')
+            else
+                alert(data.error)
+            loader.hide();
+           
+            loader.hide();
+        }
+    });
+}

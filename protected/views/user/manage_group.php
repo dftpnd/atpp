@@ -97,12 +97,7 @@ if (isset($_GET['sect'])) {
                 </span>
                 <div></div>
             </div>
-            <div class="td_t">
-                <span>
-                    <label >Средний бал</label>
-                </span>
-                <div></div>
-            </div>
+
             <div class="td_t">
                 <span>
                     <label >Удалить из группы</label>
@@ -117,7 +112,7 @@ if (isset($_GET['sect'])) {
             </div>
             <div class="td_t">
                 <span>
-                    <label >Подтвежденный</label>
+                    <label >Средний бал</label>
                 </span>
                 <div></div>
             </div>
@@ -154,16 +149,17 @@ if (isset($_GET['sect'])) {
                     <?php echo CHtml::link($student->team->name . ' 1-' . $student->team->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group/' . $student->team->id), array('class' => 'classic')); ?>
                 </div>
                 <div class="td_t">
+                    <span class="classic_delete" onclick="deleteStudent(<?php echo $student->id ?>)">
+                        удалить
+                    </span>
+                </div>
+                <div class="td_t">
+                    <span class="classic_delete" onclick="banStudent(<?php echo $student->id ?>)">
+                        забанить
+                    </span>
+                </div>
+                <div class="td_t">
                     <?php echo $student->mean ?>
-                </div>
-                <div class="td_t">
-                    удалить
-                </div>
-                <div class="td_t">
-                    забанить
-                </div>
-                <div class="td_t">
-
                 </div>
             </div>
             <?php $index++; ?>
