@@ -6,7 +6,7 @@
         echo "<div class='tr_t'>";
         echo "<div class='td_t'>Имя студента</div>";
         echo "<div class='td_t'>";
-        echo "Назначит старосту";
+        echo "Назначит администратора группы";
         echo "</div>";
         echo "<div class='td_t'>";
         echo "Удалить из группы";
