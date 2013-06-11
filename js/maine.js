@@ -97,6 +97,7 @@ $(window).resize(function() {
     
   });
 $(function(){
+  
   loader = $('#ajax_loader');
   left_menu = $('.menu_work');
   
