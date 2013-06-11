@@ -185,6 +185,12 @@ class ReestrController extends Controller {
       die('ты куда?');
     }
   }
+  
+  
+   public function actionManagePredmet() {
+     
+    $this->render('manage_predmet', array());
+  }
 
 }
 

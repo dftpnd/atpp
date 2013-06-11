@@ -112,8 +112,6 @@ class SiteController extends Controller {
     $this->renderPartial('test');
   }
 
-
-
   public function actionSearch() {
     if (isset($_POST['search'])) {
       $searchCriteria = new stdClass();
@@ -178,6 +176,9 @@ class SiteController extends Controller {
   }
 
   public function actionValidatUser() {
+    //AuthItem[name][assign][]	Prepod
+    //User[id]	81
+
     if (isset($_POST['userseach'])) {
       $user = User::model()->findByAttributes(array('pin' => $_POST['userseach']));
       $model = Profile::model()->findByAttributes(array('user_id' => $user->id));
@@ -201,6 +202,12 @@ class SiteController extends Controller {
                 $model->update(false);
                 $user->active = 1;
                 $user->banned = 0;
+                $assigmants = new Assignments();
+                $assigmants->itemname = 'Prepod';
+                $assigmants->userid = $user->id;
+                $assigmants->bizrule = NULL;
+                $assigmants->data = NULL;
+                $assigmants->save(false);
 
                 if ($user->update(false)) {
                   $data = $this->renderPartial('/site/aproveusername', array('profile' => $model), true);
@@ -211,11 +218,11 @@ class SiteController extends Controller {
           } else {
             exit();
           }
-          
+
           if (!isset($_POST['Profile']['group_id']))
             exit();
-          
-          
+
+
           $model->name = $_POST['Profile']['name'];
           $model->surname = $_POST['Profile']['surname'];
           $model->status = $_POST['Profile']['status'];
@@ -235,6 +242,10 @@ class SiteController extends Controller {
     }
   }
 
+  /**
+   * @assert (0) == 0
+   * @assert (1) == 1
+   */
   public function actionMailPrivet($pin) {
     if (!isset($pin))
       exit();

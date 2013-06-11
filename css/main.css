@@ -439,7 +439,8 @@ a.current-page {
   position: relative;
   /*    max-width:1500px;
       border:1px solid black;*/
-  background:url(../i/noisy_grid.png);
+  /*  background:url(../i/noisy_grid.png);*/
+  background:url(../i/tiny_grid.png);
 }
 .push{
   height:200px;
@@ -3407,7 +3408,7 @@ body.fix_w{
   position: relative;
 }
 #idet_prof{
-  margin-right:255px!important;;
+  /*  margin-right:255px!important;?????????????*/
 }
 .medal span{
   display: block;

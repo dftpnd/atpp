@@ -143,7 +143,7 @@
 
             </div>
             <div class="td_t">
-                <div class="resume__emptyblock" id="contact_info_block">
+                <div class="resume__emptyblock" id="">
                     <ul class="social_contact">
                         <li>
                             <label class="social_img thone_c"  title="Контактактный телефон">

@@ -64,10 +64,10 @@
             </div>
             <div class="universe">
                 <div id="" class="is-home wrapper">
-                    <div class="underwrapp">
+<!--                    <div class="underwrapp">
                         <div class="underwrapp_in_1"></div>
                         <div class="underwrapp_in_2"></div>
-                    </div>
+                    </div>-->
                     <div class="in_head">
                         <div class="header midelton">
                             <div class="header-box-image"></div>
