@@ -10,7 +10,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 <div class="table_t reestr_index">
   <div class="tr_t">
     <div class="td_t">
-      <a href="/user/students" class="aspx_4">
+      <a href="/user/students" class="aspx_4" async="async">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" id="Layer_1" x="0px" y="0px" width="100px" height="100px" fill="#fff" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M89.191,100.025V77.999c0-9.454-7.661-17.118-17.115-17.118h-44.35  c-9.45,0-17.115,7.665-17.115,17.118v22.027H89.191z"/>
         <path fill-rule="evenodd" clip-rule="evenodd" d="M50.886,23.682l-19.829-5.964v9.485h0.583c2.067,2.479,9.811,4.332,19.102,4.332  c9.294,0,17.038-1.853,19.102-4.332h0.75v-9.447L50.886,23.682z"/>
@@ -22,7 +22,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
       </a>
     </div>
     <div class="td_t ">
-      <a href="/user/prepods" class="aspx_5">
+      <a href="/user/prepods" class="aspx_5" async="async">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px"  width="94.461px" height="100px" viewBox="0 0 94.461 100" enable-background="new 0 0 94.461 100" xml:space="preserve">
         <path fill="#fff" d="M13.132,76.351c-3.601,0-6.519-2.918-6.519-6.516c0-3.604,2.918-6.522,6.519-6.522  c3.603,0,6.521,2.919,6.521,6.522C19.653,73.433,16.735,76.351,13.132,76.351"/>
         <path fill="#fff" d="M0,100V87.223c0-4.605,3.784-8.351,8.398-8.351h9.003c4.613,0,8.731,3.745,8.731,8.351V100H0z"/>
@@ -40,7 +40,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
   </div>
   <div class="tr_t">
     <div class="td_t">
-      <a href="/reestr/GroupReestr" class="aspx_7">
+      <a href="/reestr/GroupReestr" class="aspx_7" async="async">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="100px" height="100px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 100 100">
         <defs>
         <style type="text/css">
@@ -58,7 +58,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
       </a>
     </div>
     <div class="td_t ">
-      <a href="/library/index" class="aspx_8">
+      <a href="/library/index" class="aspx_8" async="async">
         <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="100" height="100"  viewBox="0 0 80 80" version="1.1" id="svg2" inkscape:version="0.48.2 r9819" sodipodi:docname="books.svg">
         <metadata id="metadata10">
         <rdf:RDF>

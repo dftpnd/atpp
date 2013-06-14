@@ -37,14 +37,23 @@ class UserController extends Controller {
     if ($model->status == 3)
       $predmetprepod = PredmetPrepod::model()->findAllByAttributes(array('profile_id' => $model->id));
 
-    $this->render('editprofile', array('model' => $model, 'predmetprepod' => $predmetprepod, 'group' => $group, 'yc' => $yc, 'gi' => $gi));
+
+
+
+    MyHelper::render($this, 'editprofile', array(
+        'model' => $model,
+        'predmetprepod' => $predmetprepod,
+        'group' => $group,
+        'yc' => $yc,
+        'gi' => $gi
+            ), $title);
   }
 
   public function actionStats() {
     if (isset($_POST['profile_id'])) {
       $user_no_isset = $_POST['profile_id'];
     } elseif (isset($_POST['resultts'])) {
-      $user_no_isset = 0;
+      $user_no_isset = User::model()->findByPk(Yii::app()->user->id);
     }
 
     if ($user_no_isset == 0) {
@@ -281,15 +290,6 @@ class UserController extends Controller {
     echo json_encode(array('div' => $data, 'chartData' => $chartData, 'graphs' => $graphs, 'options' => $options,));
   }
 
-  public function actionGroupfile() {
-    $criteria = new CDbCriteria();
-    $criteria->order = 't.name ASC';
-    $predmets = Predmet::model()->findAll($criteria);
-
-    $this->render('groupfile', array('predmets' => $predmets)
-    );
-  }
-
   public function actionPredmetfile($id) {
     $profile = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
     if (empty($profile)) {
@@ -311,7 +311,10 @@ class UserController extends Controller {
       exit('Вы нежданный гость тут, авторизоваться попробуй ты');
     }
     $cs = Yii::app()->getClientScript();
-    $this->render('predmetfile', array('predmet' => $predmet));
+
+    MyHelper::render($this, 'predmetfile', array(
+        'predmet' => $predmet,
+            ), $title);
   }
 
   public function actionMyGroup() {
@@ -367,7 +370,8 @@ class UserController extends Controller {
       );
       echo json_encode(array('div' => $data, 'count' => count($discussions)));
     } else {
-      $this->render('my_group', array(
+
+      MyHelper::render($this, 'my_group', array(
           'group' => $group,
           'profiles' => $profiles,
           'profile' => $profile,
@@ -375,8 +379,7 @@ class UserController extends Controller {
           'type' => $type,
           'plus' => $plus,
           'minus' => $minus
-              )
-      );
+              ), $title);
     }
   }
 
@@ -543,6 +546,7 @@ class UserController extends Controller {
         $discussion->save();
 
         $data = $this->renderPartial('/user/_small_post', array('discussion' => $discussion, 'minus' => $minus, 'plus' => $plus, 'type' => $type, 'profile' => $profile), true);
+
 
         echo json_encode(array('div' => $data, 'status' => 'success', 'id' => $profile->id));
       } else {
@@ -796,7 +800,8 @@ class UserController extends Controller {
       );
       echo json_encode(array('div' => $data, 'count' => count($discussions)));
     } else {
-      $this->render('viewprofile', array(
+      $title = 'Просмотр пользовател';
+      MyHelper::render($this, 'viewprofile', array(
           'athor' => $athor,
           'user_author' => $user_author,
           'group' => $group,
@@ -812,8 +817,7 @@ class UserController extends Controller {
           'rating_5' => $rating_5,
           'rating_4' => $rating_4,
           'rating_3' => $rating_3,
-              )
-      );
+              ), $title);
     }
   }
 
@@ -887,7 +891,8 @@ class UserController extends Controller {
     }
     /* определение четности недели */
 
-    $this->render('schedule', array(
+    $title = 'Рассписание';
+    MyHelper::render($this, 'schedule', array(
         'semestr_id' => $semestr_id,
         'profile' => $profile,
         'kurs' => $kurs,
@@ -901,8 +906,7 @@ class UserController extends Controller {
         'data2' => $data2,
         'data3' => $data3,
         'we' => $we
-            )
-    );
+            ), $title);
   }
 
   public function actionEditSchedule() {
@@ -1036,30 +1040,6 @@ class UserController extends Controller {
     }
   }
 
-//      $wds = Weekday::model()->findAll();
-//      foreach ($wds as $wd) {
-//        $wekdays[$wd->id][$wd->tab] = Schedule::model()->findAllByAttributes(array('group_id' => $profile->group_id, 'semestr_id' => $semestr_id, 'weekday_id' => $wd->id));
-//      }
-//
-////      var_dump($wekdays[1]['monday']);
-////      die();
-//      $this->render('editschedule', array(
-//          'semestr_id' => $semestr_id,
-//          'kurs' => $kurs,
-//          'semestr' => $semestr,
-//          'psg_model' => $psg_model,
-//          'type_pair' => $type_pair,
-//          'time_pair' => $time_pair,
-//          'premets' => $premets,
-//          'wekdays' => $wekdays,
-//          'data' => $data,
-//          'data2' => $data2,
-//          'data3' => $data3,
-//              )
-//      );
-//    }
-//  }
-
   public function actionNewScheduleDay() {
     if (isset($_POST['weekday_id'])) {
       $user_id = Yii::app()->user->id;
@@ -1158,6 +1138,7 @@ class UserController extends Controller {
   }
 
   public function actionStudents() {
+    $title = 'Реестр студентов';
     $students = array();
 
     $criteria = new CDbCriteria();
@@ -1165,7 +1146,9 @@ class UserController extends Controller {
 
     $students = Profile::model()->with('uploadedfiles')->findAllByAttributes(array('status' => '2'), $criteria);
 
-    $this->render('/reestr/students', array('models' => $students));
+    MyHelper::render($this, '/reestr/students', array(
+        'models' => $students
+            ), $title);
   }
 
   public function actionUploadAvatar() {
@@ -1333,13 +1316,15 @@ class UserController extends Controller {
     $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $group_id));
 
 
-    $this->render('manage_group', array(
+   
+
+    $title = 'Управление группой';
+    MyHelper::render($this, 'manage_group', array(
         'prepods' => $prepods,
         'students' => $students,
         'group' => $group,
         'psg_model' => $psg_model,
-            //'$semestr_id' => $semestr_id
-    ));
+            ), $title);
   }
 
   public function actionDeleteStudent() {
@@ -1415,8 +1400,8 @@ class UserController extends Controller {
 
     echo json_encode(array('status' => 'success'));
   }
-  
-   public function actionRazBanStudent() {
+
+  public function actionRazBanStudent() {
     if (!isset($_POST['user_id'])) {
       echo json_encode(array('status' => 'failure', 'error' => '1'));
       exit();
@@ -1453,7 +1438,6 @@ class UserController extends Controller {
 
     echo json_encode(array('status' => 'success'));
   }
-  
-  
+
 }
 

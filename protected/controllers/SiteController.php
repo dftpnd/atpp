@@ -42,7 +42,10 @@ class SiteController extends Controller {
     }
 
 
-    $this->render('index', array(
+    
+
+    $title = 'Главная';
+    MyHelper::render($this, 'index', array(
         'act' => $act,
         'day' => $day,
         'year' => $year,
@@ -51,8 +54,7 @@ class SiteController extends Controller {
         'mounth_count' => $mounth_count,
         'activitys' => $activitys,
         'slides' => $slides
-            )
-    );
+            ), $title);
   }
 
   public function actionChangeMonth() {
@@ -669,7 +671,12 @@ class SiteController extends Controller {
     }
 
     $activitys = Activity::model()->findAll(array('order' => 'id DESC'));
-    $this->render('/site/activity', array('activitys' => $activitys, 'model' => $model));
+
+    $title = 'Управление событиями';
+    MyHelper::render($this, '/site/activity', array(
+        'activitys' => $activitys,
+        'model' => $model
+            ), $title);
   }
 
   public function actionHappyPass($pin) {

@@ -1,4 +1,77 @@
+send = {};
+send['start_async_page'] = '';
 
+$('a').live('click',function(event){
+  
+  if($(this).attr('async') != undefined ){
+       
+    handlerAnchors($(this).attr('href'));
+    return false;
+  }
+    
+  
+});
+function handlerAnchors(href) {
+
+  
+  var href_inner = href+"";
+    
+  if(send['start_async_page'] == 'send')
+    return false;
+  
+  
+  send['start_async_page'] = 'send';
+            
+    
+  if($.browser.msie){
+    window.location = href;
+    return false;
+  }        
+  
+  changePage(href_inner, true);
+}
+function changePage(url, history_push){
+    
+  if(history_push == undefined)
+    history_push = false;  
+  
+
+    
+  $.ajax({
+    type: "POST",
+    async: false,
+    url: url,
+    dataType: "json",
+    data:({
+      'async':'async'
+    }),
+    success: function(data){
+      if(data != null){
+        if(data.status == 'success'){
+                                        
+          $('#content').html(data.data);
+          $('title').text(data.title);                    
+                    
+          if(history_push)
+            history.pushState( {
+              title: data.title, 
+              url: url
+            }, data.title, url );
+                    
+          
+          send['start_async_page'] = 'sender';
+          send['send_infinity_scroll'] = {}; 
+          
+          if(history_push){
+            $(document).scrollTop('0');
+            scroll = 0;
+          }  
+          
+        } 
+      } 
+    }
+  });
+}
 function goSpiner(){
   var opts = {
     lines: 13, // The number of lines to draw

@@ -70,6 +70,13 @@ class MyHelper {
     return $predmas;
   }
 
+  public static function render($el, $url, $data, $title) {
+    if (isset($_POST['async'])) {
+      echo json_encode(array('status' => 'success', 'data' => $el->renderPartial($url, $data, true), 'title' => $title));
+    }else
+      $el->render($url, $data);
+  }
+
 }
 
 ?>
