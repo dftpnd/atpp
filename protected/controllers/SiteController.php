@@ -42,7 +42,10 @@ class SiteController extends Controller {
     }
 
 
-    $this->render('index', array(
+    
+
+    $title = 'Главная';
+    MyHelper::render($this, 'index', array(
         'act' => $act,
         'day' => $day,
         'year' => $year,
@@ -51,8 +54,7 @@ class SiteController extends Controller {
         'mounth_count' => $mounth_count,
         'activitys' => $activitys,
         'slides' => $slides
-            )
-    );
+            ), $title);
   }
 
   public function actionChangeMonth() {
@@ -111,32 +113,6 @@ class SiteController extends Controller {
   public function actionTest() {
     $this->renderPartial('test');
   }
-
-//    public function actionSendToSocket() {
-//
-//
-//
-//
-//        if (!extension_loaded('openssl')) {
-//            var_dump('You need the openssl PHP extension to use SMTP/IMAP TLS!');
-//        }
-//
-//
-//        $ds = DIRECTORY_SEPARATOR; //давай сам
-//        require( Yii::app()->basePath . $ds . 'extensions' . $ds . 'ElephantIO' . $ds . 'Client.php');
-//        //use ElephantIO\Client as ElephantIOClient;
-//
-//        $elephant = new \ElephantIO\Client('http://localhost:8080', 'socket.io', 1, false, true, true);
-//
-//        $elephant->init();
-//
-//        $elephant->send(
-//                \ElephantIO\Client::TYPE_EVENT, null, null, json_encode(array('name' => 'message', 'args' => 'foo' . time()))
-//        );
-//        $elephant->close();
-//
-//        echo 'tryin to send `foo` to the event called action';
-//    }
 
   public function actionSearch() {
     if (isset($_POST['search'])) {
@@ -202,6 +178,9 @@ class SiteController extends Controller {
   }
 
   public function actionValidatUser() {
+    //AuthItem[name][assign][]	Prepod
+    //User[id]	81
+
     if (isset($_POST['userseach'])) {
       $user = User::model()->findByAttributes(array('pin' => $_POST['userseach']));
       $model = Profile::model()->findByAttributes(array('user_id' => $user->id));
@@ -225,6 +204,12 @@ class SiteController extends Controller {
                 $model->update(false);
                 $user->active = 1;
                 $user->banned = 0;
+                $assigmants = new Assignments();
+                $assigmants->itemname = 'Prepod';
+                $assigmants->userid = $user->id;
+                $assigmants->bizrule = NULL;
+                $assigmants->data = NULL;
+                $assigmants->save(false);
 
                 if ($user->update(false)) {
                   $data = $this->renderPartial('/site/aproveusername', array('profile' => $model), true);
@@ -235,11 +220,11 @@ class SiteController extends Controller {
           } else {
             exit();
           }
-          
+
           if (!isset($_POST['Profile']['group_id']))
             exit();
-          
-          
+
+
           $model->name = $_POST['Profile']['name'];
           $model->surname = $_POST['Profile']['surname'];
           $model->status = $_POST['Profile']['status'];
@@ -259,6 +244,10 @@ class SiteController extends Controller {
     }
   }
 
+  /**
+   * @assert (0) == 0
+   * @assert (1) == 1
+   */
   public function actionMailPrivet($pin) {
     if (!isset($pin))
       exit();
@@ -682,7 +671,12 @@ class SiteController extends Controller {
     }
 
     $activitys = Activity::model()->findAll(array('order' => 'id DESC'));
-    $this->render('/site/activity', array('activitys' => $activitys, 'model' => $model));
+
+    $title = 'Управление событиями';
+    MyHelper::render($this, '/site/activity', array(
+        'activitys' => $activitys,
+        'model' => $model
+            ), $title);
   }
 
   public function actionHappyPass($pin) {

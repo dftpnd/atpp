@@ -1,36 +1,56 @@
 <h1 class="pontel">Библиотека</h1>
-<div id="breadcrambs">
-    <?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => array(
-            'Библиотека'
-        ),
-        'separator' => '<span> / <span>'
-    ));
-    ?>
-</div>
+<?php
+  $this->widget('zii.widgets.CBreadcrumbs', array(
+      'links' => array(
+          'Реестр' => '/reestr/index',
+          'Библиотека'
+      ),
+      'separator' => '<span> / <span>'
+  ));
+  ?>
+
+<script type="text/javascript" src="../../js/jq-scrool_old.js"></script>
+
 
 
 <div class="anchor"></div>
-<div class="table_t table_library">
-    <div class="tr_t reestr">
+<div class="table_t reestr">
+    <div class="tr_t">
         <div class="td_t">
-            №
+            <span>
+                <label >№</label>
+            </span>
+            <div></div>
         </div>
         <div class="td_t">
-            <label >Наименование:</label>
+            <span>
+                <label >Наименование:</label>
+            </span>
+            <div></div>
         </div>
         <div class="td_t">
-            <label >Кол. загруженых файлов:</label>
+            <span>
+                <label >Кол. загруженых файлов:</label>
+            </span>
+            <div></div>
         </div>
         <div class="td_t">
-            <label >Кол. преподавателей</label>
+            <span>
+                <label >Кол. преподавателей</label>
+            </span>
+            <div></div>
         </div>
         <div class="td_t">
-            <label >Институт</label>
+            <span>
+                <label >Институт</label>
+            </span>
+            <div></div>
         </div>
         <div class="td_t">
-            <label >Кафедра</label>
+            <span>
+                <label >Кафедра</label>
+            </span>
+            <div></div>
         </div>
     </div>
     <?php $index = 1; ?>
@@ -44,11 +64,21 @@
             </div>
             <div class="td_t">
                 <label class="fosee" >   
-                    <?php echo count($predmet->predmetfile); ?>
+                    <?php if (count($predmet->predmetfile) == 0): ?>
+                        -
+                    <?php else: ?>
+                        <?php echo count($predmet->predmetfile); ?>
+                    <?php endif; ?>
                 </label>
             </div>
             <div class="td_t">
-                <label class="fosee" > <?php echo count($predmet->predmetprepod); ?></label>
+                <label class="fosee" > 
+                    <?php if (count($predmet->predmetprepod) == 0): ?>
+                        -
+                    <?php else: ?>
+                        <?php echo count($predmet->predmetprepod); ?>
+                    <?php endif; ?>
+                </label>
             </div>
             <div class="td_t">
                 <?php
@@ -83,8 +113,7 @@
 
 </div>
 <script>
-    $('.table_library .tr_t').click(function(){
-        $('.table_library .tr_t').removeClass('active_tr');
-        $(this).addClass('active_tr');
+    $(document).ready(function(){
+        $('.reestr').fixedtableheader(); 
     });
 </script>

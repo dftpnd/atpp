@@ -65,6 +65,7 @@ class Profile extends CActiveRecord {
         'uploadedfiles' => array(self::BELONGS_TO, 'Uploadedfiles', 'file_id'),
         'team' => array(self::BELONGS_TO, 'Group', 'group_id'),
         'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+        'predmet_prepod' => array(self::HAS_MANY, 'PredmetPrepod', 'profile_id')
     );
   }
 
