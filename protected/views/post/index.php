@@ -1,14 +1,3 @@
-<h1 class="pontel">Новости</h1>
-<div id="breadcrambs">
-    <?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => array(
-            'Статьи'
-        ),
-        'separator' => '<span> / <span>'
-    ));
-    ?>
-</div>
 <?php
 $class1 = '';
 $class2 = '';
@@ -26,10 +15,16 @@ if (isset($_GET['topic'])) {
 <div class="slide_menu">
     <ul class="deep">
         <li class="<?php echo $class1; ?>">
-            <?php echo CHtml::link('Кафедральные<div class="k_post"></div>', Yii::app()->urlManager->createUrl('post/index', array('group' => '1'))); ?>
+            <?php
+            echo CHtml::link('Кафедральные<div class="k_post"></div>', Yii::app()->urlManager->createUrl('post/index', array(
+                        'group' => '1')), array('async' => 'async'));
+            ?>
         </li>
         <li class="<?php echo $class2; ?>">
-            <?php echo CHtml::link('Мировые<div class="w_post"></div>', Yii::app()->urlManager->createUrl('post/index', array('topic' => '2'))); ?>
+            <?php
+            echo CHtml::link('Мировые<div class="w_post"></div>', Yii::app()->urlManager->createUrl('post/index', array(
+                        'topic' => '2')), array('async' => 'async'));
+            ?>
         </li>
     </ul>
 </div>

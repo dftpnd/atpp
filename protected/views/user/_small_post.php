@@ -72,11 +72,21 @@ $div_title_minus = 'Не нравится';
                         $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
                     }
                     ?>
-                    <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id))); ?>
+                    <?php
+                    echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id)), array(
+                        'async' => 'async'
+                            )
+                    );
+                    ?>
                 </div>
             </div>
             <div class="td_t">
-                <?php echo CHtml::link($discussion->profile->name . ' ' . $discussion->profile->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id)), array('class' => 'classic')); ?>
+                <?php
+                echo CHtml::link($discussion->profile->name . ' ' . $discussion->profile->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id)), array(
+                    'class' => 'classic',
+                    'async' => 'async'
+                ));
+                ?>
 
                 <?php
                 $opacity = '1';
@@ -151,7 +161,11 @@ $div_title_minus = 'Не нравится';
                             $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
                         }
                         ?>
-                        <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id))); ?>
+                        <?php
+                        echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $discussion->profile_id)), array(
+                            'async' => 'async'
+                        ));
+                        ?>
                     </div>
                     <div class="box_new_com">
                         <div class="div_textare" id="dt_<?php echo $discussion->id; ?>" contentEditable="true" onblur="getBackCom(<?php echo $discussion->id; ?>)"></div>

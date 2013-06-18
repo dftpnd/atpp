@@ -1,14 +1,3 @@
-<h1 class="pontel">Реестр групп</h1>
-<div id="breadcrambs">
-    <?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => array(
-            'Форум'
-        ),
-        'separator' => '<span> / <span>'
-    ));
-    ?>
-</div>
 <?php if (!Yii::app()->user->isGuest): ?>
     <div class="write_small_post">
         <div class="table_t ">
@@ -22,7 +11,12 @@
                             $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
                         }
                         ?>
-                        <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $profile->id)), array('class' => 'classic')); ?>
+                        <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile',
+                                array('id' => $profile->id)),
+                                array(
+                                    'class' => 'classic',
+                                    'async' => 'async',
+                                    )); ?>
                     </div>
                 </div>
                 <div class="td_t">

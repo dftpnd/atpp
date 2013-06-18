@@ -13,7 +13,7 @@ if ($my_prof) {
 
 <?php if ($my_prof): ?>
     <form id="user_stats">
-    <input type="hidden" name="profile_id" value="" />
+        <input type="hidden" name="profile_id" value="" />
     <?php endif; ?>
 
     <?php
@@ -34,7 +34,10 @@ if ($my_prof) {
             if ($prdemt_semestr->semestr_id == $do_increment) {
                 if (isset($prdemt_semestr->predmet)) {
                     echo "<li>";
-                    echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $prdemt_semestr->predmet_id)), array('class' => 'classic'));
+                    echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $prdemt_semestr->predmet_id)), array(
+                        'class' => 'classic',
+                        'async' => 'async'
+                    ));
                     $avdug = '';
                     if (isset($entry[$do_increment][$prdemt_semestr->predmet_id])) {
                         $avdug = $entry[$do_increment][$prdemt_semestr->predmet_id];
@@ -53,7 +56,10 @@ if ($my_prof) {
         foreach ($psg_model as $prdemt_semestr) {
             if ($prdemt_semestr->semestr_id == $posle_increment) {
                 echo "<li>";
-                echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $prdemt_semestr->predmet_id)), array('class' => 'classic'));
+                echo CHtml::link($prdemt_semestr->predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $prdemt_semestr->predmet_id)), array(
+                    'class' => 'classic',
+                    'async' => 'async'
+                ));
                 $avdrug = '';
                 if (isset($entry[$posle_increment][$prdemt_semestr->predmet_id])) {
                     $avdrug = $entry[$posle_increment][$prdemt_semestr->predmet_id];

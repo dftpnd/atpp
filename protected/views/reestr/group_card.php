@@ -47,19 +47,7 @@ if (isset($_GET['sect'])) {
     });
         
 </script>
-<div id="breadcrambs">
-    <?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => array(
-            'Реестр' => '/reestr/index',
-            'Группы' => 'asd',
-            $group->name . ' 1-' . $group->inseption->prefix_year
-        ),
-        'separator' => '<span> / <span>'
-    ));
-    ?>
-   
-</div>
+
 <div class="slide_menu">
     <ul>
         <li class='' id="card_menu_2" razdel="1" tab="staff_group" >
@@ -79,67 +67,7 @@ if (isset($_GET['sect'])) {
 <div class="anchor"></div>
 
 <div id="razdel1" class="ent-razdel" tab="staff_group" style="display: none;">
-    <form id="student_compare" >
-        <input type="hidden" name="group_id" value='<?php echo $group->id ?>' />
-        <?php
-        if (isset($profiles)) {
-            echo "<div class='table_t'>";
-            echo "<div class='tr_t reestr'>
-                <div class='td_t'><span class='compare_values' title='Сравнить' onclick='prepearStudent()'></span></div>
-                <div class='td_t'>&nbsp;</div>
-                <div class='td_t'>Фамилия Имя</div>
-                <div class='td_t'>Средний бал</div>
-              </div>";
-
-
-            $sep = 'rator';
-            foreach ($profiles as $profile) {
-                $picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
-                if (!is_null($profile->file_id)) {
-                    $file_name = $profile->uploadedfiles->name;
-                    $picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
-                }
-
-                if ($sep == 'rator') {
-                    $sep = 'factor';
-                } else {
-                    $sep = 'rator';
-                }
-                echo "<div class='tr_t $sep studentd_reestr' profile_id='$profile->id' >";
-
-                echo "<div class='td_t'><input type='checkbox'  name='students[]' value='$profile->id' /></div>";
-                echo "<div class='td_t'><div class='face'><img onclick='getProfile($profile->id,$group->id)' src='$picter' /></div></div>";
-                if ($profile->name == '') {
-                    echo "<div class='td_t'><span class='st_login' >" . $profile->user->username . "</span></div>";
-                } else {
-                    echo "<div class='td_t'>";
-                    echo CHtml::link(
-                            $profile->surname
-                            . '&nbsp;' .
-                            $profile->name, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $profile->id)), array('class' => 'classic')
-                    );
-                    echo "</div>";
-                }
-                $sr_user_class = '';
-                if (isset($profile->mean)) {
-                    $mean = $profile->mean;
-                    $sr_user_class = 'hor';
-                    if (4.5 < $mean) {
-                        $sr_user_class = 'otl';
-                    }
-                    if (3.5 > $mean) {
-                        $sr_user_class = 'udov';
-                    }
-                } else {
-                    $mean = '&mdash;';
-                }
-                echo "<div class='td_t'><span class='sr_user $sr_user_class'>$mean</span></div>";
-                echo '</div>';
-            }
-            echo "</div>";
-        }
-        ?>
-    </form>
+    <?php echo $this->renderPartial('students', array('models' => $profiles), true); ?>
 </div>
 <div id="razdel2" class="ent-razdel" tab="items_group" style="display: none;">
     <div class="stats_box"></div>
