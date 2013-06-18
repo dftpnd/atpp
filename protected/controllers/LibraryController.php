@@ -3,12 +3,18 @@
 class LibraryController extends Controller {
 
     public function actionIndex() {
+        $title = 'Библиотека';
         $institute = array();
         $predmets = Predmet::model()->findAll(array('order' => 'name ASC'));
         $ins = Institute::model()->with('institutecafedra.cafedra')->findAll();
 
-        
-        $this->render('index', array('predmets' => $predmets, 'institute' => $institute, 'ins' => $ins));
+
+
+        MyHelper::render($this, 'index', array(
+            'predmets' => $predmets,
+            'institute' => $institute,
+            'ins' => $ins
+                ), $title);
     }
 
     public function actionUpload($id) {
@@ -61,8 +67,6 @@ class LibraryController extends Controller {
         $minus = ObjectRating::MINUS;
         $profile = FALSE;
         $redact = FALSE;
-        $cs = Yii::app()->getClientScript();
-        $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/fileuploader.js');
 
         if (!Yii::app()->user->isGuest) {
             $profile = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
@@ -76,7 +80,9 @@ class LibraryController extends Controller {
         $prepods_predmet = PredmetPrepod::model()->findAllByAttributes(array('predmet_id' => $id));
         $model = Predmet::model()->findByPk($id);
 
-        $this->render('predmet', array(
+        $title = 'Библиотека - ' . $model->name;
+
+        MyHelper::render($this, 'predmet', array(
             'model' => $model,
             'files' => $files,
             'type' => $type,
@@ -85,8 +91,7 @@ class LibraryController extends Controller {
             'prepods_predmet' => $prepods_predmet,
             'profile' => $profile,
             'redact' => $redact
-                )
-        );
+                ), $title);
     }
 
     public function actionPrepodpredmets() {

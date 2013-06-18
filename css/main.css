@@ -387,6 +387,28 @@ a.current-page {
     -moz-box-shadow:    1px 0px 7px rgba(239, 239, 239, 0.75);
     box-shadow:         1px 0px 7px rgba(239, 239, 239, 0.75);
     min-height:350px;
+    background: #fff;
+
+    transition:all 0.2s ease-in-out;
+    overflow:hidden!important;
+}
+.content_loader{
+    display: none;
+    position: fixed;
+    width:1px;
+    height:1px;
+    left:50%;
+    top:50%;
+    margin-top:150px;
+}
+.cl_ajax{
+    position: absolute;
+    width:200px;
+    height:200px;
+    margin-top:-100px;
+}
+div.clouset{
+    opacity: 0.1;
 }
 #content-gallery,
 #content-single {
@@ -399,10 +421,8 @@ a.current-page {
 }
 .container{
     position: relative;
-    background: #fff;
     z-index:20;
     margin:50px 0;
-    border:1px solid #999;
 }
 
 .avtority .container{
@@ -456,10 +476,7 @@ a.current-page {
     width:100%;
     display: inline-block;
     color: #fff;
-    border-top: 10px solid transparent;
     border-width: 10px 0;
-    background-color: lightblue;
-    background-color: hsla(0, 0%, 0%, 0);
     background-image:
         -webkit-linear-gradient(#fff, #fff),
         -webkit-linear-gradient(top left, transparent 50.5%, #fff 50.5%),
@@ -2321,7 +2338,7 @@ ul li{
 }
 /*work*/
 .fixmenu{
-    top:20px!important;
+    top:0px!important;
     position: fixed!important;
 }
 #yaokor{
@@ -2331,13 +2348,14 @@ ul li{
     height:20px;
 }
 .menu_work{
-    margin: 20px 10px 0 0;
+    margin: 20px 0 0 0;
     position: absolute;
     top:0px;
     -webkit-transition-duration: .4s;
     -moz-transition-duration: .4s;
     width:165px;
-    z-index:999;  
+    z-index:999;
+    border:1px solid black;
 }
 .grid-view table.items th, .grid-view table.items td{
     border:none!important;
@@ -3575,7 +3593,7 @@ body.fix_w{
     height:50px;
 }
 .social_contact li label{
-    display:inline-block;
+    display:block;
     height:50px;
     padding-left:40px;
     padding-top:3px;
@@ -5128,7 +5146,8 @@ div.fc-body div.fc-row div.fc-content{
     display:none;
 }
 .authorizad #content{
-    padding-left:175px;
+    margin-left:175px;
+    border:1px solid black;
 }
 .underwrapp{
     height:200px;

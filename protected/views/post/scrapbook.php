@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.lightbox-0.5.css"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.lightbox-0.5.js"></script>
 <script>
     $(function() {
         $('#gallery a').lightBox();
@@ -7,12 +9,14 @@
 $more = getenv("HTTP_REFERER");
 $post_now = 'http://' . $_SERVER['SERVER_NAME'] . '/post/' . $model->id . '?title=' . $model->title;
 if ($more != $post_now) {
-    echo CHtml::link('Прочитать статью', Yii::app()->urlManager->createUrl('post/' . $model->id . '?title=' . $model->title), array('class' => 'huas'));
+    echo CHtml::link('Прочитать статью', Yii::app()->urlManager->createUrl('post/' . $model->id . '?title=' . $model->title), array(
+        'class' => 'huas',
+        'async' => 'async'
+    ));
 }
 ?><br>
 <?php
 ?>
-<?php echo CHtml::link('Вернуться назад', "javascript: history.go(-1)", array('class' => 'feadback', 'id' => '')); ?>
 <div class="reset"></div>
 <div id="gallery" >
     <ul>

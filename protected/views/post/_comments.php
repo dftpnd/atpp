@@ -52,7 +52,11 @@ if ($gost_or_user == 'user') {
 
                 <?php
                 echo CHtml::link(
-                        "<img  src='$picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile->id)), array('title' => $comment->profile->name . ' ' . $comment->profile->surname, 'style' => 'display:block'));
+                        "<img  src='$picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile->id)), array(
+                    'title' => $comment->profile->name . ' ' . $comment->profile->surname,
+                    'style' => 'display:block',
+                    'async' => 'async',
+                ));
                 ?>
             </div>
             <div class="td_t">
@@ -61,12 +65,16 @@ if ($gost_or_user == 'user') {
                         <div class="td_t coment_fix" >
                             <?php
                             echo CHtml::link(
-                                    $comment->profile->name . ' ' . $comment->profile->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile->id)), array('class' => 'classic'));
+                                    $comment->profile->name . ' ' . $comment->profile->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile->id)), array(
+                                'class' => 'classic',
+                                'async' => 'async'
+                                    )
+                            );
                             ?>
                         </div>
                         <div class="td_t coment_fix">
                             <div class="time">
-                                <?php echo Utils::time($comment->create_time); ?>
+<?php echo Utils::time($comment->create_time); ?>
                             </div>
                         </div>
                     </div>
@@ -74,18 +82,18 @@ if ($gost_or_user == 'user') {
             </div>
         </div>
     </div>
-    <?php
-    $opacity = '1';
-    if ($state < 0) {
-        if ($state < -10) {
-            $opacity = 0.1;
-        } else {
-            $opacity = '0.' . (10 + $state);
-        }
+<?php
+$opacity = '1';
+if ($state < 0) {
+    if ($state < -10) {
+        $opacity = 0.1;
+    } else {
+        $opacity = '0.' . (10 + $state);
     }
-    ?>
+}
+?>
     <div class="comment_content" style="opacity:<?php echo $opacity ?>">
-        <?php echo nl2br(CHtml::encode($comment->content)); ?>
+    <?php echo nl2br(CHtml::encode($comment->content)); ?>
     </div>
     <div class="anchor"></div>
 </div><!-- comment -->

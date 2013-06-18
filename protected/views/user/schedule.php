@@ -4,22 +4,15 @@
         echo 'Курс ' . $kurs . ' cеместр ' . $semestr;
         ?>
     </h1>
-    <div id="breadcrambs">
-        <?php
-        $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links' => array(
-                'Моё расписание'
-            ),
-            'separator' => '<span> / <span>'
-        ));
-        ?>
-    </div>
     <?php
     if ($profile->leader == 1) {
         echo CHtml::link(
                 'Редактировать', Yii::app()->urlManager->createUrl(
                         '/user/editschedule'
-                ), array('class' => 'create_schedule')
+                ), array(
+            'class' => 'create_schedule',
+            'async' => 'async'
+                )
         );
     }
     ?>

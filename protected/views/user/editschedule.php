@@ -19,17 +19,6 @@ if (isset($_GET['sect'])) {
 
 
 <h1>Создание расписания</h1>
-<div id="breadcrambs">
-  <?php
-  $this->widget('zii.widgets.CBreadcrumbs', array(
-      'links' => array(
-          'Моё расписание' => '/user/schedule',
-          'Создание расписания'
-      ),
-      'separator' => '<span> / <span>'
-  ));
-  ?>
-</div>
 <div class="slide_menu">
   <ul class="">
     <li tab="monday">

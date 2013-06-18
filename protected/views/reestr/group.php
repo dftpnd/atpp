@@ -1,13 +1,3 @@
-<script type="text/javascript" src="../../js/jq-scrool_old.js"></script>
-  <?php
-  $this->widget('zii.widgets.CBreadcrumbs', array(
-      'links' => array(
-          'Реестр' => '/reestr/index',
-          'Группы'
-      ),
-      'separator' => '<span> / <span>'
-  ));
-  ?>
 <form id="student_group">
     <div class="table_t reestr">
         <div class="tr_t ">
@@ -76,7 +66,12 @@
             <div class='tr_t' id='<?php echo $group->id; ?>'>
                 <div class='td_t'><input type='checkbox' name='groups[]' value='<?php echo $group->id; ?>' /></div>
                 <div class='td_t'>
-                    <?php echo CHtml::link($group->name . ' 1-' . $group->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group', array('id' => $group->id)), array('class' => 'group classic')); ?>
+                    <?php echo CHtml::link($group->name . ' 1-' . $group->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group', array('id' => $group->id)), 
+                            array(
+                                'class' => 'group classic',
+                                'async' => 'async'
+                                )
+                            ); ?>
                 </div>
                 <div class='td_t'><?php echo $group->inseption->start_year; ?></div>
                 <div class='td_t'><?php echo $group->mean ?></div>
@@ -86,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class='td_t'><?php echo$group->curator; ?> </div>
+                <div class='td_t'><?php echo $group->curator; ?> </div>
 
 
             </div>

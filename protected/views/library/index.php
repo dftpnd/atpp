@@ -1,18 +1,3 @@
-<h1 class="pontel">Библиотека</h1>
-<?php
-  $this->widget('zii.widgets.CBreadcrumbs', array(
-      'links' => array(
-          'Реестр' => '/reestr/index',
-          'Библиотека'
-      ),
-      'separator' => '<span> / <span>'
-  ));
-  ?>
-
-<script type="text/javascript" src="../../js/jq-scrool_old.js"></script>
-
-
-
 <div class="anchor"></div>
 <div class="table_t reestr">
     <div class="tr_t">
@@ -60,7 +45,7 @@
                 <label ><?php echo $index; ?></label>
             </div>
             <div class="td_t">
-                <?php echo CHtml::link($predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $predmet->id)), array('class' => 'classic')); ?>
+                <?php echo CHtml::link($predmet->name, Yii::app()->urlManager->createUrl('/library/predmet', array('id' => $predmet->id)), array('class' => 'classic', 'async'=>'async')); ?>
             </div>
             <div class="td_t">
                 <label class="fosee" >   

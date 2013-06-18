@@ -29,11 +29,16 @@ if (isset($count_sp_com)) {
                         $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
                     }
                     ?>
-                    <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile_id))); ?>
+                    <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile',
+                            array('id' => $comment->profile_id)), array('async' => 'async')); ?>
                 </div>
             </div>
             <div class="td_t">
-                <?php echo CHtml::link($comment->profile->name . ' ' . $comment->profile->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile_id)), array('class' => 'classic')); ?>
+                <?php echo CHtml::link($comment->profile->name . ' ' . $comment->profile->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile_id)), 
+                        array(
+                            'class' => 'classic',
+                            'async' => 'async'
+                            )); ?>
                 <div class="my_t9" >
                     <?php $cont_text = str_replace("<br>", "\n", $comment->content); ?>
                     <?php $cont_text = str_replace("&nbsp;", " ", $cont_text); ?>

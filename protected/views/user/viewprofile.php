@@ -192,48 +192,53 @@ if (isset($_GET['id'])) {
                         <?php endif; ?>
                         <div class="ldk">
                             Группа:
-                            <?php echo CHtml::link($group->name . ' 1-' . $group->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group', array('id' => $group->id)), array('class' => 'group classic')); ?>
+                            <?php
+                            echo CHtml::link($group->name . ' 1-' . $group->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group', array('id' => $group->id)), array(
+                                'class' => 'group classic',
+                                'async' => 'async'
+                            ));
+                            ?>
                         </div>
                         <ul class="social_contact">
-                            <?php if (isset($profile->pthon) && $profile->pthon != ''): ?>
+    <?php if (isset($profile->pthon) && $profile->pthon != ''): ?>
                                 <li>
                                     <label class="social_img thone_c"  title="Контактактный телефон">
-                                        <?php echo $profile->pthon; ?>
+        <?php echo $profile->pthon; ?>
                                     </label>
                                 </li>
                             <?php endif; ?>
-                            <?php if (isset($profile->kontakt_email) && $profile->kontakt_email != ''): ?>
+    <?php if (isset($profile->kontakt_email) && $profile->kontakt_email != ''): ?>
                                 <li>
                                     <label class="social_img email_c" title="Контактактный адрес эл. почты">
-                                        <?php echo $profile->kontakt_email; ?>
+        <?php echo $profile->kontakt_email; ?>
                                     </label>
                                 </li>
                             <?php endif; ?>
-                            <?php if (isset($profile->website) && $profile->website != ''): ?>
+    <?php if (isset($profile->website) && $profile->website != ''): ?>
                                 <li>
                                     <label class="social_img web_c" title="Веб сайт">
                                         <a href="http://<?php echo $profile->website; ?>" class="classic"><?php echo $profile->website; ?></a>
                                     </label>
                                 </li>
                             <?php endif; ?>
-                            <?php if (isset($profile->kontact) && $profile->kontact != ''): ?>
+    <?php if (isset($profile->kontact) && $profile->kontact != ''): ?>
                                 <li>
                                     <label class="social_img vk_c" title="Вконтакте">
                                         <a class="classic" href="<?php echo $profile->kontact; ?>"><?php echo $profile->kontact; ?></a>
                                     </label>
                                 </li>
                             <?php endif; ?>
-                            <?php if (isset($profile->skype) && $profile->skype != ''): ?>
+    <?php if (isset($profile->skype) && $profile->skype != ''): ?>
                                 <li>
                                     <label class="social_img skype_c" title="Скайп">
-                                        <?php echo $profile->skype; ?>
+        <?php echo $profile->skype; ?>
                                     </label>
                                 </li>
-                            <?php endif; ?>
+    <?php endif; ?>
                         </ul>
                     </div>
 
-                    
+
                         <?php if (!empty($profile->private)): ?>
                         <div class="resume__emptyblock">
                         <?php echo nl2br(CHtml::encode($profile->private)); ?>
@@ -295,7 +300,7 @@ if (isset($_GET['id'])) {
                             ?>
                         </div>
                         <div class="float_signal" const_type="<?php echo $type; ?>"></div>
-                        
+
                     </div>
 <?php endif; ?>
             </div>
@@ -326,7 +331,7 @@ if (isset($_GET['id'])) {
                 var chartData = <?php echo json_encode($chartData); ?>;
                 var graphs = <?php echo json_encode($graphs); ?>;
                 var options = <?php echo json_encode($options); ?>;
-                                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                      
                 new AmChartsGrap(chartData, graphs, options);
             });
         </script>

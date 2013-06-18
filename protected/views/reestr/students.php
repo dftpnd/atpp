@@ -1,15 +1,3 @@
-<script type="text/javascript" src="../../js/jq-scrool_old.js"></script>
-<h1 class="pontel">Студенты</h1>
-<?php
-$this->widget('zii.widgets.CBreadcrumbs', array(
-    'links' => array(
-        'Реестр' => '/reestr/index',
-        'Студенты'
-    ),
-    'separator' => '<span> / <span>'
-));
-?>
-
 <div class="anchor"></div>
 <div class="table_t reestr">
     <div class="tr_t">
@@ -70,13 +58,29 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                 }
                 ?>
 
-                <?php echo CHtml::link($name, Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->id)), array('class' => 'classic')); ?>
+                <?php
+                echo CHtml::link($name, Yii::app()->urlManager->
+                                createUrl('user/ViewProfile/', array(
+                                    'id' => $model->id
+                                        )
+                                ), array(
+                    'class' => 'classic',
+                    'async' => 'async',
+                        )
+                );
+                ?>
             </div>
             <div class="td_t">
-                <?php echo CHtml::link($model->team->name . ' 1-' . $model->team->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group/' . $model->team->id), array('class' => 'classic')); ?>
+                <?php
+                echo CHtml::link($model->team->name . ' 1-' . $model->team->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group/' . $model->team->id), array(
+                    'class' => 'classic',
+                    'async' => 'async',
+                        )
+                );
+                ?>
             </div>
             <div class="td_t">
-                <?php echo $model->mean?>
+                <?php echo $model->mean ?>
             </div>
         </div>
         <?php $index++; ?>

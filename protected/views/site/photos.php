@@ -1,13 +1,3 @@
-<div id="breadcrambs">
-    <?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => array(
-            'Кафедра в лицах'
-        ),
-        'separator' => '<span> / <span>'
-    ));
-    ?>
-</div>
 <?php
 foreach ($posts as $post) {
     $file_name = null;

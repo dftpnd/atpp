@@ -1,15 +1,3 @@
-<script type="text/javascript" src="../../js/jq-scrool_old.js"></script>
-<h1 class="pontel">Преподаватели</h1>
-<?php
-$this->widget('zii.widgets.CBreadcrumbs', array(
-    'links' => array(
-        'Реестр' => '/reestr/index',
-        'Преподаватели'
-    ),
-    'separator' => '<span> / <span>'
-));
-?>
-
 <div class="anchor"></div>
 <div class="table_t reestr">
     <div class="tr_t">
@@ -53,7 +41,14 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                     $picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
                 }
                 ?>
-                <?php echo CHtml::link("<img  src='$picter' />", Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->id)), array('class' => 'classic')); ?>
+                <?php
+                echo CHtml::link("<img  src='$picter' />", Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->id)), array(
+                    'class' => 'classic',
+                    'async' => 'async'
+                        )
+                )
+                ;
+                ?>
             </div>
             <div class="td_t">
                 <?php
@@ -64,19 +59,29 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                 }
                 ?>
 
-                <?php echo CHtml::link($name, Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->id)), array('class' => 'classic')); ?>
+                <?php
+                echo CHtml::link($name, Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->id)), array(
+                    'class' => 'classic',
+                    'async' => 'async'
+                ));
+                ?>
             </div>
             <div class="td_t">
 
                 <?php foreach ($model->predmet_prepod as $predmet): ?>
-                    <?php echo CHtml::link($predmet->predmet_prepod->name, Yii::app()->urlManager->createUrl('/library/predmet/' . $predmet->predmet_prepod->id), array('class' => 'classic')); ?><br/>
-                <?php endforeach; ?>
+                    <?php
+                    echo CHtml::link($predmet->predmet_prepod->name, Yii::app()->urlManager->createUrl('/library/predmet/' . $predmet->predmet_prepod->id), array(
+                        'class' => 'classic',
+                        'async' => 'async'
+                    ));
+                    ?><br/>
+    <?php endforeach; ?>
 
 
             </div>
         </div>
-        <?php $index++; ?>
-    <?php endforeach; ?>
+    <?php $index++; ?>
+<?php endforeach; ?>
 
 </div>
 <script>
