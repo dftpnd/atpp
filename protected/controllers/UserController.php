@@ -1142,7 +1142,7 @@ class UserController extends Controller {
 
         $students = Profile::model()->with('uploadedfiles')->findAllByAttributes(array('status' => '2'), $criteria);
 
-        MyHelper::render($this, '/reestr/students', array(
+        MyHelper::render($this, '/user/students', array(
             'models' => $students
                 ), $title);
     }
