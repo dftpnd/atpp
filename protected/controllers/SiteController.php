@@ -494,7 +494,11 @@ class SiteController extends Controller {
                                 'condition' => 'filetopost.file_id is not null')
                         )
                 )->findAllByAttributes(array('topic' => $topic, 'status' => $status, 'show_foto' => $show_foto));
-        $this->render('photos', array('posts' => $posts));
+
+        $title = 'Фотогалерея';
+        MyHelper::render($this, 'photos', array(
+            'posts' => $posts
+                ), $title);
     }
 
     public function actionSpy() {

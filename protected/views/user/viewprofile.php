@@ -324,7 +324,7 @@ if (isset($_GET['id'])) {
     <?php echo $profile->name . ' ' . $profile->surname; ?>
     </div>
 <?php if (isset($chartData)) : ?>
-        <h1>Средний бал по семестрам</h1>
+        <h1>Средний балл по семестрам</h1>
         <div id="chartdiv" style="width: 700px; height: 500px;padding-left:100px"></div>
         <script>
             $(function(){
