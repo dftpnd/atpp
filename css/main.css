@@ -31,13 +31,13 @@ h1, div.title a, h4{
   height:22px;
   z-index: 999;
   position: relative;
-  background:url(../i/pila/pila_top.png);
+  background:url(../i/pila/pila_top.png) repeat-x;
 }
 .pila_bot{
   height:22px;
   z-index: 9999;
   position: relative;
-  background:url(../i/pila/pila_bot.png);
+  background:url(../i/pila/pila_bot.png) repeat-x;
 }
 .header{
   height:225px;
@@ -4673,7 +4673,7 @@ div.logo > div.logo_x > div.logo_x_3 {
   height:70px;
 }
 .frends_ker{
-  background:url(../i/frends_logos/logo_ker.png) ;
+  background:url(../i/frends_logos/logo_ker.png) no-repeat;
   width:154px;
   height:49px;
 }

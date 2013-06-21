@@ -27,7 +27,7 @@
     </div>
     <div class="td_t">
       <span>
-        <label >Средний бал</label>
+        <label >Средний балл</label>
       </span>
       <div></div>
     </div>
