@@ -122,24 +122,81 @@ class Folder extends CActiveRecord {
 
   public static function getMyFolder($folder_id) {
 
+
     if ($folder_id == 0)
       $folder = new Folder();
     else {
       $folder = self::model()->findByPk($folder_id);
 
-      if (!$folder->user_id == Yii::app()->user->id) {
-        echo jsone_encode(array('status' => 'faile', 'error' => 'У вас нет доступа'));
-        exit();
+      if (empty($folder)) {
+        echo json_encode(array('status' => 'faile', 'error' => 'Не существует такой папки'));
+        Yii::app()->end();
       }
 
-      if (empty($folder)) {
-        echo jsone_encode(array('status' => 'faile', 'error' => 'Не существует такой папки'));
-        exit();
+      if ($folder->user_id !== Yii::app()->user->id) {
+        echo json_encode(array('status' => 'faile', 'error' => 'У вас нет доступа'));
+        Yii::app()->end();
       }
     }
 
 
     return $folder;
+  }
+
+  public static function deleteFolder($folder_id) {
+    $folder = self::model()->findByPk($folder_id);
+
+    if (empty($folder)) {
+      return array('status' => 'faile', 'error' => 'Не существует такой папки');
+    }
+
+    if ($folder->user_id !== Yii::app()->user->id) {
+      return array('status' => 'faile', 'error' => 'У вас нет доступа');
+    }
+
+    if ($folder->delete()) {
+      //@TODO
+      //написать рекурсивную функцию удаления всех внутренних каталогов
+      return array('status' => 'success');
+    } else {
+      return array('status' => 'faile', 'error' => 'Ошибка. что то пошло не так');
+    }
+  }
+
+  public static function getAvailableFolder($parent_id, $author_id) {
+
+    $user_id = Yii::app()->user->id;
+
+    if ($author_id == $user_id) {
+      return self::model()->findAllByAttributes(array('user_id' => $author_id, 'parent_id' => $parent_id));
+    } else {
+
+      $user = User::model()->findByPk($user_id);
+
+
+      switch ($user->prof->status) {
+        case Profile::STUDENT:
+          //вытащить разрешенные для студентов и для всех
+          $privete_status = PrivateStatus::ME_AND_STUDENTS;
+          break;
+        case Profile::PREPOD:
+          //вытащить разрешенные для преподов и для всех
+          $privete_status = PrivateStatus::ME_AND_TEACHERS;
+          break;
+        default:
+          die('а кто ты?');
+          break;
+      }
+
+      return self::model()->findAll(
+                      array(
+                          'condition' =>
+                          '(
+                            user_id = ' . $author_id . '
+                            and 
+                            private_status in (' . $privete_status . ', ' . PrivateStatus::EVERYONE . '))'
+              ));
+    }
   }
 
 }

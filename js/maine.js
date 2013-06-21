@@ -1333,7 +1333,16 @@ function razBanStudent(user_id){
     }
   });
 }
-function changeFolder(folder_id){
+function changeFolder(folder_id,e){
+  
+  if (!e) var e = window.event;
+  
+  e.cancelBubble = true;
+  
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+ 
   loader.show();
   
   $.ajax({
@@ -1354,6 +1363,7 @@ function changeFolder(folder_id){
   });
 }
 function saveChangeFolder(){
+  
   loader.show();
   $.ajax({
     url:'/user/SaveChangeFolder',
@@ -1363,9 +1373,84 @@ function saveChangeFolder(){
     success: function(data){
       if(data.status == 'success'){
         closeDoor();
+        updateDirectory(data.parent_id, data.author_id);
         noticeOpen('Изменения сохранены', notice_green);
       }else{
-        alert(data.error);
+        noticeOpen(data.error, notice_red);
+      }
+      loader.hide();
+    }
+  });
+}
+function deleteFolder(folder_id, e){
+  
+  if (!e) var e = window.event;
+  
+  e.cancelBubble = true;
+  
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+  
+  if (confirm("Вы уверенны что хотите удалить папку «"+$('[folder_id='+folder_id+'] .text_val').text()+"»?")){
+    loader.show();
+    $.ajax({
+      url:'/user/DeleteFolder',
+      type: 'POST',
+      dataType: 'json',
+      data: ({
+        'folder_id':folder_id
+      }),
+      success: function(data){
+        if(data.status == 'success'){
+          $('[folder_id='+folder_id+']').remove();
+          noticeOpen('Изменения сохранены', notice_green);
+        }else{
+          noticeOpen(data.error, notice_red);
+        }
+        loader.hide();
+      }
+    });
+  }
+}
+function updateDirectory(parent_id, author_id){
+  loader.show();
+  $.ajax({
+    url:'/user/UpdateDirectory',
+    type: 'POST',
+    dataType: 'json',
+    data: ({
+      'parent_id':parent_id,
+      'author_id':author_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        closeDoor();
+        $('.user_files').html(data.html);
+        noticeOpen('Обновлено', notice_green);
+      }else{
+        noticeOpen(data.error, notice_red);
+      }
+      loader.hide();
+    }
+  });
+}
+function openFolder(el){    
+  var folder_id = el.attr('folder_id');
+  
+  loader.show();
+  $.ajax({
+    url:'/user/OpenFolder',
+    type: 'POST',
+    dataType: 'json',
+    data: ({
+      'folder_id':folder_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        $('.user_files').html(data.html);
+      }else{
+        noticeOpen(data.error, notice_red);
       }
       loader.hide();
     }

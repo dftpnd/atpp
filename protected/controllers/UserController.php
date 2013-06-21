@@ -47,56 +47,6 @@ class UserController extends Controller {
             ), $title);
   }
 
-  public function actionFiles($id) {
-
-    $profile = Profile::model()->findByPk($id);
-    $user = User::model()->findByPk($profile->user_id);
-    $folders = Folder::model()->findByAttributes(array('user_id' => $user->id));
-
-    $title = 'Файлы';
-    MyHelper::render($this, 'user_files', array(
-        'user' => $user,
-        'folders' => $folders
-            ), $title);
-  }
-
-  public function actionChangeFolder() {
-    if (!isset($_POST['folder_id'])) {
-      echo json_encode(array('status' => 'faile', 'error' => 'неверный file_id'));
-      exit();
-    }
-
-    $folder = Folder::getMyFolder($_POST['folder_id']);
-    $private_status = PrivateStatus::model()->findAll();
-
-    $select = CHtml::dropDownList(
-                    "Folder[private_status]", $folder->private_status, CHtml::listData($private_status, 'id', 'name')
-    );
-
-
-    $html = $this->renderPartial('_change_folder', array(
-        'folder' => $folder,
-        'select' => $select,
-            ), true);
-    echo json_encode(array('status' => 'success', 'html' => $html));
-  }
-
-  public function actionSaveChangeFolder() {
-
-    $folder = Folder::getMyFolder($_POST['folder_id']);
-    $folder->attributes = $_POST['Folder'];
-    $folder->user_id = Yii::app()->user->id;
-    $folder->created = time();
-    $folder->parent_id = 0;
-
-
-    if ($folder->save()) {
-      echo json_encode(array('status' => 'success'));
-    } else {
-      echo json_encode(array('status' => 'fail', 'error' => 'Сохранение не удалось, поробуйте перезагрузить страницу'));
-    }
-  }
-
   public function actionStats() {
     if (isset($_POST['profile_id'])) {
       $user_no_isset = $_POST['profile_id'];
@@ -1485,5 +1435,121 @@ class UserController extends Controller {
     echo json_encode(array('status' => 'success'));
   }
 
+  //=================files=====================//
+  public function actionFiles($id, $parent_id = 0) {
+
+    $profile = Profile::model()->findByPk($id);
+    $user = User::model()->findByPk($profile->user_id);
+
+
+    $folders = Folder::getAvailableFolder($parent_id, $user->id);
+
+    $title = 'Файлы';
+    MyHelper::render($this, 'user_files', array(
+        'user' => $user,
+        'folders' => $folders
+            ), $title);
+  }
+
+  public function actionChangeFolder() {
+    if (!isset($_POST['folder_id'])) {
+      echo json_encode(array('status' => 'faile', 'error' => 'неверный file_id'));
+      Yii::app()->end();
+    }
+
+
+    $folder = Folder::getMyFolder($_POST['folder_id']);
+    $private_status = PrivateStatus::model()->findAll();
+
+    $select = CHtml::dropDownList(
+                    "Folder[private_status]", $folder->private_status, CHtml::listData($private_status, 'id', 'name')
+    );
+
+
+    $html = $this->renderPartial('_change_folder', array(
+        'folder' => $folder,
+        'select' => $select,
+            ), true);
+    echo json_encode(array('status' => 'success', 'html' => $html));
+  }
+
+  public function actionDeleteFolder() {
+    if (!isset($_POST['folder_id'])) {
+      echo json_encode(array('status' => 'faile', 'error' => 'неверный file_id'));
+      Yii::app()->end();
+    }
+    echo json_encode(Folder::deleteFolder($_POST['folder_id']));
+  }
+
+  public function actionUpdateDirectory() {
+    $html = '';
+
+    if (!isset($_POST['parent_id']) || !isset($_POST['author_id'])) {
+      echo json_encode(array('status' => 'faile', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
+      Yii::app()->end();
+    }
+    $folders = Folder::getAvailableFolder($_POST['parent_id'], $_POST['author_id']);
+
+    foreach ($folders as $folder) {
+      $html .= $this->renderPartial('_folder', array(
+          'folder' => $folder,
+              ), true);
+    }
+
+    echo json_encode(array('status' => 'success', 'html' => $html));
+  }
+
+  public function actionSaveChangeFolder() {
+
+    $folder = Folder::getMyFolder($_POST['folder_id']);
+    $folder->attributes = $_POST['Folder'];
+    $folder->user_id = Yii::app()->user->id;
+    $folder->created = time();
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!
+    $folder->parent_id = 0;
+    //!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    if ($folder->save()) {
+      echo json_encode(array('status' => 'success', 'parent_id' => $folder->parent_id, 'author_id' => $folder->user_id,));
+    } else {
+      echo json_encode(array('status' => 'fail', 'error' => 'Сохранение не удалось, поробуйте перезагрузить страницу'));
+    }
+  }
+
+  public function actionOpenFolder() {
+    $html = '';
+    
+    if (!isset($_POST['folder_id'])) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
+      Yii::app()->end();
+    }
+
+
+    $folder = Folder::model()->findByPk($_POST['folder_id']);
+
+    if (empty($folder)) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Не существует такой дирректори'));
+      Yii::app()->end();
+    }
+
+    if (!Folder::checkAccess($folder)) {
+      echo json_encode(array('status' => 'fail', 'error' => 'У вас недостаточно прав, для просмтора этой дирректории'));
+      Yii::app()->end();
+    }
+
+    $folders = Folder::getAvailableFolder($folder->id, $folder->user_id);
+
+
+    foreach ($folders as $folder) {
+      $html .= $this->renderPartial('_folder', array(
+          'folder' => $folder,
+              ), true);
+    }
+
+    echo json_encode(array('status' => 'success', 'html' => $html));
+  }
+
+//=================files=====================//
 }
 
