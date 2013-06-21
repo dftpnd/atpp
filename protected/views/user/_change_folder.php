@@ -2,6 +2,7 @@
   <h1>Папка</h1>
   <form id="save_folder">
     <input type="hidden" value="<?php echo (int) $folder->id; ?>" name="folder_id">
+    <input type="hidden" value="<?php echo $folder->parent_id; ?>" name="Folder[parent_id]">
     <ul class="change_folder">
       <li>
         <label>

@@ -34,10 +34,10 @@ h1, div.title a, h4{
     background:url(../i/pila/pila_top.png) repeat-x;
 }
 .pila_bot{
-    width: 100%;
+    width00%;
     height:22px;
     z-index: 9999;
-    position: relative;
+    position: absolute;
     top:-20px;
     left: 0;
     background:url(../i/pila/pila_bot.png) repeat-x;
@@ -5329,5 +5329,51 @@ div.fc-body div.fc-row div.fc-content{
     border: 1px solid black;
 }
 .create_folder_but{
+    cursor: pointer;
+}
+.folder_user{
+    padding:20px;
+
+    border:1px solid blue;
+    margin:10px;
+    float: left;
+    position: relative;
+    cursor:default;
+}
+.private_status_1{
+    background: red;
+}
+.private_status_2{
+    background: blue;
+}
+.private_status_3{
+    background: green;
+}
+.private_status_4{
+    background: yellow;
+}
+.folder_but{
+    position:absolute;
+    top:5px;
+    right:5px;
+    z-index:999;
+    height:20px;
+    background: #fff;
+}
+.folder_but div{
+    width:10px;
+    height:10px;
+    margin-left:10px;
+    float:left;
+    border:1px solid black;
+    cursor:pointer;
+    position: relative;
+    z-index:999;
+}
+.folder_delete{
+    background:gray;
+}
+.folder_edit{
+    background:blueviolet;
     cursor: pointer;
 }
