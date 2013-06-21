@@ -1,5 +1,15 @@
+/*====*/
+var notice_green = '1';
+var notice_yellow = '2';
+var notice_red = '3';
+/*====*/
+
+
 send = {};
 send['start_async_page'] = '';
+
+
+
 
 
 var dataLocation = new Object();
@@ -1319,6 +1329,44 @@ function razBanStudent(user_id){
         alert(data.error)
       loader.hide();
            
+      loader.hide();
+    }
+  });
+}
+function changeFolder(folder_id){
+  loader.show();
+  
+  $.ajax({
+    url:'/user/ChangeFolder',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'folder_id':folder_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        openDoor(data.html)
+      }else{
+        noticeOpen(data.error, notice_red);
+      }
+      loader.hide();
+    }
+  });
+}
+function saveChangeFolder(){
+  loader.show();
+  $.ajax({
+    url:'/user/SaveChangeFolder',
+    type: 'POST',
+    dataType: 'json',
+    data: $('#save_folder').serialize(),
+    success: function(data){
+      if(data.status == 'success'){
+        closeDoor();
+        noticeOpen('Изменения сохранены', notice_green);
+      }else{
+        alert(data.error);
+      }
       loader.hide();
     }
   });

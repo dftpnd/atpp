@@ -45,20 +45,6 @@
               ),
           ),
           array(
-              'label' => 'Дисциплины',
-              'url' => Yii::app()->urlManager->createUrl('reestr/ManagePredmet'),
-              'visible' => (
-              (
-              Yii::app()->user->getRole() == 'prepod')
-              ),
-              'active' => (
-              Yii::app()->controller->getId() == 'reestr' && Yii::app()->controller->getAction()->getId() == 'ManagePredmet'),
-              'itemOptions' => array('class' => 'menu_create_predmet'),
-              'linkOptions' => array(
-                  'async' => 'async',
-              ),
-          ),
-          array(
               'label' => 'Управление группой',
               'url' => Yii::app()->urlManager->createUrl('user/ManageGroup'),
               'visible' => (Yii::app()->user->getRole() == 'manegergroup') || (Yii::app()->user->getRole() == 'authority'),

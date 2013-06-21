@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="universe">
-        <div id="" class="is-home wrapper cacada_8" >
+        <div id="" class="is-home wrapper cacada_<?php echo rand(1, 4) ?>" >
           <div class="in_head">
             <div class="header midelton">
               <div class="header-box-image"></div>
@@ -80,8 +80,9 @@
                 <?php $this->renderPartial('application.views.layouts._menu', array('current_item' => 'about')) ?>
               </div> 
             </div>
-          </div>
 
+          </div>
+          <div class="pila_top"></div>
           <div class="contentus midelton">
             <div class="content_loader">
               <div id="cl_ajax" class="cl_ajax"></div>
@@ -108,13 +109,8 @@
               </script>
             </div>
             <?php if (!Yii::app()->user->isGuest): ?>
-              <?php
-              $this->renderPartial('application.views.layouts._menu_work', array('current_item' => 'about'));
-              $random = rand(0, 8);
-              $uf = '/';
-              $PicterPath = "..{$uf}..{$uf}i{$uf}sky{$uf}apeak_" . $random . '.png';
-              ?>
-              <img class="up_head" title="Вверх!" src="<?php echo $PicterPath; ?>" />
+              <?php $this->renderPartial('application.views.layouts._menu_work', array('current_item' => 'about'));?>
+              <img class="up_head" title="Вверх!" src="<?php echo Yii::app()->request->baseUrl; ?>/i/sky/apeak_0.png" />
               <div id="yaokor"></div>
             <?php endif; ?>
             <div id="dynamic_content">
@@ -124,7 +120,7 @@
           </div>
         </div>
 
-
+        <div class="pila_bot"></div>
         <div class="footer ">
           <div class="midelton">
             <div class="footer_spa">
