@@ -1438,8 +1438,7 @@ class UserController extends Controller {
   //=================files=====================//
   public function actionFiles($id, $parent_id = 0) {
 
-    $profile = Profile::model()->findByPk($id);
-    $user = User::model()->findByPk($profile->user_id);
+    $user = User::model()->findByPk($id);
 
 
     $folders = Folder::getAvailableFolder($parent_id, $user->id);
@@ -1452,13 +1451,14 @@ class UserController extends Controller {
   }
 
   public function actionChangeFolder() {
-    if (!isset($_POST['folder_id'])) {
-      echo json_encode(array('status' => 'faile', 'error' => 'неверный file_id'));
+    if (!isset($_POST['folder_id']) || !isset($_POST['parent_id'])) {
+      echo json_encode(array('status' => 'faile', 'error' => 'Ошибка, неверный запрос'));
       Yii::app()->end();
     }
 
 
-    $folder = Folder::getMyFolder($_POST['folder_id']);
+
+    $folder = Folder::getMyFolder($_POST['folder_id'], $_POST['parent_id']);
     $private_status = PrivateStatus::model()->findAll();
 
     $select = CHtml::dropDownList(
@@ -1505,10 +1505,7 @@ class UserController extends Controller {
     $folder->attributes = $_POST['Folder'];
     $folder->user_id = Yii::app()->user->id;
     $folder->created = time();
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!
-    $folder->parent_id = 0;
-    //!!!!!!!!!!!!!!!!!!!!!!!!!
+    
 
     if ($folder->save()) {
       echo json_encode(array('status' => 'success', 'parent_id' => $folder->parent_id, 'author_id' => $folder->user_id,));
@@ -1519,7 +1516,7 @@ class UserController extends Controller {
 
   public function actionOpenFolder() {
     $html = '';
-    
+
     if (!isset($_POST['folder_id'])) {
       echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
       Yii::app()->end();
@@ -1527,6 +1524,8 @@ class UserController extends Controller {
 
 
     $folder = Folder::model()->findByPk($_POST['folder_id']);
+
+
 
     if (empty($folder)) {
       echo json_encode(array('status' => 'fail', 'error' => 'Не существует такой дирректори'));
@@ -1541,13 +1540,13 @@ class UserController extends Controller {
     $folders = Folder::getAvailableFolder($folder->id, $folder->user_id);
 
 
-    foreach ($folders as $folder) {
+    foreach ($folders as $model) {
       $html .= $this->renderPartial('_folder', array(
-          'folder' => $folder,
+          'folder' => $model,
               ), true);
     }
 
-    echo json_encode(array('status' => 'success', 'html' => $html));
+    echo json_encode(array('status' => 'success', 'html' => $html, 'folder' => (array) $folder->attributes));
   }
 
 //=================files=====================//

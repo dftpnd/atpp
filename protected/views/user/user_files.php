@@ -13,7 +13,7 @@
   </li>
 </ul>
 
-<div class="create_folder_but" onclick="changeFolder(0)">
+<div class="create_folder_but" onclick="changeFolder(0, event)">
   Создать папку
 </div>
 <div class="user_files">

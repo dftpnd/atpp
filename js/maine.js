@@ -114,6 +114,15 @@ function changePage(url, history_push){
     }
   });
 }
+function parseGetParams() { 
+  var $_GET = {}; 
+  var __GET = window.location.search.substring(1).split("&"); 
+  for(var i=0; i<__GET.length; i++) { 
+    var getVar = __GET[i].split("="); 
+    $_GET[getVar[0]] = typeof(getVar[1])=="undefined" ? "" : getVar[1]; 
+  } 
+  return $_GET; 
+} 
 function closeContent(){
   $('.content_loader').show();
   $('#content').addClass('clouset');
@@ -1345,12 +1354,19 @@ function changeFolder(folder_id,e){
  
   loader.show();
   
+  var GET = parseGetParams(); 
+  if( GET.parent_id === undefined)
+    GET.parent_id = 0;
+  
+  
+  
   $.ajax({
     url:'/user/ChangeFolder',
     type: 'POST',
     dataType: 'json',
     data:({
-      'folder_id':folder_id
+      'folder_id':folder_id,
+      'parent_id':GET.parent_id
     }),
     success: function(data){
       if(data.status == 'success'){
@@ -1448,7 +1464,14 @@ function openFolder(el){
     }),
     success: function(data){
       if(data.status == 'success'){
+        
         $('.user_files').html(data.html);
+        url = '/user/files?id='+data.folder.user_id+'&parent_id='+data.folder.id;
+        history.pushState( {
+          title: 'файлы', 
+          url: url
+        }, data.title, url );
+  
       }else{
         noticeOpen(data.error, notice_red);
       }
@@ -1456,3 +1479,4 @@ function openFolder(el){
     }
   });
 }
+

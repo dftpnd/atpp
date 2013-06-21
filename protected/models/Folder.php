@@ -98,7 +98,7 @@ class Folder extends CActiveRecord {
     if ($user->id == $folder->user_id)
       return TRUE;
 
-    switch ($folder->privat_status) {
+    switch ($folder->private_status) {
       case PrivateStatus::ONLY_ME:
         return FALSE;
         break;
@@ -120,12 +120,13 @@ class Folder extends CActiveRecord {
     return FALSE;
   }
 
-  public static function getMyFolder($folder_id) {
+  public static function getMyFolder($folder_id, $parent_id = 0) {
 
 
-    if ($folder_id == 0)
+    if ($folder_id == 0) {
       $folder = new Folder();
-    else {
+      $folder->parent_id = $parent_id;
+    } else {
       $folder = self::model()->findByPk($folder_id);
 
       if (empty($folder)) {
