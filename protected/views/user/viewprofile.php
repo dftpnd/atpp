@@ -13,49 +13,7 @@ if (isset($_GET['id'])) {
 }
 ;
 ?>
-<script>
-    $(function(){
-        $("select.select_week").change(function () {
-            alert($(this).attr('value'));
-        })
-        $('.slide_menu ul li[tab="<?php echo $sect ?>"]').addClass('active');
-        openTab('<?php echo $sect ?>');
-        
-        var url = '/user/ViewProfile/';
-        
-        if("addEventListener" in window) { 
-        
-            window.addEventListener('popstate', function(e){
-                if(e.state != undefined)
-                    openTab(e.state);
-            }, false);
 
-        } else if ("attachEvent" in window) { 
-            // выполнится для IE8 и ниже 
-            window.attachEvent('popstate', function(e){
-                if(e.state != undefined)
-                    openTab(e.state);
-            }, false); 
-        } 
-  
-        function strpos (haystack, needle, offset) {
-            var i = (haystack + '').indexOf(needle, (offset || 0));
-            return i === -1 ? false : i;
-        }
-        $('.slide_menu ul li').click(function(){
-            var tab = $(this).attr('tab');
-            openTab(tab);
-            //history.pushState(tab, '', url+'?sect='+tab );            
-        });
-        
-        
-        $('.slide_menu ul li').live('click', function (){
-            
-            $('.slide_menu ul li').removeClass('active'); 
-            $(this).addClass('active');
-        });
-    });
-</script>
 <?php if ($user_author->banned == 1): ?>
     <div class="ban"></div>
 <?php endif; ?>
@@ -121,24 +79,9 @@ if (isset($_GET['id'])) {
 
 
 </div>
-<div class="slide_menu">
-    <ul class="">
-        <li tab="profile">
-            Профайл
-            <div></div>
-        </li>
-        <li tab="stats">
-            Оценки
-            <div></div>
-        </li>
-        <li tab="statistics">
-            Статистика
-            <div></div>
-        </li>
-    </ul>
-</div>
 
-<div id="razdel" class="ent-razdel fix_ent_razd" tab="profile" style="display: none;">
+
+<div class="pr">
     <div class="name_page">
         <?php echo $profile->name . ' ' . $profile->surname; ?>
     </div>
@@ -186,6 +129,11 @@ if (isset($_GET['id'])) {
                         $profile->skype != ''
                 ):
                     ?>
+                    <?php if (!empty($profile->private)): ?>
+                        <div class="resume__emptyblock">
+                            <?php echo nl2br(CHtml::encode($profile->private)); ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="right_b resume__emptyblock">
                         <?php if ($profile->leader != NUll): ?>
                             <div class="web_staroste view_prof_starosta" >Администратор группы</div>
@@ -200,58 +148,101 @@ if (isset($_GET['id'])) {
                             ?>
                         </div>
                         <ul class="social_contact">
-    <?php if (isset($profile->pthon) && $profile->pthon != ''): ?>
+                            <?php if (isset($profile->pthon) && $profile->pthon != ''): ?>
                                 <li>
                                     <label class="social_img thone_c"  title="Контактактный телефон">
-        <?php echo $profile->pthon; ?>
+                                        <?php echo $profile->pthon; ?>
                                     </label>
                                 </li>
                             <?php endif; ?>
-    <?php if (isset($profile->kontakt_email) && $profile->kontakt_email != ''): ?>
+                            <?php if (isset($profile->kontakt_email) && $profile->kontakt_email != ''): ?>
                                 <li>
                                     <label class="social_img email_c" title="Контактактный адрес эл. почты">
-        <?php echo $profile->kontakt_email; ?>
+                                        <?php echo $profile->kontakt_email; ?>
                                     </label>
                                 </li>
                             <?php endif; ?>
-    <?php if (isset($profile->website) && $profile->website != ''): ?>
+                            <?php if (isset($profile->website) && $profile->website != ''): ?>
                                 <li>
                                     <label class="social_img web_c" title="Веб сайт">
                                         <a href="http://<?php echo $profile->website; ?>" class="classic"><?php echo $profile->website; ?></a>
                                     </label>
                                 </li>
                             <?php endif; ?>
-    <?php if (isset($profile->kontact) && $profile->kontact != ''): ?>
+                            <?php if (isset($profile->kontact) && $profile->kontact != ''): ?>
                                 <li>
                                     <label class="social_img vk_c" title="Вконтакте">
                                         <a class="classic" href="<?php echo $profile->kontact; ?>"><?php echo $profile->kontact; ?></a>
                                     </label>
                                 </li>
                             <?php endif; ?>
-    <?php if (isset($profile->skype) && $profile->skype != ''): ?>
+                            <?php if (isset($profile->skype) && $profile->skype != ''): ?>
                                 <li>
                                     <label class="social_img skype_c" title="Скайп">
-        <?php echo $profile->skype; ?>
+                                        <?php echo $profile->skype; ?>
                                     </label>
                                 </li>
-    <?php endif; ?>
+                            <?php endif; ?>
                         </ul>
                     </div>
+                    <div class="resume__emptyblock">
+                        <?php if (isset($chartData)) : ?>
+                            <div>Средний бал по семестрам</div>
+                            <div id="chartdiv" style="width: 600px; height: 300px;"></div>
+                            <script>
+                                var chartData = <?php echo json_encode($chartData); ?>;
+                                var graphs = <?php echo json_encode($graphs); ?>;
+                                var options = <?php echo json_encode($options); ?>;
+                                                                                                                                                                                                                                                                                                                                                                      
+                                new AmChartsGrap(chartData, graphs, options);
+                            </script>
+                        <?php endif; ?>
+                        <?php if (isset($rating_5) || isset($rating_4) || isset($rating_5)) : ?>
+                            <div class="summ_stats" >Сумма набраных оценок</div>
+                            <div id="chartdiv_2" style="width: 600px; height: 300px;"></div>
+                            <script type="text/javascript">
+                                var chart;
+                                var legend;
+
+                                var chartData = [{
+                                        country: "Отлично",
+                                        value: <?php echo $rating_5; ?>
+                                    }, {
+                                        country: "Хорошо",
+                                        value: <?php echo $rating_4; ?>
+                                    }, {
+                                        country: "Удовлетворительно",
+                                        value: <?php echo $rating_3; ?>
+                                    },];
+
+                                // PIE CHART
+                                chart = new AmCharts.AmPieChart();
+                                chart.dataProvider = chartData;
+                                chart.titleField = "country";
+                                chart.valueField = "value";
+                                chart.outlineColor = "#FFFFFF";
+                                chart.outlineAlpha = 0.8;//толщина разделительной линии
+                                chart.outlineThickness = 2;//толщина разделительной линии
+                                // this makes the chart 3D
+                                chart.depth3D = 15;
+                                chart.angle = 30;
+                                chart.startDuration = 0;
+                                // WRITE
+                                chart.write("chartdiv_2");
+                            </script>
 
 
-                        <?php if (!empty($profile->private)): ?>
-                        <div class="resume__emptyblock">
-                        <?php echo nl2br(CHtml::encode($profile->private)); ?>
-                        </div>
-                    <?php endif; ?>
-<?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+
+                <?php endif; ?>
             </div>
 
         </div>
         <div class="tr_t">
             <div class="td_t"></div>
             <div class="td_t">
-<?php if (!is_null(Yii::app()->user->id)) : ?>
+                <?php if (!is_null(Yii::app()->user->id)) : ?>
 
                     <div class="this_day">
                         <div class="write_small_post">
@@ -266,7 +257,7 @@ if (isset($_GET['id'])) {
                                                 $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
                                             }
                                             ?>
-    <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $profile->id)), array('class' => 'classic')); ?>
+                                            <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $profile->id)), array('class' => 'classic')); ?>
                                         </div>
                                     </div>
                                     <div class="td_t">
@@ -302,7 +293,7 @@ if (isset($_GET['id'])) {
                         <div class="float_signal" const_type="<?php echo $type; ?>"></div>
 
                     </div>
-<?php endif; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -310,74 +301,13 @@ if (isset($_GET['id'])) {
 </div>
 <div id="razdel" class="ent-razdel fix_ent_razd" tab="stats" style="display: none;">
     <div class="name_page">
-<?php echo $profile->name . ' ' . $profile->surname; ?>
+        <?php echo $profile->name . ' ' . $profile->surname; ?>
     </div>
-    <script>
-        $(function(){
-            uploadStats(<?php echo $get_id; ?>);
-        });
-    </script>
     <div class="stats_box"></div>
 </div>
-<div id="razdel" class="ent-razdel fix_ent_razd" tab="statistics" style="display: none;">
-    <div class="name_page">
-    <?php echo $profile->name . ' ' . $profile->surname; ?>
-    </div>
-<?php if (isset($chartData)) : ?>
-        <h1>Средний бал по семестрам</h1>
-        <div id="chartdiv" style="width: 700px; height: 500px;padding-left:100px"></div>
-        <script>
-            $(function(){
-                var chartData = <?php echo json_encode($chartData); ?>;
-                var graphs = <?php echo json_encode($graphs); ?>;
-                var options = <?php echo json_encode($options); ?>;
-                                                                                                                                                                                                                                                                                                      
-                new AmChartsGrap(chartData, graphs, options);
-            });
-        </script>
-    <?php endif; ?>
-<?php if (isset($rating_5) || isset($rating_4) || isset($rating_5)) : ?>
-        <h1>Сумма набраных оценок</h1>
-        <script type="text/javascript">
-            var chart;
-            var legend;
 
-            var chartData = [{
-                    country: "Отлично",
-                    value: <?php echo $rating_5; ?>
-                }, {
-                    country: "Хорошо",
-                    value: <?php echo $rating_4; ?>
-                }, {
-                    country: "Удовлетворительно",
-                    value: <?php echo $rating_3; ?>
-                },];
-
-            AmCharts.ready(function () {
-                // PIE CHART
-                chart = new AmCharts.AmPieChart();
-                chart.dataProvider = chartData;
-                chart.titleField = "country";
-                chart.valueField = "value";
-                chart.outlineColor = "#FFFFFF";
-                chart.outlineAlpha = 0.8;//толщина разделительной линии
-                chart.outlineThickness = 2;//толщина разделительной линии
-                // this makes the chart 3D
-                chart.depth3D = 15;
-                chart.angle = 30;
-                chart.startDuration = 0;
-                // WRITE
-                chart.write("chartdiv_2");
-            });
-        </script>
-
-        <div id="chartdiv_2" style="width: 700px; height: 400px;padding-left:100px"></div>
-<?php endif; ?>
-</div>
-
-
-
-
-
+<script>
+    uploadStats(<?php echo $get_id; ?>);
+</script>
 
 
