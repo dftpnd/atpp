@@ -5377,3 +5377,6 @@ div.fc-body div.fc-row div.fc-content{
     background:blueviolet;
     cursor: pointer;
 }
+.change_folder li{
+    padding:10px;
+}
