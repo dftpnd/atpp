@@ -5429,7 +5429,7 @@ div.fc-body div.fc-row div.fc-content{
 .files_dowland, .files_delete, .files_rename{
   margin-right: 20px;
 }
-.files_upload, .files_new_folder, .files_dowland div, .files_delete div, .files_rename div{
+.files_upload, .files_newfolder, .files_dowland div, .files_delete div, .files_rename div{
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -5462,5 +5462,5 @@ div.fc-body div.fc-row div.fc-content{
     background-position: 0px -11294px;    
 }
 .files_newfolder{
-    background-position: 0px -11294px;    
+    background-position: 0px -1370px;    
 }
