@@ -5465,10 +5465,7 @@ div.fc-body div.fc-row div.fc-content{
   background-position: 0px -11294px;    
 }
 .files_newfolder{
-<<<<<<< HEAD
-    background-position: 0px -1370px;    
-=======
-  background-position: 0px -11294px;    
+    background-position: 0px -1370px;        
 }
 .name_folder{
   display:inline-block;
@@ -5481,7 +5478,6 @@ div.fc-body div.fc-row div.fc-content{
 }
 .st_new .edet_block{
   display: table-cell!important;
->>>>>>> 777c1e1d3b35f3c7e50b90e40ca138a4cb661dd2
 }
 .mydropbox{
   position: relative;
