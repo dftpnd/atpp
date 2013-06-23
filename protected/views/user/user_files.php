@@ -4,6 +4,9 @@
 <div class="create_folder_but" onclick="changeFolder(0, event)">
   Создать папку
 </div>
+<div class="files_upload"></div>
+<div class="files_newfolder"></div>
+
 <ul class="ul_files_actions">
   <li class="files_dowland">
     <div></div>

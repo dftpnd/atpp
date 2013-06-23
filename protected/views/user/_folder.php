@@ -4,12 +4,12 @@
     <span><?php echo $folder->name; ?></span>
   </div>
   <div class="td_t">
-    папка
+    <span>папка</span>
   </div>
   <div class="td_t">
-    <?php echo $folder->created; ?>
+    <span><?php echo $folder->created; ?></span>
   </div>
   <div class="td_t">
-    <?php echo $folder->private_status; ?>
+    <span><?php echo $folder->private_status; ?></span>
   </div>
 </div>

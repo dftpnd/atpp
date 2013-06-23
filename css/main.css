@@ -5387,7 +5387,7 @@ div.fc-body div.fc-row div.fc-content{
     padding:10px;
 }
 .table_files .tr_t .td_t{
-    border-bottom: 1px solid #82cffa;
+    border-bottom: 1px solid #edf1f5;
 }
 .table_files .tr_files:hover{
     background: #fafdff;
@@ -5406,7 +5406,7 @@ div.fc-body div.fc-row div.fc-content{
     color:#1f8ce9;
 }
 .ul_files_actions,.table_files_head > div.td_t{
-    border-bottom: 1px solid #82cffa;
+    border-bottom: 1px solid #82cffa!important;
     border-top: 1px solid #82cffa;
 }
 
@@ -5414,16 +5414,18 @@ div.fc-body div.fc-row div.fc-content{
     background: url(../i/folder/sprites.png) no-repeat;
     display: inline-block;
     width: 30px;
-    height: 30px;
+    height: 28px;
+    cursor: pointer;
 }
 .files_folder span:hover{
     text-decoration: underline;
     cursor:pointer;
+    cursor: pointer;
 }
 .files_dowland, .files_delete, .files_rename{
     margin-right: 20px;
 }
-.files_dowland div, .files_delete div, .files_rename div{
+.files_upload, .files_new_folder, .files_dowland div, .files_delete div, .files_rename div{
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -5443,4 +5445,18 @@ div.fc-body div.fc-row div.fc-content{
     padding: 0px 10px 0px 5px;
     vertical-align: top;
     cursor: pointer;
+}
+.table_files .tr_t .td_t{
+    vertical-align: bottom!important;
+    top: -2px;
+}
+.table_files .tr_t .td_t span{
+    position: relative;
+    top: -6px;
+}
+.files_upload{
+    background-position: 0px -11294px;    
+}
+.files_newfolder{
+    background-position: 0px -11294px;    
 }
