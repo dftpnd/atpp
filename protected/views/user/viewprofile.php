@@ -13,7 +13,6 @@ if (isset($_GET['id'])) {
 }
 ;
 ?>
-
 <?php if ($user_author->banned == 1): ?>
   <div class="ban"></div>
 <?php endif; ?>
@@ -40,6 +39,7 @@ if (isset($_GET['id'])) {
       <path d="M77.853,33.034c-0.705,0.409-1.604,0.166-2.006-0.538c-0.408-0.7-0.168-1.599,0.537-2.008  c0.701-0.406,1.604-0.163,2.008,0.537C78.795,31.732,78.553,32.627,77.853,33.034z"/>
       <path d="M66.93,21.036c-0.407,0.704-1.308,0.943-2.008,0.537c-0.704-0.403-0.945-1.305-0.537-2.008  c0.404-0.703,1.306-0.943,2.006-0.537C67.095,19.437,67.333,20.333,66.93,21.036z"/>
       </svg>
+
     </div>
     <div class="ajkll">
       Последний визит <?php echo date('d-m-y G:i', $user_author->laste_enter); ?>
@@ -112,6 +112,12 @@ if (isset($_GET['id'])) {
             <?php if (isset($profile->mean)) echo $profile->mean ?>
           </span>
         </div>
+        <div class="anchor"></div>
+        <a href="/user/files?id=<?php echo $user_author->id ?>"  async="async" class="profile_files" title="Файлы прользователя">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+          <path d="M100,31.806c0-2.07-1.678-3.75-3.75-3.75h-0.323c-0.348-1.711-1.859-3-3.675-3H41.181l-9.803-11.374l-0.019,0.005  c-0.681-0.696-1.628-1.13-2.679-1.13H3.75c-2.071,0-3.749,1.679-3.749,3.75v67.38L0,83.693c0,2.071,1.678,3.75,3.748,3.75H3.75  h16.873h0.002H37.5h0.001H92.25h0.002c2.072,0,3.75-1.679,3.75-3.75v-0.025L100,31.806z M37.5,84.443H20.623H3.748  c-0.389,0-0.709-0.298-0.745-0.679L6.991,31.96C6.997,31.883,7,31.806,7,31.729c0-0.414,0.335-0.75,0.747-0.75h0.721l87.534,0.076  l0,0h0.248c0.39,0,0.711,0.299,0.747,0.679l-0.995,12.907l0,0l-2.993,38.821C93.003,83.539,93,83.616,93,83.693  c0,0.413-0.337,0.75-0.75,0.75H37.5z"/>
+          </svg>
+        </a>
       </div>
       <div class="td_t">
         <?php
@@ -193,7 +199,7 @@ if (isset($_GET['id'])) {
                 var chartData = <?php echo json_encode($chartData); ?>;
                 var graphs = <?php echo json_encode($graphs); ?>;
                 var options = <?php echo json_encode($options); ?>;
-                                                                                                                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                                                          
                 new AmChartsGrap(chartData, graphs, options);
               </script>
             <?php endif; ?>
@@ -230,7 +236,6 @@ if (isset($_GET['id'])) {
                 // WRITE
                 chart.write("chartdiv_2");
               </script>
-
 
             <?php endif; ?>
           </div>

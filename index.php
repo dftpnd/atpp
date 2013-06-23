@@ -1,5 +1,4 @@
 <?php
-
 $ds = DIRECTORY_SEPARATOR;
 ini_set('date.timezone', 'Europe/Moscow');
 $yii = dirname(__FILE__) . $ds . 'yii-1.1.12' . $ds . 'framework' . $ds . 'yii.php';

@@ -26,33 +26,21 @@ h1, div.title a, h4{
   width:100%;
   display: inline-block;
   color: #fff;
-  border-bottom: 10px solid transparent;
-  border-width: 10px 0;
-  background-color: lightblue;
-  background-color: hsla(0, 0%, 0%, 0);
-  background-image:
-    -webkit-linear-gradient(#fff, #fff),
-    -webkit-linear-gradient(top left, transparent 50.5%, #fff 50.5%),
-    -webkit-linear-gradient(top right, transparent 50.5%, #fff 50.5%),
-    -webkit-linear-gradient(bottom left, transparent 50.5%, #fff 50.5%),
-    -webkit-linear-gradient(bottom right, transparent 50.5%, #fff 50.5%);
-  background-image:
-    -moz-linear-gradient(#fff, #fff),
-    -moz-linear-gradient(top left, transparent 50.5%, #fff 50.5%),
-    -moz-linear-gradient(top right, transparent 50.5%, #fff 50.5%),
-    -moz-linear-gradient(bottom left, transparent 50.5%, #fff 50.5%),
-    -moz-linear-gradient(bottom right, transparent 50.5%, #fff 50.5%);
-  background-image:
-    linear-gradient(#fff, #fff),
-    linear-gradient(to bottom right, transparent 50.5%, #fff 50.5%),
-    linear-gradient(to bottom left, transparent 50.5%, #fff 50.5%),
-    linear-gradient(to top right, transparent 50.5%, #fff 50.5%),
-    linear-gradient(to top left, transparent 50.5%, #fff 50.5%);
-  background-repeat: repeat, repeat-x, repeat-x, repeat-x, repeat-x;
-  background-position: 0 0, 10px 0, 10px 0, 10px 100%, 10px 100%;
-  background-size: auto auto, 20px 20px, 20px 20px, 20px 20px, 20px 20px;
-  background-clip: padding-box, border-box, border-box, border-box, border-box;
-  background-origin: padding-box, border-box, border-box, border-box, border-box;
+}
+.pila_top{
+  height:22px;
+  z-index: 999;
+  position: relative;
+  background:url(../i/pila/pila_top.png) repeat-x;
+}
+.pila_bot{
+  width00%;
+  height:22px;
+  z-index: 9999;
+  position: absolute;
+  top:-20px;
+  left: 0;
+  background:url(../i/pila/pila_bot.png) repeat-x;
 }
 .header{
   height:225px;
@@ -356,9 +344,6 @@ a:hover  {
 
 }
 
-
-
-
 a.current-page {
   margin-left: -1px;
 }
@@ -469,7 +454,7 @@ div.clouset{
 
 .footer{
   position:relative;
-  height: 190px;
+  height: 212px;
   margin:0  auto;
   background:#fff;
   width:100%;
@@ -483,14 +468,14 @@ div.clouset{
   position: relative;
 }
 .push{
-  height:190px;
+  height:212px;
   clear: both; 
 }
 .wrapper {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -190px;
+  margin: 0 auto -212px;
   position: relative;
   /*    border:1px solid black;*/
   /*  background:url(../i/noisy_grid.png);*/
@@ -502,59 +487,31 @@ div.clouset{
     url(../i/cicada/1/1.png),
     url(../i/cicada/1/2.png),
     url(../i/cicada/1/3.png),
-    url(../i/cicada/1/4.png);
+    url(../i/cicada/1/4.png),
+    url(../i/cicada/1/5.png);
 }
 .cacada_2{
   background:
-    url(../i/cicada/2/1.png),
-    url(../i/cicada/2/2.png),
     url(../i/cicada/2/3.png),
     url(../i/cicada/2/4.png),
-    url(../i/cicada/2/5.png);
+    url(../i/cicada/2/5.png),
+    url(../i/cicada/2/6.png),
+    url(../i/cicada/2/2.png),
+    url(../i/cicada/2/1.png);
 }
 .cacada_3{
   background:
-    url(../i/cicada/3/1.png),
-    url(../i/cicada/3/2.png),
-    url(../i/cicada/3/3.png);
+    url(../i/cicada/3/2.gif),
+    url(../i/cicada/3/3.gif),
+    url(../i/cicada/3/1.gif);
 }
 .cacada_4{
   background:
-    url(../i/cicada/4/1.png),
     url(../i/cicada/4/2.png),
     url(../i/cicada/4/3.png),
-    url(../i/cicada/4/4.png),
-    url(../i/cicada/4/5.png);
+    url(../i/cicada/4/1.jpg);
 }
-.cacada_5{
-  background:
-    url(../i/cicada/5/3.png),
-    url(../i/cicada/5/4.png),
-    url(../i/cicada/5/5.png),
-    url(../i/cicada/5/6.png),
-    url(../i/cicada/5/2.png),
-    url(../i/cicada/5/1.png);
-}
-.cacada_6{
-  background-color:#ececec;
-  background-image:
-    url(../i/cicada/6/2.png),
-    url(../i/cicada/6/3.png),
-    url(../i/cicada/6/4.png),
-    url(../i/cicada/6/5.png);
-}
-.cacada_7{
-  background:
-    url(../i/cicada/7/2.gif),
-    url(../i/cicada/7/3.gif),
-    url(../i/cicada/7/1.gif);
-}
-.cacada_8{
-  background:
-    url(../i/cicada/8/2.png),
-    url(../i/cicada/8/3.png),
-    url(../i/cicada/8/1.jpg);
-}
+
 
 
 
@@ -1482,6 +1439,7 @@ div.slide_menu ul.deep li.active a{
   -moz-transition:margin 1s;
   -webkit-transition:margin 1s;
   -o-transition:margin 1s; 
+  z-index:999999;
 }
 #fixedtableheader0{
   border-collapse:collapse;
@@ -2385,7 +2343,7 @@ ul li{
   top:0px;
   -webkit-transition-duration: .4s;
   -moz-transition-duration: .4s;
-  width:165px;
+  width:174px;
   z-index:999;
   border:1px solid black;
   background:#fff;
@@ -2408,7 +2366,7 @@ li.menu_editprofile{
   opacity: 0.7;
   padding: 0 !important;
   position: absolute;
-  right: 20px;
+  right: 12px;
   top: 3px;
 }
 li.menu_editprofile:hover{
@@ -2426,6 +2384,7 @@ li.menu_editprofile a{
 }
 .menu_work ul li a{
   border-bottom:1px solid black;
+  white-space:nowrap;
 }
 .menu_work ul li a:hover{
   border-bottom:1px solid transparent;
@@ -4113,7 +4072,7 @@ body.fix_w{
 .carma{
   display:inline-block;
   float: right;
-  margin-top: 15px;
+  margin-top: 30px;
 }
 .carma_minus{
   color: #C6C;
@@ -4717,7 +4676,7 @@ div.logo > div.logo_x > div.logo_x_3 {
   height:70px;
 }
 .frends_ker{
-  background:url(../i/frends_logos/logo_ker.png) ;
+  background:url(../i/frends_logos/logo_ker.png) no-repeat;
   width:154px;
   height:49px;
 }
@@ -4965,7 +4924,7 @@ div.fc-body div.fc-row div.fc-content{
   height: 30px;
   position: absolute;
   right: 267px;
-  margin-top:25px;
+  margin-top:40px;
 }
 .laste_enter span{
 
@@ -5370,4 +5329,60 @@ div.fc-body div.fc-row div.fc-content{
 }
 .pr{
   position: relative;
+}
+.user_files{
+  min-height:600px;
+  border: 1px solid black;
+}
+.create_folder_but{
+  cursor: pointer;
+}
+.folder_user{
+  padding:20px;
+
+  border:1px solid blue;
+  margin:10px;
+  float: left;
+  position: relative;
+  cursor:default;
+}
+.private_status_1{
+  background: red;
+}
+.private_status_2{
+  background: blue;
+}
+.private_status_3{
+  background: green;
+}
+.private_status_4{
+  background: yellow;
+}
+.folder_but{
+  position:absolute;
+  top:5px;
+  right:5px;
+  z-index:999;
+  height:20px;
+  background: #fff;
+}
+.folder_but div{
+  width:10px;
+  height:10px;
+  margin-left:10px;
+  float:left;
+  border:1px solid black;
+  cursor:pointer;
+  position: relative;
+  z-index:999;
+}
+.folder_delete{
+  background:gray;
+}
+.folder_edit{
+  background:blueviolet;
+  cursor: pointer;
+}
+.change_folder li{
+  padding:10px;
 }
