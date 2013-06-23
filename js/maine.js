@@ -1373,7 +1373,12 @@ function changeFolder(folder_id,e){
         $('.table_files').append(data.html);
         $("#input_name_").focus();
         $('.st_new .name_folder').bind('blur', function(){
-          saveChangeFolder();
+          
+          if($(this).val() == '')
+            $('.st_new').remove();
+          else
+            saveChangeFolder();
+          
         });
       }else{
         noticeOpen(data.error, notice_red);
@@ -1468,6 +1473,9 @@ function openFolder(el, e){
 function activeFolder(el){
   $('.tr_files').removeClass('active');
   el.addClass('active');
+  $('.ul_files_actions').show();
+
+
 }
 function getOpenFolder(folder_id){
   loader.show();
@@ -1502,7 +1510,6 @@ function selfEvent(){
   
   
 }
-
 
 
 

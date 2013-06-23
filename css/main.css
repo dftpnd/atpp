@@ -5393,9 +5393,7 @@ div.fc-body div.fc-row div.fc-content{
 .table_files .tr_t .td_t{
   border-bottom: 1px solid #edf1f5;
 }
-.table_files .tr_files:hover{
-  background: #fafdff;
-}
+
 .ul_files_actions{
   position: absolute;
   padding: 10px;
@@ -5433,11 +5431,11 @@ div.fc-body div.fc-row div.fc-content{
   margin-right: 20px;
 }
 .files_upload, .files_newfolder, .files_dowland div, .files_delete div, .files_rename div{
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background: url(../i/folder/sprites.png) no-repeat;
-    cursor: pointer;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(../i/folder/sprites.png) no-repeat;
+  cursor: pointer;
 }
 .files_dowland div{
   background-position: 0px -3674px;
@@ -5465,7 +5463,7 @@ div.fc-body div.fc-row div.fc-content{
   background-position: 0px -11294px;    
 }
 .files_newfolder{
-    background-position: 0px -1370px;        
+  background-position: 0px -1370px;        
 }
 .name_folder{
   display:inline-block;
@@ -5482,7 +5480,11 @@ div.fc-body div.fc-row div.fc-content{
 .mydropbox{
   position: relative;
 }
+
+.table_files .tr_files:hover{
+  background: #fafdff;
+}
 .tr_files.active{
-  background-color: #388ec8;
+  background: #388ec8!important;
   color: #fff;
 }

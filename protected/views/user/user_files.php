@@ -1,11 +1,9 @@
 <div id="breadcrambs">
   <?php echo $html_breadcrambs; ?>
 </div>
-<div class="create_folder_but" onclick="changeFolder(0, event)">
-  Создать папку
-</div>
+
 <div class="files_upload"></div>
-<div class="files_newfolder"></div>
+<div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку"></div>
 
 <div class="mydropbox">
   <ul class="ul_files_actions">
