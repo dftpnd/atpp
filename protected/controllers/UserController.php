@@ -1437,13 +1437,9 @@ class UserController extends Controller {
 
   //=================files=====================//
   public function actionFiles($id, $parent_id = 0) {
+    $new = FALSE;
     $user = User::model()->findByPk($id);
-
-
-
     $breadcrambs = Folder::model()->breadcrambs($parent_id, $id);
-
-
     $html_breadcrambs = $this->renderPartial('_breadcrambs', array(
         'breadcrambs' => $breadcrambs,
         'user' => $user,
@@ -1457,7 +1453,8 @@ class UserController extends Controller {
         'user' => $user,
         'folders' => $folders,
         'html_breadcrambs' => $html_breadcrambs,
-        'private_status' => $private_status
+        'private_status' => $private_status,
+        'new' => $new
             ), $title);
   }
 
@@ -1467,14 +1464,20 @@ class UserController extends Controller {
       Yii::app()->end();
     }
 
-
-
     $folder = Folder::getMyFolder($_POST['folder_id'], $_POST['parent_id']);
+
+    if (empty($folder->id))
+      $new = TRUE;
+    else
+      $new = FALSE;
+
+
     $private_status = PrivateStatus::model()->findAll();
 
     $html = $this->renderPartial('_folder', array(
         'folder' => $folder,
-        'private_status' => $private_status
+        'private_status' => $private_status,
+        'new' => $new
             ), true);
 
     echo json_encode(array('status' => 'success', 'html' => $html));
@@ -1497,9 +1500,12 @@ class UserController extends Controller {
     }
     $folders = Folder::getAvailableFolder($_POST['parent_id'], $_POST['author_id']);
 
+    $private_status = PrivateStatus::model()->findAll();
     foreach ($folders as $folder) {
       $html .= $this->renderPartial('_folder', array(
           'folder' => $folder,
+          'new' => false,
+          'private_status' => $private_status,
               ), true);
     }
 
@@ -1548,10 +1554,12 @@ class UserController extends Controller {
     $user = User::model()->findByPk($folder->user_id);
     $folders = Folder::getAvailableFolder($folder->id, $folder->user_id);
 
-
+    $private_status = PrivateStatus::model()->findAll();
     foreach ($folders as $model) {
       $html .= $this->renderPartial('_folder', array(
           'folder' => $model,
+          'new' => FALSE,
+          'private_status' => $private_status
               ), true);
     }
 
