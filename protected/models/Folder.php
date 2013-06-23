@@ -53,6 +53,7 @@ class Folder extends CActiveRecord {
     // class name for the relations automatically generated below.
     return array(
         'parent' => array(self::BELONGS_TO, 'Folder', 'parent_id'),
+        'ps' => array(self::BELONGS_TO, 'Privatestatus', 'private_status'),
     );
   }
 

@@ -1370,7 +1370,7 @@ function changeFolder(folder_id,e){
     }),
     success: function(data){
       if(data.status == 'success'){
-        openDoor(data.html)
+        $('.table_files').append(data.html);
       }else{
         noticeOpen(data.error, notice_red);
       }
@@ -1451,11 +1451,20 @@ function updateDirectory(parent_id, author_id){
     }
   });
 }
-function openFolder(el){    
-  var folder_id = el.attr('folder_id');
-  getOpenFolder(folder_id)
+function openFolder(el, e){    
+  if (!e) var e = window.event;
+  
+  e.cancelBubble = true;
+  
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+  
+  getOpenFolder(el.parents('.tr_files').attr('folder_id'))
 }
-
+function activeFolder(el){
+  //alert('asdasd');
+}
 function getOpenFolder(folder_id){
   loader.show();
   $.ajax({
@@ -1485,3 +1494,7 @@ function getOpenFolder(folder_id){
     }
   });
 }
+
+
+
+

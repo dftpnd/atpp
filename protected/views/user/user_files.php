@@ -4,6 +4,9 @@
 <div class="create_folder_but" onclick="changeFolder(0, event)">
   Создать папку
 </div>
+<div class="create_folder_but" onclick="createFolderLine()">
+  Создать папку в таблице
+</div>
 <ul class="ul_files_actions">
   <li class="files_dowland">
     <div></div>
@@ -38,6 +41,7 @@
     <?php
     echo $this->renderPartial('_folder', array(
         'folder' => $folder,
+        'private_status' => $private_status
             ), true);
     ?>
   <?php endforeach; ?>
