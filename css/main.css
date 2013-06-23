@@ -5418,11 +5418,8 @@ div.fc-body div.fc-row div.fc-content{
   border-top: 1px solid #82cffa;
 }
 
-.files_folder div{
-  background: url(../i/folder/sprites.png) no-repeat;
-  display: inline-block;
-  width: 30px;
-  height: 28px;
+.files_folder{
+  background: url(../i/folder/folder.png) no-repeat  10px;
   cursor: pointer;
 }
 .files_folder span:hover{
@@ -5453,14 +5450,6 @@ div.fc-body div.fc-row div.fc-content{
   vertical-align: top;
   cursor: pointer;
 }
-.table_files .tr_t .td_t{
-  vertical-align: bottom!important;
-  top: -2px;
-}
-.table_files .tr_t .td_t span{
-  position: relative;
-  top: -6px;
-}
 .files_upload{
   background-position: 0px -11294px;    
 }
@@ -5472,6 +5461,7 @@ div.fc-body div.fc-row div.fc-content{
 }
 .edet_block, .show_block{
   display:none;
+  padding-left: 35px;
 }
 .st_old .show_block{
   display: table-cell!important;
