@@ -41,6 +41,7 @@
     <?php
     echo $this->renderPartial('_folder', array(
         'folder' => $folder,
+        'private_status' => $private_status
             ), true);
     ?>
   <?php endforeach; ?>

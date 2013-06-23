@@ -1443,6 +1443,7 @@ class UserController extends Controller {
 
     $breadcrambs = Folder::model()->breadcrambs($parent_id, $id);
 
+
     $html_breadcrambs = $this->renderPartial('_breadcrambs', array(
         'breadcrambs' => $breadcrambs,
         'user' => $user,
@@ -1451,10 +1452,12 @@ class UserController extends Controller {
     $folders = Folder::getAvailableFolder($parent_id, $user->id);
 
     $title = 'Файлы';
+    $private_status = PrivateStatus::model()->findAll();
     MyHelper::render($this, 'user_files', array(
         'user' => $user,
         'folders' => $folders,
-        'html_breadcrambs' => $html_breadcrambs
+        'html_breadcrambs' => $html_breadcrambs,
+        'private_status' => $private_status
             ), $title);
   }
 
@@ -1469,15 +1472,11 @@ class UserController extends Controller {
     $folder = Folder::getMyFolder($_POST['folder_id'], $_POST['parent_id']);
     $private_status = PrivateStatus::model()->findAll();
 
-    $select = CHtml::dropDownList(
-                    "Folder[private_status]", $folder->private_status, CHtml::listData($private_status, 'id', 'name')
-    );
-
-
-    $html = $this->renderPartial('_change_folder', array(
+    $html = $this->renderPartial('_folder', array(
         'folder' => $folder,
-        'select' => $select,
+        'private_status' => $private_status
             ), true);
+
     echo json_encode(array('status' => 'success', 'html' => $html));
   }
 
@@ -1548,7 +1547,7 @@ class UserController extends Controller {
 
     $user = User::model()->findByPk($folder->user_id);
     $folders = Folder::getAvailableFolder($folder->id, $folder->user_id);
-    
+
 
     foreach ($folders as $model) {
       $html .= $this->renderPartial('_folder', array(
@@ -1571,6 +1570,10 @@ class UserController extends Controller {
                 'html_breadcrambs' => $html_breadcrambs
             )
     );
+  }
+
+  public function actionCreateFolderLine() {
+    
   }
 
 //=================files=====================//
