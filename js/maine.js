@@ -1371,6 +1371,10 @@ function changeFolder(folder_id,e){
     success: function(data){
       if(data.status == 'success'){
         $('.table_files').append(data.html);
+        $("#input_name_").focus();
+        $('.st_new .name_folder').bind('blur', function(){
+          saveChangeFolder();
+        });
       }else{
         noticeOpen(data.error, notice_red);
       }
@@ -1385,10 +1389,9 @@ function saveChangeFolder(){
     url:'/user/SaveChangeFolder',
     type: 'POST',
     dataType: 'json',
-    data: $('#save_folder').serialize(),
+    data: $('.st_new :input').serialize(),
     success: function(data){
       if(data.status == 'success'){
-        closeDoor();
         updateDirectory(data.parent_id, data.author_id);
         noticeOpen('Изменения сохранены', notice_green);
       }else{
@@ -1441,8 +1444,8 @@ function updateDirectory(parent_id, author_id){
     }),
     success: function(data){
       if(data.status == 'success'){
-        closeDoor();
-        $('.user_files').html(data.html);
+        $('.tr_files').remove();
+        $('.table_files').append(data.html);
         noticeOpen('Обновлено', notice_green);
       }else{
         noticeOpen(data.error, notice_red);
@@ -1463,7 +1466,8 @@ function openFolder(el, e){
   getOpenFolder(el.parents('.tr_files').attr('folder_id'))
 }
 function activeFolder(el){
-  //alert('asdasd');
+  $('.tr_files').removeClass('active');
+  el.addClass('active');
 }
 function getOpenFolder(folder_id){
   loader.show();
@@ -1493,6 +1497,10 @@ function getOpenFolder(folder_id){
       loader.hide();
     }
   });
+}
+function selfEvent(){
+  
+  
 }
 
 
