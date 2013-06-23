@@ -2,21 +2,6 @@
   <?php echo $html_breadcrambs; ?>
 </div>
 
-<ul>
-  <li>
-    красный(1) - только мне
-  </li>
-  <li>
-    синий(2) - мне и студентам
-  </li>
-  <li>
-    зеленый(3) - мне и преподавателям
-  </li>
-  <li>
-    желтый(4) - всем
-  </li>
-</ul>
-
 <div class="create_folder_but" onclick="changeFolder(0, event)">
   Создать папку
 </div>
