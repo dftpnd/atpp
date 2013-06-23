@@ -1546,8 +1546,9 @@ class UserController extends Controller {
       Yii::app()->end();
     }
 
+    $user = User::model()->findByPk($folder->user_id);
     $folders = Folder::getAvailableFolder($folder->id, $folder->user_id);
-
+    
 
     foreach ($folders as $model) {
       $html .= $this->renderPartial('_folder', array(
@@ -1555,14 +1556,21 @@ class UserController extends Controller {
               ), true);
     }
 
-//    $breadcrambs = Folder::model()->breadcrambs($parent_id, $id);
-//
-//    $html_breadcrambs = $this->renderPartial('_breadcrambs', array(
-//        'breadcrambs' => $breadcrambs,
-//        'user' => $user,
-//            ), true);
+    $breadcrambs = Folder::model()->breadcrambs($folder->id, $folder->user_id);
 
-    echo json_encode(array('status' => 'success', 'html' => $html, 'folder' => (array) $folder->attributes));
+    $html_breadcrambs = $this->renderPartial('_breadcrambs', array(
+        'breadcrambs' => $breadcrambs,
+        'user' => $user,
+            ), true);
+
+    echo json_encode(
+            array(
+                'status' => 'success',
+                'html' => $html,
+                'folder' => (array) $folder->attributes,
+                'html_breadcrambs' => $html_breadcrambs
+            )
+    );
   }
 
 //=================files=====================//

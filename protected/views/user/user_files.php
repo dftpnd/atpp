@@ -1,4 +1,6 @@
-<?php echo $html_breadcrambs; ?>
+<div id="breadcrambs">
+  <?php echo $html_breadcrambs; ?>
+</div>
 
 <ul>
   <li>

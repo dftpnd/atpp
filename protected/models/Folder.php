@@ -204,32 +204,30 @@ class Folder extends CActiveRecord {
   }
 
   public static function recursiveBuild($array, $relation) {
-    if (isset($relation->parent_id))
-      if ($relation->parent_id != 0) {
-
-        $array[$relation->parent_id     ] = $relation->name;
-
-        return $array + self::recursiveBuild($array, $relation->parent);
-      } else {
-
-        return $array;
-      }
+    if (isset($relation->parent_id)) {
+      $array[$relation->id] = $relation->name;
+      return $array + self::recursiveBuild($array, $relation->parent);
+    } else {
+      return $array;
+    }
   }
 
   public static function breadcrambs($parent_id, $user_id) {
+    if ($parent_id == 0)
+      return array();
     
     $array = array();
-    $relation = self::model()->findByAttributes(array(
+    $folder = self::model()->findByAttributes(array(
         'id' => $parent_id,
         'user_id' => $user_id
             ));
-    
-    $breadcrambs = self::recursiveBuild($array, $relation);
+
+    $breadcrambs = self::recursiveBuild($array, $folder);
 
     if (empty($breadcrambs))
       return $breadcrambs;
     else
-      return array_reverse($breadcrambs);
+      return array_reverse($breadcrambs, true);
   }
 
 }
