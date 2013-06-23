@@ -7,7 +7,6 @@
 
 <div class="tr_t tr_files  <?php echo $status_class; ?>" folder_id="<?php echo $folder->id; ?>" onclick="activeFolder($(this))" >
   <div class="td_t files_folder">
-    <div></div>
     <span class="edet_block">
       <input type="text" class="name_folder"  name="Folder[name]"/>
       <input type="hidden" value="<?php echo (int) $folder->id; ?>" name="folder_id">
