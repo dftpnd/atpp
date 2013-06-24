@@ -63,7 +63,6 @@ textarea{
 }
 select{
   display:inline-block;
-  height: 27px;
 }
 input[type="password"],
 input[type="text"],
@@ -5400,14 +5399,16 @@ div.fc-body div.fc-row div.fc-content{
 }
 .table_files .tr_t .td_t{
   border-bottom: 1px solid #edf1f5;
+  border-top: 1px solid transparent;
 }
 
 .ul_files_actions{
+  height: 26px;
+  margin-top: 10px;
+  padding: 10px 0;
   position: absolute;
-  padding: 10px 0px;
-  width:100%;
+  width: 100%;
   z-index: 99;
-  display: none;
 }
 .ul_files_actions li{
   float:left;
@@ -5418,11 +5419,19 @@ div.fc-body div.fc-row div.fc-content{
 }
 .ul_files_actions,.table_files_head > div.td_t{
   border-bottom: 1px solid #82cffa!important;
-  border-top: 1px solid #82cffa;
+  border-top: 1px solid #fff!important;
+  padding-top:0!important;;
 }
-
+.table_files_head .td_t span{
+  display:inline-block;
+  padding-top:10px;
+}
 .files_folder{
   background: url(../i/folder/folder.png) no-repeat  10px;
+
+}
+.table_body_t .td_t span{
+  cursor: default;
 }
 .files_folder span:hover{
   text-decoration: underline;
@@ -5479,14 +5488,19 @@ div.fc-body div.fc-row div.fc-content{
 
 .table_files .tr_files:hover{
   background: #fafdff;
+  border-color: #c6d8e4;
 }
+.table_files .tr_files:hover .td_t, .hover_siblings .td_t{
+  border-bottom:1px solid #c6d8e4!important;
+  border-top:1px solid  #c6d8e4!important;
+}
+
 .tr_files.active{
   background: #388ec8!important;
   color: #fff;
 }
 .edet_block select{
-
-  padding: 5px 0px;
+  padding: 3px 0px;
 }
 .lab_td{
   width: 310px;
@@ -5506,4 +5520,19 @@ div.fc-body div.fc-row div.fc-content{
 .info_but_save{
   float: none!important;
   margin: 20px 0px 0px 320px;
+}
+.cp, .cp span{
+  cursor: pointer!important;
+}
+.block_panel{
+  height: 30px;
+}
+.test{
+  position: absolute;
+  width:100%;
+  height:30px;
+  left:0;
+  z-index:999;
+  background: #fff;
+  border-bottom: 1px solid #82CFFA;
 }

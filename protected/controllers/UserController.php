@@ -1513,7 +1513,7 @@ class UserController extends Controller {
   }
 
   public function actionSaveChangeFolder() {
-
+  
     $folder = Folder::getMyFolder($_POST['folder_id']);
     $folder->attributes = $_POST['Folder'][$_POST['folder_id']];
     
@@ -1525,7 +1525,7 @@ class UserController extends Controller {
     if ($folder->save()) {
       echo json_encode(array('status' => 'success', 'parent_id' => $folder->parent_id, 'author_id' => $folder->user_id,));
     } else {
-      echo json_encode(array('status' => 'fail', 'error' => 'Сохранение не удалось, поробуйте перезагрузить страницу'));
+      echo json_encode(array('status' => 'fail', 'error' => 'Сохранение не удалось, имя папки файла не должно быть пустым'));
     }
   }
 

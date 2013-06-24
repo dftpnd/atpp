@@ -2,40 +2,49 @@
   <?php echo $html_breadcrambs; ?>
 </div>
 
-<div class="files_upload"></div>
-<div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку"></div>
+
 
 <div class="mydropbox">
-  <ul class="ul_files_actions">
-    <li class="files_dowland">
-      <div></div>
-      <span>Скачать</span>
-    </li>
-    <li class="files_delete" onclick="deleteFolder()">
-      <div></div>
-      <span>Удалить</span>
-    </li>
-    <li class="files_rename" onclick="editLineFolder()" >
-      <div></div>
-      <span >Изменить</span>
-    </li>
-  </ul>
+
   <div class="anchor"></div>
 
   <div class="table_t table_files">
     <div class="table_head_t">
       <div class="tr_t table_files_head">
         <div class="td_t">
-          Название
+          <div class="block_panel">
+            <div class="test">
+              <div class="files_upload"></div>
+              <div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку"></div>
+              <ul class="ul_files_actions">
+                <li class="files_dowland">
+                  <div></div>
+                  <span>Скачать</span>
+                </li>
+                <li class="files_delete" onclick="deleteFolder(event)">
+                  <div></div>
+                  <span>Удалить</span>
+                </li>
+                <li class="files_rename" onclick="editLineFolder(event)" >
+                  <div></div>
+                  <span >Изменить</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <span>Название</span>
         </div>
         <div class="td_t">
-          Тип
+          <div class="block_panel"></div>
+          <span>Тип</span>
         </div>
         <div class="td_t">
-          Изменено
+          <div class="block_panel"></div>
+          <span>Изменено</span>
         </div>
         <div class="td_t">
-          Область видимости
+          <div class="block_panel"></div>
+          <span>Область видимости</span>
         </div>
       </div>
     </div>
@@ -52,3 +61,6 @@
     </div>
   </div>
 </div>
+<script>
+  $('.table_files').fixedtableheader(); 
+</script>

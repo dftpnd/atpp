@@ -1393,14 +1393,15 @@ function saveChangeFolder(){
         updateDirectory(data.parent_id, data.author_id);
         noticeOpen('Изменения сохранены', notice_green);
       }else{
+        $('.table_body_t .tr_files:first-child').remove();
         noticeOpen(data.error, notice_red);
       }
       loader.hide();
     }
   });
 }
-function deleteFolder(){
-  
+function deleteFolder(e){
+  e.stopPropagation();
   el = $('.table_files .tr_files.active');
   var name_folder = el.find('.name_folder').val();
   var folder_id = el.attr('folder_id');
@@ -1443,7 +1444,7 @@ function updateDirectory(parent_id, author_id){
     success: function(data){
       if(data.status == 'success'){
         $('.tr_files').remove();
-        $('.table_files').append(data.html);
+        $('.table_body_t').append(data.html);
         noticeOpen('Обновлено', notice_green);
       }else{
         noticeOpen(data.error, notice_red);
@@ -1464,14 +1465,21 @@ function openFolder(el, e){
   getOpenFolder(el.parents('.tr_files').attr('folder_id'))
 }
 $('html').click(function() {
-  $('.tr_files').removeClass('active');
+  closeNewFolder();
   $('.ul_files_actions').hide();
 });
 
 function closeNewFolder(){
-  if($('.tr_files').length != 0){
-    $('.tr_files').removeClass('active');
+  var el = $('.tr_files');
+  if(el.length != 0){
+    el.removeClass('active');
     $('.ul_files_actions').show();
+    if(el.hasClass('st_new')){
+      saveChangeFolder();
+      el.removeClass('st_new');
+      el.addClass(' st_old');
+    }
+    
   }
 }
 function activeFolder(el, event){
@@ -1510,27 +1518,17 @@ function getOpenFolder(folder_id){
   });
 }
 
-function editLineFolder(){
+function editLineFolder(e){
+  e.stopPropagation();
   var el = $('.table_files .tr_files.active');
   el.removeClass('st_old');
   el.addClass('st_new');
   
 }
-function selfEvent(){
-  
-  
+function editPriveteStatus(event){
+  event.stopPropagation();
+  saveChangeFolder();
 }
 
-$('.st_new select').live('change',function(){
-  saveChangeFolder();
-})
-$('.name_folder').live('focus',function(){
-  $('.st_new .name_folder').bind('blur', function(){
-          
-    if($(this).val() == '')
-      $('.st_new').remove();
-    else
-      saveChangeFolder();
-          
-  });
-})
+
+
