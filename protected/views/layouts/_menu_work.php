@@ -84,7 +84,7 @@
               'active' => (Yii::app()->controller->getId() == 'slide' && Yii::app()->controller->getAction()->getId() == 'admin'),
               'visible' => (
               Yii::app()->user->getRole() == 'authority'),
-              'itemOptions' => array('class' => 'slide'),
+              'itemOptions' => array('class' => 'slide_menus'),
               'linkOptions' => array(
                   'async' => 'async',
               ),

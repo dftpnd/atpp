@@ -42,14 +42,12 @@
           <div class="close close_srtyle" onclick='closeDoor()()'>Отмена</div>
           <span id="ajax_loade_enter"></span>
           <div class="ajax_loade_help"></div>
-          <?php echo CHtml::submitButton('Войти', array('class' => 'enter', 'id' => 'enterbtn')); ?>
+          <?php echo CHtml::submitButton('Войти', array('class' => 'enter', 'onclick' => 'loginEnter($(this));return false')); ?>
           <script>
-            $('#enterbtn').live('click',function(){
-              $(this).addClass('loading');
-                            
-              var returns = false;
+            function loginEnter(el){
+              el.addClass('loading');
               $.ajax({
-                url: '<?php echo $this->CreateUrl('site/login'); ?>',
+                url: '/site/login',
                 type: 'POST',
                 dataType:'json',
                 data: {
@@ -58,20 +56,19 @@
                 },
                 success: function(data){                                                       
                   if( data.status == "success"){
-                    $('#enterbtn').removeClass('loading');
+                    el.removeClass('loading');
                     goSpiner();
                     window.location=('/site/index'); 
                   }
                   else{
-                    $('#enterbtn').removeClass('loading');
+                    el.removeClass('loading');
                     $("#maineeror").show();
                     $('.regform_tro').css('background','#FF9999');
                   }
                                         
                 }
               });
-              return returns; 
-            });
+            }
           </script>
 
         </td>

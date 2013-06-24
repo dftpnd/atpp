@@ -482,6 +482,7 @@ class SiteController extends Controller {
 
         $data = $this->renderPartial('/doors/_login', array('model' => $model), true);
         echo json_encode(array('div' => $data));
+        
     }
 
     public function actionPhotos() {
