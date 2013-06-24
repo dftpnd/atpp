@@ -11,7 +11,7 @@
       <div></div>
       <span>Скачать</span>
     </li>
-    <li class="files_delete">
+    <li class="files_delete" onclick="deleteFolder()">
       <div></div>
       <span>Удалить</span>
     </li>

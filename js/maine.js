@@ -1399,35 +1399,35 @@ function saveChangeFolder(){
     }
   });
 }
-function deleteFolder(folder_id, e){
+function deleteFolder(){
   
-  if (!e) var e = window.event;
-  
-  e.cancelBubble = true;
-  
-  if (e.stopPropagation) {
-    e.stopPropagation();
-  }
-  
-  if (confirm("Вы уверенны что хотите удалить папку «"+$('[folder_id='+folder_id+'] .text_val').text()+"»?")){
-    loader.show();
-    $.ajax({
-      url:'/user/DeleteFolder',
-      type: 'POST',
-      dataType: 'json',
-      data: ({
-        'folder_id':folder_id
-      }),
-      success: function(data){
-        if(data.status == 'success'){
-          $('[folder_id='+folder_id+']').remove();
-          noticeOpen('Изменения сохранены', notice_green);
-        }else{
-          noticeOpen(data.error, notice_red);
+  el = $('.table_files .tr_files.active');
+  var name_folder = el.find('.name_folder').val();
+  var folder_id = el.attr('folder_id');
+  if(folder_id == undefined){
+    alert('Выберите папку или файл');
+    
+  }else{
+    if (confirm("Вы уверенны что хотите удалить папку «"+name_folder+"»?")){
+      loader.show();
+      $.ajax({
+        url:'/user/DeleteFolder',
+        type: 'POST',
+        dataType: 'json',
+        data: ({
+          'folder_id':folder_id
+        }),
+        success: function(data){
+          if(data.status == 'success'){
+            $('[folder_id='+folder_id+']').remove();
+            noticeOpen('Изменения сохранены', notice_green);
+          }else{
+            noticeOpen(data.error, notice_red);
+          }
+          loader.hide();
         }
-        loader.hide();
-      }
-    });
+      });
+    }
   }
 }
 function updateDirectory(parent_id, author_id){
@@ -1467,7 +1467,6 @@ function activeFolder(el){
   $('.tr_files').removeClass('active');
   el.addClass('active');
   $('.ul_files_actions').show();
-  listenInput();
 }
 function getOpenFolder(folder_id){
   loader.show();
@@ -1510,7 +1509,10 @@ function selfEvent(){
   
 }
 
-function listenInput(){
+$('.st_new select').live('change',function(){
+  saveChangeFolder();
+})
+$('.name_folder').live('focus',function(){
   $('.st_new .name_folder').bind('blur', function(){
           
     if($(this).val() == '')
@@ -1519,8 +1521,4 @@ function listenInput(){
       saveChangeFolder();
           
   });
-        
-  $('.st_new select').change(function(){
-    saveChangeFolder();
-  })
-}
+})
