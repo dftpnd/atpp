@@ -5444,7 +5444,7 @@ div.fc-body div.fc-row div.fc-content{
   background-position:0px -9866px;
 }
 .files_dowland span, .files_delete span, .files_rename span{
-  padding: 0px 10px 0px 5px;
+  padding-right: 10px;
   vertical-align: top;
   cursor: pointer;
 }
