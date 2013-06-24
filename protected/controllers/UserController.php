@@ -1515,7 +1515,9 @@ class UserController extends Controller {
   public function actionSaveChangeFolder() {
 
     $folder = Folder::getMyFolder($_POST['folder_id']);
-    $folder->attributes = $_POST['Folder'];
+    $folder->attributes = $_POST['Folder'][$_POST['folder_id']];
+    
+   
     $folder->user_id = Yii::app()->user->id;
     $folder->created = time();
 

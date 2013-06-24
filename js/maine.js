@@ -1370,16 +1370,9 @@ function changeFolder(folder_id,e){
     }),
     success: function(data){
       if(data.status == 'success'){
-        $('.table_files').append(data.html);
+        $('.tr_files').removeClass('active');
+        $('.table_body_t').prepend(data.html);
         $("#input_name_").focus();
-        $('.st_new .name_folder').bind('blur', function(){
-          
-          if($(this).val() == '')
-            $('.st_new').remove();
-          else
-            saveChangeFolder();
-          
-        });
       }else{
         noticeOpen(data.error, notice_red);
       }
@@ -1474,8 +1467,7 @@ function activeFolder(el){
   $('.tr_files').removeClass('active');
   el.addClass('active');
   $('.ul_files_actions').show();
-
-
+  listenInput();
 }
 function getOpenFolder(folder_id){
   loader.show();
@@ -1506,10 +1498,29 @@ function getOpenFolder(folder_id){
     }
   });
 }
+
+function editLineFolder(){
+  var el = $('.table_files .tr_files.active');
+  el.removeClass('st_old');
+  el.addClass('st_new');
+  
+}
 function selfEvent(){
   
   
 }
 
-
-
+function listenInput(){
+  $('.st_new .name_folder').bind('blur', function(){
+          
+    if($(this).val() == '')
+      $('.st_new').remove();
+    else
+      saveChangeFolder();
+          
+  });
+        
+  $('.st_new select').change(function(){
+    saveChangeFolder();
+  })
+}
