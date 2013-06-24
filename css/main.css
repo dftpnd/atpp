@@ -5442,6 +5442,7 @@ div.fc-body div.fc-row div.fc-content{
   background-position:0px -9866px;
 }
 .files_dowland span, .files_delete span, .files_rename span{
+  padding-right: 10px;
   vertical-align: top;
   cursor: pointer;
 }
@@ -5485,6 +5486,8 @@ div.fc-body div.fc-row div.fc-content{
   background: #388ec8!important;
   color: #fff;
 }
+<<<<<<< HEAD
+=======
 .edet_block select{
   padding: 3px 0px;
 }
@@ -5576,3 +5579,4 @@ div.fc-body div.fc-row div.fc-content{
 .menu_work ul li a:hover{
 /*  border-bottom:1px solid transparent;*/
 }
+>>>>>>> cd2cd14528298601ac79ef9b85127191b256c568
