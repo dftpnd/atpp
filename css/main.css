@@ -5396,16 +5396,13 @@ div.fc-body div.fc-row div.fc-content{
 
 .ul_files_actions{
   position: absolute;
-  padding: 10px;
+  padding: 10px 0px;
   width:100%;
   z-index: 99;
   display: none;
 }
 .ul_files_actions li{
   float:left;
-}
-.ul_files_actions li:last-child{
-  float:none;
 }
 .ul_files_actions, .table_files_head{
   background: #f0f9ff;
@@ -5425,7 +5422,7 @@ div.fc-body div.fc-row div.fc-content{
   cursor:pointer;
 }
 .files_dowland, .files_delete, .files_rename{
-  margin-right: 20px;
+  margin: 0 10px;
 }
 .files_upload, .files_newfolder, .files_dowland div, .files_delete div, .files_rename div{
   display: inline-block;
@@ -5444,12 +5441,13 @@ div.fc-body div.fc-row div.fc-content{
   background-position:0px -9866px;
 }
 .files_dowland span, .files_delete span, .files_rename span{
-  padding: 0px 10px 0px 5px;
+  padding-right: 10px;
   vertical-align: top;
   cursor: pointer;
 }
 .files_upload{
-  background-position: 0px -11294px;    
+  background-position: 0px -11294px;  
+  margin: 0px 10px;
 }
 .files_newfolder{
   background-position: 0px -1370px;        
@@ -5459,7 +5457,9 @@ div.fc-body div.fc-row div.fc-content{
 }
 .edet_block, .show_block{
   display:none;
-  padding-left: 35px;
+}
+.files_folder span.edet_block, .files_folder span.show_block{
+  padding-left: 35px;  
 }
 .st_old .show_block{
   display: table-cell!important;

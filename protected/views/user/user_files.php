@@ -20,6 +20,7 @@
       <span>Изменить</span>
     </li>
   </ul>
+  <div class="anchor"></div>
 
   <div class="table_t table_files">
     <div class="tr_t table_files_head">
