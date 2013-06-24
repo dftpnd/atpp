@@ -1165,6 +1165,7 @@ p.hint_contact_form{
   padding-bottom:10px;
 }
 .comment .table_t{
+  
   width:auto;
   text-align:left;
   margin-bottom:0!important;
@@ -2145,6 +2146,12 @@ div.table_t {
   display:table;
   width:100%;
   /*    margin-bottom:30px;NO*/
+}
+.table_head_t{
+  display:table-header-group;
+}
+.table_body_t{
+  display:table-footer-group;
 }
 .editprofile > .tr_t > .td_t:first-child{
   width:200px;
@@ -5459,7 +5466,7 @@ div.fc-body div.fc-row div.fc-content{
 }
 .edet_block, .show_block{
   display:none;
-  padding-left: 35px;
+/*  padding-left: 35px; @todo*/
 }
 .st_old .show_block{
   display: table-cell!important;

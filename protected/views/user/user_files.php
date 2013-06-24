@@ -15,36 +15,39 @@
       <div></div>
       <span>Удалить</span>
     </li>
-    <li class="files_rename">
+    <li class="files_rename" onclick="editLineFolder()" >
       <div></div>
-      <span>Изменить</span>
+      <span >Изменить</span>
     </li>
   </ul>
 
   <div class="table_t table_files">
-    <div class="tr_t table_files_head">
-      <div class="td_t">
-        Название
-      </div>
-      <div class="td_t">
-        Тип
-      </div>
-      <div class="td_t">
-        Изменено
-      </div>
-      <div class="td_t">
-        Область видимости
+    <div class="table_head_t">
+      <div class="tr_t table_files_head">
+        <div class="td_t">
+          Название
+        </div>
+        <div class="td_t">
+          Тип
+        </div>
+        <div class="td_t">
+          Изменено
+        </div>
+        <div class="td_t">
+          Область видимости
+        </div>
       </div>
     </div>
-    <?php foreach ($folders as $folder): ?>
-      <?php
-      echo $this->renderPartial('_folder', array(
-          'folder' => $folder,
-          'private_status' => $private_status,
-          'new' => $new
-              ), true);
-      ?>
-    <?php endforeach; ?>
-
+    <div class="table_body_t">
+      <?php foreach ($folders as $folder): ?>
+        <?php
+        echo $this->renderPartial('_folder', array(
+            'folder' => $folder,
+            'private_status' => $private_status,
+            'new' => $new
+                ), true);
+        ?>
+      <?php endforeach; ?>
+    </div>
   </div>
 </div>
