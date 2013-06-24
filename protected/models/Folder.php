@@ -176,7 +176,7 @@ class Folder extends CActiveRecord {
                       array(
                   'user_id' => $author_id,
                   'parent_id' => $parent_id
-                      ), array('order' => 'created  ASC')
+                      ), array('order' => 'created  DESC')
       );
     } else {
 
@@ -199,7 +199,7 @@ class Folder extends CActiveRecord {
 
       return self::model()->findAll(
                       array(
-                          'order' => 'created ASC',
+                          'order' => 'created DESC',
                           'condition' =>
                           '(
                             parent_id = ' . $parent_id . '

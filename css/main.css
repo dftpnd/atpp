@@ -4478,10 +4478,9 @@ div.logo > div.logo_x > div.logo_x_3 {
 .student_mine h2{
   font-family: "Open Sans",Calibri,Candara,Arial,sans-serif;
   font-family: inherit;
-  font-weight: 300;
+  font-weight: normal;
   line-height: 20px;
   color: #080808;
-  text-rendering: optimizelegibility;
   font-size:24px;
   padding-bottom:15px;
 }

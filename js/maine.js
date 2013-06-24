@@ -1372,7 +1372,12 @@ function changeFolder(folder_id,e){
       if(data.status == 'success'){
         $('.tr_files').removeClass('active');
         $('.table_body_t').prepend(data.html);
-        $("#input_name_").focus();
+        $("#input_name_"+folder_id).focus();
+        $("#input_name_"+folder_id).keypress(function(e) {
+          if(e.which == 13) {
+            saveChangeFolder();
+          }
+        });
       }else{
         noticeOpen(data.error, notice_red);
       }
@@ -1467,6 +1472,7 @@ function openFolder(el, e){
 $('html').click(function() {
   closeNewFolder();
   $('.ul_files_actions').hide();
+  closeDoor();
 });
 
 function closeNewFolder(){
@@ -1529,6 +1535,31 @@ function editPriveteStatus(event){
   event.stopPropagation();
   saveChangeFolder();
 }
+function doorDownloadFile(e){
+  e.stopPropagation();
+  loader.show();
+  var GET = parseGetParams(); 
+  if( GET.parent_id === undefined)
+    GET.parent_id = 0;
+  
+  $.ajax({
+    url:'/user/DoorDownloadFile',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'parent_id':GET.parent_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        openDoor(data.html);
+      }else{
+        noticeOpen(data.error, notice_red);
+      }
+      loader.hide();
+    }
+  });
+}
+
 
 
 

@@ -14,7 +14,7 @@
         <div class="td_t">
           <div class="block_panel">
             <div class="test">
-              <div class="files_upload"></div>
+              <div class="files_upload" onclick="doorDownloadFile(event)"></div>
               <div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку"></div>
               <ul class="ul_files_actions">
                 <li class="files_dowland">
