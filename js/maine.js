@@ -1529,8 +1529,18 @@ function editLineFolder(e){
   var el = $('.table_files .tr_files.active');
   el.removeClass('st_old');
   el.addClass('st_new');
+  var input = $('.table_files .tr_files.active .name_folder');
+  
+  input.focus();
+  input.keypress(function(e) {
+    if(e.which == 13) {
+      saveChangeFolder();
+    }
+  }); 
   
 }
+
+
 function editPriveteStatus(event){
   event.stopPropagation();
   saveChangeFolder();
