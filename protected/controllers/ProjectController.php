@@ -6,7 +6,7 @@ class ProjectController extends Controller {
     $this->render('index');
   }
 
-  public function actionMyProject() {
+  public function actionDampfturbine() {
     $this->pageTitle = 'Мой проект';
 
     $this->renderPartial('MyProjrct');

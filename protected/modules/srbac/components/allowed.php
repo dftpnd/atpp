@@ -7,7 +7,7 @@
 	'PostView',
 	'PostScrapbook',
 	'PostIndex',
-	'ProjectMyProject',
+	'ProjectDampfturbine',
 	'ReestrIndex',
 	'ReestrGroupReestr',
 	'ReestrGroup',
