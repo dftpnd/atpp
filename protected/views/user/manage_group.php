@@ -174,21 +174,22 @@ if (isset($_GET['sect'])) {
 </div>
 
 <div id="razdel" class="ent-razdel" tab="predmets" style="display: none;">
-  <div class="podobiu classic" onclick="podobiu(<?php echo $group->id; ?>)">
-    Заполнить по подобию
-  </div>
+
 
   <h1 class="maine_group" group_id='<?php echo $group->id; ?>'>
-    Группа: <?php echo $group->name . " 1-" . $group->inseption->prefix_year; ?>
-
+    <?php echo $group->name . " 1-" . $group->inseption->prefix_year; ?>
   </h1>
+  <div class="podobiu classic" onclick="podobiu(<?php echo $group->id; ?>)">
+    Выбрать шаблон группы
+  </div>
+
   <ul>
-    <div class='group_user_redact' onclick="groupList(<?php echo $group->id; ?>)">Редактировать список группы</div>
+<!--    <div class='group_user_redact' onclick="groupList(<?php echo $group->id; ?>)">Редактировать список группы</div>-->
 
   </ul>
   <div class="form-box">
-    <div class="resume__hint__block g-round m-round_5">Тщательно и внимательно заполняйте эту форму, список этих предметов будет виден Всем.<br/>
-      Далее из него можно будет составить расспиание            
+    <div class="resume__hint__block g-round m-round_5">Тщательно и внимательно заполните эту форму, список этих предметов будет виден Всем.<br/>
+      Далее из него можно будет составить расписание            
     </div>
     <div class="resume__hint__block__tail g-shy"> </div>
   </div>
