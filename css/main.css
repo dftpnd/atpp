@@ -275,15 +275,15 @@ a:hover  {
     display:inline-block;
 }
 .menu ul li{
-    display: bloc;
+    display: block;
     float:left;
     padding: 1px 8px 2px;
 }
 .menu ul li a{
     border-bottom:1px solid;
 }
-.menu ul li:hover a{
-    color: #fff;
+.menu ul li a:hover {
+    color: #fff!important;
     border:none;
 }
 
@@ -302,13 +302,13 @@ a:hover  {
 .menu ul li.active:nth-child(5){
     background: #00ABA9;
 }
-.menu ul li:last-child:hover{
+/*.menu ul li:last-child:hover{
     background:none;
-}
-.menu ul li:last-child:hover a{
+}*/
+/*.menu ul li:last-child:hover a{
     background:none;
     color:#404040!important;
-}
+}*/
 
 .menu ul li:first-child:hover{
     background: #505050;
@@ -4301,7 +4301,7 @@ input.hasDatepicker{
 .name_page{
     text-align:left;
     font-size:20px;
-    background:#09F;
+    background:#00BCF2;
     color:#fff;
     padding:5px 0 5px 22px; 
     margin-bottom:10px;
