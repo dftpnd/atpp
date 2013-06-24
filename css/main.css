@@ -1,3 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Forum&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Comfortaa&subset=latin,cyrillic);
+
 *{
   padding:0;
   margin:0;
@@ -8,13 +11,14 @@ html, body {
   min-width:990px;
   font-size:14px;
   color:#000;
-
+  font-family: Verdana, sans-serif;
 }
 h1{
   margin: 10px 0;
 }
 h1, div.title a, h4{
-  font-family: 'Cuprum', sans-serif!important;
+  font-family: 'Comfortaa', cursive!important;
+  /*  font-family: 'Cuprum', sans-serif!important;*/
   font-weight:normal;
 }
 
@@ -376,6 +380,16 @@ a.current-page {
 
   transition:all 0.2s ease-in-out;
   overflow:hidden!important;
+}
+.main_bg{
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#e3efff');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#e3efff')";
+  background-image: -moz-linear-gradient(top, #ffffff, #e3efff);
+  background-image: -ms-linear-gradient(top, #ffffff, #e3efff);
+  background-image: -o-linear-gradient(top, #ffffff, #e3efff);
+  background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#e3efff));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e3efff);
+  background-image: linear-gradient(top, #ffffff, #e3efff);
 }
 .content_loader{
   display: none;
@@ -2126,7 +2140,7 @@ h2.comments_title{
 }
 .block_kurs{
   margin:0 auto;
-  padding:20px;
+  padding-top:20px;
   padding-right:120px;
   position: relative;
   margin-bottom:50px;
@@ -2505,7 +2519,8 @@ li.menu_editprofile a{
 
 }
 .ent-razdel{
-  padding-top:30px;
+  /*  padding-top:30px;*/
+  padding: 30px 0 0 23px;
 }
 /*------------------------door--------------------------------------------*/
 .door{
@@ -2597,13 +2612,11 @@ body.fix_w{
 .zakrytb{
   background: none repeat scroll 0 0 #0099FF;
   cursor: pointer;
-  height: 30px;
-  padding: 10px 10px 0;
+  padding: 10px 15px;
   position: absolute;
   right: 10px;
   text-decoration: underline;
   top: 1px;
-  width: 60px;
   color:#fff;
 }
 .zakrytb:hover{
@@ -5243,7 +5256,7 @@ div.fc-body div.fc-row div.fc-content{
   color: #BE6013;
   font-size: 12px;
   line-height: 18px;
-  margin: 0 -13px;
+  margin: 10px 0 0 -13px;
   padding: 8px 13px;
   border-radius: 5px 5px 5px 5px;
 }
@@ -5535,4 +5548,7 @@ div.fc-body div.fc-row div.fc-content{
   z-index:999;
   background: #fff;
   border-bottom: 1px solid #82CFFA;
+}
+.choice_group_hint{
+  margin: 20px 0;
 }

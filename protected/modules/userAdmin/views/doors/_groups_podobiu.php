@@ -10,13 +10,11 @@
         <?php endif; ?>
       <?php endforeach; ?>
     </select>
-    <br />
-    <br />
-    <br />
     <div class="anchor"></div>
-    <div class="submit_but" style="float: right" onclick="zapolnit($(this))">
-      Сохранить
+    <div class="choice_group_hint">
+      Выберите группу, которую Вы считаете, наиболее схожей по расписанию с вашей группой.
     </div>
+    <input type="button" value="Сохранить" onclick="zapolnit($(this))">
     <div class="anchor"></div>
   </form>
 </div>

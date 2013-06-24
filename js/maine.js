@@ -1284,7 +1284,7 @@ function podobiu(group_id){
 }
 function deleteStudent(user_id){
   loader.show();
-  if (confirm("Вы уверенны? Пользователь удалится безвозвратно!")){
+  if (confirm("Вы уверены? Пользователь удалится безвозвратно!")){
     $.ajax({
       url:'/user/DeleteStudent',
       type: 'POST',
