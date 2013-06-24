@@ -5485,9 +5485,25 @@ div.fc-body div.fc-row div.fc-content{
   color: #fff;
 }
 .edet_block select{
-  height: auto!important;
-  padding: 3px 0px;
+
+  padding: 5px 0px;
 }
-.cp{
-  cursor: pointer;
+.lab_td{
+  width: 310px;
+  display: inline-block;
+}
+.lab_td+input, .lab_td+select{
+  display: inline-block!important;
+  width: auto!important;
+}
+.lab_td_hint{
+  color: red;
+  margin-left: 320px;
+}
+.ul_info_group li{
+  margin: 10px 0;
+}
+.info_but_save{
+  float: none!important;
+  margin: 20px 0px 0px 320px;
 }
