@@ -69,11 +69,11 @@ class Slide extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'link' => 'Ссылка на пост',
-			'text' => 'Заголовка',
+			'text' => 'Заголовок',
 			'show_slide' => 'Показать слайд',
 			'img_link' => 'Ссылка на изображение',
-			'left_slide' => 'Отступ с лева',
-			'top_slide' => 'Отступ с верху',
+			'left_slide' => 'Отступ слева',
+			'top_slide' => 'Отступ сверху',
 		);
 	}
 
