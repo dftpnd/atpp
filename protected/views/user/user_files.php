@@ -14,8 +14,12 @@
         <div class="td_t">
           <div class="block_panel">
             <div class="test">
-              <div class="files_upload"></div>
-              <div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку"></div>
+              <div class="dop_menu">
+                <div class="files_upload"></div>
+                <span>Загрузить</span>
+                <div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку"></div>
+                <span>Новая папка</span>
+              </div>
               <ul class="ul_files_actions">
                 <li class="files_dowland">
                   <div></div>
