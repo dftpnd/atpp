@@ -171,7 +171,13 @@ class Folder extends CActiveRecord {
     $user_id = Yii::app()->user->id;
 
     if ($author_id == $user_id) {
-      return self::model()->findAllByAttributes(array('user_id' => $author_id, 'parent_id' => $parent_id));
+      return self::model()->findAllByAttributes
+                      (
+                      array(
+                  'user_id' => $author_id,
+                  'parent_id' => $parent_id
+                      ), array('order' => 'created  ASC')
+      );
     } else {
 
       $user = User::model()->findByPk($user_id);
@@ -193,13 +199,14 @@ class Folder extends CActiveRecord {
 
       return self::model()->findAll(
                       array(
+                          'order' => 'created ASC',
                           'condition' =>
                           '(
                             parent_id = ' . $parent_id . '
                             and
                             user_id = ' . $author_id . '
                             and 
-                            private_status in (' . $privete_status . ', ' . PrivateStatus::EVERYONE . '))'
+                            private_status in (' . $privete_status . ', ' . PrivateStatus::EVERYONE . '))',
               ));
     }
   }
@@ -216,7 +223,7 @@ class Folder extends CActiveRecord {
   public static function breadcrambs($parent_id, $user_id) {
     if ($parent_id == 0)
       return array();
-    
+
     $array = array();
     $folder = self::model()->findByAttributes(array(
         'id' => $parent_id,

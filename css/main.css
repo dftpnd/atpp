@@ -5423,11 +5423,9 @@ div.fc-body div.fc-row div.fc-content{
 
 .files_folder{
   background: url(../i/folder/folder.png) no-repeat  10px;
-  cursor: pointer;
 }
 .files_folder span:hover{
   text-decoration: underline;
-  cursor:pointer;
 }
 .files_dowland, .files_delete, .files_rename{
   margin: 0 10px;
@@ -5487,6 +5485,9 @@ div.fc-body div.fc-row div.fc-content{
   color: #fff;
 }
 .edet_block select{
-  /*  height: 20px!important;*/
-  padding: 5px 0px;
+  height: auto!important;
+  padding: 3px 0px;
+}
+.cp{
+  cursor: pointer;
 }

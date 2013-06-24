@@ -1463,11 +1463,23 @@ function openFolder(el, e){
   
   getOpenFolder(el.parents('.tr_files').attr('folder_id'))
 }
-function activeFolder(el){
+$('html').click(function() {
   $('.tr_files').removeClass('active');
-  el.addClass('active');
-  $('.ul_files_actions').show();
+  $('.ul_files_actions').hide();
+});
+
+function closeNewFolder(){
+  if($('.tr_files').length != 0){
+    $('.tr_files').removeClass('active');
+    $('.ul_files_actions').show();
+  }
 }
+function activeFolder(el, event){
+  closeNewFolder();
+  event.stopPropagation();
+  el.addClass('active');
+}
+
 function getOpenFolder(folder_id){
   loader.show();
   $.ajax({

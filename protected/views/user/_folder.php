@@ -5,15 +5,15 @@
 <?php endif; ?>
 
 
-<div class="tr_t tr_files  <?php echo $status_class; ?>" folder_id="<?php echo $folder->id; ?>" onclick="activeFolder($(this))" >
+<div class="tr_t tr_files  <?php echo $status_class; ?>" folder_id="<?php echo $folder->id; ?>" onclick="activeFolder($(this), event)" >
   <div class="td_t files_folder">
     <span class="edet_block">
       <input type="text" class="name_folder"  name="Folder[<?php echo $folder->id; ?>][name]" value="<?php echo $folder->name; ?>"/>
       <input type="hidden" value="<?php echo (int) $folder->id; ?>" name="folder_id">
       <input type="hidden" value="<?php echo $folder->parent_id; ?>" name="Folder[<?php echo $folder->id; ?>][parent_id]">
     </span>
-    <span class="show_block">
-      <span  onclick="openFolder($(this), event)" class="">
+    <span class="show_block cp" onclick="openFolder($(this), event)">
+      <span class="">
         <?php echo $folder->name; ?>
       </span>
     </span>
