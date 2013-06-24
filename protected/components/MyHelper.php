@@ -79,6 +79,10 @@ class MyHelper {
     }
   }
 
+  public static function getUsername($user_id = FALSE) {
+    return 'MyHelper getUsername';
+  }
+
 }
 
 ?>

@@ -1,4 +1,4 @@
-<div class="menu_work">
+<div class="menu_work ">
   <?php
   $this->widget('zii.widgets.CMenu', array(
       'items' => array(

@@ -1515,7 +1515,9 @@ class UserController extends Controller {
   public function actionSaveChangeFolder() {
 
     $folder = Folder::getMyFolder($_POST['folder_id']);
-    $folder->attributes = $_POST['Folder'];
+    $folder->attributes = $_POST['Folder'][$_POST['folder_id']];
+
+
     $folder->user_id = Yii::app()->user->id;
     $folder->created = time();
 
@@ -1523,7 +1525,7 @@ class UserController extends Controller {
     if ($folder->save()) {
       echo json_encode(array('status' => 'success', 'parent_id' => $folder->parent_id, 'author_id' => $folder->user_id,));
     } else {
-      echo json_encode(array('status' => 'fail', 'error' => 'Сохранение не удалось, поробуйте перезагрузить страницу'));
+      echo json_encode(array('status' => 'fail', 'error' => 'Сохранение не удалось, имя папки файла не должно быть пустым'));
     }
   }
 
@@ -1580,8 +1582,44 @@ class UserController extends Controller {
     );
   }
 
-  public function actionCreateFolderLine() {
-    
+  public function actionDownloadFile($user_id, $parent_id) {
+    var_dump($user_id);
+    var_dump($parent_id);
+    die();
+  }
+
+  public function actionDoorDownloadFile() {
+    if (!isset($_POST['parent_id'])) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
+      Yii::app()->end();
+    }
+    $parent_id = $_POST['parent_id'];
+
+    if (is_null($parent_id)) {
+      $folder = new Folder();
+      $folder->name = MyHelper::getUsername();
+    } else {
+      $folder = Folder::model()->findByPk($parent_id);
+      if (!Folder::checkAccess($folder)) {
+        echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, недостаточно прав'));
+        Yii::app()->end();
+      }
+    }
+
+    $user = User::model()->findByPk(Yii::app()->user->id);
+
+
+    $html = $this->renderPartial('_door_download_file', array(
+        'folder' => $folder,
+        'user' => $user,
+            ), true);
+
+    echo json_encode(
+            array(
+                'status' => 'success',
+                'html' => $html
+            )
+    );
   }
 
 //=================files=====================//

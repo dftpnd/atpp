@@ -117,7 +117,7 @@ if ($dn == 1) {
     <div class="anchor"></div>
   </div>
 <?php else: ?>
-  <h1>Семетр еще не начелся</h1>
+  <h1>Каникулы!</h1>
 
   <img src="<?php echo Yii::app()->urlManager->createUrl('/i/otdyh.jpg'); ?>" />
 <?php endif; ?>

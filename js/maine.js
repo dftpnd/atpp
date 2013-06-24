@@ -1284,7 +1284,7 @@ function podobiu(group_id){
 }
 function deleteStudent(user_id){
   loader.show();
-  if (confirm("Вы уверенны? Пользователь удалится безвозвратно!")){
+  if (confirm("Вы уверены? Пользователь удалится безвозвратно!")){
     $.ajax({
       url:'/user/DeleteStudent',
       type: 'POST',
@@ -1370,15 +1370,13 @@ function changeFolder(folder_id,e){
     }),
     success: function(data){
       if(data.status == 'success'){
-        $('.table_files').append(data.html);
-        $("#input_name_").focus();
-        $('.st_new .name_folder').bind('blur', function(){
-          
-          if($(this).val() == '')
-            $('.st_new').remove();
-          else
+        $('.tr_files').removeClass('active');
+        $('.table_body_t').prepend(data.html);
+        $("#input_name_"+folder_id).focus();
+        $("#input_name_"+folder_id).keypress(function(e) {
+          if(e.which == 13) {
             saveChangeFolder();
-          
+          }
         });
       }else{
         noticeOpen(data.error, notice_red);
@@ -1400,41 +1398,42 @@ function saveChangeFolder(){
         updateDirectory(data.parent_id, data.author_id);
         noticeOpen('Изменения сохранены', notice_green);
       }else{
+        $('.table_body_t .tr_files:first-child').remove();
         noticeOpen(data.error, notice_red);
       }
       loader.hide();
     }
   });
 }
-function deleteFolder(folder_id, e){
-  
-  if (!e) var e = window.event;
-  
-  e.cancelBubble = true;
-  
-  if (e.stopPropagation) {
-    e.stopPropagation();
-  }
-  
-  if (confirm("Вы уверенны что хотите удалить папку «"+$('[folder_id='+folder_id+'] .text_val').text()+"»?")){
-    loader.show();
-    $.ajax({
-      url:'/user/DeleteFolder',
-      type: 'POST',
-      dataType: 'json',
-      data: ({
-        'folder_id':folder_id
-      }),
-      success: function(data){
-        if(data.status == 'success'){
-          $('[folder_id='+folder_id+']').remove();
-          noticeOpen('Изменения сохранены', notice_green);
-        }else{
-          noticeOpen(data.error, notice_red);
+function deleteFolder(e){
+  e.stopPropagation();
+  el = $('.table_files .tr_files.active');
+  var name_folder = el.find('.name_folder').val();
+  var folder_id = el.attr('folder_id');
+  if(folder_id == undefined){
+    alert('Выберите папку или файл');
+    
+  }else{
+    if (confirm("Вы уверенны что хотите удалить папку «"+name_folder+"»?")){
+      loader.show();
+      $.ajax({
+        url:'/user/DeleteFolder',
+        type: 'POST',
+        dataType: 'json',
+        data: ({
+          'folder_id':folder_id
+        }),
+        success: function(data){
+          if(data.status == 'success'){
+            $('[folder_id='+folder_id+']').remove();
+            noticeOpen('Изменения сохранены', notice_green);
+          }else{
+            noticeOpen(data.error, notice_red);
+          }
+          loader.hide();
         }
-        loader.hide();
-      }
-    });
+      });
+    }
   }
 }
 function updateDirectory(parent_id, author_id){
@@ -1450,7 +1449,7 @@ function updateDirectory(parent_id, author_id){
     success: function(data){
       if(data.status == 'success'){
         $('.tr_files').remove();
-        $('.table_files').append(data.html);
+        $('.table_body_t').append(data.html);
         noticeOpen('Обновлено', notice_green);
       }else{
         noticeOpen(data.error, notice_red);
@@ -1470,13 +1469,31 @@ function openFolder(el, e){
   
   getOpenFolder(el.parents('.tr_files').attr('folder_id'))
 }
-function activeFolder(el){
-  $('.tr_files').removeClass('active');
-  el.addClass('active');
-  $('.ul_files_actions').show();
+$('html').click(function() {
+  closeNewFolder();
+  $('.ul_files_actions').hide();
+  closeDoor();
+});
 
-
+function closeNewFolder(){
+  var el = $('.tr_files');
+  if(el.length != 0){
+    el.removeClass('active');
+    $('.ul_files_actions').show();
+    if(el.hasClass('st_new')){
+      saveChangeFolder();
+      el.removeClass('st_new');
+      el.addClass(' st_old');
+    }
+    
+  }
 }
+function activeFolder(el, event){
+  closeNewFolder();
+  event.stopPropagation();
+  el.addClass('active');
+}
+
 function getOpenFolder(folder_id){
   loader.show();
   $.ajax({
@@ -1506,10 +1523,43 @@ function getOpenFolder(folder_id){
     }
   });
 }
-function selfEvent(){
-  
+
+function editLineFolder(e){
+  e.stopPropagation();
+  var el = $('.table_files .tr_files.active');
+  el.removeClass('st_old');
+  el.addClass('st_new');
   
 }
+function editPriveteStatus(event){
+  event.stopPropagation();
+  saveChangeFolder();
+}
+function doorDownloadFile(e){
+  e.stopPropagation();
+  loader.show();
+  var GET = parseGetParams(); 
+  if( GET.parent_id === undefined)
+    GET.parent_id = 0;
+  
+  $.ajax({
+    url:'/user/DoorDownloadFile',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'parent_id':GET.parent_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        openDoor(data.html);
+      }else{
+        noticeOpen(data.error, notice_red);
+      }
+      loader.hide();
+    }
+  });
+}
+
 
 
 
