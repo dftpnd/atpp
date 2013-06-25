@@ -34,8 +34,9 @@ dataLocation.urlHistory = [];
 
 
 window.addEventListener('popstate', function(e){
-  if(e.state.url != undefined)
-    changePage(e.state.url, false);
+  if(typeof e.state == "undefined")
+    if(typeof e.state.url == "undefined")
+      changePage(e.state.url, false);
 }, false);
   
   

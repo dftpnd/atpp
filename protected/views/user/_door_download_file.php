@@ -26,7 +26,7 @@
       },
       onComplete: function(id, fileName, responseText)
       {   
-        alert('onComplete');
+        updateDirectory(<?php echo (int)$folder->id ?>, <?php echo (int)$user->id; ?>);
       }
     });           
   </script>

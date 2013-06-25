@@ -1597,7 +1597,7 @@ class UserController extends Controller {
 
 
     if (!empty($result['error'])) {
-      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, попробуйте перезагрузить страницу'));
+      echo json_encode(array('status' => 'fail', 'error' => $result['error']));
       Yii::app()->end();
     }
 

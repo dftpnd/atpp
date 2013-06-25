@@ -35,6 +35,7 @@
 	'SiteHappyPass',
 	'LibraryIndex',
 	'LibraryPredmet',
+	'ProjectIndex',
 	'ProjectDampfturbine',
 	'PostView',
 	'PostScrapbook',

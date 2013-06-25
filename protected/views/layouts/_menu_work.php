@@ -18,10 +18,16 @@
                       'itemOptions' => array(
                           'class' => 'menu_editprofile'
                       ),
-                      'linkOptions' => array(
-                          'async' => 'async',
-                      ),
+                      'linkOptions' => array(),
                   ),
+              ),
+          ),
+          array(
+              'label' => 'Мои файлы',
+              'url' => Yii::app()->urlManager->createUrl('/user/files?id=' . Yii::app()->user->id),
+              'itemOptions' => array('class' => 'menu_files'),
+              'linkOptions' => array(
+                  'async' => 'async',
               ),
           ),
           array(

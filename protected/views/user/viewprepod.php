@@ -83,14 +83,7 @@ if (isset($_GET['id'])) {
 
 <div class="pr">
   <div class="name_page">
-    <?php
-    if (isset($profile->patronymic)) {
-      $otchestvo = ' ' . $profile->patronymic . ' ';
-    } else {
-      $otchestvo = ' ';
-    }
-    ?>
-    <?php echo $profile->name . $otchestvo . $profile->surname; ?>
+    <?php echo MyHelper::getUsername(false, false, $profile, true);?>
   </div>
   <div class="table_t editprofile">
     <div class="tr_t">
