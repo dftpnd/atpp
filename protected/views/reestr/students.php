@@ -93,11 +93,7 @@
         </div>
         <div class="td_t">
           <?php if (!is_null($model->laste_enter)): ?>
-            <?php echo date('j', $model->laste_enter); ?>
-
-            <?php echo MyHelper::getRusMonth((int) date('n', $model->laste_enter)) ?>
-
-            <?php echo date('y', $model->laste_enter); ?>
+            <?php echo date('j', $model->laste_enter); ?>&nbsp;<?php echo MyHelper::getRusMonth((int) date('n', $model->laste_enter)) ?>&nbsp;<?php echo date('Y', $model->laste_enter); ?>
           <?php endif; ?>
         </div>
       </div>

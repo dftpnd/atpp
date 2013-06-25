@@ -52,9 +52,7 @@
           ),
           array(
               'label' => 'Мои статьи',
-              'url' => Yii::app()->urlManager->createUrl('post/create'),
-              'active' => (
-              Yii::app()->controller->getId() == 'post' && Yii::app()->controller->getAction()->getId() == 'create'),
+              'url' => Yii::app()->urlManager->createUrl('post/mypost'),
               'itemOptions' => array('class' => 'menu_review'),
               'linkOptions' => array(
                   'async' => 'async',

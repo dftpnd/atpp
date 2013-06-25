@@ -215,7 +215,7 @@ a:hover{
 }
 .classic, #student_group .table_t .tr_t .td_t a{
   cursor:pointer;
-  color:#0099FF;
+  color:#00BCF2;
   text-decoration:underline;
 }
 .classic:hover, #student_group .table_t .tr_t .td_t a:hover{
@@ -303,7 +303,7 @@ a:hover  {
   background: #99439A;
 }
 .menu ul li.active:nth-child(5){
-  background: #00ABA9;
+  background: #018a00;
 }
 /*.menu ul li:last-child:hover{
     background:none;
@@ -326,7 +326,7 @@ a:hover  {
   background: #99439A;
 }
 .menu ul li:nth-child(5):hover{
-  background: #00ABA9;
+  background: #018a00;
 }
 
 .menu ul li.active a{
@@ -374,7 +374,7 @@ a.current-page {
 
 
 #content{
-  padding:30px 30px 50px;
+  padding:30px 40px 50px;
   -webkit-box-shadow: 1px 0px 7px rgba(239, 239, 239, 0.75);
   -moz-box-shadow:    1px 0px 7px rgba(239, 239, 239, 0.75);
   box-shadow:         1px 0px 7px rgba(239, 239, 239, 0.75);
@@ -2133,7 +2133,7 @@ h2.comments_title{
 }
 .read a.read_more{
   font-size:1em!important;
-  color:#0099FF;
+  color:#00BCF2;
   text-decoration: underline;
 
 }
@@ -2210,7 +2210,7 @@ ul li{
   display:inline-block!important;
   width: auto!important;
   text-decoration: underline;
-  color: #0099FF;
+  color: #00BCF2;
 }
 .qq-upload-button:hover{
   text-decoration: none;
@@ -2401,8 +2401,18 @@ li.menu_editprofile a{
   background-position:4px 6px;
   /*  width:100px;*/
 }
-.menu_assessment {
+.menu_assessment a{
   background:url(../i/w_m/pie.png);
+  background-repeat: no-repeat;
+  background-position:4px 6px;
+}
+.menu_files a{
+  background:url(../i/w_m/folder.png);
+  background-repeat: no-repeat;
+  background-position:4px 6px;
+}
+.menu_record_book a{
+  background:url(../i/w_m/zachet.png);
   background-repeat: no-repeat;
   background-position:4px 6px;
 }
@@ -2496,7 +2506,7 @@ li.menu_editprofile a{
   background-position:4px 6px;
 }
 .breadcrumbs a{
-  color:#0099FF;
+  color:#00BCF2;
   text-decoration:underline;
 }
 .breadcrumbs{
@@ -2594,7 +2604,7 @@ body.fix_w{
 }
 
 .zakrytb{
-  background: none repeat scroll 0 0 #0099FF;
+  background: none repeat scroll 0 0 #00BCF2;
   cursor: pointer;
   padding: 7px 10px;
   position: absolute;
@@ -2660,13 +2670,13 @@ body.fix_w{
 
 
 .regform, .foget_passsword{
-  color:#0099FF;
+  color:#00BCF2;
   padding-top:20px;
   display:inline-block;
   text-decoration: underline;
 }
 .regform:hover, .foget_passsword:hover{
-  color:#0099FF;
+  color:#00BCF2;
   text-decoration: none;
 }
 .foget_passsword{
@@ -2983,7 +2993,7 @@ body.fix_w{
   right:0;
   top:129px;
   cursor:pointer;
-  color:#0099FF;
+  color:#00BCF2;
   text-decoration:underline;
   padding-left:25px;
   z-index:10;
@@ -3661,7 +3671,7 @@ body.fix_w{
   right: -83px;
   font-size: 12px;
   color: #fff;
-  background: #00CC33;
+  background: #018a00;
   padding:2px;
   font-weight: bold;
 }
@@ -3797,7 +3807,7 @@ body.fix_w{
 }
 .upload{
   cursor:pointer;
-  color:#0099FF;
+  color:#00BCF2;
   text-decoration:underline;
   background:url(../i/upload.png) no-repeat 1px 1px;
   padding:0 0 0 30px;
@@ -4098,17 +4108,17 @@ body.fix_w{
   margin-top: 30px;
 }
 .carma_minus{
-  color: #C6C;
+  color: #BA141A;
   font-weight: bold;
   font-size: 36px;
 }
 .slesh{
   font-weight: bold;
   font-size: 36px;
-  color: #999999;
+  color: #505050;
 }
 .carma_plus{
-  color: #6C6;
+  color: #018a00;
   font-weight: bold;
   font-size: 36px;
 
@@ -4674,6 +4684,10 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 .calendar_info, .news_info, .frends_info, .world_info{
   color:#B7BBC2;
+  padding: 10px 0;
+}
+.world_info{
+  padding: 10px;
 }
 
 .frends_this{
@@ -5621,25 +5635,35 @@ div.fc-body div.fc-row div.fc-content{
   font-weight:normal;
   white-space:nowrap;
 }
+.menu_work  li:hover a{
+  color: #fff;
+}
 .menu_work  li:hover {
   background:url('../i/menu/hover.png') left center no-repeat;
-  color: #fff;
   /*background: #00BCF2;*/
 }
 .menu_work ul li.active{
   white-space:nowrap;
 }
 .menu_work ul li.menu_profile:hover{background: #505050;}
-.menu_work ul li.menu_schedule:hover{background: #00BCF2;}
-.menu_work ul li.menu_review:hover{background: #BA141A;}
-.menu_work ul li.manage_group:hover{background: #99439A;}
-.menu_work ul li.menu_management:hover{background: #00ABA9;}
-.menu_work ul li.activity:hover{background: #505050;}
-.menu_work ul li.slide_menus:hover{background: #00BCF2;}
-.menu_work ul li.menu_admin:hover{background: #BA141A;}
+.menu_work ul li.menu_files:hover{background: #00BCF2;}
+.menu_work ul li.menu_record_book:hover{background: #BA141A;}
+.menu_work ul li.menu_schedule:hover{background: #99439A;}
+.menu_work ul li.menu_review:hover{background: #018a00;}
+.menu_work ul li.manage_group:hover{background: #505050;}
+.menu_work ul li.menu_management:hover{background: #00BCF2;}
+.menu_work ul li.activity:hover{background: #BA141A;}
+.menu_work ul li.slide_menus:hover{background: #99439A;}
+.menu_work ul li.menu_admin:hover{background: #018a00;}
 .folder_ext{
   color: #555;
 }
 .zagruzit{
-  color: #0099FF;
+  color: #00BCF2;
+}
+.record_book{
+  background:url('../i/record_book.png')no-repeat;
+  width: 128px;
+  height: 128px;
+  display: inline-block;
 }
