@@ -266,6 +266,9 @@ class Folder extends CActiveRecord {
         "txt", //документы
         "mp3",
         "exe",
+        'html',
+        'js',
+        'css',
         "", //без расширения
     );
     return $array;

@@ -34,7 +34,7 @@ if (isset($count_sp_com)) {
                 </div>
             </div>
             <div class="td_t">
-                <?php echo CHtml::link($comment->profile->name . ' ' . $comment->profile->surname, Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile_id)), 
+                <?php echo CHtml::link(MyHelper::getUsername(false, true, $comment->profile, true), Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->profile_id)), 
                         array(
                             'class' => 'classic',
                             'async' => 'async'

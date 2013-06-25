@@ -5418,7 +5418,7 @@ div.fc-body div.fc-row div.fc-content{
   position: absolute;
   width: 100%;
   z-index: 99;
-  display: nonel
+  display: none;
 }
 .ul_files_actions li{
   float:left;

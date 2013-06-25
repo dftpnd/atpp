@@ -79,10 +79,54 @@ class MyHelper {
     }
   }
 
-  public static function getUsername($user_id = FALSE) {
-    return 'MyHelper getUsername';
+  public static function getUsername($user_id = FALSE, $shot = FALSE, $model = false, $profile = false) {
+    if ($model == FALSE) {
+      if ($user_id === FALSE) {
+        if (Yii::app()->user->isGuest) {
+          return 'авторизуйтесь';
+        }
+        $user_id = Yii::app()->user->id;
+      }
+
+      $model = User::model()->findByPk($user_id);
+      $model = $model->prof;
+
+      if (empty($model)) {
+        return 'Нет такого пользователя';
+      }
+    } else {
+      if (!$profile)
+        $model = $model->prof;
+    }
+
+
+    switch ($model->status) {
+      case Profile::PREPOD:
+        if ($shot) {
+          if (isset($model->patronymic) && $model->patronymic != '') {
+            $username = $model->surname . ' ' . mb_substr($model->name, 0, 1, 'UTF-8') . '. ' . mb_substr($model->patronymic, 0, 1, 'UTF-8') . '. ';
+          } else {
+            $username = $model->surname . ' ' . $model->name;
+          }
+        } else {
+          if (isset($model->patronymic) && $model->patronymic != '') {
+            $username = $model->surname . ' ' . $model->name . ' ' . $model->patronymic;
+          } else {
+            $username = $model->surname . ' ' . $model->name;
+          }
+        }
+        break;
+      case Profile::STUDENT:
+        $username = $model->name . ' ' . $model->surname;
+        break;
+      default:
+        $username = 'ошибка';
+        break;
+    }
+
+
+    return $username;
   }
 
 }
-
 ?>

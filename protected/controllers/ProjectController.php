@@ -3,7 +3,8 @@
 class ProjectController extends Controller {
 
   public function actionIndex() {
-    $this->render('index');
+    $title = 'Проекты';
+    MyHelper::render($this, 'index', array(), $title);
   }
 
   public function actionDampfturbine() {
