@@ -31,7 +31,17 @@
               ),
           ),
           array(
-              'label' => 'Расписание',
+              'label' => 'Моя зачетка',
+              'url' => Yii::app()->urlManager->createUrl('user/stats?user_id=' . Yii::app()->user->id),
+              'visible' => Yii::app()->user->getRole() != 'prepod',
+              'active' => (Yii::app()->controller->getId() == 'user' && Yii::app()->controller->getAction()->getId() == 'schedule'),
+              'itemOptions' => array('class' => 'menu_record_book'),
+              'linkOptions' => array(
+                  'async' => 'async',
+              ),
+          ),
+          array(
+              'label' => 'Моё расписание',
               'url' => Yii::app()->urlManager->createUrl('user/schedule'),
               'visible' => Yii::app()->user->getRole() != 'prepod',
               'active' => (Yii::app()->controller->getId() == 'user' && Yii::app()->controller->getAction()->getId() == 'schedule'),
