@@ -32,7 +32,7 @@ h1, div.title a, h4{
   color: #fff;
 }
 .pila_top{
-  height:22px;
+  height:25px;
   z-index: 999;
   position: relative;
   background:url(../i/pila/pila_top.png) repeat-x;
@@ -40,7 +40,7 @@ h1, div.title a, h4{
 }
 .pila_bot{
   width: 100%;
-  height:22px;
+  height:25px;
   z-index: 9999;
   position: relative;
   top:-20px;
@@ -375,9 +375,9 @@ a.current-page {
   -webkit-box-shadow: 1px 0px 7px rgba(239, 239, 239, 0.75);
   -moz-box-shadow:    1px 0px 7px rgba(239, 239, 239, 0.75);
   box-shadow:         1px 0px 7px rgba(239, 239, 239, 0.75);
-  /*    -webkit-box-shadow:inset 1px 0px 15px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow:   inset 1px 0px 15px rgba(0, 0, 0, 0.2);
-    box-shadow:        inset 1px 0px 15px rgba(0, 0, 0, 0.2);*/
+/*      -webkit-box-shadow:inset 1px 0px 15px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow:   inset 1px 0px 15px rgba(0, 0, 0, 0.75);
+    box-shadow:        inset 1px 0px 15px rgba(0, 0, 0, 0.75);*/
   min-height:350px;
   background: #fff;
   -webkit-border-radius: 5px;
