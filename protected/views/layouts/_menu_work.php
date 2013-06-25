@@ -51,7 +51,7 @@
               ),
           ),
           array(
-              'label' => 'Написать статью',
+              'label' => 'Мои статьи',
               'url' => Yii::app()->urlManager->createUrl('post/create'),
               'active' => (
               Yii::app()->controller->getId() == 'post' && Yii::app()->controller->getAction()->getId() == 'create'),

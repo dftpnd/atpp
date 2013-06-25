@@ -317,14 +317,14 @@ function prepearGroup(){
 }
 function prepearStudent(){
   var count = 0;
-  $('#student_compare .table_t .tr_t .td_t input:checked').each(function(){    
+  $('#student_compare input:checked').each(function(){    
     count++;    
   });
   if (count>1 && count<17) 
     compareStudent();
   else if (count<2) 
     alert('Для сравнения необходимо выбрать минимум 2 студента');  
-  else if (count>16) 
+  else if (count>32) 
     alert('Максимальное количество студентов для сравнения - 32');  
 }
 function compareStudent(){
