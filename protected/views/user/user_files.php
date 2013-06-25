@@ -8,10 +8,12 @@
   <div class="test">
 
     <div class="dop_menu">
-      <div class="files_upload" onclick="doorDownloadFile(event)"></div>
-      <span>Загрузить</span>
-      <div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку"></div>
-      <span>Новая папка</span>
+      <div class="files_upload" onclick="doorDownloadFile(event)">
+        <span>Загрузить</span>
+      </div>
+      <div class="files_newfolder" onclick="changeFolder(0, event)" title="Создать папку">
+        <span>Новая папка</span>
+      </div>
     </div>
 
     <ul class="ul_files_actions">

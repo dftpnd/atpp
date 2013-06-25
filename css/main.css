@@ -5529,8 +5529,12 @@ div.fc-body div.fc-row div.fc-content{
 .choice_group_hint{
     margin: 20px 0;
 }
-.dop_menu{
-    /*  margin-bottom: 10px;*/
+.dop_menu span{
+padding-left: 20px;
+display: inline-block;
+}
+.dop_menu div.files_newfolder,.dop_menu div.files_upload{
+width: auto!important;
 }
 
 .menu_work{
@@ -5566,35 +5570,29 @@ div.fc-body div.fc-row div.fc-content{
     -moz-border-radius-topleft: 5px;
     border-top-left-radius: 5px;
 }
-
 .menu_work  a {
-    /*  background: #fff;*/
-    /*  border-bottom: 1px solid #393939;*/
     color: #000;
     display: block;
     margin: 0;
     padding: 8px 12px 8px 25px;
     text-decoration: none;
     font-weight:normal;
+    white-space:nowrap;
 }
 .menu_work  li:hover {
-    background: #00BCF2 url('../i/menu/hover.png') left center no-repeat;
+    background:url('../i/menu/hover.png') left center no-repeat;
     color: #fff;
-    /*  padding-bottom: 8px;*/
+    /*background: #00BCF2;*/
 }
-
-
-
-
 .menu_work ul li.active{
-    /*  background-color: #FFFF66;*/
     white-space:nowrap;
 }
-.menu_work ul li a{
-    /*  border-bottom:1px solid black;*/
-    white-space:nowrap;
-}
-.menu_work ul li a:hover{
-    /*  border-bottom:1px solid transparent;*/
-}
+.menu_work ul li.menu_profile:hover{background: #505050;}
+.menu_work ul li.menu_schedule:hover{background: #00BCF2;}
+.menu_work ul li.menu_review:hover{background: #BA141A;}
+.menu_work ul li.manage_group:hover{background: #99439A;}
+.menu_work ul li.menu_management:hover{background: #00ABA9;}
+.menu_work ul li.activity:hover{background: #505050;}
+.menu_work ul li.slide_menus:hover{background: #00BCF2;}
+.menu_work ul li.menu_admin:hover{background: #BA141A;}
 

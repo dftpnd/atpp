@@ -748,7 +748,7 @@ function recoverpassword(el){
         el.siblings('input').val()
         el.removeClass('loading');
         if(data.status == 'failure'){
-          text = "Нет такого адреса эл.почта"
+          text = "Пользователь с таким электронным адресом не зарегистрирован"
           noticeOpen(text, '3');
         }else if(data.status == 'seccess'){
           $('.recoverypassword .resume__emptyblock').html('');
