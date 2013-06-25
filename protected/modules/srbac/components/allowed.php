@@ -1,19 +1,6 @@
 <?php 
  return array(
 	'CommentUpdate',
-	'ForumIndex',
-	'LibraryIndex',
-	'LibraryPredmet',
-	'PostView',
-	'PostScrapbook',
-	'PostIndex',
-	'ProjectDampfturbine',
-	'ReestrIndex',
-	'ReestrGroupReestr',
-	'ReestrGroup',
-	'ReestrPredmetGroup',
-	'ReestrCompareGroup',
-	'ReestrGetSchedule',
 	'SiteCaptcha',
 	'SitePage',
 	'SiteIndex',
@@ -46,6 +33,13 @@
 	'SiteIeblokad',
 	'SiteRecoveryPassword',
 	'SiteHappyPass',
+	'LibraryIndex',
+	'LibraryPredmet',
+	'ProjectDampfturbine',
+	'PostView',
+	'PostScrapbook',
+	'PostIndex',
+	'ForumIndex',
 	'UserEditProfile',
 	'UserStats',
 	'UserViewStudent',
@@ -79,6 +73,13 @@
 	'UserDeleteFolder',
 	'UserUpdateDirectory',
 	'UserSaveChangeFolder',
-	'UserOpenFolder'
+	'UserOpenFolder',
+	'UserDownloads',
+	'ReestrIndex',
+	'ReestrGroupReestr',
+	'ReestrGroup',
+	'ReestrPredmetGroup',
+	'ReestrCompareGroup',
+	'ReestrGetSchedule'
 );
 ?>

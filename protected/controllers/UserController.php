@@ -1583,9 +1583,54 @@ class UserController extends Controller {
   }
 
   public function actionDownloadFile($user_id, $parent_id) {
-    var_dump($user_id);
-    var_dump($parent_id);
-    die();
+    if ($user_id !== Yii::app()->user->id) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка доступа'));
+      Yii::app()->end();
+    }
+
+    $user = User::model()->findByPk($user_id);
+    $basePath = Folder::basePath($user->id);
+    $allowedExtensions = Folder::allowedExtensions();
+    $sizeLimit = 50 * 1024 * 1024;
+    $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+    $result = $uploader->handleUpload($basePath);
+
+
+    if (!empty($result['error'])) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, попробуйте перезагрузить страницу'));
+      Yii::app()->end();
+    }
+
+    $file = array(
+        'name' => $result['filename'],
+        'orig_name' => $result['user_filename'],
+        'size' => $result['size'],
+        'ext' => $result['ext'],
+    );
+
+    $Uploadedfiles = new Uploadedfiles();
+    $Uploadedfiles->attributes = $file;
+    if (!$Uploadedfiles->save()) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, сохранение не произошло 1'));
+      Yii::app()->end();
+    }
+
+    $result['file_id'] = $Uploadedfiles->id;
+
+    $folder = new Folder();
+    $folder->user_id = $user->id;
+    $folder->name = $result['user_filename'];
+    $folder->parent_id = (int) $parent_id;
+    $folder->created = time();
+    $folder->uploads_id = $Uploadedfiles->id;
+    $folder->private_status = PrivateStatus::ONLY_ME;
+    $folder->type = Folder::FILE;
+    if (!$folder->save()) {
+      echo json_encode(array('status' => 'fail', 'error' => var_dump($folder->getErrors())));
+      Yii::app()->end();
+    }
+
+    echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
   }
 
   public function actionDoorDownloadFile() {
@@ -1595,8 +1640,11 @@ class UserController extends Controller {
     }
     $parent_id = $_POST['parent_id'];
 
-    if (is_null($parent_id)) {
+
+    if ((int) $parent_id == 0) {
+
       $folder = new Folder();
+
       $folder->name = MyHelper::getUsername();
     } else {
       $folder = Folder::model()->findByPk($parent_id);
@@ -1620,6 +1668,37 @@ class UserController extends Controller {
                 'html' => $html
             )
     );
+  }
+
+  public function actionDownloads($id) {
+    $folder = Folder::model()->findByPk($id);
+
+    if ($folder->private_status != PrivateStatus::EVERYONE) {
+      if (!Folder::checkAccess($folder)) {
+        die('недостаточно прав для скачивания');
+      }
+    }
+
+    $file = Uploadedfiles::model()->findByPk($folder->uploads_id);
+
+    if (!empty($file)) {
+      $ds = DIRECTORY_SEPARATOR;
+      $path = Yii::app()->basePath . $ds . '..' . $ds . 'uploads' . $ds . 'user_' . $folder->user_id . $ds . $file->name;
+      if (file_exists($path)) {
+        //папка с названием реестра
+        //посыл хедеров браузеру
+        header('Content-Disposition: attachment; filename="' . $folder->name . '"');
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Description: File Transfer");
+        header('Content-Length: ' . $file->size);
+
+        //скачивание
+        echo file_get_contents($path);
+        exit();
+      }
+    }
   }
 
 //=================files=====================//

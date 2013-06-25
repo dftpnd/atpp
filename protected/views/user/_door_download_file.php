@@ -16,7 +16,7 @@
     var uploader = new qq.FileUploader({
       element: document.getElementById('download_file'),
       multiple: true,
-      action: '/user/DownloadFile?user_id=<?php echo $user->id; ?>&parent_id=<?php echo $folder->parent_id ?>',
+      action: '/user/DownloadFile?user_id=<?php echo $user->id; ?>&parent_id=<?php echo $folder->id ?>',
       debug: false, 
       onSubmit: function(id, fileName){
         goSpiner();

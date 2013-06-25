@@ -4,22 +4,39 @@
   <?php $status_class = 'st_old'; ?>
 <?php endif; ?>
 
+<?php if ($folder->type == Folder::FILE): ?>
+  <?php $file = TRUE; ?>
+<?php else: ?>
+  <?php $file = FALSE; ?>
+<?php endif; ?>
 
 <div class="tr_t tr_files  <?php echo $status_class; ?>" folder_id="<?php echo $folder->id; ?>" onclick="activeFolder($(this), event)" >
-  <div class="td_t files_folder">
+  <div class="td_t files_folder <?php echo $file?'folder_file':'';?>">
     <span class="edet_block">
       <input type="text" id="input_name_<?php echo (int) $folder->id; ?>" class="name_folder" onclick='event.stopPropagation()'  name="Folder[<?php echo (int) $folder->id; ?>][name]" value="<?php echo $folder->name; ?>"/>
       <input type="hidden" value="<?php echo (int) $folder->id; ?>" name="folder_id">
-      <input type="hidden" value="<?php echo $folder->parent_id; ?>" name="Folder[<?php echo (int)$folder->id; ?>][parent_id]" onblur="blurInputName($(this),event)" />
+      <input type="hidden" value="<?php echo $folder->parent_id; ?>" name="Folder[<?php echo (int) $folder->id; ?>][parent_id]" onblur="blurInputName($(this),event)" />
     </span>
-    <span class="show_block cp" onclick="openFolder($(this), event)">
-      <span class="">
-        <?php echo $folder->name; ?>
+    <?php if ($file): ?>
+      <span class="show_block cp">
+        <a href="/user/downloads?id=<?php echo $folder->id; ?>" class=""><?php echo $folder->name; ?></a>
       </span>
-    </span>
+    <?php else: ?>
+      <span class="show_block cp" onclick="openFolder($(this), event)">
+        <span class="">
+          <?php echo $folder->name; ?>
+        </span>
+      </span>
+    <?php endif; ?>
   </div>
   <div class="td_t">
-    <span>папка</span>
+    <span class="">
+      <?php if ($file): ?>
+        файл
+      <?php else: ?>
+        папка
+      <?php endif; ?>
+    </span>
   </div>
   <div class="td_t">
     <span>
