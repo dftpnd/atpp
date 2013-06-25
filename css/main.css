@@ -2207,6 +2207,7 @@ ul li{
   display:inline-block!important;
   width: auto!important;
   text-decoration: underline;
+  color: #0099FF;
 }
 .qq-upload-button:hover{
   text-decoration: none;
@@ -2528,14 +2529,14 @@ li.menu_editprofile a{
 }
 .insert_here{
   background:url(../i/limpid.png);
-  padding:10px;
+  padding: 0 30px 20px 30px;
 }
 
 
 .insert_here .clone_block{
   display:block;
   background: #fff;
-  padding:10px;
+  padding: 0 30px 20px 30px;
 }
 .my_cont{
   margin: 0 auto;
@@ -2592,7 +2593,7 @@ body.fix_w{
 .zakrytb{
   background: none repeat scroll 0 0 #0099FF;
   cursor: pointer;
-  padding: 10px 15px;
+  padding: 7px 10px;
   position: absolute;
   right: 10px;
   text-decoration: underline;
@@ -2604,17 +2605,20 @@ body.fix_w{
 }
 .vk{
   background:#fff;
-  padding:20px;
-  margin-bottom:30px;
+  padding: 10px 20px 60px 20px;
+  margin-bottom:10px;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow:    0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow:         0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 .vk + h1{
   display:inline-block;
   padding-top:20px;
 }
 .title_door{
-  padding:10px;
+  padding:10px 30px 10px 30px;
   background:url(../i/limpid.png);
-  height:50px;
+  height:40px;
 }
 .title_door h1{
   color:#fff;
@@ -3340,6 +3344,8 @@ body.fix_w{
   background: #F3F3F3;
   border-top: 1px solid #DAD9D9;
   padding:15px;
+  padding-right: 0;
+  margin: 0 15px 0 7px;
 }
 .social_text{
   color: #9C9C9C;
@@ -5431,15 +5437,18 @@ div.fc-body div.fc-row div.fc-content{
   display:inline-block;
   padding-top:10px;
 }*/
-.files_folder{
+/*.files_folder{
   background: url(../i/folder/folder.png) no-repeat  10px;
 
-}
-.folder_file{
+}*/
+/*.folder_file{
   background: url(../i/folder/sprites.png) no-repeat  0 -262px!important;  
-}
-.table_body_t .td_t:first-child{
+}*/
+.table_body_t .td_t.files_folder{
   background: url(../i/folder/folder.png) no-repeat  10px;  
+}
+.table_body_t .td_t.folder_file{
+  background: url(../i/folder/file.png) no-repeat  10px;  
 }
 .table_body_t .td_t span{
   cursor: default;
@@ -5627,4 +5636,7 @@ div.fc-body div.fc-row div.fc-content{
 .menu_work ul li.menu_admin:hover{background: #BA141A;}
 .folder_ext{
   color: #555;
+}
+.zagruzit{
+  color: #0099FF;
 }
