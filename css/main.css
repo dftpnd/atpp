@@ -5618,9 +5618,11 @@ div.fc-body div.fc-row div.fc-content{
   font-weight:normal;
   white-space:nowrap;
 }
+.menu_work  li:hover a{
+  color: #fff;
+}
 .menu_work  li:hover {
   background:url('../i/menu/hover.png') left center no-repeat;
-  color: #fff;
   /*background: #00BCF2;*/
 }
 .menu_work ul li.active{
