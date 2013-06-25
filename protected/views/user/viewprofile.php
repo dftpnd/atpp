@@ -119,8 +119,8 @@ if (isset($_GET['id'])) {
           </svg>
         </a>
         <div class="anchor"></div>
-        <a href="/user/stats?user_id=<?php echo $user_author->id ?>" async="async">
-          <img width="120px" height="90px" src="http://static.diary.ru/userdir/4/7/0/4/470416/26556655.jpg" />
+        <a href="/user/stats?user_id=<?php echo $user_author->id ?>" async="async" title="Зачетная книжка">
+          <div class="record_book"></div>
         </a>
       </div>
       <div class="td_t">

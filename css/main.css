@@ -2398,8 +2398,18 @@ li.menu_editprofile a{
   background-position:4px 6px;
   /*  width:100px;*/
 }
-.menu_assessment {
+.menu_assessment a{
   background:url(../i/w_m/pie.png);
+  background-repeat: no-repeat;
+  background-position:4px 6px;
+}
+.menu_files a{
+  background:url(../i/w_m/folder.png);
+  background-repeat: no-repeat;
+  background-position:4px 6px;
+}
+.menu_record_book a{
+  background:url(../i/w_m/zachet.png);
   background-repeat: no-repeat;
   background-position:4px 6px;
 }
@@ -5634,16 +5644,23 @@ div.fc-body div.fc-row div.fc-content{
 }
 .menu_work ul li.menu_profile:hover{background: #505050;}
 .menu_work ul li.menu_files:hover{background: #00BCF2;}
-.menu_work ul li.menu_schedule:hover{background: #BA141A;}
-.menu_work ul li.menu_review:hover{background: #99439A;}
-.menu_work ul li.manage_group:hover{background: #018a00;}
-.menu_work ul li.menu_management:hover{background: #505050;}
-.menu_work ul li.activity:hover{background: #00BCF2;}
-.menu_work ul li.slide_menus:hover{background: #BA141A;}
-.menu_work ul li.menu_admin:hover{background: #99439A;}
+.menu_work ul li.menu_record_book:hover{background: #BA141A;}
+.menu_work ul li.menu_schedule:hover{background: #99439A;}
+.menu_work ul li.menu_review:hover{background: #018a00;}
+.menu_work ul li.manage_group:hover{background: #505050;}
+.menu_work ul li.menu_management:hover{background: #00BCF2;}
+.menu_work ul li.activity:hover{background: #BA141A;}
+.menu_work ul li.slide_menus:hover{background: #99439A;}
+.menu_work ul li.menu_admin:hover{background: #018a00;}
 .folder_ext{
   color: #555;
 }
 .zagruzit{
   color: #00BCF2;
+}
+.record_book{
+    background:url('../i/record_book.png')no-repeat;
+    width: 128px;
+    height: 128px;
+    display: inline-block;
 }
