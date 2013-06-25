@@ -47,30 +47,20 @@ class UserController extends Controller {
             ), $title);
   }
 
-  public function actionStats() {
-    if (isset($_POST['profile_id'])) {
-      $user_no_isset = $_POST['profile_id'];
-    } elseif (isset($_POST['resultts'])) {
-      $user_no_isset = User::model()->findByPk(Yii::app()->user->id);
-    }
+  public function actionStats($user_id) {
+    $user = User::model()->findByPk($user_id);
+    $profile = $user->prof;
 
-    if ($user_no_isset == 0) {
-      $model = Profile::model()->with('uploadedfiles')->findByAttributes(array('user_id' => Yii::app()->user->id));
-    } else {
-      $model = Profile::model()->with('uploadedfiles')->findByPk($_POST['profile_id']);
-    }
-    $user_id = $model->user_id;
-
-    if ($model->user_id == Yii::app()->user->id) {
+    if ($user_id == Yii::app()->user->id)
       $my_prof = TRUE;
-    } else {
+    else
       $my_prof = FALSE;
-    }
 
 
-    $group = Group::model()->findByPk($model->group_id);
+
+    $group = Group::model()->findByPk($profile->group_id);
     $stats_srav = array();
-    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $model->group_id));
+    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $profile->group_id));
     foreach ($psg_model as $box) {
       $stats_srav[$box->semestr_id][$box->id] = $box->predmet_id;
     }
@@ -108,10 +98,10 @@ class UserController extends Controller {
         $gss = GroupSemestrStatistic::model();
         $statistic = Statistic::model();
 //среднее для юзера
-        $model->mean = substr($summa / $count_predmets, 0, 5);
-        $model->save();
+        $profile->mean = substr($summa / $count_predmets, 0, 5);
+        $profile->save();
 //среднее для группы
-        $psofiles = Profile::model()->findAllByAttributes(array('group_id' => $model->group_id));
+        $psofiles = Profile::model()->findAllByAttributes(array('group_id' => $profile->group_id));
         $count_profiles = 0;
         $summa_group = 0;
         foreach ($psofiles as $profile) {
@@ -134,8 +124,17 @@ class UserController extends Controller {
         $entry[$value->semestr_id][$value->predmet_id] = $value->rating_id;
       }
     }
-    $data = $this->renderPartial('stats', array('model' => $model, 'group' => $group, 'psg_model' => $psg_model, 'rating' => $rating, 'entry' => $entry, 'my_prof' => $my_prof), true);
-    echo json_encode(array('div' => $data));
+    
+
+    $title = "Зачетка";
+    MyHelper::render($this, 'stats', array(
+        'model' => $profile,
+        'group' => $group,
+        'psg_model' => $psg_model,
+        'rating' => $rating,
+        'entry' => $entry,
+        'my_prof' => $my_prof
+            ), $title);
   }
 
   public function actionViewStudent() {
