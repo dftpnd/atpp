@@ -748,7 +748,7 @@ function recoverpassword(el){
         el.siblings('input').val()
         el.removeClass('loading');
         if(data.status == 'failure'){
-          text = "Нет такого адреса эл.почта"
+          text = "Пользователь с таким электронным адресом не зарегистрирован"
           noticeOpen(text, '3');
         }else if(data.status == 'seccess'){
           $('.recoverypassword .resume__emptyblock').html('');
@@ -1410,11 +1410,17 @@ function deleteFolder(e){
   el = $('.table_files .tr_files.active');
   var name_folder = el.find('.name_folder').val();
   var folder_id = el.attr('folder_id');
+  
+  if(el.attr('status_attr') == 'file'){
+    var status_attr = 'файл';
+  }else{
+    var status_attr = 'папку';
+  }
+  
   if(folder_id == undefined){
     alert('Выберите папку или файл');
-    
   }else{
-    if (confirm("Вы уверенны что хотите удалить папку «"+name_folder+"»?")){
+    if (confirm("Вы уверенны что хотите удалить "+status_attr+" «"+name_folder+"»?")){
       loader.show();
       $.ajax({
         url:'/user/DeleteFolder',

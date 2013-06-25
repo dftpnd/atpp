@@ -6,12 +6,14 @@
 
 <?php if ($folder->type == Folder::FILE): ?>
   <?php $file = TRUE; ?>
+  <?php $status_attr = 'status_attr="file"'; ?>
 <?php else: ?>
   <?php $file = FALSE; ?>
+  <?php $status_attr = 'status_attr="folder"'; ?>
 <?php endif; ?>
 
-<div class="tr_t tr_files  <?php echo $status_class; ?>" folder_id="<?php echo $folder->id; ?>" onclick="activeFolder($(this), event)" >
-  <div class="td_t files_folder <?php echo $file?'folder_file':'';?>">
+<div class="tr_t tr_files  <?php echo $status_class; ?>" <?php echo $status_attr;?> folder_id="<?php echo $folder->id; ?>" onclick="activeFolder($(this), event)" >
+  <div class="td_t files_folder <?php echo $file ? 'folder_file' : ''; ?>">
     <span class="edet_block">
       <input type="text" id="input_name_<?php echo (int) $folder->id; ?>" class="name_folder" onclick='event.stopPropagation()'  name="Folder[<?php echo (int) $folder->id; ?>][name]" value="<?php echo $folder->name; ?>"/>
       <input type="hidden" value="<?php echo (int) $folder->id; ?>" name="folder_id">
@@ -32,7 +34,7 @@
   <div class="td_t">
     <span class="">
       <?php if ($file): ?>
-        файл
+        файл <span class="folder_ext"><?php echo $folder->uploadedfiles->ext ?></span>
       <?php else: ?>
         папка
       <?php endif; ?>

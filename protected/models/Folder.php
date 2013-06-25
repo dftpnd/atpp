@@ -57,6 +57,7 @@ class Folder extends CActiveRecord {
     return array(
         'parent' => array(self::BELONGS_TO, 'Folder', 'parent_id'),
         'ps' => array(self::BELONGS_TO, 'Privatestatus', 'private_status'),
+        'uploadedfiles' => array(self::BELONGS_TO, 'Uploadedfiles', 'uploads_id'),
     );
   }
 
@@ -163,21 +164,19 @@ class Folder extends CActiveRecord {
       return array('status' => 'faile', 'error' => 'У вас нет доступа');
     }
 
-    if ($folder->delete()) {
-      //@TODO
-      //написать рекурсивную функцию удаления всех внутренних каталогов
+    $folder->hide = 1;
+    if ($folder->save()) {
       return array('status' => 'success');
     } else {
       return array('status' => 'faile', 'error' => 'Ошибка. что то пошло не так');
     }
   }
 
-  public static function getAvailableFolder($parent_id, $author_id) {
+  public static function getAvailableFolder($parent_id, $author_id, $cond = NUll) {
     if (Yii::app()->user->isGuest) {
       Yii::app()->user->logout();
       Yii::app()->getController()->redirect('/site/login');
     }
-
 
 
     $user_id = Yii::app()->user->id;
@@ -187,7 +186,8 @@ class Folder extends CActiveRecord {
                       (
                       array(
                   'user_id' => $author_id,
-                  'parent_id' => $parent_id
+                  'parent_id' => $parent_id,
+                  'hide' => $cond
                       ), array('order' => 'created  DESC')
       );
     } else {
@@ -217,6 +217,7 @@ class Folder extends CActiveRecord {
                             parent_id = ' . $parent_id . '
                             and
                             user_id = ' . $author_id . '
+                            hide = ' . $cond . '  
                             and 
                             private_status in (' . $privete_status . ', ' . PrivateStatus::EVERYONE . '))',
               ));
