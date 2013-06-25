@@ -16,7 +16,7 @@
   ?>
   <?php echo CHtml::errorSummary($model); ?>
   <div class="row selection spekol">
-    <div class="questions" title="Парметр скрывает фотоальбом в фотогалереии, если он был создан"></div>
+    <div class="questions" title="Параметр скрывает фотоальбом в фотогалереи, если он был создан"></div>
     <?php echo $form->labelEx($model, 'show_foto'); ?>
     <?php echo $form->dropDownList($model, 'show_foto', Lookup::items('FotoStatus')); ?>
     <?php echo $form->error($model, 'show_foto'); ?>
@@ -29,7 +29,7 @@
     <p class="help_hint">Заголовок должен быть наполнен смыслом, чтобы можно было понять, о чем будет пост.</p>
   </div>
   <div class="row" >
-    <div class="questions" title="Это поле отвечает, за то что вы увидете перед просмотрм поста, тоесть его сокращенный вариант" ></div>
+    <div class="questions" title="Это поле отвечает, за то, что вы увидете перед просмотром поста, то есть его сокращенный вариант" ></div>
     <?php echo $form->labelEx($model, 'content_previews'); ?>
     <?php echo CHtml::activeTextArea($model, 'content_previews', array('rows' => 10, 'cols' => 70)); ?>
     <?php echo $form->error($model, 'content_previews'); ?>
@@ -41,13 +41,13 @@
     <?php echo $form->error($model, 'content'); ?>
   </div>
   <div class="row selection">
-    <div class="questions" title="Если вы написали пост на тему как то касающиеся кафедры, то не меняйте параметр, иначе переведите его в мировые"></div>
+    <div class="questions" title="Если вы написали пост на тему как то касающийся кафедры, не меняйте параметр, иначе переведите его в мировые"></div>
     <?php echo $form->labelEx($model, 'tags'); ?>
     <?php echo $form->dropDownList($model, 'topic', Lookup::items('PostTopic')); ?>
     <?php echo $form->error($model, 'tags'); ?>
   </div>
   <div class="row selection">
-    <div class="questions" title="Выш пост опубликуется, как только его проверит администрация"></div>
+    <div class="questions" title="Ваш пост опубликуется, как только его проверит администрация"></div>
     <?php echo $form->labelEx($model, 'status'); ?>
     <?php
     echo $form->dropDownList($model, 'status', Lookup::items('PostStatus'));

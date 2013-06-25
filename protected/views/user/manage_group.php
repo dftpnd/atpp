@@ -296,7 +296,7 @@ if (isset($_GET['sect'])) {
       <li>
         <label>
           <span  class="lab_td">Если куратор не зарегистрирован, введите его имя</span>
-          <input type="text" />
+          <input type="text" class="kurat_if" />
         </label>
       </li>
       <li>
