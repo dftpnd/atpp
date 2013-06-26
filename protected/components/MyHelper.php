@@ -136,7 +136,8 @@ class MyHelper {
     foreach ($matches[0] as $pattern) {
       if (!array_key_exists($pattern, $usedPatterns)) {
         $usedPatterns[$pattern] = true;
-        $text = str_replace($pattern, '<a target="_blank" href="' . $pattern . '" class="classic" >' . $pattern . '</a>', $text);
+        $text = str_replace($pattern, 
+                '<a target="_blank" href="' . $pattern . '" class="classic" >' . $pattern . '</a>', $text);
       }
     }
 
