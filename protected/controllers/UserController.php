@@ -212,7 +212,7 @@ class UserController extends Controller {
 
 
     $students = $_POST['students'];
-  
+
 
     $group = Group::model()->findByPk($_POST['group_id']);
     $gyc = GroupYearCreate::model()->findByPk($group->id_year_create);
@@ -1438,7 +1438,13 @@ class UserController extends Controller {
   //=================files=====================//
   public function actionFiles($id, $parent_id = 0) {
     $new = FALSE;
+    $mu_path = FALSE;
     $user = User::model()->findByPk($id);
+
+    if ($user->id == Yii::app()->user->id)
+      $mu_path = TRUE;
+
+
     $breadcrambs = Folder::model()->breadcrambs($parent_id, $id);
     $html_breadcrambs = $this->renderPartial('_breadcrambs', array(
         'breadcrambs' => $breadcrambs,
@@ -1454,11 +1460,13 @@ class UserController extends Controller {
         'folders' => $folders,
         'html_breadcrambs' => $html_breadcrambs,
         'private_status' => $private_status,
-        'new' => $new
+        'new' => $new,
+        'mu_path' => $mu_path
             ), $title);
   }
 
   public function actionChangeFolder() {
+    $mu_path = FALSE;
     if (!isset($_POST['folder_id']) || !isset($_POST['parent_id'])) {
       echo json_encode(array('status' => 'faile', 'error' => 'Ошибка, неверный запрос'));
       Yii::app()->end();
@@ -1466,18 +1474,22 @@ class UserController extends Controller {
 
     $folder = Folder::getMyFolder($_POST['folder_id'], $_POST['parent_id']);
 
-    if (empty($folder->id))
+    if (empty($folder->id)) {
+      $mu_path = TRUE;
       $new = TRUE;
-    else
+    }else
       $new = FALSE;
 
+    if ($folder->user_id == Yii::app()->user->id)
+      $mu_path = TRUE;
 
     $private_status = PrivateStatus::model()->findAll();
 
     $html = $this->renderPartial('_folder', array(
         'folder' => $folder,
         'private_status' => $private_status,
-        'new' => $new
+        'new' => $new,
+        'mu_path' => $mu_path
             ), true);
 
     echo json_encode(array('status' => 'success', 'html' => $html));
@@ -1493,6 +1505,7 @@ class UserController extends Controller {
 
   public function actionUpdateDirectory() {
     $html = '';
+    $mu_path = FALSE;
 
     if (!isset($_POST['parent_id']) || !isset($_POST['author_id'])) {
       echo json_encode(array('status' => 'faile', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
@@ -1501,11 +1514,17 @@ class UserController extends Controller {
     $folders = Folder::getAvailableFolder($_POST['parent_id'], $_POST['author_id']);
 
     $private_status = PrivateStatus::model()->findAll();
+
+
     foreach ($folders as $folder) {
+      if ($folder->user_id == Yii::app()->user->id)
+        $mu_path = TRUE;
+
       $html .= $this->renderPartial('_folder', array(
           'folder' => $folder,
           'new' => false,
           'private_status' => $private_status,
+          'mu_path' => $mu_path
               ), true);
     }
 
@@ -1531,7 +1550,7 @@ class UserController extends Controller {
 
   public function actionOpenFolder() {
     $html = '';
-
+    $mu_path = FALSE;
 
     if (!isset($_POST['folder_id'])) {
       echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
@@ -1541,6 +1560,8 @@ class UserController extends Controller {
 
     $folder = Folder::model()->findByPk($_POST['folder_id']);
 
+    if ($folder->user_id == Yii::app()->user->id)
+      $mu_path = TRUE;
 
 
     if (empty($folder)) {
@@ -1561,7 +1582,8 @@ class UserController extends Controller {
       $html .= $this->renderPartial('_folder', array(
           'folder' => $model,
           'new' => FALSE,
-          'private_status' => $private_status
+          'private_status' => $private_status,
+          'mu_path' => $mu_path
               ), true);
     }
 
@@ -1645,7 +1667,7 @@ class UserController extends Controller {
 
       $folder = new Folder();
 
-      $folder->name = MyHelper::getUsername();
+      $folder->name = MyHelper::getUsername(false, true, false, false);
     } else {
       $folder = Folder::model()->findByPk($parent_id);
       if (!Folder::checkAccess($folder)) {

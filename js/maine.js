@@ -1514,7 +1514,7 @@ function getOpenFolder(folder_id){
       if(data.status == 'success'){
         
         $('.tr_files').remove();
-        $('.table_files').append(data.html);
+        $('.table_body_t').append(data.html);
         $('#breadcrambs').html(data.html_breadcrambs);
         
         url = '/user/files?id='+data.folder.user_id+'&parent_id='+data.folder.id;
