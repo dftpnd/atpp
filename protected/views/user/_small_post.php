@@ -87,7 +87,7 @@ $div_title_minus = 'Не нравится';
             'async' => 'async'
         ));
         ?>
-
+        <span class="time-create"><?php echo $discussion->date ?></span>
         <?php
         $opacity = '1';
         if ($state < 0) {
@@ -101,7 +101,7 @@ $div_title_minus = 'Не нравится';
         <div class="my_t" style="opacity:<?php echo $opacity ?>" >
           <?php echo $discussion->content; ?>
           <div class="anchor"></div>
-          <span class="time-create"><?php echo $discussion->date ?></span>
+
         </div>
 
       </div>
@@ -150,7 +150,7 @@ $div_title_minus = 'Не нравится';
     <?php if (!Yii::app()->user->isGuest): ?>
       <div class="new_comment">
         <div class="new_comment_psevdo" id="ncp_<?php echo $discussion->id; ?>">
-          <textarea class="psedo_area" onfocus="zamenaTextArea(<?php echo $discussion->id; ?>)">Комментировать...</textarea>
+          <textarea class="psedo_area" onfocus="zamenaTextArea(<?php echo $discussion->id; ?>, <?php echo $type; ?>)">Комментировать...</textarea>
         </div>
         <div class="new_comment_real" id="ncr_<?php echo $discussion->id; ?>">
           <div class="box_new_com_1">

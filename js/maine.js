@@ -663,10 +663,15 @@ function DeleteSPComment(id_sp_comment,type, pin){
     
     
 }
-function zamenaTextArea(small_post_id){
+function zamenaTextArea(small_post_id, type){
   $('#ncp_'+small_post_id).hide();
   $('#ncr_'+small_post_id).show();
   $('#ncr_'+small_post_id+' .div_textare').focus();
+  $('#ncr_'+small_post_id+' .div_textare').keypress(function(e) {
+    if(e.which == 13) {
+      newSmallPostComment(small_post_id, $('#ncr_'+small_post_id+' .inp_sub'),type)
+    }
+  }); 
 }
 function getBackCom(small_post_id){
        
@@ -1577,6 +1582,6 @@ function doorDownloadFile(e){
   });
 }
 
-
-
-
+function switchStatisticUser(el){
+  el.parents('.resume__emptyblock').toggleClass('show_statistic');
+}
