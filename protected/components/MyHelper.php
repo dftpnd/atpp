@@ -128,5 +128,22 @@ class MyHelper {
     return $username;
   }
 
+  public static function makeClickableLinks($text) {
+
+    $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+    preg_match_all($reg_exUrl, $text, $matches);
+    $usedPatterns = array();
+    foreach ($matches[0] as $pattern) {
+      if (!array_key_exists($pattern, $usedPatterns)) {
+        $usedPatterns[$pattern] = true;
+        $text = str_replace($pattern, '<a target="_blank" href="' . $pattern . '" class="classic" >' . $pattern . '</a>', $text);
+      }
+    }
+
+
+    return $text;
+  }
+
 }
+
 ?>

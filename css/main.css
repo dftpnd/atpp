@@ -215,7 +215,7 @@ a:hover{
 }
 .classic, #student_group .table_t .tr_t .td_t a{
   cursor:pointer;
-  color:#00BCF2;
+  color:#3399FF;
   text-decoration:underline;
 }
 .classic:hover, #student_group .table_t .tr_t .td_t a:hover{

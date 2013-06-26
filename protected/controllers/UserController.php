@@ -10,10 +10,12 @@ class UserController extends Controller {
     $group = array();
     $user_id = Yii::app()->user->id;
 
+
     $model = Profile::model()->with('uploadedfiles')->findByAttributes(array('user_id' => Yii::app()->user->id));
     if (isset($_POST['Profile'])) {
 
       $model->attributes = $_POST['Profile'];
+      $model->private = $_POST['Profile']['private'];
       if (isset($_POST['Profile']['group_id']))
         $model->group_id = $_POST['Profile']['group_id'];
 
@@ -508,7 +510,6 @@ class UserController extends Controller {
 
   public function actionNewSmallPost() {
 
-//СТАНДАРТИЗИРОВАТЬ КНОПКУ!!!
     if (isset($_POST['content_small_post']) && isset($_POST['type']) && isset($_POST['belong_id'])) {
       if (!$_POST['content_small_post'] == '') {
 
@@ -661,7 +662,7 @@ class UserController extends Controller {
       $this->render('/site/reg_not_valid', array());
       exit();
     }
-    $title = $model->name . ' ' . $model->surname;
+    $title = MyHelper::getUsername(false, true, $model, true);
     $user_author = User::model()->findByPk($user_id);
 
     if (empty($model)) {

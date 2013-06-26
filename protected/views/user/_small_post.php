@@ -99,7 +99,7 @@ $div_title_minus = 'Не нравится';
         }
         ?>
         <div class="my_t" style="opacity:<?php echo $opacity ?>" >
-          <?php echo $discussion->content; ?>
+          <?php echo MyHelper::makeClickableLinks($discussion->content); ?>
           <div class="anchor"></div>
 
         </div>
