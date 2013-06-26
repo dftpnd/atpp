@@ -45,8 +45,8 @@
               ),
           ),
           array(
-              'label' => 'Написать статью',
-              'url' => Yii::app()->urlManager->createUrl('post/create'),
+              'label' => 'Мои статьи',
+              'url' => Yii::app()->urlManager->createUrl('post/mypost'),
               'itemOptions' => array('class' => 'menu_review'),
               'linkOptions' => array(
                   'async' => 'async',

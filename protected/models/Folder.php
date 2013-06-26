@@ -172,7 +172,7 @@ class Folder extends CActiveRecord {
     }
   }
 
-  public static function getAvailableFolder($parent_id, $author_id, $cond = NUll) {
+  public static function getAvailableFolder($parent_id, $author_id, $cond = 1) {
     if (Yii::app()->user->isGuest) {
       Yii::app()->user->logout();
       Yii::app()->getController()->redirect('/site/login');
@@ -217,6 +217,7 @@ class Folder extends CActiveRecord {
                             parent_id = ' . $parent_id . '
                             and
                             user_id = ' . $author_id . '
+                            and
                             hide = ' . $cond . '  
                             and 
                             private_status in (' . $privete_status . ', ' . PrivateStatus::EVERYONE . '))',
@@ -269,6 +270,7 @@ class Folder extends CActiveRecord {
         'html',
         'js',
         'css',
+        'djvu',
         "", //без расширения
     );
     return $array;

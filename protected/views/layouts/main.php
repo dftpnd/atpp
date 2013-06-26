@@ -20,15 +20,15 @@
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/amcharts_ui.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jq-scrool_old.js"></script>
     <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-38492172-1']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+//      var _gaq = _gaq || [];
+//      _gaq.push(['_setAccount', 'UA-38492172-1']);
+//      _gaq.push(['_trackPageview']);
+//
+//      (function() {
+//        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+//        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+//      })();
     </script>
     <?php if (Yii::app()->user->isGuest): ?>
       <?php $authorizad = 'notauthorizad' ?>
@@ -160,11 +160,11 @@
       </div>
       <script type="text/javascript">
         //поиск
-        (function() {
-          var _sw = document.createElement("script");
-          _sw.type = "text/javascript";
-          _sw.async = true;_sw.src = "https://suggest.io/js/v2/atpp.in/hjT6ECPy";var _sh = document.getElementsByTagName("head")[0]; _sh.appendChild(_sw);
-        })();
+//        (function() {
+//          var _sw = document.createElement("script");
+//          _sw.type = "text/javascript";
+//          _sw.async = true;_sw.src = "https://suggest.io/js/v2/atpp.in/hjT6ECPy";var _sh = document.getElementsByTagName("head")[0]; _sh.appendChild(_sw);
+//        })();
         //поиск
       </script>
     </body>

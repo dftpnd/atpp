@@ -1,109 +1,109 @@
-<div class="anchor"></div>
-<div class="table_t reestr">
-  <div class="tr_t">
-    <div class="td_t">
-      <span>
-        <label >№</label>
-      </span>
-      <div></div>
-    </div>
-    <div class="td_t">
-      <span>
-        <label >Фото</label>
-      </span>
-      <div></div>
-    </div>
-    <div class="td_t">
-      <span>
-        <label >ФИО:</label>
-      </span>
-      <div></div>
-    </div>
-    <div class="td_t">
-      <span>
-        <label >Группа</label>
-      </span>
-      <div></div>
-    </div>
-    <div class="td_t">
-      <span>
-        <label >Средний балл</label>
-      </span>
-      <div></div>
-    </div>
-    <div class="td_t">
-      <span>
-        <label >Последний визит на сайт</label>
-      </span>
-      <div></div>
-    </div>
+<form id="student_compare">
 
-  </div>
-  <?php $index = 1; ?>
-  <?php foreach ($models as $model): ?>
+  <div class="anchor"></div>
+  <div class="table_t reestr">
     <div class="tr_t">
       <div class="td_t">
-        <label ><?php echo $index; ?></label>
+        <span>
+          <span class="compare_values" onclick="prepearStudent()" title="Сравнить"></span>
+        </span>
+        <div></div>
       </div>
       <div class="td_t">
-        <?php
-        $picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
-        if (!is_null($model->prof->file_id)) {
-          $file_name = $model->prof->uploadedfiles->name;
-          $picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
-        }
-        ?>
-        <?php echo CHtml::link("<img  src='$picter' />", Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->prof->id)), array('class' => 'classic')); ?>
+        <span>
+          <label >Фото</label>
+        </span>
+        <div></div>
       </div>
       <div class="td_t">
-        <?php
-        if (isset($model->prof->patronymic)) {
-          $name = $model->prof->surname . ' ' . $name = $model->prof->name . ' ' . $model->prof->patronymic;
-        } else {
-          $name = $model->prof->surname . ' ' . $name = $model->prof->name;
-        }
-        ?>
+        <span>
+          <label >ФИО:</label>
+        </span>
+        <div></div>
+      </div>
+      <div class="td_t">
+        <span>
+          <label >Группа</label>
+        </span>
+        <div></div>
+      </div>
+      <div class="td_t">
+        <span>
+          <label >Средний балл</label>
+        </span>
+        <div></div>
+      </div>
+      <div class="td_t">
+        <span>
+          <label >Последний визит на сайт</label>
+        </span>
+        <div></div>
+      </div>
 
-        <?php
-        echo CHtml::link($name, Yii::app()->urlManager->
-                        createUrl('user/ViewProfile/', array(
-                            'id' => $model->prof->id
-                                )
-                        ), array(
-            'class' => 'classic',
-            'async' => 'async',
-                )
-        );
-        ?>
-      </div>
-      <div class="td_t">
-        <?php
-        echo CHtml::link($model->prof->team->name . ' 1-' . $model->prof->team->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group/' . $model->prof->team->id), array(
-            'class' => 'classic',
-            'async' => 'async',
-                )
-        );
-        ?>
-      </div>
-      <div class="td_t">
-        <?php echo $model->prof->mean ?>
-      </div>
-      <div class="td_t">
-        <?php if (!is_null($model->laste_enter)): ?>
-          <?php echo date('j', $model->laste_enter); ?>
-          
-          <?php echo MyHelper::getRusMonth((int) date('n', $model->laste_enter)) ?>
-           
-          <?php echo date('y', $model->laste_enter); ?>
-        <?php endif; ?>
-      </div>
     </div>
-    <?php $index++; ?>
-  <?php endforeach; ?>
+    <?php $index = 1; ?>
+    <?php foreach ($models as $model): ?>
+      <div class="tr_t">
+        <div class="td_t">
+          <input type="hidden" name="group_id" value="<?php echo $model->prof->group_id; ?>">
+          <input type="checkbox" name="students[<?php echo $model->prof->id; ?>]"  value="<?php echo $model->prof->id; ?>"/>
+        </div>
+        <div class="td_t">
+          <?php
+          $picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
+          if (!is_null($model->prof->file_id)) {
+            $file_name = $model->prof->uploadedfiles->name;
+            $picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
+          }
+          ?>
+          <?php echo CHtml::link("<img  src='$picter' />", Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->prof->id)), array('class' => 'classic')); ?>
+        </div>
+        <div class="td_t">
+          <?php
+          if (isset($model->prof->patronymic)) {
+            $name = $model->prof->surname . ' ' . $name = $model->prof->name . ' ' . $model->prof->patronymic;
+          } else {
+            $name = $model->prof->surname . ' ' . $name = $model->prof->name;
+          }
+          ?>
 
-</div>
-<script>
-  $(document).ready(function(){
-    $('.reestr').fixedtableheader(); 
-  });
-</script>
+          <?php
+          echo CHtml::link($name, Yii::app()->urlManager->
+                          createUrl('user/ViewProfile/', array(
+                              'id' => $model->prof->id
+                                  )
+                          ), array(
+              'class' => 'classic',
+              'async' => 'async',
+                  )
+          );
+          ?>
+        </div>
+        <div class="td_t">
+          <?php
+          echo CHtml::link($model->prof->team->name . ' 1-' . $model->prof->team->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group/' . $model->prof->team->id), array(
+              'class' => 'classic',
+              'async' => 'async',
+                  )
+          );
+          ?>
+        </div>
+        <div class="td_t">
+          <?php echo $model->prof->mean ?>
+        </div>
+        <div class="td_t">
+          <?php if (!is_null($model->laste_enter)): ?>
+            <?php echo date('j', $model->laste_enter); ?>&nbsp;<?php echo MyHelper::getRusMonth((int) date('n', $model->laste_enter)) ?>&nbsp;<?php echo date('Y', $model->laste_enter); ?>
+          <?php endif; ?>
+        </div>
+      </div>
+      <?php $index++; ?>
+    <?php endforeach; ?>
+
+  </div>
+  <script>
+    $(document).ready(function(){
+      $('.reestr').fixedtableheader(); 
+    });
+  </script>
+</form>

@@ -124,7 +124,7 @@ class UserController extends Controller {
         $entry[$value->semestr_id][$value->predmet_id] = $value->rating_id;
       }
     }
-    
+
 
     $title = "Зачетка";
     MyHelper::render($this, 'stats', array(
@@ -205,13 +205,14 @@ class UserController extends Controller {
   }
 
   public function actionCompareStudent() {
-
     if (!isset($_POST['students']) || !isset($_POST['group_id']))
       exit();
     $students = array();
     $chartData = array();
 
+
     $students = $_POST['students'];
+  
 
     $group = Group::model()->findByPk($_POST['group_id']);
     $gyc = GroupYearCreate::model()->findByPk($group->id_year_create);

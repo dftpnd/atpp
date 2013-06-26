@@ -315,8 +315,4 @@ if (isset($_GET['id'])) {
   <div class="stats_box"></div>
 </div>
 
-<script>
-  uploadStats(<?php echo $get_id; ?>);
-</script>
-
 
