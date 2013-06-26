@@ -2367,53 +2367,88 @@ ul li{
   height:20px;
 }
 
-
 .menu_profile a{
-  background:url(../i/w_m/user2.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
-  /*  width:100px;*/
+  background:url(../i/w_m/user2.png) no-repeat 4px 8px;
 }
+.menu_files a{
+  background:url(../i/w_m/folder.png) no-repeat 4px 9px;
+}
+.menu_record_book a{
+  background:url(../i/w_m/zachet.png) no-repeat 4px 9px;
+}
+.menu_schedule a{
+  background:url(../i/w_m/calendar2.png) no-repeat 4px 9px;
+}
+.menu_review a{
+  background:url(../i/w_m/news.png) no-repeat 4px 9px;
+}
+.manage_group a{
+  background:url(../i/w_m/management.png) no-repeat 4px 9px;
+}
+.menu_management a{
+  background:url(../i/w_m/drawer2.png) no-repeat 3px 9px;
+}
+.activity a{
+  background:url(../i/w_m/activity.png) no-repeat -4px 0px;
+}
+.slide_menus a{
+  background:url(../i/w_m/slide.png)  no-repeat 5px 8px;
+}
+.menu_admin a{
+  background:url(../i/w_m/rocket.png) no-repeat 4px 9px;
+}
+
+.menu_profile:hover a{
+  background:url(../i/w_m/user2_wt.png) no-repeat 4px 8px;
+}
+
+.menu_files:hover a{
+  background:url(../i/w_m/folder_wt.png) no-repeat 4px 9px;
+}
+.menu_record_book:hover a{
+  background:url(../i/w_m/zachet_wt.png) no-repeat 4px 9px;
+}
+.menu_schedule:hover a{
+  background:url(../i/w_m/calendar2_wt.png) no-repeat 4px 9px;
+}
+.menu_review:hover a{
+  background:url(../i/w_m/news_wt.png) no-repeat 4px 9px;
+}
+.manage_group:hover a{
+  background:url(../i/w_m/management_wt.png) no-repeat 4px 9px;
+}
+.menu_management:hover a{
+  background:url(../i/w_m/drawer2_wt.png) no-repeat 3px 9px;
+}
+.activity:hover a{
+  background:url(../i/w_m/activity_wt.png) no-repeat -4px 0px;
+}
+.slide_menus:hover a{
+  background:url(../i/w_m/slide_wt.png)  no-repeat 5px 8px;
+}
+.menu_admin:hover a{
+  background:url(../i/w_m/rocket_wt.png) no-repeat 4px 9px;
+}
+
+
+
 .menu_assessment a{
   background:url(../i/w_m/pie.png);
   background-repeat: no-repeat;
-  background-position:4px 6px;
-}
-.menu_files a{
-  background:url(../i/w_m/folder.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
-}
-.menu_record_book a{
-  background:url(../i/w_m/zachet.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
-}
-.menu_review a{
-  background:url(../i/w_m/news.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
+  background-position:4px 9px;
 }
 .menu_students {
   background:url(../i/students.png);
   background-repeat: no-repeat;
-  background-position:4px 6px;
+  background-position:4px 9px;
 }
 .menu_prepods {
   background:url(../i/prepods.png);
   background-repeat: no-repeat;
-  background-position:4px 6px;
+  background-position:4px 9px;
 }
-.menu_schedule a{
-  background:url(../i/w_m/calendar2.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
-}
-.manage_group a{
-  background:url(../i/w_m/management.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
-}
+
+
 .groupfile{
   background:url(../i/w_m/file2.png);
   background-repeat: no-repeat;
@@ -2440,13 +2475,6 @@ ul li{
   padding-left:20px;
   line-height: 27px;
 }
-.menu_admin a{
-  background:url(../i/w_m/rocket.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
-}
-.menu_admin a{
-}
 .menu_comments a{
   background:url(../i/w_m/comments3.png);
   background-repeat: no-repeat;
@@ -2455,21 +2483,9 @@ ul li{
   margin-top: 20px;
   padding-top:20px!important;
 }
-.menu_management a{
-  background:url(../i/w_m/drawer2.png);
-  background-repeat: no-repeat;
-  background-position:4px 6px;
-}
-.activity a{
-  background:url(../i/w_m/activity.png);
-  background-repeat: no-repeat;
-  background-position:-4px 0px;
-}
-.slide_menus a{
-  background:url(../i/w_m/slide.png);
-  background-repeat: no-repeat;
-  background-position:5px 8px;
-}
+
+
+
 .slide img{
   position: relative;
 }
@@ -5592,6 +5608,9 @@ div.fc-body div.fc-row div.fc-content{
 .menu_work ul li{
   padding-left:5px;
 }
+.menu_work ul li.menu_editprofile{
+  padding: 0!important;
+}
 .menu_work>ul>li:last-child{
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
@@ -5632,7 +5651,7 @@ li.menu_editprofile:hover{
 }
 li.menu_editprofile a{
   font-size: 12px;
-  padding: 9px 9px 10px !important;
+  padding: 9px 8px 10px !important;
   color:red!important;
 }
 .menu_editprofile:hover{background: #505050!important;}
