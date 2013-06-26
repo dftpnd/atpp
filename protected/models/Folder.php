@@ -269,6 +269,7 @@ class Folder extends CActiveRecord {
         'html',
         'js',
         'css',
+        'djvu',
         "", //без расширения
     );
     return $array;

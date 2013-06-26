@@ -5635,7 +5635,7 @@ li.menu_editprofile:hover{
 }
 li.menu_editprofile a{
   font-size: 12px;
-  padding: 9px 9px 10px !important;
+  padding: 9px 9px 9px !important;
   color:red!important;
 }
 .menu_editprofile:hover{background: #505050!important;}
