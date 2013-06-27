@@ -211,7 +211,8 @@ class SiteController extends Controller {
                 $user->active = 1;
                 $user->banned = 0;
 
-                if (empty(Assignments::model()->findByAttributes(array('userid' => $user->id)))) {
+                $ass_status = Assignments::model()->findByAttributes(array('userid' => $user->id));
+                if (empty($ass_status)) {
                   $assigmants = new Assignments();
                   $assigmants->itemname = 'Prepod';
                   $assigmants->userid = $user->id;
