@@ -210,12 +210,13 @@ class SiteController extends Controller {
                 $model->update(false);
                 $user->active = 1;
                 $user->banned = 0;
-//                $assigmants = new Assignments();
-//                $assigmants->itemname = 'prepod';
-//                $assigmants->userid = $user->id;
-//                $assigmants->bizrule = NULL;
-//                $assigmants->data = NULL;
-//                $assigmants->save();
+                $assigmants = new Assignments();
+                $assigmants->itemname = 'prepod';
+                $assigmants->userid = $user->id;
+                $assigmants->bizrule = NULL;
+                $assigmants->data = NULL;
+
+               
 
                 if ($user->update(false)) {
 
@@ -225,6 +226,9 @@ class SiteController extends Controller {
                           ), true
                   );
 
+                  echo json_encode(array('div' => $data));
+                } else {
+                  $data = $this->renderPartial('/site/aproveusername', array('profile' => $model), true);
                   echo json_encode(array('div' => $data));
                 }
               }
