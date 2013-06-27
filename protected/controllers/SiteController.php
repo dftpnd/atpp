@@ -211,11 +211,10 @@ class SiteController extends Controller {
                                 $user->active = 1;
                                 $user->banned = 0;
                                 $assigmants = new Assignments();
-                                $assigmants->itemname = 'Prepod';
+                                $assigmants->itemname = 'prepod';
                                 $assigmants->userid = $user->id;
                                 $assigmants->bizrule = NULL;
                                 $assigmants->data = NULL;
-                                die('asd');
                                 $assigmants->save(false);
 
                                 if ($user->update(false)) {
