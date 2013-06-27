@@ -5592,7 +5592,6 @@ div.fc-body div.fc-row div.fc-content{
 }
 
 .menu_work{
-  background: #333;
   margin: 20px 0 0 0;
   position: absolute;
   top:0px;
@@ -5642,10 +5641,7 @@ div.fc-body div.fc-row div.fc-content{
 .menu_work  li:hover a{
   color: #fff;
 }
-.menu_work  li:hover {
-  background:url('../i/menu/hover.png') left center no-repeat;
-  /*background: #00BCF2;*/
-}
+
 .menu_work ul li.active{
   white-space:nowrap;
 }
@@ -5655,16 +5651,13 @@ li.menu_editprofile{
   top: 0px;
   background: #fff!important;
 }
-li.menu_editprofile:hover{
-  background: #505050!important;
-}
 li.menu_editprofile a{
   font-size: 12px;
   padding: 9px 8px 10px !important;
   color:red!important;
 }
 .menu_editprofile:hover{background: #505050!important;}
-.menu_work ul li.menu_profile:hover {background: #505050;}
+.menu_work ul li.menu_profile:hover {background: url('../i/menu/hover.png') #505050  left center no-repeat;}
 .menu_work ul li.menu_files:hover{background: #00BCF2;}
 .menu_work ul li.menu_record_book:hover{background: #BA141A;}
 .menu_work ul li.menu_schedule:hover{background: #99439A;}
@@ -5677,6 +5670,10 @@ li.menu_editprofile a{
 .folder_ext{
   color: #555;
 }
+/*.menu_work  li:hover {.png')
+  background: url('../i/menu/hover.png');
+  background:  left center no-repeat;
+}*/
 .zagruzit{
   color: #00BCF2;
 }
