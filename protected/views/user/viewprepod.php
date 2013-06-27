@@ -169,7 +169,7 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
         <?php if (!empty($profile->private)): ?>
           <div class="resume__emptyblock">
-            <?php echo nl2br(CHtml::encode($profile->private)); ?>
+            <?php echo MyHelper::makeClickableLinks($profile->private); ?>
           </div>
         <?php endif; ?>
         <?php if (!empty($predmetprepod)): ?>
