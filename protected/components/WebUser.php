@@ -15,9 +15,10 @@ class WebUser extends CWebUser {
 
     if (!$this->isGuest && $this->_model === null) {
       $this->_model = Assignments::model()->with('us')->find('userid = :userid', array(':userid' => $this->id));
-      if (is_null($this->_model->id))
+      if (!empty($this->_model->us)) {
         $this->_model->us->laste_enter = time();
-      $this->_model->us->save(false);
+        $this->_model->us->save(false);
+      }
       if ($this->_model->us->banned != 0) {
         Yii::app()->getController()->redirect('/site/banned');
       }
