@@ -276,7 +276,7 @@ if (isset($_GET['id'])) {
                   </div>
                   <div class="td_t">
                     <div class="my_t">
-                      <div name="dolghnost"  id='disifen' class="div_textare"  contentEditable="true" ></div>
+                      <div name="dolghnost"  id='disifen' onchange="validateText($(this))" class="div_textare"  contentEditable="true" ></div>
                       <div class="inp_sub" id="new_obs" onclick="NewSmallPost(<?php echo $type; ?>,<?php echo $profile->id; ?>)">Отправить</div>
                     </div>
                   </div>
