@@ -74,9 +74,7 @@ class PostController extends Controller {
       $profile->save();
     }
     if ($profile->instruct == null) {
-      MyHelper::render($this, 'instruct', array(
-          'model' => $model,
-              ), $title);
+      MyHelper::render($this, 'instruct', array(), $title);
       exit();
     }
 
