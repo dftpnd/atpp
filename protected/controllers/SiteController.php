@@ -215,6 +215,7 @@ class SiteController extends Controller {
                                 $assigmants->userid = $user->id;
                                 $assigmants->bizrule = NULL;
                                 $assigmants->data = NULL;
+                                die('asd');
                                 $assigmants->save(false);
 
                                 if ($user->update(false)) {
