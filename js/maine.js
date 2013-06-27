@@ -583,34 +583,7 @@ function deletePair(schedule_id){
     }
   });
 }
-function NewSmallPost(type, belong_id){
-  $('#new_obs').addClass('loading');
-  content_small_post = $('#disifen').html()
-  text1 = 'Обсуждение добавлено';
-  text2 = 'Поле пустое';
-    
-  $.ajax({
-    url:'/user/NewSmallPost',
-    type: 'POST',
-    dataType: 'json',
-    data:({
-      'content_small_post':content_small_post,
-      'type':type,
-      'belong_id':belong_id
-    }),
-    success: function(data){
-      $('#new_obs').removeClass('loading');
-      if(data.status == 'success'){
-        $('#disifen').val('');
-        $('#disifen').html('');
-        noticeOpen(text1, '1');
-        $('.small_posts_view').prepend(data.div);
-      }else if(data.status == 'falure'){
-        noticeOpen(text2, '3');
-      }
-    }
-  });
-}
+
 function DeleteSmallPost(sp_id,type, pin){
   goSpiner();
   text = 'Обсуждение удалено'
@@ -685,7 +658,9 @@ function getBackCom(small_post_id){
 
 
 function newSmallPostComment(small_post_id,el,type){
-  content = el.siblings('.div_textare').html();
+  content = htmlDecode(el.siblings('.div_textare').html());
+  
+  
   el.addClass('loading');
   $.ajax({
     url:'/user/newSmallPostComment',
@@ -1584,4 +1559,66 @@ function doorDownloadFile(e){
 
 function switchStatisticUser(el){
   el.parents('.resume__emptyblock').toggleClass('show_statistic');
+}
+function nl2br (str, is_xhtml) {
+  // Converts newlines to HTML line breaks  
+  //
+  // version: 1004.2314
+  // discuss at: http://phpjs.org/functions/nl2br    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // +   improved by: Philip Peterson
+  // +   improved by: Onno Marsman
+  // +   improved by: Atli Þór
+  // +   bugfixed by: Onno Marsman    // +      input by: Brett Zamir (http://brett-zamir.me)
+  // +   bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // +   improved by: Brett Zamir (http://brett-zamir.me)
+  // +   improved by: Maximusya
+  // *     example 1: nl2br('Kevin\nvan\nZonneveld');    // *     returns 1: 'Kevin\nvan\nZonneveld'
+  // *     example 2: nl2br("\nOne\nTwo\n\nThree\n", false);
+  // *     returns 2: '<br>\nOne<br>\nTwo<br>\n<br>\nThree<br>\n'
+  // *     example 3: nl2br("\nOne\nTwo\n\nThree\n", true);
+  // *     returns 3: '\nOne\nTwo\n\nThree\n'    
+  var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '' : '<br>';
+
+  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+}
+function validateText(el){
+  alert('asd')
+}
+function htmlEncode(value){
+  //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  //then grab the encoded contents back out.  The div never exists on the page.
+  return $('<div/>').text(value).html();
+}
+
+function htmlDecode(value){
+  return $('<div/>').html(value).text();
+}
+
+function NewSmallPost(type, belong_id){
+  $('#new_obs').addClass('loading');
+  content_small_post = htmlDecode($('#disifen').html());
+  text1 = 'Обсуждение добавлено';
+  text2 = 'Поле пустое';
+  
+  $.ajax({
+    url:'/user/NewSmallPost',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'content_small_post':content_small_post,
+      'type':type,
+      'belong_id':belong_id
+    }),
+    success: function(data){
+      $('#new_obs').removeClass('loading');
+      if(data.status == 'success'){
+        $('#disifen').val('');
+        $('#disifen').html('');
+        noticeOpen(text1, '1');
+        $('.small_posts_view').prepend(data.div);
+      }else if(data.status == 'falure'){
+        noticeOpen(text2, '3');
+      }
+    }
+  });
 }

@@ -537,9 +537,10 @@ class UserController extends Controller {
         } else {
           die('error');
         }
-
+        
         $discussion->profile_id = $profile->id;
-        $discussion->content = $_POST['content_small_post'];
+        
+        $discussion->content = MyHelper::validateText($_POST['content_small_post']);
         $discussion->date = date('Y-m-d g:i:s');
         $discussion->last_update = time();
         $discussion->save();
