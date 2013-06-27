@@ -11,7 +11,7 @@
               'active' => (Yii::app()->controller->getId() == 'site' &&
               Yii::app()->controller->getAction()->getId() == 'index')),
           array(
-              'label' => 'Новости',
+              'label' => 'Статьи',
               'linkOptions' => array(
                   'async' => 'async',
               ),

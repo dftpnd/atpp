@@ -34,8 +34,9 @@ dataLocation.urlHistory = [];
 
 
 window.addEventListener('popstate', function(e){
-  if(e.state.url != undefined)
-    changePage(e.state.url, false);
+  if(typeof e.state == "undefined")
+    if(typeof e.state.url == "undefined")
+      changePage(e.state.url, false);
 }, false);
   
   
@@ -316,14 +317,14 @@ function prepearGroup(){
 }
 function prepearStudent(){
   var count = 0;
-  $('#student_compare .table_t .tr_t .td_t input:checked').each(function(){    
+  $('#student_compare input:checked').each(function(){    
     count++;    
   });
   if (count>1 && count<17) 
     compareStudent();
   else if (count<2) 
     alert('Для сравнения необходимо выбрать минимум 2 студента');  
-  else if (count>16) 
+  else if (count>32) 
     alert('Максимальное количество студентов для сравнения - 32');  
 }
 function compareStudent(){
@@ -582,34 +583,7 @@ function deletePair(schedule_id){
     }
   });
 }
-function NewSmallPost(type, belong_id){
-  $('#new_obs').addClass('loading');
-  content_small_post = $('#disifen').html()
-  text1 = 'Обсуждение добавлено';
-  text2 = 'Поле пустое';
-    
-  $.ajax({
-    url:'/user/NewSmallPost',
-    type: 'POST',
-    dataType: 'json',
-    data:({
-      'content_small_post':content_small_post,
-      'type':type,
-      'belong_id':belong_id
-    }),
-    success: function(data){
-      $('#new_obs').removeClass('loading');
-      if(data.status == 'success'){
-        $('#disifen').val('');
-        $('#disifen').html('');
-        noticeOpen(text1, '1');
-        $('.small_posts_view').prepend(data.div);
-      }else if(data.status == 'falure'){
-        noticeOpen(text2, '3');
-      }
-    }
-  });
-}
+
 function DeleteSmallPost(sp_id,type, pin){
   goSpiner();
   text = 'Обсуждение удалено'
@@ -662,10 +636,15 @@ function DeleteSPComment(id_sp_comment,type, pin){
     
     
 }
-function zamenaTextArea(small_post_id){
+function zamenaTextArea(small_post_id, type){
   $('#ncp_'+small_post_id).hide();
   $('#ncr_'+small_post_id).show();
   $('#ncr_'+small_post_id+' .div_textare').focus();
+  $('#ncr_'+small_post_id+' .div_textare').keypress(function(e) {
+    if(e.which == 13) {
+      newSmallPostComment(small_post_id, $('#ncr_'+small_post_id+' .inp_sub'),type)
+    }
+  }); 
 }
 function getBackCom(small_post_id){
        
@@ -679,7 +658,9 @@ function getBackCom(small_post_id){
 
 
 function newSmallPostComment(small_post_id,el,type){
-  content = el.siblings('.div_textare').html();
+  content = htmlDecode(el.siblings('.div_textare').html());
+  
+  
   el.addClass('loading');
   $.ajax({
     url:'/user/newSmallPostComment',
@@ -748,7 +729,7 @@ function recoverpassword(el){
         el.siblings('input').val()
         el.removeClass('loading');
         if(data.status == 'failure'){
-          text = "Нет такого адреса эл.почта"
+          text = "Пользователь с таким электронным адресом не зарегистрирован"
           noticeOpen(text, '3');
         }else if(data.status == 'seccess'){
           $('.recoverypassword .resume__emptyblock').html('');
@@ -861,10 +842,10 @@ function getschedule(group_id){
     }
   })
 }
-function changeStats(el){
+function changeStats(el, user_id){
   el.addClass('loading');
   $.ajax({
-    url:'/user/Stats',
+    url:'/user/Stats?user_id='+user_id,
     type: 'POST',
     dataType: 'json',
     data: $('#user_stats').serialize(),
@@ -1410,11 +1391,17 @@ function deleteFolder(e){
   el = $('.table_files .tr_files.active');
   var name_folder = el.find('.name_folder').val();
   var folder_id = el.attr('folder_id');
+  
+  if(el.attr('status_attr') == 'file'){
+    var status_attr = 'файл';
+  }else{
+    var status_attr = 'папку';
+  }
+  
   if(folder_id == undefined){
     alert('Выберите папку или файл');
-    
   }else{
-    if (confirm("Вы уверенны что хотите удалить папку «"+name_folder+"»?")){
+    if (confirm("Вы уверенны что хотите удалить "+status_attr+" «"+name_folder+"»?")){
       loader.show();
       $.ajax({
         url:'/user/DeleteFolder',
@@ -1507,7 +1494,7 @@ function getOpenFolder(folder_id){
       if(data.status == 'success'){
         
         $('.tr_files').remove();
-        $('.table_files').append(data.html);
+        $('.table_body_t').append(data.html);
         $('#breadcrambs').html(data.html_breadcrambs);
         
         url = '/user/files?id='+data.folder.user_id+'&parent_id='+data.folder.id;
@@ -1529,8 +1516,18 @@ function editLineFolder(e){
   var el = $('.table_files .tr_files.active');
   el.removeClass('st_old');
   el.addClass('st_new');
+  var input = $('.table_files .tr_files.active .name_folder');
+  
+  input.focus();
+  input.keypress(function(e) {
+    if(e.which == 13) {
+      saveChangeFolder();
+    }
+  }); 
   
 }
+
+
 function editPriveteStatus(event){
   event.stopPropagation();
   saveChangeFolder();
@@ -1560,6 +1557,68 @@ function doorDownloadFile(e){
   });
 }
 
+function switchStatisticUser(el){
+  el.parents('.resume__emptyblock').toggleClass('show_statistic');
+}
+function nl2br (str, is_xhtml) {
+  // Converts newlines to HTML line breaks  
+  //
+  // version: 1004.2314
+  // discuss at: http://phpjs.org/functions/nl2br    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // +   improved by: Philip Peterson
+  // +   improved by: Onno Marsman
+  // +   improved by: Atli Þór
+  // +   bugfixed by: Onno Marsman    // +      input by: Brett Zamir (http://brett-zamir.me)
+  // +   bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // +   improved by: Brett Zamir (http://brett-zamir.me)
+  // +   improved by: Maximusya
+  // *     example 1: nl2br('Kevin\nvan\nZonneveld');    // *     returns 1: 'Kevin\nvan\nZonneveld'
+  // *     example 2: nl2br("\nOne\nTwo\n\nThree\n", false);
+  // *     returns 2: '<br>\nOne<br>\nTwo<br>\n<br>\nThree<br>\n'
+  // *     example 3: nl2br("\nOne\nTwo\n\nThree\n", true);
+  // *     returns 3: '\nOne\nTwo\n\nThree\n'    
+  var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '' : '<br>';
 
+  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+}
+function validateText(el){
+  alert('asd')
+}
+function htmlEncode(value){
+  //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  //then grab the encoded contents back out.  The div never exists on the page.
+  return $('<div/>').text(value).html();
+}
 
+function htmlDecode(value){
+  return $('<div/>').html(value).text();
+}
 
+function NewSmallPost(type, belong_id){
+  $('#new_obs').addClass('loading');
+  content_small_post = htmlDecode($('#disifen').html());
+  text1 = 'Обсуждение добавлено';
+  text2 = 'Поле пустое';
+  
+  $.ajax({
+    url:'/user/NewSmallPost',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'content_small_post':content_small_post,
+      'type':type,
+      'belong_id':belong_id
+    }),
+    success: function(data){
+      $('#new_obs').removeClass('loading');
+      if(data.status == 'success'){
+        $('#disifen').val('');
+        $('#disifen').html('');
+        noticeOpen(text1, '1');
+        $('.small_posts_view').prepend(data.div);
+      }else if(data.status == 'falure'){
+        noticeOpen(text2, '3');
+      }
+    }
+  });
+}

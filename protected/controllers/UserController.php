@@ -10,10 +10,12 @@ class UserController extends Controller {
     $group = array();
     $user_id = Yii::app()->user->id;
 
+
     $model = Profile::model()->with('uploadedfiles')->findByAttributes(array('user_id' => Yii::app()->user->id));
     if (isset($_POST['Profile'])) {
 
       $model->attributes = $_POST['Profile'];
+      $model->private = $_POST['Profile']['private'];
       if (isset($_POST['Profile']['group_id']))
         $model->group_id = $_POST['Profile']['group_id'];
 
@@ -47,30 +49,20 @@ class UserController extends Controller {
             ), $title);
   }
 
-  public function actionStats() {
-    if (isset($_POST['profile_id'])) {
-      $user_no_isset = $_POST['profile_id'];
-    } elseif (isset($_POST['resultts'])) {
-      $user_no_isset = User::model()->findByPk(Yii::app()->user->id);
-    }
+  public function actionStats($user_id) {
+    $user = User::model()->findByPk($user_id);
+    $profile = $user->prof;
 
-    if ($user_no_isset == 0) {
-      $model = Profile::model()->with('uploadedfiles')->findByAttributes(array('user_id' => Yii::app()->user->id));
-    } else {
-      $model = Profile::model()->with('uploadedfiles')->findByPk($_POST['profile_id']);
-    }
-    $user_id = $model->user_id;
-
-    if ($model->user_id == Yii::app()->user->id) {
+    if ($user_id == Yii::app()->user->id)
       $my_prof = TRUE;
-    } else {
+    else
       $my_prof = FALSE;
-    }
 
 
-    $group = Group::model()->findByPk($model->group_id);
+
+    $group = Group::model()->findByPk($profile->group_id);
     $stats_srav = array();
-    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $model->group_id));
+    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $profile->group_id));
     foreach ($psg_model as $box) {
       $stats_srav[$box->semestr_id][$box->id] = $box->predmet_id;
     }
@@ -108,10 +100,10 @@ class UserController extends Controller {
         $gss = GroupSemestrStatistic::model();
         $statistic = Statistic::model();
 //среднее для юзера
-        $model->mean = substr($summa / $count_predmets, 0, 5);
-        $model->save();
+        $profile->mean = substr($summa / $count_predmets, 0, 5);
+        $profile->save();
 //среднее для группы
-        $psofiles = Profile::model()->findAllByAttributes(array('group_id' => $model->group_id));
+        $psofiles = Profile::model()->findAllByAttributes(array('group_id' => $profile->group_id));
         $count_profiles = 0;
         $summa_group = 0;
         foreach ($psofiles as $profile) {
@@ -134,8 +126,17 @@ class UserController extends Controller {
         $entry[$value->semestr_id][$value->predmet_id] = $value->rating_id;
       }
     }
-    $data = $this->renderPartial('stats', array('model' => $model, 'group' => $group, 'psg_model' => $psg_model, 'rating' => $rating, 'entry' => $entry, 'my_prof' => $my_prof), true);
-    echo json_encode(array('div' => $data));
+
+
+    $title = "Зачетка";
+    MyHelper::render($this, 'stats', array(
+        'model' => $profile,
+        'group' => $group,
+        'psg_model' => $psg_model,
+        'rating' => $rating,
+        'entry' => $entry,
+        'my_prof' => $my_prof
+            ), $title);
   }
 
   public function actionViewStudent() {
@@ -206,13 +207,14 @@ class UserController extends Controller {
   }
 
   public function actionCompareStudent() {
-
     if (!isset($_POST['students']) || !isset($_POST['group_id']))
       exit();
     $students = array();
     $chartData = array();
 
+
     $students = $_POST['students'];
+
 
     $group = Group::model()->findByPk($_POST['group_id']);
     $gyc = GroupYearCreate::model()->findByPk($group->id_year_create);
@@ -508,7 +510,6 @@ class UserController extends Controller {
 
   public function actionNewSmallPost() {
 
-//СТАНДАРТИЗИРОВАТЬ КНОПКУ!!!
     if (isset($_POST['content_small_post']) && isset($_POST['type']) && isset($_POST['belong_id'])) {
       if (!$_POST['content_small_post'] == '') {
 
@@ -536,9 +537,10 @@ class UserController extends Controller {
         } else {
           die('error');
         }
-
+        
         $discussion->profile_id = $profile->id;
-        $discussion->content = $_POST['content_small_post'];
+        
+        $discussion->content = MyHelper::validateText($_POST['content_small_post']);
         $discussion->date = date('Y-m-d g:i:s');
         $discussion->last_update = time();
         $discussion->save();
@@ -661,7 +663,7 @@ class UserController extends Controller {
       $this->render('/site/reg_not_valid', array());
       exit();
     }
-    $title = $model->name . ' ' . $model->surname;
+    $title = MyHelper::getUsername(false, true, $model, true);
     $user_author = User::model()->findByPk($user_id);
 
     if (empty($model)) {
@@ -1438,7 +1440,13 @@ class UserController extends Controller {
   //=================files=====================//
   public function actionFiles($id, $parent_id = 0) {
     $new = FALSE;
+    $mu_path = FALSE;
     $user = User::model()->findByPk($id);
+
+    if ($user->id == Yii::app()->user->id)
+      $mu_path = TRUE;
+
+
     $breadcrambs = Folder::model()->breadcrambs($parent_id, $id);
     $html_breadcrambs = $this->renderPartial('_breadcrambs', array(
         'breadcrambs' => $breadcrambs,
@@ -1454,11 +1462,13 @@ class UserController extends Controller {
         'folders' => $folders,
         'html_breadcrambs' => $html_breadcrambs,
         'private_status' => $private_status,
-        'new' => $new
+        'new' => $new,
+        'mu_path' => $mu_path
             ), $title);
   }
 
   public function actionChangeFolder() {
+    $mu_path = FALSE;
     if (!isset($_POST['folder_id']) || !isset($_POST['parent_id'])) {
       echo json_encode(array('status' => 'faile', 'error' => 'Ошибка, неверный запрос'));
       Yii::app()->end();
@@ -1466,18 +1476,22 @@ class UserController extends Controller {
 
     $folder = Folder::getMyFolder($_POST['folder_id'], $_POST['parent_id']);
 
-    if (empty($folder->id))
+    if (empty($folder->id)) {
+      $mu_path = TRUE;
       $new = TRUE;
-    else
+    }else
       $new = FALSE;
 
+    if ($folder->user_id == Yii::app()->user->id)
+      $mu_path = TRUE;
 
     $private_status = PrivateStatus::model()->findAll();
 
     $html = $this->renderPartial('_folder', array(
         'folder' => $folder,
         'private_status' => $private_status,
-        'new' => $new
+        'new' => $new,
+        'mu_path' => $mu_path
             ), true);
 
     echo json_encode(array('status' => 'success', 'html' => $html));
@@ -1493,6 +1507,7 @@ class UserController extends Controller {
 
   public function actionUpdateDirectory() {
     $html = '';
+    $mu_path = FALSE;
 
     if (!isset($_POST['parent_id']) || !isset($_POST['author_id'])) {
       echo json_encode(array('status' => 'faile', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
@@ -1501,11 +1516,17 @@ class UserController extends Controller {
     $folders = Folder::getAvailableFolder($_POST['parent_id'], $_POST['author_id']);
 
     $private_status = PrivateStatus::model()->findAll();
+
+
     foreach ($folders as $folder) {
+      if ($folder->user_id == Yii::app()->user->id)
+        $mu_path = TRUE;
+
       $html .= $this->renderPartial('_folder', array(
           'folder' => $folder,
           'new' => false,
           'private_status' => $private_status,
+          'mu_path' => $mu_path
               ), true);
     }
 
@@ -1531,7 +1552,7 @@ class UserController extends Controller {
 
   public function actionOpenFolder() {
     $html = '';
-
+    $mu_path = FALSE;
 
     if (!isset($_POST['folder_id'])) {
       echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
@@ -1541,6 +1562,8 @@ class UserController extends Controller {
 
     $folder = Folder::model()->findByPk($_POST['folder_id']);
 
+    if ($folder->user_id == Yii::app()->user->id)
+      $mu_path = TRUE;
 
 
     if (empty($folder)) {
@@ -1561,7 +1584,8 @@ class UserController extends Controller {
       $html .= $this->renderPartial('_folder', array(
           'folder' => $model,
           'new' => FALSE,
-          'private_status' => $private_status
+          'private_status' => $private_status,
+          'mu_path' => $mu_path
               ), true);
     }
 
@@ -1583,9 +1607,54 @@ class UserController extends Controller {
   }
 
   public function actionDownloadFile($user_id, $parent_id) {
-    var_dump($user_id);
-    var_dump($parent_id);
-    die();
+    if ($user_id !== Yii::app()->user->id) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка доступа'));
+      Yii::app()->end();
+    }
+
+    $user = User::model()->findByPk($user_id);
+    $basePath = Folder::basePath($user->id);
+    $allowedExtensions = Folder::allowedExtensions();
+    $sizeLimit = 50 * 1024 * 1024;
+    $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+    $result = $uploader->handleUpload($basePath);
+
+
+    if (!empty($result['error'])) {
+      echo json_encode(array('status' => 'fail', 'error' => $result['error']));
+      Yii::app()->end();
+    }
+
+    $file = array(
+        'name' => $result['filename'],
+        'orig_name' => $result['user_filename'],
+        'size' => $result['size'],
+        'ext' => $result['ext'],
+    );
+
+    $Uploadedfiles = new Uploadedfiles();
+    $Uploadedfiles->attributes = $file;
+    if (!$Uploadedfiles->save()) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, сохранение не произошло 1'));
+      Yii::app()->end();
+    }
+
+    $result['file_id'] = $Uploadedfiles->id;
+
+    $folder = new Folder();
+    $folder->user_id = $user->id;
+    $folder->name = $result['user_filename'];
+    $folder->parent_id = (int) $parent_id;
+    $folder->created = time();
+    $folder->uploads_id = $Uploadedfiles->id;
+    $folder->private_status = PrivateStatus::ONLY_ME;
+    $folder->type = Folder::FILE;
+    if (!$folder->save()) {
+      echo json_encode(array('status' => 'fail', 'error' => var_dump($folder->getErrors())));
+      Yii::app()->end();
+    }
+
+    echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
   }
 
   public function actionDoorDownloadFile() {
@@ -1595,9 +1664,12 @@ class UserController extends Controller {
     }
     $parent_id = $_POST['parent_id'];
 
-    if (is_null($parent_id)) {
+
+    if ((int) $parent_id == 0) {
+
       $folder = new Folder();
-      $folder->name = MyHelper::getUsername();
+
+      $folder->name = MyHelper::getUsername(false, true, false, false);
     } else {
       $folder = Folder::model()->findByPk($parent_id);
       if (!Folder::checkAccess($folder)) {
@@ -1620,6 +1692,37 @@ class UserController extends Controller {
                 'html' => $html
             )
     );
+  }
+
+  public function actionDownloads($id) {
+    $folder = Folder::model()->findByPk($id);
+
+    if ($folder->private_status != PrivateStatus::EVERYONE) {
+      if (!Folder::checkAccess($folder)) {
+        die('недостаточно прав для скачивания');
+      }
+    }
+
+    $file = Uploadedfiles::model()->findByPk($folder->uploads_id);
+
+    if (!empty($file)) {
+      $ds = DIRECTORY_SEPARATOR;
+      $path = Yii::app()->basePath . $ds . '..' . $ds . 'uploads' . $ds . 'user_' . $folder->user_id . $ds . $file->name;
+      if (file_exists($path)) {
+        //папка с названием реестра
+        //посыл хедеров браузеру
+        header('Content-Disposition: attachment; filename="' . $folder->name . '"');
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Description: File Transfer");
+        header('Content-Length: ' . $file->size);
+
+        //скачивание
+        echo file_get_contents($path);
+        exit();
+      }
+    }
   }
 
 //=================files=====================//

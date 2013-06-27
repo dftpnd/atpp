@@ -83,14 +83,7 @@ if (isset($_GET['id'])) {
 
 <div class="pr">
   <div class="name_page">
-    <?php
-    if (isset($profile->patronymic)) {
-      $otchestvo = ' ' . $profile->patronymic . ' ';
-    } else {
-      $otchestvo = ' ';
-    }
-    ?>
-    <?php echo $profile->name . $otchestvo . $profile->surname; ?>
+    <?php echo MyHelper::getUsername(false, false, $profile, true);?>
   </div>
   <div class="table_t editprofile">
     <div class="tr_t">
@@ -115,7 +108,7 @@ if (isset($_GET['id'])) {
 
         </div>
         <div class="anchor"></div>
-        <a href="/user/files?id=<?php echo $user_author->id ?>"  async="async" class="profile_files" title="Файлы прользователя">
+        <a href="/user/files?id=<?php echo $user_author->id ?>"  async="async" class="profile_files" title="Файлы пользователя">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
           <path d="M100,31.806c0-2.07-1.678-3.75-3.75-3.75h-0.323c-0.348-1.711-1.859-3-3.675-3H41.181l-9.803-11.374l-0.019,0.005  c-0.681-0.696-1.628-1.13-2.679-1.13H3.75c-2.071,0-3.749,1.679-3.749,3.75v67.38L0,83.693c0,2.071,1.678,3.75,3.748,3.75H3.75  h16.873h0.002H37.5h0.001H92.25h0.002c2.072,0,3.75-1.679,3.75-3.75v-0.025L100,31.806z M37.5,84.443H20.623H3.748  c-0.389,0-0.709-0.298-0.745-0.679L6.991,31.96C6.997,31.883,7,31.806,7,31.729c0-0.414,0.335-0.75,0.747-0.75h0.721l87.534,0.076  l0,0h0.248c0.39,0,0.711,0.299,0.747,0.679l-0.995,12.907l0,0l-2.993,38.821C93.003,83.539,93,83.616,93,83.693  c0,0.413-0.337,0.75-0.75,0.75H37.5z"/>
           </svg>
@@ -138,14 +131,14 @@ if (isset($_GET['id'])) {
             <ul class="social_contact">
               <?php if (isset($profile->pthon) && $profile->pthon != ''): ?>
                 <li>
-                  <label class="social_img thone_c"  title="Контактактный телефон">
+                  <label class="social_img thone_c"  title="Контактный телефон">
                     <?php echo $profile->pthon; ?>
                   </label>
                 </li>
               <?php endif; ?>
               <?php if (isset($profile->kontakt_email) && $profile->kontakt_email != ''): ?>
                 <li>
-                  <label class="social_img email_c" title="Контактактный адрес эл. почты">
+                  <label class="social_img email_c" title="Контактный адрес эл. почты">
                     <?php echo $profile->kontakt_email; ?>
                   </label>
                 </li>
@@ -176,7 +169,7 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
         <?php if (!empty($profile->private)): ?>
           <div class="resume__emptyblock">
-            <?php echo nl2br(CHtml::encode($profile->private)); ?>
+            <?php echo MyHelper::makeClickableLinks($profile->private); ?>
           </div>
         <?php endif; ?>
         <?php if (!empty($predmetprepod)): ?>
@@ -243,7 +236,7 @@ if (isset($_GET['id'])) {
                     );
                 }
               } else {
-                echo 'Еще никто ничего не написал.';
+                echo 'На этой стене нет записей.';
               }
               ?>
             </div>

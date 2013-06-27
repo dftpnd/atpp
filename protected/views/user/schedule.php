@@ -1,21 +1,23 @@
 <div class="raspisanie" >
-    <h1>
-        <?php
-        echo 'Курс ' . $kurs . ' cеместр ' . $semestr;
-        ?>
-    </h1>
+  <h1>
     <?php
-    if ($profile->leader == 1) {
-        echo CHtml::link(
-                'Редактировать', Yii::app()->urlManager->createUrl(
-                        '/user/editschedule'
-                ), array(
-            'class' => 'create_schedule',
-            'async' => 'async'
-                )
-        );
-    }
+    echo 'Курс ' . $kurs . ' cеместр ' . $semestr;
     ?>
+  </h1>
+  <?php
+  if ($semestr != "")
+    if ($profile->leader == 1) {
+      echo CHtml::link(
+              'Редактировать', Yii::app()->urlManager->createUrl(
+                      '/user/editschedule'
+              ), array(
+          'class' => 'create_schedule',
+          'async' => 'async'
+              )
+      );
+    }
+  ?>
+
 
 </div>
 

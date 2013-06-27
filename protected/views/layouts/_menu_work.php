@@ -5,40 +5,48 @@
           array(
               'label' => 'Моя страница',
               'url' => Yii::app()->urlManager->createUrl('user/ViewProfile/'),
-              'active' => (Yii::app()->controller->getId() == 'user' && Yii::app()->controller->getAction()->getId() == 'ViewProfile'),
               'itemOptions' => array('class' => 'menu_profile'),
               'linkOptions' => array(
                   'async' => 'async',
               ),
-              'items' => array(
-                  array(
-                      'label' => 'ред.',
-                      'url' => Yii::app()->urlManager->createUrl('user/editprofile/' . Yii::app()->user->id),
-                      'active' => (Yii::app()->controller->getId() == 'user' && Yii::app()->controller->getAction()->getId() == 'editprofile'),
-                      'itemOptions' => array(
-                          'class' => 'menu_editprofile'
-                      ),
-                      'linkOptions' => array(
-                          'async' => 'async',
-                      ),
-                  ),
+          ),
+          array(
+              'label' => 'ред.',
+              'url' => Yii::app()->urlManager->createUrl('user/editprofile/' . Yii::app()->user->id),
+              'itemOptions' => array(
+                  'class' => 'menu_editprofile'
+              ),
+              'linkOptions' => array(),
+          ),
+          array(
+              'label' => 'Мои файлы',
+              'url' => Yii::app()->urlManager->createUrl('/user/files?id=' . Yii::app()->user->id),
+              'itemOptions' => array('class' => 'menu_files'),
+              'linkOptions' => array(
+                  'async' => 'async',
               ),
           ),
           array(
-              'label' => 'Расписание',
+              'label' => 'Моя зачетка',
+              'url' => Yii::app()->urlManager->createUrl('user/stats?user_id=' . Yii::app()->user->id),
+              'visible' => Yii::app()->user->getRole() != 'prepod',
+              'itemOptions' => array('class' => 'menu_record_book'),
+              'linkOptions' => array(
+                  'async' => 'async',
+              ),
+          ),
+          array(
+              'label' => 'Моё расписание',
               'url' => Yii::app()->urlManager->createUrl('user/schedule'),
               'visible' => Yii::app()->user->getRole() != 'prepod',
-              'active' => (Yii::app()->controller->getId() == 'user' && Yii::app()->controller->getAction()->getId() == 'schedule'),
               'itemOptions' => array('class' => 'menu_schedule'),
               'linkOptions' => array(
                   'async' => 'async',
               ),
           ),
           array(
-              'label' => 'Написать статью',
-              'url' => Yii::app()->urlManager->createUrl('post/create'),
-              'active' => (
-              Yii::app()->controller->getId() == 'post' && Yii::app()->controller->getAction()->getId() == 'create'),
+              'label' => 'Мои статьи',
+              'url' => Yii::app()->urlManager->createUrl('post/mypost'),
               'itemOptions' => array('class' => 'menu_review'),
               'linkOptions' => array(
                   'async' => 'async',
@@ -56,7 +64,6 @@
           array(
               'label' => 'Упр. статьями',
               'url' => Yii::app()->urlManager->createUrl('post/admin'),
-              'active' => Yii::app()->controller->getAction()->getId() == 'admin',
               'visible' => (
               (
               Yii::app()->user->getRole() == 'authority')
@@ -69,7 +76,6 @@
           array(
               'label' => 'Cобытие',
               'url' => Yii::app()->urlManager->createUrl('site/activity'),
-              'active' => (Yii::app()->controller->getId() == 'site' && Yii::app()->controller->getAction()->getId() == 'activity'),
               'visible' => (
               Yii::app()->user->getRole() == 'authority'
               ),
@@ -81,7 +87,6 @@
           array(
               'label' => 'Слайды',
               'url' => Yii::app()->urlManager->createUrl('slide/admin'),
-              'active' => (Yii::app()->controller->getId() == 'slide' && Yii::app()->controller->getAction()->getId() == 'admin'),
               'visible' => (
               Yii::app()->user->getRole() == 'authority'),
               'itemOptions' => array('class' => 'slide_menus'),
@@ -92,11 +97,6 @@
           array(
               'label' => 'Админка',
               'url' => Yii::app()->urlManager->createUrl('userAdmin/admin/users'),
-              'active' => (
-              Yii::app()->controller->getAction()->getId() == 'aprovemoder' ||
-              Yii::app()->controller->getAction()->getId() == 'mail' ||
-              Yii::app()->controller->getId() == 'authitem'
-              ),
               'visible' => (Yii::app()->user->getRole() == 'authority'),
               'itemOptions' => array('class' => 'menu_admin')
           ),
