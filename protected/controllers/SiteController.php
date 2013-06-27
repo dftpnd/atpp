@@ -215,9 +215,9 @@ class SiteController extends Controller {
                 $assigmants->userid = $user->id;
                 $assigmants->bizrule = NULL;
                 $assigmants->data = NULL;
-
+                
                 if ($user->update(false)) {
-
+                  $assigmants->save();
                   $data = $this->renderPartial(
                           '/site/aproveusername', array(
                       'profile' => $model
