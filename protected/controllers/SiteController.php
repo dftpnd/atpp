@@ -211,12 +211,10 @@ class SiteController extends Controller {
                 $user->active = 1;
                 $user->banned = 0;
                 $assigmants = new Assignments();
-                $assigmants->itemname = 'prepod';
+                $assigmants->itemname = 'Prepod';
                 $assigmants->userid = $user->id;
                 $assigmants->bizrule = NULL;
                 $assigmants->data = NULL;
-
-               
 
                 if ($user->update(false)) {
 
@@ -225,8 +223,8 @@ class SiteController extends Controller {
                       'profile' => $model
                           ), true
                   );
-
                   echo json_encode(array('div' => $data));
+                  exit();
                 } else {
                   $data = $this->renderPartial('/site/aproveusername', array('profile' => $model), true);
                   echo json_encode(array('div' => $data));
