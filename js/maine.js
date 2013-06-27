@@ -842,10 +842,10 @@ function getschedule(group_id){
     }
   })
 }
-function changeStats(el){
+function changeStats(el, user_id){
   el.addClass('loading');
   $.ajax({
-    url:'/user/Stats',
+    url:'/user/Stats?user_id'+user_id,
     type: 'POST',
     dataType: 'json',
     data: $('#user_stats').serialize(),
