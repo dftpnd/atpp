@@ -210,14 +210,19 @@ class SiteController extends Controller {
                 $model->update(false);
                 $user->active = 1;
                 $user->banned = 0;
-                $assigmants = new Assignments();
-                $assigmants->itemname = 'Prepod';
-                $assigmants->userid = $user->id;
-                $assigmants->bizrule = NULL;
-                $assigmants->data = NULL;
-                
-                if ($user->update(false)) {
+
+                if (empty(Assignments::model()->findByAttributes(array('userid' => $user->id)))) {
+                  $assigmants = new Assignments();
+                  $assigmants->itemname = 'Prepod';
+                  $assigmants->userid = $user->id;
+                  $assigmants->bizrule = NULL;
+                  $assigmants->data = NULL;
                   $assigmants->save();
+                }
+
+
+                if ($user->update(false)) {
+
                   $data = $this->renderPartial(
                           '/site/aproveusername', array(
                       'profile' => $model
