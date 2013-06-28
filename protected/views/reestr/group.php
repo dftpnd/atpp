@@ -9,7 +9,7 @@
             </div>
             <div class="td_t">
                 <span>
-                    <label for="name">Имя:</label>
+                    <label for="name">Группа:</label>
                     <select>
                         <option>все</option>
                         <?php foreach ($name_group as $key => $value): ?>
