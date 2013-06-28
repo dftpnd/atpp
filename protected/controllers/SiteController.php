@@ -184,8 +184,6 @@ class SiteController extends Controller {
   }
 
   public function actionValidatUser() {
-    //AuthItem[name][assign][]	Prepod
-    //User[id]	81
 
     if (isset($_POST['userseach'])) {
       $user = User::model()->findByAttributes(array('pin' => $_POST['userseach']));
@@ -222,7 +220,7 @@ class SiteController extends Controller {
                 }
 
 
-                if ($user->update(false)) {
+                if ($user->update()) {
 
                   $data = $this->renderPartial(
                           '/site/aproveusername', array(
