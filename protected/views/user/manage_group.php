@@ -153,14 +153,16 @@ if (isset($_GET['sect'])) {
           </span>
         </div>
         <div class="td_t">
-          <?php if ($student->user->banned != 1): ?>
-            <span class="classic_delete" onclick="banStudent(<?php echo $student->id ?>)">
-              забанить
-            </span>
-          <?php else : ?>
-            <span class="classic" onclick="razBanStudent(<?php echo $student->id ?>)">
-              разбанить
-            </span>
+          <?php if (isset($student->user->banned)): ?>
+            <?php if ($student->user->banned != 1): ?>
+              <span class="classic_delete" onclick="banStudent(<?php echo $student->id ?>)">
+                забанить
+              </span>
+            <?php else : ?>
+              <span class="classic" onclick="razBanStudent(<?php echo $student->id ?>)">
+                разбанить
+              </span>
+            <?php endif; ?>
           <?php endif; ?>
         </div>
         <div class="td_t">
