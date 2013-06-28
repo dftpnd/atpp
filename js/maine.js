@@ -25,31 +25,31 @@ send['start_async_page'] = '';
 
 
 
-var dataLocation = new Object();
-dataLocation.event = function(href){
-
-  if(this.nowUrl != '')
-    this.lasteUrl = this.nowUrl;
-  
-  this.nowUrl = href;
-  
-  var params = [];
-  params['title'] = $('title').html();
-  params['href'] = href;
-  
-  this.urlHistory[this.urlHistory.length++] = params;
-  
-    
-}
-dataLocation.nowUrl = '' 
-dataLocation.lasteUrl = ''; 
-dataLocation.urlHistory = [];
+//var dataLocation = new Object();
+//dataLocation.event = function(href){
+//
+//  if(this.nowUrl != '')
+//    this.lasteUrl = this.nowUrl;
+//  
+//  this.nowUrl = href;
+//  
+//  var params = [];
+//  params['title'] = $('title').html();
+//  params['href'] = href;
+//  
+//  this.urlHistory[this.urlHistory.length++] = params;
+//}
+//dataLocation.nowUrl = '' 
+//dataLocation.lasteUrl = ''; 
+//dataLocation.urlHistory = [];
 
 
 window.addEventListener('popstate', function(e){
-  if(typeof e.state == "undefined")
-    if(typeof e.state.url == "undefined")
-      changePage(e.state.url, false);
+  changePage(e.state.url, false);
+  //когда видимо подало от андефайнед
+//  if(typeof e.state == "undefined")
+//    if(typeof e.state.url == "undefined")
+      
 }, false);
   
   
@@ -88,8 +88,6 @@ function changePage(url, history_push){
   if(history_push == undefined)
     history_push = false;  
   
-  dataLocation.event(url);
-    
   $.ajax({
     type: "POST",
     async: false,
