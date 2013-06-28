@@ -4,8 +4,6 @@
     <link href="/favicon.ico" rel="icon" type="image/x-icon" />
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="language" content="ru" />
-    <meta name="document-state" content="Dynamic" />
     <meta name="keywords" content="АТПП, Кафедра КГЭУ Автоматизации Технологических Процессов и Производств" />
     <meta name="description" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
     <meta name="generator" content="АТПП" />
@@ -20,7 +18,7 @@
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/amcharts_ui.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jq-scrool_old.js"></script>
   </head>
-  <script type="text/javascript">
+  <script type="text/javascript" >
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-38492172-1']);
     _gaq.push(['_trackPageview']);
