@@ -197,7 +197,7 @@ if (isset($_GET['id'])) {
           </div>
           <div class="resume__emptyblock" >
             <div class="show_statistic" onclick="switchStatisticUser($(this))">Показать статистику успеваемости </div>
-            <div class="hide_statistic" onclick="switchStatisticUser($(this))">Скрыть статистикау успеваемости</div>
+            <div class="hide_statistic" onclick="switchStatisticUser($(this))">Скрыть статистику успеваемости</div>
             
             <div class="user_statistic">
               <?php if (isset($chartData)) : ?>

@@ -29,10 +29,10 @@ h1, div.title a, h4{
   height:225px;
   overflow:hidden;
   position: relative;
-
+  background: #fff;
   width:100%;
   /*display: inline-block;*/
-  color: #fff;
+/*  color: #fff;*/
 }
 .pila_top{
   height:25px;
@@ -44,7 +44,7 @@ h1, div.title a, h4{
 .pila_bot{
   width: 100%;
   height:25px;
-  z-index: 9999;
+  z-index: 950;
   position: relative;
   top:-20px;
   left: 0;
@@ -1101,8 +1101,8 @@ ul.topic li a:hover{
 .uload_list li input{
   width:310px;
 }
-.required{
-  font-color:yellow;
+.required>.required{
+  color:red;
 }
 .row{
   position:relative;
@@ -1491,7 +1491,7 @@ tr.filters td input[type="text"]{
 
 }
 .chern label:hover{
-  background:yellow
+  /*background:yellow;*/
 }
 .chern label span{
   color:red;
@@ -5073,7 +5073,7 @@ div.fc-body div.fc-row div.fc-content{
   color:red;
   cursor: pointer;
   text-decoration:underline;
-  margin-right:30px;
+  margin-right:5px;
 }
 .delet_file_library:hover{
   text-decoration:none;
@@ -5120,7 +5120,7 @@ div.fc-body div.fc-row div.fc-content{
   background:#ececec;
 }
 .uploded-predmet-but .qq-upload-button{
-  background: red;
+  /*  background: red;*/
 }
 .tobudet{
   font-size:12px;
@@ -5217,16 +5217,15 @@ div.fc-body div.fc-row div.fc-content{
   font-size:18px;
 }
 /**/
-.reestr > div{
-  background: #fff;
-}
+
 .reestr > div:hover > div{
-  background: #ececec;
+  background: #ececec!important;
 }
 .reestr > div:first-child > div{
   border-bottom:1px solid #eee;
   vertical-align: bottom;
   padding:0!important;
+  background: #fff!important;
 }
 .reestr >div:nth-child(2n+1) > div{
   background: #f9f8f8;
@@ -5592,7 +5591,6 @@ div.fc-body div.fc-row div.fc-content{
 }
 
 .menu_work{
-  background: #333;
   margin: 20px 0 0 0;
   position: absolute;
   top:0px;
@@ -5690,11 +5688,18 @@ li.menu_editprofile a{
   display:none;
 }
 .show_statistic .hide_statistic, .show_statistic .user_statistic{
-  display: block;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 .show_statistic .show_statistic{
   display: none;
 }
-.show_statistic, .hide_statistic{
+.show_statistic{
+  display: inline-block;
+}
+.show_statistic .hide_statistic, .resume__emptyblock>.show_statistic{
   cursor: pointer;
+  color:#3399FF;
+  font-size: 14px;
+  border-bottom: 1px dashed;
 }
