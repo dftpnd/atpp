@@ -70,6 +70,7 @@ if (isset($_GET['sect'])) {
 
 
 <div id="razdel" class="ent-razdel" tab="student" style="display: none;">
+  <div class="create_fake_profile classic" onclick="createFakeProfile(0)" >Создать пользователя</div>
   <div class="table_t reestr">
     <div class="tr_t">
       <div class="td_t">
@@ -153,16 +154,14 @@ if (isset($_GET['sect'])) {
           </span>
         </div>
         <div class="td_t">
-          <?php if (isset($student->user->banned)): ?>
-            <?php if ($student->user->banned != 1): ?>
-              <span class="classic_delete" onclick="banStudent(<?php echo $student->id ?>)">
-                забанить
-              </span>
-            <?php else : ?>
-              <span class="classic" onclick="razBanStudent(<?php echo $student->id ?>)">
-                разбанить
-              </span>
-            <?php endif; ?>
+          <?php if ($student->user->banned != 1): ?>
+            <span class="classic_delete" onclick="banStudent(<?php echo $student->id ?>)">
+              забанить
+            </span>
+          <?php else : ?>
+            <span class="classic" onclick="razBanStudent(<?php echo $student->id ?>)">
+              разбанить
+            </span>
           <?php endif; ?>
         </div>
         <div class="td_t">
@@ -175,7 +174,7 @@ if (isset($_GET['sect'])) {
   </div>
 </div>
 
-<div id="razdel" class="ent-razdel" tab="predmets" style="display: none;">
+<div class="ent-razdel" tab="predmets" style="display: none;">
 
 
   <h1 class="maine_group" group_id='<?php echo $group->id; ?>'>
@@ -265,7 +264,8 @@ if (isset($_GET['sect'])) {
 
 </div>
 
-<div id="razdel" class="ent-razdel" tab="info" style="display: none;">
+
+<div class="ent-razdel" tab="info" style="display: none;">
   <div class="">
     <h1>Информация о группе</h1>
     <ul class="ul_info_group">

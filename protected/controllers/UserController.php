@@ -53,10 +53,7 @@ class UserController extends Controller {
     $user = User::model()->findByPk($user_id);
     $profile = $user->prof;
 
-    if ($user_id == Yii::app()->user->id)
-      $my_prof = TRUE;
-    else
-      $my_prof = FALSE;
+    $access = User::checkAccessEditUser($user_id);
 
 
 
@@ -70,7 +67,7 @@ class UserController extends Controller {
     $rating = Rating::model()->findAll();
     $entry = array();
     if (isset($_POST['resultts'])) {
-      if ($my_prof) {
+      if ($access) {
         $count_predmets = 0;
         $summa = 0;
         foreach ($_POST['resultts'] as $key => $semestr) {
@@ -135,7 +132,7 @@ class UserController extends Controller {
         'psg_model' => $psg_model,
         'rating' => $rating,
         'entry' => $entry,
-        'my_prof' => $my_prof
+        'my_prof' => $access
             ), $title);
   }
 
@@ -537,9 +534,9 @@ class UserController extends Controller {
         } else {
           die('error');
         }
-        
+
         $discussion->profile_id = $profile->id;
-        
+
         $discussion->content = MyHelper::validateText($_POST['content_small_post']);
         $discussion->date = date('Y-m-d g:i:s');
         $discussion->last_update = time();

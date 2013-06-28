@@ -46,7 +46,7 @@ send['start_async_page'] = '';
 
 window.addEventListener('popstate', function(e){
   changePage(e.state.url, false);
-  //когда видимо подало от андефайнед
+//когда видимо подало от андефайнед
 //  if(typeof e.state == "undefined")
 //    if(typeof e.state.url == "undefined")
       
@@ -544,7 +544,7 @@ function noticeOpen(text, notice_class){
   $('#notice .notice_text').html(text);
   $('#notice').show();
   $('#notice').animate({
-    opacity: "0.7"
+    opacity: "0.9"
   }, 500 );
   setTimeout('noticeHide()',5000);
 }
@@ -1632,4 +1632,23 @@ function NewSmallPost(type, belong_id){
       }
     }
   });
+}
+
+function changeFakeProfile(profile_id){
+  $.ajax({
+    url:'/user/changeFakeProfile',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'profile_id':profile_id
+    }),
+    success: function(data){
+      $('#new_obs').removeClass('loading');
+      if(data.status == 'success'){
+        
+      }else if(data.status == 'falure'){
+        noticeOpen(text2, '3');
+      }
+    }
+  }); 
 }
