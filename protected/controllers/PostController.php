@@ -66,7 +66,7 @@ class PostController extends Controller {
   }
 
   public function actionCreate() {
-
+    $title = 'Создать пост';
     $user_id = Yii::app()->user->id;
     $profile = Profile::model()->findByAttributes(array('user_id' => $user_id));
     if (isset($_POST['isept'])) {
@@ -74,8 +74,8 @@ class PostController extends Controller {
       $profile->save();
     }
     if ($profile->instruct == null) {
-      $this->render('instruct');
-      die();
+      MyHelper::render($this, 'instruct', array(), $title);
+      exit();
     }
 
     $cs = Yii::app()->getClientScript();
@@ -111,7 +111,7 @@ class PostController extends Controller {
       }
     }
 
-    $title = 'Создать пост';
+
     MyHelper::render($this, 'create', array(
         'model' => $model,
             ), $title);

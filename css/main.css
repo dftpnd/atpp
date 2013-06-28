@@ -5640,10 +5640,7 @@ div.fc-body div.fc-row div.fc-content{
 .menu_work  li:hover a{
   color: #fff;
 }
-.menu_work  li:hover {
-  background:url('../i/menu/hover.png') left center no-repeat;
-  /*background: #00BCF2;*/
-}
+
 .menu_work ul li.active{
   white-space:nowrap;
 }
@@ -5653,28 +5650,29 @@ li.menu_editprofile{
   top: 0px;
   background: #fff!important;
 }
-li.menu_editprofile:hover{
-  background: #505050!important;
-}
 li.menu_editprofile a{
   font-size: 12px;
   padding: 9px 8px 10px !important;
   color:red!important;
 }
 .menu_editprofile:hover{background: #505050!important;}
-.menu_work ul li.menu_profile:hover {background: #505050;}
-.menu_work ul li.menu_files:hover{background: #00BCF2;}
-.menu_work ul li.menu_record_book:hover{background: #BA141A;}
-.menu_work ul li.menu_schedule:hover{background: #99439A;}
-.menu_work ul li.menu_review:hover{background: #018a00;}
-.menu_work ul li.manage_group:hover{background: #505050;}
-.menu_work ul li.menu_management:hover{background: #00BCF2;}
-.menu_work ul li.activity:hover{background: #BA141A;}
-.menu_work ul li.slide_menus:hover{background: #99439A;}
-.menu_work ul li.menu_admin:hover{background: #018a00;}
+.menu_work ul li.menu_profile:hover {background: #505050 url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.menu_files:hover{background: #00BCF2 url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.menu_record_book:hover{background: #BA141A url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.menu_schedule:hover{background: #99439A url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.menu_review:hover{background: #018a00 url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.manage_group:hover{background: #505050 url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.menu_management:hover{background: #00BCF2 url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.activity:hover{background: #BA141A url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.slide_menus:hover{background: #99439A url('../i/menu/hover.png') left center no-repeat;}
+.menu_work ul li.menu_admin:hover{background: #018a00 url('../i/menu/hover.png') left center no-repeat;}
 .folder_ext{
   color: #555;
 }
+/*.menu_work  li:hover {
+  background: url('../i/menu/hover.png');
+  background:  left center no-repeat;
+}*/
 .zagruzit{
   color: #00BCF2;
 }
