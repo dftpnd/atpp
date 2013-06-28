@@ -1,8 +1,9 @@
 <?php echo $this->renderPartial('_notice'); ?>
 
-<link rel="stylesheet" type="text/css" href="../../css/calendar.css" />
-<script src="../../js/modernizr.custom.63321.js"></script>
-<script type="text/javascript" src="../../js/jquery.calendario.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/calendar.css" />
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modernizr.custom.63321.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.calendario.js"></script>
+
 
 <!--подключалки-->
 <div class="page-header">

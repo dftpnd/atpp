@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="universe">
-      <div id="" class="is-home wrapper cacada_<?php echo rand(1, 4) ?>" >
+      <div class="is-home wrapper cacada_<?php echo rand(1, 4) ?>" >
         <div class="in_head">
           <div class="header midelton">
             <div class="header-box-image"></div>
