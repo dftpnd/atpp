@@ -77,6 +77,7 @@
 	'UserSaveChangeFolder',
 	'UserOpenFolder',
 	'UserDownloads',
+	'UserViewFake',
 	'ReestrIndex',
 	'ReestrGroupReestr',
 	'ReestrGroup',

@@ -1,11 +1,4 @@
 <?php
-if (isset($_GET['sect'])) {
-  $sect = $_GET['sect'];
-} else {
-  $sect = 'profile';
-}
-?>
-<?php
 if (isset($_GET['id'])) {
   $get_id = $_GET['id'];
 } else {
@@ -13,6 +6,7 @@ if (isset($_GET['id'])) {
 }
 ;
 ?>
+
 <?php if ($user_author->banned == 1): ?>
   <div class="ban"></div>
 <?php endif; ?>

@@ -189,4 +189,122 @@ class Profile extends CActiveRecord {
     );
   }
 
+  public static function getAvalibleProfile($profile_id) {
+
+    $viewer = User::model()->findByPk(Yii::app()->user->id);
+    if ((int) $profile_id === 0) {
+      $profile = new self;
+      $profile->group_id = $viewer->prof->group_id;
+    } else {
+      $profile = self::model()->findByPk($profile_id);
+      if (empty($profile)) {
+        $profile = new self;
+      }
+    }
+    if ($profile->group_id == $viewer->prof->group_id)
+      return $profile;
+    else
+      return FALSE;
+  }
+
+  public static function saveFakeProfile($params, $el) {
+    $viewer = User::model()->findByPk(Yii::app()->user->id);
+
+
+    if (!isset($params['Profile']['name']) || !isset($params['Profile']['surname'])) {
+      return array('status' => 'fail');
+    }
+
+    $profile = new self;
+    $profile->attributes = $params['Profile'];
+    $profile->group_id = $viewer->prof->group_id;
+    $profile->user_id = 0;
+    $profile->status = self::STUDENT;
+    $profile->save(false);
+
+    $html = $el->renderPartial('/user/_manege_group_student', array('student' => $profile), true);
+
+    return array('status' => 'success', 'html' => $html);
+  }
+
+  public static function processingStats($profile, $access, $el, $user_id, $params) {
+
+    $group = Group::model()->findByPk($profile->group_id);
+    $stats_srav = array();
+    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $profile->group_id));
+    foreach ($psg_model as $box) {
+      $stats_srav[$box->semestr_id][$box->id] = $box->predmet_id;
+    }
+
+    $rating = Rating::model()->findAll();
+    $entry = array();
+    if (isset($params['resultts'])) {
+      if ($access) {
+        $count_predmets = 0;
+        $summa = 0;
+        foreach ($params['resultts'] as $key => $semestr) {
+          foreach ($semestr as $predmet => $result) {
+            $usp = UserSemestrPredmet::model()->findByAttributes(array('semestr_id' => $key, 'user_id' => $user_id, 'predmet_id' => $predmet));
+            if (empty($usp)) {
+              $usp = new UserSemestrPredmet;
+              $usp->semestr_id = $key;
+              $usp->user_id = $user_id;
+              $usp->predmet_id = $predmet;
+            }
+            if (!empty($result)) {
+              if (isset($stats_srav[$key]))
+                if (in_array($predmet, $stats_srav[$key])) {
+                  $usp->rating_id = $result;
+                  $usp->save();
+                  $entry[$usp->semestr_id][$usp->predmet_id] = $usp->rating_id;
+                  $summa += (int) $result + 1;
+                  $count_predmets++;
+                }
+            } else {
+              if (!$usp->isNewRecord)
+                $usp->delete();
+            }
+          }
+        }
+        $gss = GroupSemestrStatistic::model();
+        $statistic = Statistic::model();
+//среднее для юзера
+        $profile->mean = substr($summa / $count_predmets, 0, 5);
+        $profile->save();
+//среднее для группы
+        $psofiles = Profile::model()->findAllByAttributes(array('group_id' => $profile->group_id));
+        $count_profiles = 0;
+        $summa_group = 0;
+        foreach ($psofiles as $profile) {
+          if (!is_null($profile->mean)) {
+            $count_profiles++;
+            $summa_group += $profile->mean;
+          }
+        }
+        $group->mean = substr($summa_group / $count_profiles, 0, 5);
+        $group->save();
+        echo CJSON::encode(array('status' => 'success'));
+        exit();
+      } else {
+        echo CJSON::encode(array('status' => 'error'));
+        exit();
+      }
+    } else {
+
+      $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $user_id));
+
+      foreach ($usp_model as $value) {
+        $entry[$value->semestr_id][$value->predmet_id] = $value->rating_id;
+      }
+    }
+
+    $data['model'] = $profile;
+    $data['group'] = $group;
+    $data['psg_model'] = $psg_model;
+    $data['rating'] = $rating;
+    $data['entry'] = $entry;
+
+    return $data;
+  }
+
 }

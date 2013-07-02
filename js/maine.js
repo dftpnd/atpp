@@ -1636,19 +1636,38 @@ function NewSmallPost(type, belong_id){
 
 function changeFakeProfile(profile_id){
   $.ajax({
-    url:'/user/changeFakeProfile',
+    url:'/user/ChangeFakeProfile',
     type: 'POST',
     dataType: 'json',
     data:({
       'profile_id':profile_id
     }),
     success: function(data){
-      $('#new_obs').removeClass('loading');
       if(data.status == 'success'){
-        
+        openDoor(data.html)
       }else if(data.status == 'falure'){
         noticeOpen(text2, '3');
       }
+    }
+  }); 
+}
+function saveFakeProfile(el){
+  el.addClass('loading');
+  $.ajax({
+    url:'/user/SaveFakeProfile',
+    type: 'POST',
+    dataType: 'json',
+    data: $('#create_profile_fio').serialize(),
+    success: function(data){
+      if(data.status == 'success'){
+        $('#student_manege').append(data.html)
+      }else if(data.status == 'falure'){
+         noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
+      }
+    },
+    complete:function(){
+      closeDoor();
+      el.removeClass('loading');
     }
   }); 
 }

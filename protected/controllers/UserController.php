@@ -50,88 +50,18 @@ class UserController extends Controller {
   }
 
   public function actionStats($user_id) {
+    $title = "Зачетка";
     $user = User::model()->findByPk($user_id);
     $profile = $user->prof;
-
     $access = User::checkAccessEditUser($user_id);
-
-
-
-    $group = Group::model()->findByPk($profile->group_id);
-    $stats_srav = array();
-    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $profile->group_id));
-    foreach ($psg_model as $box) {
-      $stats_srav[$box->semestr_id][$box->id] = $box->predmet_id;
-    }
-
-    $rating = Rating::model()->findAll();
-    $entry = array();
-    if (isset($_POST['resultts'])) {
-      if ($access) {
-        $count_predmets = 0;
-        $summa = 0;
-        foreach ($_POST['resultts'] as $key => $semestr) {
-          foreach ($semestr as $predmet => $result) {
-            $usp = UserSemestrPredmet::model()->findByAttributes(array('semestr_id' => $key, 'user_id' => $user_id, 'predmet_id' => $predmet));
-            if (empty($usp)) {
-              $usp = new UserSemestrPredmet;
-              $usp->semestr_id = $key;
-              $usp->user_id = $user_id;
-              $usp->predmet_id = $predmet;
-            }
-            if (!empty($result)) {
-              if (isset($stats_srav[$key]))
-                if (in_array($predmet, $stats_srav[$key])) {
-                  $usp->rating_id = $result;
-                  $usp->save();
-                  $entry[$usp->semestr_id][$usp->predmet_id] = $usp->rating_id;
-                  $summa += (int) $result + 1;
-                  $count_predmets++;
-                }
-            } else {
-              if (!$usp->isNewRecord)
-                $usp->delete();
-            }
-          }
-        }
-        $gss = GroupSemestrStatistic::model();
-        $statistic = Statistic::model();
-//среднее для юзера
-        $profile->mean = substr($summa / $count_predmets, 0, 5);
-        $profile->save();
-//среднее для группы
-        $psofiles = Profile::model()->findAllByAttributes(array('group_id' => $profile->group_id));
-        $count_profiles = 0;
-        $summa_group = 0;
-        foreach ($psofiles as $profile) {
-          if (!is_null($profile->mean)) {
-            $count_profiles++;
-            $summa_group += $profile->mean;
-          }
-        }
-        $group->mean = substr($summa_group / $count_profiles, 0, 5);
-        $group->save();
-        echo CJSON::encode(array('status' => 'success'));
-        exit();
-      } else {
-        echo CJSON::encode(array('status' => 'error'));
-        exit();
-      }
-    } else {
-      $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $user_id));
-      foreach ($usp_model as $value) {
-        $entry[$value->semestr_id][$value->predmet_id] = $value->rating_id;
-      }
-    }
-
-
-    $title = "Зачетка";
+    $data = Profile::processingStats($profile, $access, $this, $user_id, $_POST);
+    
     MyHelper::render($this, 'stats', array(
-        'model' => $profile,
-        'group' => $group,
-        'psg_model' => $psg_model,
-        'rating' => $rating,
-        'entry' => $entry,
+        'model' => $data['model'],
+        'group' => $data['group'],
+        'psg_model' => $data['psg_model'],
+        'rating' => $data['rating'],
+        'entry' => $data['entry'],
         'my_prof' => $access
             ), $title);
   }
@@ -1723,5 +1653,63 @@ class UserController extends Controller {
   }
 
 //=================files=====================//
+  public function actionChangeFakeProfile() {
+
+
+    if (!isset($_POST['profile_id'])) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Ошибка, поробуйте перезагрузить страницу'));
+      Yii::app()->end();
+    }
+
+    $profile = Profile::getAvalibleProfile($_POST['profile_id']);
+    if ($profile === FALSE) {
+      echo json_encode(array('status' => 'fail', 'error' => 'Недостаточно прав'));
+      Yii::app()->end();
+    }
+
+//    $stats_srav = array();
+//    $entry = array();
+//    $rating = Rating::model()->findAll();
+//    $group = Group::model()->findByPk($profile->group_id);
+//
+//    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $profile->group_id));
+//    $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $user_id));
+//    
+//    foreach ($psg_model as $box) {
+//      $stats_srav[$box->semestr_id][$box->id] = $box->predmet_id;
+//    }
+//    
+//    foreach ($usp_model as $value) {
+//      $entry[$value->semestr_id][$value->predmet_id] = $value->rating_id;
+//    }
+
+
+
+
+
+    $html = $this->renderPartial('_change_profile', array(
+        'profile' => $profile
+            ), true);
+
+    echo json_encode(
+            array(
+                'status' => 'success',
+                'html' => $html
+            )
+    );
+  }
+
+  public function actionSaveFakeProfile() {
+    echo json_encode(Profile::saveFakeProfile($_POST, $this));
+  }
+
+  public function actionViewFake($id) {
+    $profile = Profile::model()->findByPk($id);
+    $title = MyHelper::getUsername(FALSE, FALSE, $profile, TRUE);
+
+    MyHelper::render($this, 'view_fake', array(
+        'profile' => $profile), $title);
+  }
+
 }
 
