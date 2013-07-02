@@ -1,3 +1,8 @@
 /protected/config/main.php
 uploads
 /nbproject
+/images~~/
+/node.js/NodeServer/node_modules/socket.io/node_modules/socket.io-client/node_modules/.bin/
+/node.js/NodeServer/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build/Release/.deps/
+/node.js/node_modules/socket.io/node_modules/socket.io-client/node_modules/.bin/
+/node.js/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build/Release/.deps/
