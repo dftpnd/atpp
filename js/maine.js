@@ -1634,7 +1634,7 @@ function NewSmallPost(type, belong_id){
   });
 }
 
-function changeFakeProfile(profile_id){
+function changeFakeProfile(profile_id, e){
   $.ajax({
     url:'/user/ChangeFakeProfile',
     type: 'POST',
@@ -1662,7 +1662,7 @@ function saveFakeProfile(el){
       if(data.status == 'success'){
         $('#student_manege').append(data.html)
       }else if(data.status == 'falure'){
-         noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
+        noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
       }
     },
     complete:function(){
@@ -1670,4 +1670,26 @@ function saveFakeProfile(el){
       el.removeClass('loading');
     }
   }); 
+}
+function chageStudentStats(profile_id, e){
+  
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+  
+  $.ajax({
+    url:'/user/ChageStudentStats',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'profile_id':profile_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        openDoor(data.html);  
+      }else if(data.status == 'falure'){
+        noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
+      }
+    }
+  });
 }

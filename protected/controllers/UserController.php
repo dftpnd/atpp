@@ -55,7 +55,7 @@ class UserController extends Controller {
     $profile = $user->prof;
     $access = User::checkAccessEditUser($user_id);
     $data = Profile::processingStats($profile, $access, $this, $user_id, $_POST);
-    
+
     MyHelper::render($this, 'stats', array(
         'model' => $data['model'],
         'group' => $data['group'],
@@ -1709,6 +1709,28 @@ class UserController extends Controller {
 
     MyHelper::render($this, 'view_fake', array(
         'profile' => $profile), $title);
+  }
+
+  public function actionChageStudentStats() {
+    $profile = Profile::model()->findByPk($_POST['profile_id']);
+    $user_id = $profile->user_id;
+
+    $access = User::checkAccessEditUser($user_id);
+    $data = Profile::processingStats($profile, $access, $this, $user_id, $_POST);
+
+    $title = "Зачетка" . MyHelper::getUsername(false, false, $profile, true);
+
+
+    $html = $this->renderPartial('stats', array(
+        'model' => $data['model'],
+        'group' => $data['group'],
+        'psg_model' => $data['psg_model'],
+        'rating' => $data['rating'],
+        'entry' => $data['entry'],
+        'my_prof' => $access
+            ), true);
+
+    echo json_encode(array('status' => 'success', 'html' => $html, 'title' => $title));
   }
 
 }

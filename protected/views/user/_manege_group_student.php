@@ -37,4 +37,9 @@
   <div class="td_t">
     <?php echo $student->mean ?>
   </div>
+  <div class="td_t">
+    <div class="classic" onclick="chageStudentStats(<?php echo $student->id ?>, event)">
+      Зачетка
+    </div>
+  </div>
 </div>

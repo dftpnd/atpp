@@ -146,7 +146,7 @@ class MyHelper {
 
   public static function linkFaker($profile, $link_name = FALSE) {
 
-    if ($profile->user_id == 0) {
+    if ($profile->fake == 2) {
       $url = '/user/ViewFake/';
     } else {
       $url = '/user/ViewProfile/';

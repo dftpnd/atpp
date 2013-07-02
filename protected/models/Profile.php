@@ -26,6 +26,8 @@ class Profile extends CActiveRecord {
 
   const STUDENT = 2;
   const PREPOD = 3;
+  const STATUS_DAFAULT = 1;
+  const STATUS_FAKE = 2;
 
   /**
    * Returns the static model of the specified AR class.
@@ -215,11 +217,16 @@ class Profile extends CActiveRecord {
       return array('status' => 'fail');
     }
 
-    $profile = new self;
+    $user = new User();
+    $user->username = 'FAKE';
+    $user->save(false);
+
+    $profile = new self();
     $profile->attributes = $params['Profile'];
     $profile->group_id = $viewer->prof->group_id;
-    $profile->user_id = 0;
+    $profile->user_id = $user->id;
     $profile->status = self::STUDENT;
+    $profile->fake = self::STATUS_FAKE;
     $profile->save(false);
 
     $html = $el->renderPartial('/user/_manege_group_student', array('student' => $profile), true);

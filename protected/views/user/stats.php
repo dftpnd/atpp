@@ -84,10 +84,4 @@ if ($my_prof) {
   <div class="anchor"></div>
   <?php if ($my_prof): ?>
   </form>
-<?php endif; ?>
-
-
-
-
-
-
+  <?php endif; ?>
