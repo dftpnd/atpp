@@ -41,6 +41,7 @@
 	'PostScrapbook',
 	'PostIndex',
 	'ForumIndex',
+	'NodeChat',
 	'UserEditProfile',
 	'UserStats',
 	'UserViewStudent',
