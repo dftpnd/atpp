@@ -314,4 +314,145 @@ class Profile extends CActiveRecord {
     return $data;
   }
 
+  public static function buildStats($params, $profile) {
+    $chartData = array();
+    $graphs = array();
+    $entry = array();
+    $sum = array();
+    $polka = array();
+
+    $group = Group::model()->findByPk($params['group_id']);
+    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $params['group_id']));
+    $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $profile->user_id), array('order' => 'semestr_id'));
+
+    $gyc = GroupYearCreate::model()->findByPk($group->id_year_create);
+    $lop = $gyc->start_year;
+
+
+    foreach ($usp_model as $value) {
+      $yu = $value->rating_id + 1;
+      $entry[$value->semestr_id][] = $yu;
+      isset($sum[$value->semestr_id]) ? $sum[$value->semestr_id] += $yu : $sum[$value->semestr_id] = $yu;
+    }
+    foreach ($entry as $key => $value) {
+      $polka[$key] = count($value);
+    }
+    foreach ($sum as $key => $value) {
+      $polka[$key] = substr($value / $polka[$key], 0, 5);
+    }
+    $co = '0';
+    $j = $lop;
+    for ($i = $group->id_semestr; $i <= $group->id_semestr + 9; $i++) {
+      $mib = $j;
+      if ($co == '0') {
+        $co = '1';
+        if ($i != $group->id_semestr) {
+          $j++;
+          $mib = $j;
+        }
+      } else {
+        $co = '0';
+        $mib = '';
+      }
+      if (isset($polka[$i])) {
+        $vrem = $polka[$i];
+        $chartData[] = array(
+            'point' => $mib,
+            'view-student' => $vrem
+        );
+      }
+    }
+
+
+    $graphs[] = array(
+        'id' => 'view-student',
+        'name' => 'График успеваемости студента',
+    );
+
+    $options = array(
+        'writeId' => 'chartdiv',
+        'showAllGraph' => 'true'
+    );
+
+
+    return $data;
+  }
+
+  public static function viewProfileStats($model, $group) {
+
+    $chartData = array();
+    $entry = array();
+    $sum = array();
+    $polka = array();
+    $rating_3 = 0;
+    $rating_4 = 0;
+    $rating_5 = 0;
+    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $group->id));
+    $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $model->user_id), array('order' => 'semestr_id'));
+    $gyc = GroupYearCreate::model()->findByPk($group->id_year_create);
+    $lop = $gyc->start_year;
+    foreach ($usp_model as $value) {
+      $yu = $value->rating_id + 1;
+      $entry[$value->semestr_id][] = $yu;
+      isset($sum[$value->semestr_id]) ? $sum[$value->semestr_id] += $yu : $sum[$value->semestr_id] = $yu;
+      if ($value->rating_id == 2) {
+        $rating_3++;
+      }
+      if ($value->rating_id == 3) {
+        $rating_4++;
+      }
+      if ($value->rating_id == 4) {
+        $rating_5++;
+      }
+    }
+    foreach ($entry as $key => $value) {
+      $polka[$key] = count($value);
+    }
+    foreach ($sum as $key => $value) {
+      $polka[$key] = substr($value / $polka[$key], 0, 5);
+    }
+    $co = '0';
+    $j = $lop;
+    for ($i = $group->id_semestr; $i <= $group->id_semestr + 9; $i++) {
+      $mib = $j;
+      if ($co == '0') {
+        $co = '1';
+        if ($i != $group->id_semestr) {
+          $j++;
+          $mib = $j;
+        }
+      } else {
+        $co = '0';
+        $mib = '';
+      }
+      if (isset($polka[$i])) {
+        $vrem = $polka[$i];
+        $chartData[] = array(
+            'point' => $mib,
+            'view-student' => $vrem
+        );
+      }
+    }
+
+
+    $graphs = array();
+    $graphs[] = array(
+        'id' => 'view-student',
+        'name' => 'График успеваемости студента',
+    );
+    $options = array(
+        'writeId' => 'chartdiv',
+        'showAllGraph' => 'true'
+    );
+
+    $data['options'] = $options;
+    $data['graphs'] = $graphs;
+    $data['chartData'] = $chartData;
+    $data['rating_3'] = $rating_3;
+    $data['rating_4'] = $rating_4;
+    $data['rating_5'] = $rating_5;
+
+    return $data;
+  }
+
 }

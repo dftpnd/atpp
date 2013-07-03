@@ -69,68 +69,14 @@ class UserController extends Controller {
   public function actionViewStudent() {
     if (!isset($_POST['profile_id']) || !isset($_POST['group_id']))
       exit();
-    $chartData = array();
-    $entry = array();
-    $sum = array();
-    $polka = array();
+
     $profile = Profile::model()->findByPk($_POST['profile_id']);
-    $group = Group::model()->findByPk($_POST['group_id']);
-    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $_POST['group_id']));
-    $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $profile->user_id), array('order' => 'semestr_id'));
 
-    $gyc = GroupYearCreate::model()->findByPk($group->id_year_create);
-    $lop = $gyc->start_year;
+    $data = Profile::buildStats($_POST, $profile);
 
+    $html = $this->renderPartial('/doors/_view_student', array('profile' => $profile), true);
 
-    foreach ($usp_model as $value) {
-      $yu = $value->rating_id + 1;
-      $entry[$value->semestr_id][] = $yu;
-      isset($sum[$value->semestr_id]) ? $sum[$value->semestr_id] += $yu : $sum[$value->semestr_id] = $yu;
-    }
-    foreach ($entry as $key => $value) {
-      $polka[$key] = count($value);
-    }
-    foreach ($sum as $key => $value) {
-      $polka[$key] = substr($value / $polka[$key], 0, 5);
-    }
-    $co = '0';
-    $j = $lop;
-    for ($i = $group->id_semestr; $i <= $group->id_semestr + 9; $i++) {
-      $mib = $j;
-      if ($co == '0') {
-        $co = '1';
-        if ($i != $group->id_semestr) {
-          $j++;
-          $mib = $j;
-        }
-      } else {
-        $co = '0';
-        $mib = '';
-      }
-      if (isset($polka[$i])) {
-        $vrem = $polka[$i];
-        $chartData[] = array(
-            'point' => $mib,
-            'view-student' => $vrem
-        );
-      }
-    }
-
-    $graphs = array();
-    $graphs[] = array(
-        'id' => 'view-student',
-        'name' => 'График успеваемости студента',
-    );
-
-    $options = array(
-        'writeId' => 'chartdiv',
-        'showAllGraph' => 'true'
-    );
-
-
-
-    $data = $this->renderPartial('/doors/_view_student', array('profile' => $profile), true);
-    echo json_encode(array('div' => $data, 'chartData' => $chartData, 'graphs' => $graphs, 'options' => $options,));
+    echo json_encode(array('div' => $html, 'chartData' => $data['chartData'], 'graphs' => $data['graphs'], 'options' => $data['options'],));
   }
 
   public function actionCompareStudent() {
@@ -466,8 +412,7 @@ class UserController extends Controller {
         }
 
         $discussion->profile_id = $profile->id;
-
-        $discussion->content = MyHelper::validateText($_POST['content_small_post']);
+        $discussion->content = $_POST['content_small_post'];
         $discussion->date = date('Y-m-d g:i:s');
         $discussion->last_update = time();
         $discussion->save();
@@ -590,6 +535,7 @@ class UserController extends Controller {
       $this->render('/site/reg_not_valid', array());
       exit();
     }
+
     $title = MyHelper::getUsername(false, true, $model, true);
     $user_author = User::model()->findByPk($user_id);
 
@@ -616,7 +562,6 @@ class UserController extends Controller {
       $dis_is[] = $value->id;
     }
 
-
 //второй запрос тянем посты с коментами
     $criteria = new CDbCriteria();
     $criteria->order = 't.last_update DESC, child.last_update ASC';
@@ -624,7 +569,6 @@ class UserController extends Controller {
             findAllByAttributes(
             array('id' => $dis_is), $criteria
     );
-
 
 
     if ($model->status == 3) {// для перподов
@@ -645,72 +589,6 @@ class UserController extends Controller {
     }
 
 
-    $chartData = array();
-    $entry = array();
-    $sum = array();
-    $polka = array();
-    $rating_3 = 0;
-    $rating_4 = 0;
-    $rating_5 = 0;
-    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $group->id));
-    $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $model->user_id), array('order' => 'semestr_id'));
-    $gyc = GroupYearCreate::model()->findByPk($group->id_year_create);
-    $lop = $gyc->start_year;
-    foreach ($usp_model as $value) {
-      $yu = $value->rating_id + 1;
-      $entry[$value->semestr_id][] = $yu;
-      isset($sum[$value->semestr_id]) ? $sum[$value->semestr_id] += $yu : $sum[$value->semestr_id] = $yu;
-      if ($value->rating_id == 2) {
-        $rating_3++;
-      }
-      if ($value->rating_id == 3) {
-        $rating_4++;
-      }
-      if ($value->rating_id == 4) {
-        $rating_5++;
-      }
-    }
-    foreach ($entry as $key => $value) {
-      $polka[$key] = count($value);
-    }
-    foreach ($sum as $key => $value) {
-      $polka[$key] = substr($value / $polka[$key], 0, 5);
-    }
-    $co = '0';
-    $j = $lop;
-    for ($i = $group->id_semestr; $i <= $group->id_semestr + 9; $i++) {
-      $mib = $j;
-      if ($co == '0') {
-        $co = '1';
-        if ($i != $group->id_semestr) {
-          $j++;
-          $mib = $j;
-        }
-      } else {
-        $co = '0';
-        $mib = '';
-      }
-      if (isset($polka[$i])) {
-        $vrem = $polka[$i];
-        $chartData[] = array(
-            'point' => $mib,
-            'view-student' => $vrem
-        );
-      }
-    }
-
-    $graphs = array();
-    $graphs[] = array(
-        'id' => 'view-student',
-        'name' => 'График успеваемости студента',
-    );
-    $options = array(
-        'writeId' => 'chartdiv',
-        'showAllGraph' => 'true'
-    );
-
-
-
     if ($ajax) {
       count($discussions);
       $data = $this->renderPartial('ajax_small_post', array(
@@ -724,6 +602,8 @@ class UserController extends Controller {
       );
       echo json_encode(array('div' => $data, 'count' => count($discussions)));
     } else {
+
+      $data = Profile::viewProfileStats($model, $group);
       MyHelper::render($this, 'viewprofile', array(
           'athor' => $athor,
           'user_author' => $user_author,
@@ -734,12 +614,12 @@ class UserController extends Controller {
           'plus' => $plus,
           'minus' => $minus,
           'group' => $group,
-          'chartData' => $chartData,
-          'graphs' => $graphs,
-          'options' => $options,
-          'rating_5' => $rating_5,
-          'rating_4' => $rating_4,
-          'rating_3' => $rating_3,
+          'chartData' => $data['chartData'],
+          'graphs' => $data['graphs'],
+          'options' => $data['options'],
+          'rating_5' => $data['rating_5'],
+          'rating_4' => $data['rating_4'],
+          'rating_3' => $data['rating_3'],
               ), $title);
     }
   }
@@ -1667,26 +1547,6 @@ class UserController extends Controller {
       Yii::app()->end();
     }
 
-//    $stats_srav = array();
-//    $entry = array();
-//    $rating = Rating::model()->findAll();
-//    $group = Group::model()->findByPk($profile->group_id);
-//
-//    $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $profile->group_id));
-//    $usp_model = UserSemestrPredmet::model()->findAllByAttributes(array('user_id' => $user_id));
-//    
-//    foreach ($psg_model as $box) {
-//      $stats_srav[$box->semestr_id][$box->id] = $box->predmet_id;
-//    }
-//    
-//    foreach ($usp_model as $value) {
-//      $entry[$value->semestr_id][$value->predmet_id] = $value->rating_id;
-//    }
-
-
-
-
-
     $html = $this->renderPartial('_change_profile', array(
         'profile' => $profile
             ), true);
@@ -1704,11 +1564,22 @@ class UserController extends Controller {
   }
 
   public function actionViewFake($id) {
+    $chartData = array();
     $profile = Profile::model()->findByPk($id);
     $title = MyHelper::getUsername(FALSE, FALSE, $profile, TRUE);
+    $group = Group::model()->findByPk($profile->group_id);
+    $data = Profile::viewProfileStats($profile, $group);
+
 
     MyHelper::render($this, 'view_fake', array(
-        'profile' => $profile), $title);
+        'profile' => $profile,
+        'chartData' => $data['chartData'],
+        'graphs' => $data['graphs'],
+        'options' => $data['options'],
+        'rating_5' => $data['rating_5'],
+        'rating_4' => $data['rating_4'],
+        'rating_3' => $data['rating_3'],
+            ), $title);
   }
 
   public function actionChageStudentStats() {

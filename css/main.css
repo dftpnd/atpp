@@ -3666,11 +3666,21 @@ body.fix_w{
 }
 .web_staroste{
   position: absolute;
-  top: -4px;
-  right: -83px;
+  top: 50px;
+  right: 15px;
   font-size: 12px;
   color: #fff;
   background: #018a00;
+  padding:2px;
+  font-weight: bold;
+}
+.web_administrator{
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  font-size: 12px;
+  color: #fff;
+  background: red;
   padding:2px;
   font-weight: bold;
 }

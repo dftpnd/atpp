@@ -116,6 +116,12 @@ if (isset($_GET['sect'])) {
         </span>
         <div></div>
       </div>
+      <div class="td_t">
+        <span>
+          <label ></label>
+        </span>
+        <div></div>
+      </div>
 
     </div>
     <?php foreach ($students as $student): ?>

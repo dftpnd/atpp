@@ -38,8 +38,11 @@
     <?php echo $student->mean ?>
   </div>
   <div class="td_t">
-    <div class="classic" onclick="chageStudentStats(<?php echo $student->id ?>, event)">
-      Зачетка
-    </div>
+    <?php if ($student->fake == Profile::STATUS_FAKE): ?>
+      <div  onclick="inheritStats(<?php echo $student->user_id ?>)"></div>
+    <?php else : ?>
+      asdasd
+    <?php endif; ?>
+
   </div>
 </div>
