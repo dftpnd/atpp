@@ -28,7 +28,7 @@
           ),
           array(
               'label' => 'Моя зачетка',
-              'url' => Yii::app()->urlManager->createUrl('user/stats?user_id=' . Yii::app()->user->id),
+              'url' => Yii::app()->urlManager->createUrl('/user/stats?user_id=' . Yii::app()->user->id),
               'visible' => Yii::app()->user->getRole() != 'prepod',
               'itemOptions' => array('class' => 'menu_record_book'),
               'linkOptions' => array(
@@ -37,7 +37,7 @@
           ),
           array(
               'label' => 'Моё расписание',
-              'url' => Yii::app()->urlManager->createUrl('user/schedule'),
+              'url' => Yii::app()->urlManager->createUrl('/user/schedule'),
               'visible' => Yii::app()->user->getRole() != 'prepod',
               'itemOptions' => array('class' => 'menu_schedule'),
               'linkOptions' => array(
@@ -46,7 +46,7 @@
           ),
           array(
               'label' => 'Мои статьи',
-              'url' => Yii::app()->urlManager->createUrl('post/mypost'),
+              'url' => Yii::app()->urlManager->createUrl('/post/mypost'),
               'itemOptions' => array('class' => 'menu_review'),
               'linkOptions' => array(
                   'async' => 'async',
@@ -54,7 +54,7 @@
           ),
           array(
               'label' => 'Управление группой',
-              'url' => Yii::app()->urlManager->createUrl('user/ManageGroup'),
+              'url' => Yii::app()->urlManager->createUrl('/user/ManageGroup'),
               'visible' => (Yii::app()->user->getRole() == 'manegergroup') || (Yii::app()->user->getRole() == 'authority'),
               'itemOptions' => array('class' => 'manage_group'),
               'linkOptions' => array(
@@ -63,7 +63,7 @@
           ),
           array(
               'label' => 'Упр. статьями',
-              'url' => Yii::app()->urlManager->createUrl('post/admin'),
+              'url' => Yii::app()->urlManager->createUrl('/post/admin'),
               'visible' => (
               (
               Yii::app()->user->getRole() == 'authority')
@@ -75,7 +75,7 @@
           ),
           array(
               'label' => 'Cобытие',
-              'url' => Yii::app()->urlManager->createUrl('site/activity'),
+              'url' => Yii::app()->urlManager->createUrl('/site/activity'),
               'visible' => (
               Yii::app()->user->getRole() == 'authority'
               ),
@@ -86,7 +86,7 @@
           ),
           array(
               'label' => 'Слайды',
-              'url' => Yii::app()->urlManager->createUrl('slide/admin'),
+              'url' => Yii::app()->urlManager->createUrl('/slide/admin'),
               'visible' => (
               Yii::app()->user->getRole() == 'authority'),
               'itemOptions' => array('class' => 'slide_menus'),
@@ -96,7 +96,7 @@
           ),
           array(
               'label' => 'Админка',
-              'url' => Yii::app()->urlManager->createUrl('userAdmin/admin/users'),
+              'url' => Yii::app()->urlManager->createUrl('/userAdmin/admin/users'),
               'visible' => (Yii::app()->user->getRole() == 'authority'),
               'itemOptions' => array('class' => 'menu_admin')
           ),

@@ -77,17 +77,11 @@ if ($my_prof) {
   ?>
   <?php if ($my_prof): ?>
     <div class="clone_3">
-      <div class="inp_sub" onclick="changeStats($(this),<?php echo Yii::app()->user->id ?>)">Сохранить</div>
+      <div class="inp_sub" onclick="changeStats($(this),<?php echo $model->user_id ?>)">Сохранить</div>
     </div>
   <?php endif; ?>
 
   <div class="anchor"></div>
   <?php if ($my_prof): ?>
   </form>
-<?php endif; ?>
-
-
-
-
-
-
+  <?php endif; ?>

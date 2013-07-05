@@ -295,7 +295,7 @@ function noticeOpen(text, notice_class){
     $('#notice .notice_text').html(text);
     $('#notice').show();
     $('#notice').animate({
-        opacity: "0.7"
+        opacity: "0.9"
     }, 500 );
     setTimeout('noticeHide()',5000);
 }

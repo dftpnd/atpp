@@ -1,11 +1,4 @@
 <?php
-if (isset($_GET['sect'])) {
-  $sect = $_GET['sect'];
-} else {
-  $sect = 'profile';
-}
-?>
-<?php
 if (isset($_GET['id'])) {
   $get_id = $_GET['id'];
 } else {
@@ -13,6 +6,7 @@ if (isset($_GET['id'])) {
 }
 ;
 ?>
+
 <?php if ($user_author->banned == 1): ?>
   <div class="ban"></div>
 <?php endif; ?>
@@ -145,8 +139,11 @@ if (isset($_GET['id'])) {
             </div>
           <?php endif; ?>
           <div class="right_b resume__emptyblock">
+            <?php if (Yii::app()->user->getRole() == 'authority'): ?>
+              <div class="web_administrator " >Администратор Сайта</div>
+            <?php endif; ?>
             <?php if ($profile->leader != NUll): ?>
-              <div class="web_staroste view_prof_starosta" >Администратор группы</div>
+              <div class="web_staroste " >Администратор группы</div>
             <?php endif; ?>
             <div class="ldk">
               Группа:
@@ -198,7 +195,7 @@ if (isset($_GET['id'])) {
           <div class="resume__emptyblock" >
             <div class="show_statistic" onclick="switchStatisticUser($(this))">Показать статистику успеваемости </div>
             <div class="hide_statistic" onclick="switchStatisticUser($(this))">Скрыть статистику успеваемости</div>
-            
+
             <div class="user_statistic">
               <?php if (isset($chartData)) : ?>
                 <div>Средний балл по семестрам</div>
@@ -207,7 +204,7 @@ if (isset($_GET['id'])) {
                   var chartData = <?php echo json_encode($chartData); ?>;
                   var graphs = <?php echo json_encode($graphs); ?>;
                   var options = <?php echo json_encode($options); ?>;
-                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                                                          
                   new AmChartsGrap(chartData, graphs, options);
                 </script>
               <?php endif; ?>

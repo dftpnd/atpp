@@ -144,13 +144,19 @@ class MyHelper {
     return $text;
   }
 
-  public static function validateText($text) {
-    return $text;
-//    $text = str_replace("<br>", "\n", $text);
-//    $text = str_replace("&nbsp;", " ", $text);
-//    $text = str_replace("<a href=\"", "", $text);
-//    $text = str_replace("<a href=", "", $text);
-//    $text = str_replace(">", "", $text);
+  public static function linkFaker($profile, $link_name = FALSE) {
+
+    if ($profile->fake == 2) {
+      $url = '/user/ViewFake/';
+    } else {
+      $url = '/user/ViewProfile/';
+    }
+
+    if (!$link_name)
+      $link_name = self::getUsername(FALSE, FALSE, $profile, TRUE);
+
+
+    return CHtml::link($link_name, Yii::app()->urlManager->createUrl($url, array('id' => $profile->id)), array('class' => 'classic', 'async'=>'async'));
   }
 
 }

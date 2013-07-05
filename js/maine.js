@@ -1,3 +1,16 @@
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-38492172-1']);
+_gaq.push(['_trackPageview']);
+    
+(function() {
+  var ga = document.createElement('script');
+  ga.type = 'text/javascript';
+  ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(ga, s);
+})();
+
 /*====*/
 var notice_green = '1';
 var notice_yellow = '2';
@@ -12,31 +25,31 @@ send['start_async_page'] = '';
 
 
 
-var dataLocation = new Object();
-dataLocation.event = function(href){
-
-  if(this.nowUrl != '')
-    this.lasteUrl = this.nowUrl;
-  
-  this.nowUrl = href;
-  
-  var params = [];
-  params['title'] = $('title').html();
-  params['href'] = href;
-  
-  this.urlHistory[this.urlHistory.length++] = params;
-  
-    
-}
-dataLocation.nowUrl = '' 
-dataLocation.lasteUrl = ''; 
-dataLocation.urlHistory = [];
+//var dataLocation = new Object();
+//dataLocation.event = function(href){
+//
+//  if(this.nowUrl != '')
+//    this.lasteUrl = this.nowUrl;
+//  
+//  this.nowUrl = href;
+//  
+//  var params = [];
+//  params['title'] = $('title').html();
+//  params['href'] = href;
+//  
+//  this.urlHistory[this.urlHistory.length++] = params;
+//}
+//dataLocation.nowUrl = '' 
+//dataLocation.lasteUrl = ''; 
+//dataLocation.urlHistory = [];
 
 
 window.addEventListener('popstate', function(e){
-  if(typeof e.state == "undefined")
-    if(typeof e.state.url == "undefined")
-      changePage(e.state.url, false);
+  changePage(e.state.url, false);
+//когда видимо подало от андефайнед
+//  if(typeof e.state == "undefined")
+//    if(typeof e.state.url == "undefined")
+      
 }, false);
   
   
@@ -75,8 +88,6 @@ function changePage(url, history_push){
   if(history_push == undefined)
     history_push = false;  
   
-  dataLocation.event(url);
-    
   $.ajax({
     type: "POST",
     async: false,
@@ -533,7 +544,7 @@ function noticeOpen(text, notice_class){
   $('#notice .notice_text').html(text);
   $('#notice').show();
   $('#notice').animate({
-    opacity: "0.7"
+    opacity: "0.9"
   }, 500 );
   setTimeout('noticeHide()',5000);
 }
@@ -1618,6 +1629,66 @@ function NewSmallPost(type, belong_id){
         $('.small_posts_view').prepend(data.div);
       }else if(data.status == 'falure'){
         noticeOpen(text2, '3');
+      }
+    }
+  });
+}
+
+function changeFakeProfile(profile_id, e){
+  $.ajax({
+    url:'/user/ChangeFakeProfile',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'profile_id':profile_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        openDoor(data.html)
+      }else if(data.status == 'falure'){
+        noticeOpen(text2, '3');
+      }
+    }
+  }); 
+}
+function saveFakeProfile(el){
+  el.addClass('loading');
+  $.ajax({
+    url:'/user/SaveFakeProfile',
+    type: 'POST',
+    dataType: 'json',
+    data: $('#create_profile_fio').serialize(),
+    success: function(data){
+      if(data.status == 'success'){
+        $('#student_manege').append(data.html)
+      }else if(data.status == 'falure'){
+        noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
+      }
+    },
+    complete:function(){
+      closeDoor();
+      el.removeClass('loading');
+    }
+  }); 
+}
+function chageStudentStats(profile_id, e){
+  
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+  
+  $.ajax({
+    url:'/user/ChageStudentStats',
+    type: 'POST',
+    dataType: 'json',
+    data:({
+      'profile_id':profile_id
+    }),
+    success: function(data){
+      if(data.status == 'success'){
+        openDoor(data.html);  
+      }else if(data.status == 'falure'){
+        noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
       }
     }
   });

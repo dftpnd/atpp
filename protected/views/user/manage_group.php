@@ -70,14 +70,9 @@ if (isset($_GET['sect'])) {
 
 
 <div id="razdel" class="ent-razdel" tab="student" style="display: none;">
-  <div class="table_t reestr">
+  <div class="create_fake_profile classic" onclick="changeFakeProfile(0)" >Создать пользователя</div>
+  <div id="student_manege" class="table_t reestr">
     <div class="tr_t">
-      <div class="td_t">
-        <span>
-          <label >№</label>
-        </span>
-        <div></div>
-      </div>
       <div class="td_t">
         <span>
           <label >Фото</label>
@@ -115,65 +110,28 @@ if (isset($_GET['sect'])) {
         </span>
         <div></div>
       </div>
+      <div class="td_t">
+        <span>
+          <label ></label>
+        </span>
+        <div></div>
+      </div>
+      <div class="td_t">
+        <span>
+          <label ></label>
+        </span>
+        <div></div>
+      </div>
 
     </div>
-    <?php $index = 1; ?>
     <?php foreach ($students as $student): ?>
-      <div class="tr_t">
-        <div class="td_t">
-          <label ><?php echo $index; ?></label>
-        </div>
-        <div class="td_t">
-          <?php
-          $picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
-          if (!is_null($student->file_id)) {
-            $file_name = $student->uploadedfiles->name;
-            $picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
-          }
-          ?>
-          <?php echo CHtml::link("<img  src='$picter' />", Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $student->id)), array('class' => 'classic')); ?>
-        </div>
-        <div class="td_t">
-          <?php
-          if (isset($student->patronymic)) {
-            $name = $student->surname . ' ' . $name = $student->name . ' ' . $student->patronymic;
-          } else {
-            $name = $student->surname . ' ' . $name = $student->name;
-          }
-          ?>
-
-          <?php echo CHtml::link($name, Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $student->id)), array('class' => 'classic')); ?>
-        </div>
-        <div class="td_t">
-          <?php echo CHtml::link($student->team->name . ' 1-' . $student->team->inseption->prefix_year, Yii::app()->urlManager->createUrl('/reestr/group/' . $student->team->id), array('class' => 'classic')); ?>
-        </div>
-        <div class="td_t">
-          <span class="classic_delete" onclick="deleteStudent(<?php echo $student->id ?>)">
-            удалить
-          </span>
-        </div>
-        <div class="td_t">
-          <?php if ($student->user->banned != 1): ?>
-            <span class="classic_delete" onclick="banStudent(<?php echo $student->id ?>)">
-              забанить
-            </span>
-          <?php else : ?>
-            <span class="classic" onclick="razBanStudent(<?php echo $student->id ?>)">
-              разбанить
-            </span>
-          <?php endif; ?>
-        </div>
-        <div class="td_t">
-          <?php echo $student->mean ?>
-        </div>
-      </div>
-      <?php $index++; ?>
+      <?php echo $this->renderPartial('/user/_manege_group_student', array('student' => $student), true); ?>
     <?php endforeach; ?>
 
   </div>
 </div>
 
-<div id="razdel" class="ent-razdel" tab="predmets" style="display: none;">
+<div class="ent-razdel" tab="predmets" style="display: none;">
 
 
   <h1 class="maine_group" group_id='<?php echo $group->id; ?>'>
@@ -263,7 +221,8 @@ if (isset($_GET['sect'])) {
 
 </div>
 
-<div id="razdel" class="ent-razdel" tab="info" style="display: none;">
+
+<div class="ent-razdel" tab="info" style="display: none;">
   <div class="">
     <h1>Информация о группе</h1>
     <ul class="ul_info_group">

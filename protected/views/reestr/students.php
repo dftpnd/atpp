@@ -56,28 +56,10 @@
             $picter = Yii::app()->createAbsoluteUrl('uploads/avatar/mini_' . $file_name);
           }
           ?>
-          <?php echo CHtml::link("<img  src='$picter' />", Yii::app()->urlManager->createUrl('user/ViewProfile/', array('id' => $model->prof->id)), array('class' => 'classic')); ?>
+          <?php echo MyHelper::linkFaker($model->prof, "<img  src='$picter' />"); ?>
         </div>
         <div class="td_t">
-          <?php
-          if (isset($model->prof->patronymic)) {
-            $name = $model->prof->surname . ' ' . $name = $model->prof->name . ' ' . $model->prof->patronymic;
-          } else {
-            $name = $model->prof->surname . ' ' . $name = $model->prof->name;
-          }
-          ?>
-
-          <?php
-          echo CHtml::link($name, Yii::app()->urlManager->
-                          createUrl('user/ViewProfile/', array(
-                              'id' => $model->prof->id
-                                  )
-                          ), array(
-              'class' => 'classic',
-              'async' => 'async',
-                  )
-          );
-          ?>
+          <?php echo MyHelper::linkFaker($model->prof); ?>
         </div>
         <div class="td_t">
           <?php
