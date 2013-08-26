@@ -12,6 +12,7 @@ class Controller extends SBaseController {
         $cs->registerCoreScript('jquery.ui');
         $cs->registerScriptFile($this->createUrl('/js/jquery.md5.js'));
         $cs->registerScriptFile($this->createUrl('/js/jquery.scrollTo.min.js'));
+        $cs->registerScriptFile($this->createUrl('/js/nprogress.js'));
         $cs->registerScriptFile($this->createUrl('/js/spin.js'));
     }
 

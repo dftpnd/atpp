@@ -43,7 +43,6 @@ class Discussion extends CActiveRecord
 		return array(
 			array('profile_id, date, content, group_id', 'required'),
 			array('profile_id, parent_id, rating, group_id', 'numerical', 'integerOnly'=>true),
-			array('content', 'length', 'max'=>255),
 			array('last_update', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

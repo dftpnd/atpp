@@ -9,6 +9,7 @@
     <meta name="generator" content="АТПП" />
     <meta name="robots" content="index,follow" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/nprogress.css" />
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/widescreen.css" media="screen and (max-width: 1400px)" rel="stylesheet"/>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/fileuploader.js"></script>
