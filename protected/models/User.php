@@ -61,10 +61,10 @@ class User extends CActiveRecord {
     $mailer = Yii::createComponent('application.extensions.mailer.EMailer');
     $mailer->SMTPAuth = TRUE;
     $mailer->IsSMTP();
-    $mailer->Host = $mail_config['host']; //gmail.com
-    $mailer->Username = $mail_config['user']; //user@gmail.com
-    $mailer->Password = $mail_config['password']; //mypassword
-    $mailer->From = $mail_config['user']; //user@gmail.com
+    $mailer->Host = $mail_config['host']; 
+    $mailer->Username = $mail_config['user']; 
+    $mailer->Password = $mail_config['password']; 
+    $mailer->From = $mail_config['user']; 
     $mailer->AddAddress($email);
     $mailer->Subject = 'Подтверждение регистрации';
     $mailer->FromName = 'Сайт кафедры АТПП';
@@ -75,7 +75,6 @@ class User extends CActiveRecord {
       Yii::log($mailer->ErrorInfo, 'warning');
       return false;
     }
-    Yii::log('Email send to ' . print_r($email, 1), 'warning');
     return true;
   }
 
