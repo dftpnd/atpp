@@ -2,6 +2,10 @@ var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-38492172-1']);
 _gaq.push(['_trackPageview']);
 
+function is_null( mixed_var ){	// Finds whether a variable is NULL
+	return ( mixed_var === null );
+}
+
 (function() {
     var ga = document.createElement('script');
     ga.type = 'text/javascript';
@@ -24,28 +28,9 @@ send['start_async_page'] = '';
 
 
 
-
-//var dataLocation = new Object();
-//dataLocation.event = function(href){
-//
-//  if(this.nowUrl != '')
-//    this.lasteUrl = this.nowUrl;
-//  
-//  this.nowUrl = href;
-//  
-//  var params = [];
-//  params['title'] = $('title').html();
-//  params['href'] = href;
-//  
-//  this.urlHistory[this.urlHistory.length++] = params;
-//}
-//dataLocation.nowUrl = '' 
-//dataLocation.lasteUrl = ''; 
-//dataLocation.urlHistory = [];
-
-
 window.addEventListener('popstate', function(e) {
-    changePage(e.state.url, false);
+    if (typeof e.state !== "undefined" && !is_null(e.state))
+        changePage(e.state.url, false);
 //когда видимо подало от андефайнед
 //  if(typeof e.state == "undefined")
 //    if(typeof e.state.url == "undefined")
@@ -54,8 +39,10 @@ window.addEventListener('popstate', function(e) {
 
 
 $('a').live('click', function(event) {
-    if ($(this).attr('async') != undefined) {
 
+    if ($(this).attr('async') != undefined) {
+        event.returnValue = false;
+        event.preventDefault();
 
         NProgress.start();
 
@@ -139,12 +126,12 @@ function parseGetParams() {
 }
 function closeContent() {
     $('.content_loader').show();
-    $('#content').addClass('clouset');
+    $('.contentus').addClass('clouset');
 
 }
 ;
 function openContent() {
-    $('#content').removeClass('clouset');
+    $('.contentus').removeClass('clouset');
     $('.content_loader').hide();
 }
 ;
@@ -1699,6 +1686,21 @@ function chageStudentStats(profile_id, e) {
                 openDoor(data.html);
             } else if (data.status == 'falure') {
                 noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
+            }
+        }
+    });
+}
+function deleteMyPost(id){
+    $.ajax({
+        url: '/post/deleteMyPost?id='+id,
+        type: 'POST',
+        dataType: 'json',
+        success: function(data) {
+            if (data.status == 'success') {
+                alert('Пост удален');
+                 location.reload();
+            } else if (data.status == 'falure') {
+                alert('Ошибка');
             }
         }
     });

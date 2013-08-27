@@ -5,7 +5,7 @@
       <div></div>
     </li>
     <li>
-      <a href="/post/create" async="async" >Создать пост</a>
+      <a href="/post/create"  >Создать пост</a>
       <div></div>
     </li>
   </ul>
@@ -82,7 +82,7 @@
           <a class="classic" href="/post/update/<?php echo $post->id; ?>">редактировать</a>
         </div>
         <div class="td_t">
-          <span class="classic_delete" href="#<?php echo $post->id; ?>">удалить</span>
+          <span class="classic_delete" onclick="deleteMyPost(<?php echo $post->id; ?>)" >удалить</span>
         </div>
       </div>
     <?php endforeach; ?>

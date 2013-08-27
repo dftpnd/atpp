@@ -15,6 +15,8 @@ class Folder extends CActiveRecord {
 
   const FOLDER = 1;
   const FILE = 2;
+  const FILE_SHOW = 1;
+  const FILE_HIDE = 2;
 
   /**
    * Returns the static model of the specified AR class.
@@ -164,7 +166,7 @@ class Folder extends CActiveRecord {
       return array('status' => 'faile', 'error' => 'У вас нет доступа');
     }
 
-    $folder->hide = 1;
+    $folder->hide = self::FILE_HIDE;
     if ($folder->save()) {
       return array('status' => 'success');
     } else {
@@ -172,7 +174,7 @@ class Folder extends CActiveRecord {
     }
   }
 
-  public static function getAvailableFolder($parent_id, $author_id, $cond = 1) {
+  public static function getAvailableFolder($parent_id, $author_id, $cond = self::FILE_SHOW) {
     if (Yii::app()->user->isGuest) {
       Yii::app()->user->logout();
       Yii::app()->getController()->redirect('/site/login');
