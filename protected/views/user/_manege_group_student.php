@@ -41,7 +41,7 @@
     <?php if ($student->fake == Profile::STATUS_FAKE): ?>
       <div  onclick="inheritStats(<?php echo $student->user_id ?>)"></div>
     <?php else : ?>
-      asdasd
+
     <?php endif; ?>
 
   </div>

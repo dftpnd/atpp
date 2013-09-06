@@ -1,19 +1,7 @@
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-38492172-1']);
-_gaq.push(['_trackPageview']);
-
-function is_null( mixed_var ){	// Finds whether a variable is NULL
-	return ( mixed_var === null );
+function is_null(mixed_var) {	// Finds whether a variable is NULL
+    return ( mixed_var === null );
 }
 
-(function() {
-    var ga = document.createElement('script');
-    ga.type = 'text/javascript';
-    ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ga, s);
-})();
 
 /*====*/
 var notice_green = '1';
@@ -25,33 +13,33 @@ var notice_red = '3';
 send = {};
 send['start_async_page'] = '';
 
+function prototipeFunction(el) {
+    if (my_link.attr('async') != undefined) {
 
-
-
-window.addEventListener('popstate', function(e) {
-    if (typeof e.state !== "undefined" && !is_null(e.state))
-        changePage(e.state.url, false);
-//когда видимо подало от андефайнед
-//  if(typeof e.state == "undefined")
-//    if(typeof e.state.url == "undefined")
-
-}, false);
-
-
-$('a').live('click', function(event) {
-
-    if ($(this).attr('async') != undefined) {
-        event.returnValue = false;
-        event.preventDefault();
-
-        NProgress.start();
+        NProgress.set(0.5);
 
         closeContent();
 
-        handlerAnchors($(this).attr('href'));
-        return false;
+        handlerAnchors(my_link.attr('href'));
+
+
     }
+}
+
+$('html').click(function (e) {
+    window.my_link = $(e.target);
+
+    if (my_link.get(0).tagName == 'A') {
+        favicon();
+
+        NProgress.start();
+
+        setTimeout(prototipeFunction, 100)
+
+    }
+    return false;
 });
+
 
 function handlerAnchors(href) {
 
@@ -65,55 +53,73 @@ function handlerAnchors(href) {
     send['start_async_page'] = 'send';
 
 
-    if ($.browser.msie) {
-        window.location = href;
-        return false;
-    }
-
     changePage(href_inner, true);
+
 }
 function changePage(url, history_push) {
 
-    if (history_push == undefined)
-        history_push = false;
-
+    NProgress.set(0.7);
     $.ajax({
         type: "POST",
         async: false,
         url: url,
-        dataType: "json",
+        dataType: "html",
         data: ({
             'async': 'async'
         }),
-        success: function(data) {
+        success: function (data) {
             if (data != null) {
                 openContent();
-                if (data.status == 'success') {
-                    NProgress.done();
-                    $('#content').html(data.data);
-                    $('title').text(data.title);
 
-                    if (history_push)
-                        history.pushState({
-                            title: data.title,
-                            url: url
-                        }, data.title, url);
+                $('#content').html(data);
+                $('title').text($('#page_title').text());
+                $('#page_title').remove();
+                //console.log($.cookie);
+
+                history.pushState({
+                    title: data.title,
+                    url: url
+                }, data.title, url);
 
 
-                    send['start_async_page'] = 'sender';
-                    send['send_infinity_scroll'] = {};
+                send['start_async_page'] = 'sender';
+                send['send_infinity_scroll'] = {};
 
-                    if (history_push) {
-                        $(document).scrollTop('0');
-                        scroll = 0;
-                    }
+                $(document).scrollTop('0');
+                scroll = 0;
 
-                }
-            } else {
-                alert('Ошибка. Попробуйте перезагрузить страницу.');
             }
+
+
+            return false;
+        },
+        complete: function (data) {
+            NProgress.done();
+            faviconEnd();
+            $('.contentus').removeClass('clouset');
+
         }
-    });
+
+    }).fail(function () {
+            noticeOpen("Ошибка", notice_red)
+        });
+}
+
+function favicon() {
+    $('link[type*=x-icon]').remove();
+    var link = document.createElement('link');
+    link.type = 'image/gif';
+    link.rel = 'shortcut icon';
+    link.href = '/favicon.gif';
+    document.getElementsByTagName('head')[0].appendChild(link);
+}
+function faviconEnd() {
+    $('link[type*=gif]').remove();
+    var link = document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = '/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);
 }
 function parseGetParams() {
     var $_GET = {};
@@ -131,34 +137,15 @@ function closeContent() {
 }
 ;
 function openContent() {
-    $('.contentus').removeClass('clouset');
+
     $('.content_loader').hide();
 }
 ;
 function goSpiner() {
-    var opts = {
-        lines: 13, // The number of lines to draw
-        length: 7, // The length of each line
-        width: 3, // The line thickness
-        radius: 14, // The radius of the inner circle
-        corners: 1, // Corner roundness (0..1)
-        rotate: 0, // The rotation offset
-        color: '#000', // #rgb or #rrggbb
-        speed: 0.9, // Rounds per second
-        trail: 60, // Afterglow percentage
-        shadow: false, // Whether to render a shadow
-        hwaccel: false, // Whether to use hardware acceleration
-        className: 'spinner', // The CSS class to assign to the spinner
-        zIndex: 2e9, // The z-index (defaults to 2000000000)
-        top: 'auto', // Top position relative to parent in px
-        left: 'auto' // Left position relative to parent in px
-    };
-    var target = document.getElementById('foo');
-    var spinner = new Spinner(opts).spin(target);
-    loader.show();
+    alert('todo');
 }
 function hideSpiner() {
-    loader.hide();
+    alert('todo')
 }
 function goGear() {
     $('.float_signal').addClass('gear');
@@ -166,7 +153,7 @@ function goGear() {
 function spotGear() {
     $('.float_signal').removeClass('gear');
 }
-$(window).scroll(function() {
+$(window).scroll(function () {
     left_menu = $('.menu_work');
     const_h = 280;
     if ($(window).scrollTop() > const_h) {
@@ -177,7 +164,6 @@ $(window).scroll(function() {
     }
 
     var scroll = $(document).scrollTop();
-
 
 
     if (scroll > $(window).height()) {
@@ -214,7 +200,7 @@ $(window).scroll(function() {
                         data: ({
                             'dis_count': dis_count
                         }),
-                        success: function(data) {
+                        success: function (data) {
                             fs.removeAttr('zapros');
                             $('.small_posts_view').append(data.div);
                             if (data.count < 5) {
@@ -230,37 +216,37 @@ $(window).scroll(function() {
     ;
 
 });
-$(window).resize(function() {
+$(window).resize(function () {
 
 });
 
-$(function() {
+$(function () {
 
     loader = $('#ajax_loader');
     left_menu = $('.menu_work');
 
 
-    $('.up_head').click(function() {
+    $('.up_head').click(function () {
         $('html, body').scrollTo(0, 1500, {
             queue: true
         });
     })
-    $("#search input").focus(function() {
+    $("#search input").focus(function () {
         $(this).siblings('label').hide();
     });
-    $("#search input").blur(function() {
+    $("#search input").blur(function () {
         $(this).siblings('label').show();
     });
     $('#light_bulb').hover(
-            function() {
-                $('.light_bulb_hint').show();
-            }
+        function () {
+            $('.light_bulb_hint').show();
+        }
     );
-    $('.light_bulb_hint').mouseout(function() {
+    $('.light_bulb_hint').mouseout(function () {
         $('.light_bulb_hint').hide();
     });
 
-    $('.menu li').click(function() {
+    $('.menu li').click(function () {
         $('.menu li').removeClass('active');
         $(this).addClass('active');
     })
@@ -274,7 +260,7 @@ function EnterSite() {
         url: '/site/PreLogin',
         type: 'POST',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             $('.title_door h1').text('Вход на сайт');
             openDoor(data.div);
             hideSpiner();
@@ -296,7 +282,7 @@ function getProfile(profile_id, group_id) {
             'profile_id': profile_id,
             'group_id': group_id
         }),
-        success: function(data) {
+        success: function (data) {
             $('.title_door h1').text('Просмотр студента');
             openDoor(data.div);
 
@@ -308,7 +294,7 @@ function getProfile(profile_id, group_id) {
 }
 function prepearGroup() {
     var count = 0;
-    $('.table_t .tr_t .td_t input:checked').each(function() {
+    $('.table_t .tr_t .td_t input:checked').each(function () {
         count++;
     });
     if (count > 1 && count < 17)
@@ -320,7 +306,7 @@ function prepearGroup() {
 }
 function prepearStudent() {
     var count = 0;
-    $('#student_compare input:checked').each(function() {
+    $('#student_compare input:checked').each(function () {
         count++;
     });
     if (count > 1 && count < 17)
@@ -337,7 +323,7 @@ function compareStudent() {
         type: 'POST',
         dataType: 'json',
         data: $('#student_compare').serialize(),
-        success: function(data) {
+        success: function (data) {
             $('.title_door h1').text('Сравнение студентов');
             openDoor(data.div);
             new AmChartsGrap(data.chartData, data.graphs, data.options);
@@ -352,7 +338,7 @@ function compareGroup() {
         type: 'POST',
         dataType: 'json',
         data: $('#student_group').serialize(),
-        success: function(data) {
+        success: function (data) {
             $('.title_door h1').text('Сравнение групп');
             openDoor(data.div);
             new AmChartsGrap(data.chartData, data.graphs, data.options);
@@ -371,7 +357,7 @@ function getUserForm() {
         type: 'POST',
         dataType: 'json',
         data: $("#test_spy").serialize(),
-        success: function(data) {
+        success: function (data) {
             if (data != null) {
                 hideSpiner();
                 $('#hippodrome .step2').hide("slide", {
@@ -398,7 +384,7 @@ function contineRegistration() {
         type: 'POST',
         dataType: 'json',
         data: $("#test_spy").serialize(),
-        success: function(data) {
+        success: function (data) {
             if (data.status == "failure") {
                 $('.inp_sub').removeClass('loading');
                 $('#hippodrome .step1').hide("slide", {
@@ -466,7 +452,7 @@ function ObjectRating(type, object_id, value) {
             'object_id': object_id,
             'value': value
         }),
-        success: function(data) {
+        success: function (data) {
             hideSpiner();
             if (data.status == 'failure') {
                 text = 'Произошла ошибка';
@@ -562,7 +548,7 @@ function createPredmeDuy(weekday_id) {
         data: ({
             'weekday_id': weekday_id
         }),
-        success: function(data) {
+        success: function (data) {
             $('.sost_day_' + weekday_id).append(data.div);
             noticeOpen(text, '1');
             hideSpiner();
@@ -579,7 +565,7 @@ function deletePair(schedule_id) {
         data: ({
             'schedule_id': schedule_id
         }),
-        success: function(data) {
+        success: function (data) {
             hideSpiner();
             $('#day_schesule_' + schedule_id).hide();
             $('#day_schesule_' + schedule_id).remove();
@@ -602,7 +588,7 @@ function DeleteSmallPost(sp_id, type, pin) {
             'type': type,
             'pin': pin
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 $('#sp_' + sp_id).remove();
                 noticeOpen(text, '1');
@@ -610,7 +596,7 @@ function DeleteSmallPost(sp_id, type, pin) {
                 noticeOpen('Ошибка', '3');
             }
         },
-        complete: function(data) {
+        complete: function (data) {
             hideSpiner();
         }
     });
@@ -627,7 +613,7 @@ function DeleteSPComment(id_sp_comment, type, pin) {
             'type': type,
             'pin': pin
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 $('#lkasd_' + id_sp_comment).remove();
                 noticeOpen(text, '1');
@@ -635,7 +621,7 @@ function DeleteSPComment(id_sp_comment, type, pin) {
                 noticeOpen('Произошла ошибка', '2');
             }
         },
-        complete: function(data) {
+        complete: function (data) {
             hideSpiner();
         }
     });
@@ -646,7 +632,7 @@ function zamenaTextArea(small_post_id, type) {
     $('#ncp_' + small_post_id).hide();
     $('#ncr_' + small_post_id).show();
     $('#ncr_' + small_post_id + ' .div_textare').focus();
-    $('#ncr_' + small_post_id + ' .div_textare').keypress(function(e) {
+    $('#ncr_' + small_post_id + ' .div_textare').keypress(function (e) {
         if (e.which == 13) {
             newSmallPostComment(small_post_id, $('#ncr_' + small_post_id + ' .inp_sub'), type)
         }
@@ -659,8 +645,6 @@ function getBackCom(small_post_id) {
         $('#ncp_' + small_post_id).show();
     }
 }
-
-
 
 
 function newSmallPostComment(small_post_id, el, type) {
@@ -677,7 +661,7 @@ function newSmallPostComment(small_post_id, el, type) {
             'content': content,
             'type': type
         }),
-        success: function(data) {
+        success: function (data) {
             el.siblings('.div_textare').text('')
             el.removeClass('loading');
             if (data.status == 'success') {
@@ -731,7 +715,7 @@ function recoverpassword(el) {
             data: ({
                 'login': login
             }),
-            success: function(data) {
+            success: function (data) {
                 el.siblings('input').val()
                 el.removeClass('loading');
                 if (data.status == 'failure') {
@@ -756,7 +740,7 @@ function deletePicterPost(id, el) {
         data: ({
             'id': id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 el.parent().remove();
                 $('.uload_list li.file_id_' + id).remove();
@@ -781,7 +765,7 @@ function deleteFileGroup(id, el) {
         data: ({
             'id': id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 el.parent().hide();
                 $('.uload_list li.file_id_' + id).remove();
@@ -804,7 +788,7 @@ function MaineSearch(el) {
         data: ({
             'search': el.siblings('input').val()
         }),
-        success: function(data) {
+        success: function (data) {
 
         }
     });
@@ -817,7 +801,7 @@ function uploadStats(profile_id) {
         data: ({
             'profile_id': profile_id
         }),
-        success: function(data) {
+        success: function (data) {
             $('.stats_box').append(data.div);
         }
     })
@@ -830,7 +814,7 @@ function uploadPredmetGroup(group_id) {
         data: ({
             'group_id': group_id
         }),
-        success: function(data) {
+        success: function (data) {
             $('.stats_box').append(data.div);
         }
     })
@@ -843,7 +827,7 @@ function getschedule(group_id) {
         data: ({
             'group_id': group_id
         }),
-        success: function(data) {
+        success: function (data) {
             $('.stats_box').append(data.div2);
         }
     })
@@ -855,7 +839,7 @@ function changeStats(el, user_id) {
         type: 'POST',
         dataType: 'json',
         data: $('#user_stats').serialize(),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 text = 'Изменения сохранены';
                 noticeOpen(text, 1);
@@ -951,6 +935,7 @@ function prevBut(el) {
             $('.comment_to_file').show();
             $('.prev_but').attr('onclick', 'prevBut($(this))');
         }
+
         $('.bacground_comment_to_file').removeAttr('title')
         $('.bacground_comment_to_file').animate({
             width: "60px",
@@ -970,6 +955,7 @@ function nextBut(el) {
         function feedback() {
             $('.u_f_g').show();
         }
+
         $('.oblast_vid').text('Теперь можно загрузить сам файл:');
         text = $('.comment_to_file textarea').val();
         $('#gf_comment').val(text);
@@ -1001,7 +987,7 @@ function ieblokad() {
         type: 'POST',
         dataType: 'json',
         data: $('#user_stats').serialize(),
-        success: function(data) {
+        success: function (data) {
             if (data.div) {
                 $('.oshib').append(data.div);
                 $('.oshib').show();
@@ -1023,7 +1009,7 @@ function ClassmateBlokked(profile_id, el) {
             data: ({
                 'profile_id': profile_id
             }),
-            success: function(data) {
+            success: function (data) {
                 hideSpiner();
             }
         });
@@ -1078,7 +1064,7 @@ function ChangeMonth(where_id) {
             'mounth': mounth,
             'year': year
         }),
-        success: function(data) {
+        success: function (data) {
             $('.mounth_box').html(data.div)
             hideSpiner();
             $('.old_val_mounth').val(data.mounth)
@@ -1089,13 +1075,13 @@ function ChangeMonth(where_id) {
 }
 function showToltip() {
     if ($('.activ_day').length !== 0) {
-        $('.activ_day').mouseover(function() {
+        $('.activ_day').mouseover(function () {
             $(this).siblings('.activity_hint').show();
         });
-        $('.activ_day').mouseout(function() {
+        $('.activ_day').mouseout(function () {
             $(this).siblings('.activity_hint').hide();
         })
-        $('.activ_day').click(function() {
+        $('.activ_day').click(function () {
             alert('asdasd');
         })
     }
@@ -1135,7 +1121,7 @@ function delete_activity(id_activity) {
         data: ({
             'id': id_activity
         }),
-        success: function(data) {
+        success: function (data) {
             noticeOpen('Событие удалено', '2');
             hideSpiner();
             $('#vas_' + id_activity).remove();
@@ -1149,7 +1135,7 @@ function save_activity(id) {
         type: 'POST',
         dataType: 'json',
         data: $('#form_edit_' + id).serialize(),
-        success: function(data) {
+        success: function (data) {
             noticeOpen('Событие удалено', '2');
             hideSpiner();
             $('#vas_' + id_activity).remove();
@@ -1172,10 +1158,10 @@ function Predmetson() {
         url: '/library/prepodpredmets',
         type: 'POST',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             openDoor(data.div);
         },
-        complete: function(data) {
+        complete: function (data) {
             hideSpiner();
         }
     })
@@ -1191,13 +1177,13 @@ function delet_file_library(el) {
             'file_id': file_id
         }),
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'good') {
                 $('#file_id_' + file_id).hide();
                 $('#file_id_' + file_id).remove();
             }
         },
-        complete: function(data) {
+        complete: function (data) {
             hideSpiner();
         }
     })
@@ -1212,14 +1198,14 @@ function submit_text_predmet(el, predmet_id) {
             'text': $('.submit_text_predmet_textarea').val()
         }),
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'good') {
                 noticeOpen('Успешно сохранено', 1)
             } else {
                 alert('произошла ошибка, попробуйте перезагрузить страницу');
             }
         },
-        complete: function(data) {
+        complete: function (data) {
             el.removeClass('loading');
         }
     })
@@ -1234,12 +1220,10 @@ function EditList(group_id, semestr_id) {
             'group_id': group_id,
             'semestr_id': semestr_id
         }),
-        success: function(data) {
+        success: function (data) {
             openDoor(data.div);
-            if (data.predmets != null)
-            {
-                for (property  in data.predmets)
-                {
+            if (data.predmets != null) {
+                for (property  in data.predmets) {
                     $('.predmet_goupview li#' + data.predmets[property].predmet_id).addClass('acupent').attr('check', 'check');
                 }
             }
@@ -1256,12 +1240,10 @@ function podobiu(group_id) {
         data: ({
             'group_id': group_id
         }),
-        success: function(data) {
+        success: function (data) {
             openDoor(data.div);
-            if (data.predmets != null)
-            {
-                for (property  in data.predmets)
-                {
+            if (data.predmets != null) {
+                for (property  in data.predmets) {
                     $('.predmet_goupview li#' + data.predmets[property].predmet_id).addClass('acupent').attr('check', 'check');
                 }
             }
@@ -1279,7 +1261,7 @@ function deleteStudent(user_id) {
             data: ({
                 'user_id': user_id
             }),
-            success: function(data) {
+            success: function (data) {
                 if (data.status == 'success')
                     alert('success')
                 else
@@ -1298,7 +1280,7 @@ function banStudent(user_id) {
         data: ({
             'user_id': user_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success')
                 alert('success')
             else
@@ -1318,7 +1300,7 @@ function razBanStudent(user_id) {
         data: ({
             'user_id': user_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success')
                 alert('success')
             else
@@ -1347,7 +1329,6 @@ function changeFolder(folder_id, e) {
         GET.parent_id = 0;
 
 
-
     $.ajax({
         url: '/user/ChangeFolder',
         type: 'POST',
@@ -1356,12 +1337,12 @@ function changeFolder(folder_id, e) {
             'folder_id': folder_id,
             'parent_id': GET.parent_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 $('.tr_files').removeClass('active');
                 $('.table_body_t').prepend(data.html);
                 $("#input_name_" + folder_id).focus();
-                $("#input_name_" + folder_id).keypress(function(e) {
+                $("#input_name_" + folder_id).keypress(function (e) {
                     if (e.which == 13) {
                         saveChangeFolder();
                     }
@@ -1381,7 +1362,7 @@ function saveChangeFolder() {
         type: 'POST',
         dataType: 'json',
         data: $('.st_new :input').serialize(),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 updateDirectory(data.parent_id, data.author_id);
                 noticeOpen('Изменения сохранены', notice_green);
@@ -1417,7 +1398,7 @@ function deleteFolder(e) {
                 data: ({
                     'folder_id': folder_id
                 }),
-                success: function(data) {
+                success: function (data) {
                     if (data.status == 'success') {
                         $('[folder_id=' + folder_id + ']').remove();
                         noticeOpen('Изменения сохранены', notice_green);
@@ -1440,7 +1421,7 @@ function updateDirectory(parent_id, author_id) {
             'parent_id': parent_id,
             'author_id': author_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 $('.tr_files').remove();
                 $('.table_body_t').append(data.html);
@@ -1464,7 +1445,7 @@ function openFolder(el, e) {
 
     getOpenFolder(el.parents('.tr_files').attr('folder_id'))
 }
-$('html').click(function() {
+$('html').click(function () {
     closeNewFolder();
     $('.ul_files_actions').hide();
     closeDoor();
@@ -1498,7 +1479,7 @@ function getOpenFolder(folder_id) {
         data: ({
             'folder_id': folder_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
 
                 $('.tr_files').remove();
@@ -1527,7 +1508,7 @@ function editLineFolder(e) {
     var input = $('.table_files .tr_files.active .name_folder');
 
     input.focus();
-    input.keypress(function(e) {
+    input.keypress(function (e) {
         if (e.which == 13) {
             saveChangeFolder();
         }
@@ -1554,7 +1535,7 @@ function doorDownloadFile(e) {
         data: ({
             'parent_id': GET.parent_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 openDoor(data.html);
             } else {
@@ -1617,7 +1598,7 @@ function NewSmallPost(type, belong_id) {
             'type': type,
             'belong_id': belong_id
         }),
-        success: function(data) {
+        success: function (data) {
             $('#new_obs').removeClass('loading');
             if (data.status == 'success') {
                 $('#disifen').val('');
@@ -1639,7 +1620,7 @@ function changeFakeProfile(profile_id, e) {
         data: ({
             'profile_id': profile_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 openDoor(data.html)
             } else if (data.status == 'falure') {
@@ -1655,14 +1636,14 @@ function saveFakeProfile(el) {
         type: 'POST',
         dataType: 'json',
         data: $('#create_profile_fio').serialize(),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 $('#student_manege').append(data.html)
             } else if (data.status == 'falure') {
                 noticeOpen('Ошибка, попробуйте перезагрузить страницу', '3');
             }
         },
-        complete: function() {
+        complete: function () {
             closeDoor();
             el.removeClass('loading');
         }
@@ -1681,7 +1662,7 @@ function chageStudentStats(profile_id, e) {
         data: ({
             'profile_id': profile_id
         }),
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 openDoor(data.html);
             } else if (data.status == 'falure') {
@@ -1690,18 +1671,55 @@ function chageStudentStats(profile_id, e) {
         }
     });
 }
-function deleteMyPost(id){
+function deleteMyPost(id) {
     $.ajax({
-        url: '/post/deleteMyPost?id='+id,
+        url: '/post/deleteMyPost?id=' + id,
         type: 'POST',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             if (data.status == 'success') {
                 alert('Пост удален');
-                 location.reload();
+                location.reload();
             } else if (data.status == 'falure') {
                 alert('Ошибка');
             }
         }
     });
 }
+function openUpdateForum(id) {
+    NProgress.start();
+    $.ajax({
+        url: '/forum/openUpdateForum?id=' + id,
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            NProgress.done();
+
+            if (data.status == 'success') {
+
+                openDoor(data.html);
+
+                NProgress.done();
+
+            } else if (data.status == 'falure') {
+
+                alert('Ошибка');
+
+            }
+        }
+    });
+}
+function updateForum(id) {
+    alert(id);
+}
+$(document).on("change", '.area_radio', function () {
+
+    var operation = $(this).val();
+
+    if (operation == 1) {
+
+    } else if (operation == 2
+        ) {
+
+    }
+});

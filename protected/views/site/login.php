@@ -35,7 +35,7 @@
                 </tr>                <tr>                    <td>                    </td>                    <td>                        <div class="close close_srtyle" onclick='closeDoor()()'>Отмена</div>                        <span id="ajax_loade_enter"></span>                        <div class="ajax_loade_help"></div>           
                         <?php echo CHtml::submitButton('Войти', array('class' => 'enter', 'id' => 'enterbtn')); ?>   
                         <script>
-                            $('#enterbtn').live('click',function(){
+                            $('#enterbtn').click(function(){
                                 $(this).addClass('loading');
                                 var returns = false; 
                                 $.ajax({ 
@@ -63,13 +63,15 @@
                             });
                                           
                         </script>
+                        <div class="anchor"></div>
                     </td> 
                 </tr>
 
 
             </table>
             <?php $this->endWidget(); ?>     
-        </div>       
+        </div>
+
         <div class="social">         
             <div class="social_text">Войти через:</div>
             <a href="http://api.vkontakte.ru/oauth/authorize?client_id=3211710&amp;scope=&amp;redirect_uri=http://atpp.in/site/VkVhod/&amp;response_type=code" class="enter_in_vk"></a>       

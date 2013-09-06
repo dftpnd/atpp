@@ -1,8 +1,10 @@
 <?php
 
-class ForumController extends Controller {
+class ForumController extends Controller
+{
 
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $type = ObjectRating::FORUM;
         $plus = ObjectRating::PLUS;
         $minus = ObjectRating::MINUS;
@@ -24,7 +26,23 @@ class ForumController extends Controller {
             'plus' => $plus,
             'minus' => $minus,
             'discussions' => $discussions
-                ), $title);
+        ), $title);
+    }
+
+    public function actionOpenUpdateForum($id)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.name ASC';
+        $predmets = Predmet::model()->findAll($criteria);
+
+        $html = $this->renderPartial('_open_update_forum',
+            array(
+                'id' => $id,
+                'predmets' => $predmets
+
+            ), true);
+
+        echo json_encode(array('html' => $html, 'status' => 'success'));
     }
 
 }

@@ -7,32 +7,7 @@
 	
 	<title>TEST</title>
 	<script src="http://localhost:8080/socket.io/socket.io.js"></script>
-        
-        
-        
-        
-	<!-- <script>
-	  var socket = io.connect('http://localhost:8080');
-	  socket.on('news', function (data) {
-	  
-		$('#test_1').prepend(data.hello+'<br>')
-	  
-	  
-		console.log(data);
-		
-		
-		//
-	  });
-          
-          $('#a').live('click', function(){
-              socket.emit('my other event', { data: $('#text').val() }); 
-          });
-          
-          socket.on('allChannel', function (data) {
-              $('#test_2').prepend(data.result+'<br>')
-          });
-          
-	</script> -->
+
 </head>
 <body>
 <div id="test_1"></div>

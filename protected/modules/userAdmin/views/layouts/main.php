@@ -5,9 +5,7 @@
         <meta name="language" content="en" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/spizdel.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin.css" />
-        <script  type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jq.js" ></script>
-        <script  type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/door.js" ></script>
-        <script  type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/admin.js" ></script>
+              <script  type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/admin.js" ></script>
 
         <title>АТПП</title>
     </head>

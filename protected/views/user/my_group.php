@@ -146,14 +146,14 @@ if (isset($_GET['sect'])) {
       var i = (haystack + '').indexOf(needle, (offset || 0));
       return i === -1 ? false : i;
     }
-    $('.slide_menu ul li').click(function(){
+      $(".slide_menu").on("click", "li", function () {
       var tab = $(this).attr('tab');
       openTab(tab);
       history.pushState(tab, '', url+'?sect='+tab );            
     });
-        
-        
-    $('.slide_menu ul li').live('click', function (){
+
+
+      $(".slide_menu").on("click", "li", function () {
             
       $('.slide_menu ul li').removeClass('active'); 
       $(this).addClass('active');

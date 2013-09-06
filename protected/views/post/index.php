@@ -42,7 +42,6 @@ if (isset($_GET['topic'])) {
         'itemView' => '_view2',
         'template' => "{items}\n{pager}",
         'pager' => array(
-            'class' => 'ext.yiinfinite-scroll.YiinfiniteScroller',
             'contentSelector' => 'div.items',
             'itemSelector' => 'div.list-view',
         )
