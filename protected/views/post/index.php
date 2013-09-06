@@ -31,20 +31,42 @@ if (isset($_GET['topic'])) {
 <div class="content-gallery">
 
     <?php
-    $this->widget('zii.widgets.CListView', array(
-        'dataProvider' => $dataProvider,
-        'viewData' => array(
-            'type_1' => $type_1,
-            'plus_1' => $plus_1,
-            'minus_1' => $minus_1,
-            'gost_or_user' => $gost_or_user,
-        ),
-        'itemView' => '_view2',
-        'template' => "{items}\n{pager}",
+
+    $this->widget('application.components.PostGrid', array(
+        'id' => 'video-grid',
+        'template' => '{summary} {items} {pager}',
         'pager' => array(
-            'contentSelector' => 'div.items',
-            'itemSelector' => 'div.list-view',
-        )
+            'maxButtonCount' => 5,
+            'firstPageLabel' => '',
+            'prevPageLabel' => '<',
+            'nextPageLabel' => '>',
+            'lastPageLabel' => '',
+            'header' => '',
+        ),
+        'itemsCssClass'=>'grid_table',
+        'dataProvider' => $model->search_my(),
+
+        'columns' => array(
+            'id',
+            array(
+                'name' => 'title',
+                'type' => 'raw',
+                'value' => 'CHtml::link(CHtml::encode($data->title), $data->url)'
+            ),
+            array(
+                'name' => 'status',
+                'value' => 'Lookup::item("PostStatus",$data->status)',
+                'filter' => Lookup::items('PostStatus'),
+            ),
+            array(
+                'name' => 'create_time',
+                'type' => 'datetime',
+                'filter' => false,
+            ),
+            array(
+                'class' => 'CButtonColumn',
+            ),
+        ),
     ));
     ?>
 

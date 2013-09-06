@@ -140,10 +140,10 @@ if (isset($_GET['id'])) {
           <?php endif; ?>
           <div class="right_b resume__emptyblock">
             <?php if (Yii::app()->user->getRole() == 'authority'): ?>
-              <div class="web_administrator " >Администратор Сайта</div>
+<!--              <div class="web_administrator " >Администратор Сайта</div>-->
             <?php endif; ?>
             <?php if ($profile->leader != NUll): ?>
-              <div class="web_staroste " >Администратор группы</div>
+<!--              <div class="web_staroste " >Администратор группы</div>-->
             <?php endif; ?>
             <div class="ldk">
               Группа:

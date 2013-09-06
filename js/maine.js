@@ -13,29 +13,38 @@ var notice_red = '3';
 send = {};
 send['start_async_page'] = '';
 
-function prototipeFunction(el) {
-    if (my_link.attr('async') != undefined) {
+function prototipeFunction() {
+    favicon();
 
-        NProgress.set(0.5);
+    NProgress.set(0.5);
 
-        closeContent();
+    closeContent();
 
-        handlerAnchors(my_link.attr('href'));
-
-
+    var href_url;
+    if (my_link.attr('href') != undefined) {
+        href_url = my_link.attr('href')
+    } else {
+        href_url = my_link.parents().attr('href')
     }
+    //console.log(href_url);
+    handlerAnchors(href_url);
+
 }
 
 $('html').click(function (e) {
     window.my_link = $(e.target);
 
-    if (my_link.get(0).tagName == 'A') {
-        favicon();
+
+    if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
 
         NProgress.start();
 
         setTimeout(prototipeFunction, 100)
 
+        NProgress.done();
+
+    } else {
+        return true;
     }
     return false;
 });
