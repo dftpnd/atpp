@@ -5,32 +5,20 @@ class ForumController extends Controller
 
     public function actionIndex()
     {
-        $type = ObjectRating::FORUM;
-        $plus = ObjectRating::PLUS;
-        $minus = ObjectRating::MINUS;
         $title = 'Форум';
-        $athor = array();
-        if (!Yii::app()->user->isGuest)
-            $athor = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-
         $criteria = new CDbCriteria();
+        $criteria->order = 't.created DESC';
+//        $criteria->offset = 10;
+//        $criteria->limit = 10;
+        if (isset($_GET['tag_id'])) {
+            $criteria->condition = 'forum_tag.tag_id = ' . $_GET['tag_id'];
+        }
+        $forums = Forum::model()->findAll($criteria);
 
-        $criteria->order = 't.last_update DESC';
-
-        $discussions = Discussion::model()->findAllByAttributes(array('group_id' => '999999'), $criteria);
 
         $tags = ForumTagId::model()->findAll();
 
-        $forums = Forum::model()->findAll();
-
-
         MyHelper::render($this, 'index', array(
-            'athor' => $athor,
-            'profile' => $athor,
-            'type' => $type,
-            'plus' => $plus,
-            'minus' => $minus,
-            'discussions' => $discussions,
             'tags' => $tags,
             'forums' => $forums
         ), $title);
@@ -87,7 +75,7 @@ class ForumController extends Controller
         // бегу по тегам которые пришли постом
         foreach ($tags as $tag) {
             if ($tag != '') {
-                $tag = mb_strtolower($tag);
+                $tag = mb_strtolower($tag, "UTF-8");
 
                 if (in_array($tag, $at)) {
                     $tag_id = array_search($tag, $at);
