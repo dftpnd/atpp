@@ -11,9 +11,12 @@ class ForumController extends Controller
 //        $criteria->offset = 10;
 //        $criteria->limit = 10;
         if (isset($_GET['tag_id'])) {
+            //$criteria->order = 't.last_update DESC, child.last_update ASC';
+            //    $criteria->order = 't.last_update DESC, child.last_update ASC';
+            //$discussions = Discussion::model()->with('child')->
             $criteria->condition = 'forum_tag.tag_id = ' . $_GET['tag_id'];
         }
-        $forums = Forum::model()->findAll($criteria);
+        $forums = Forum::model()->with('forum_tag')->findAll($criteria);
 
 
         $tags = ForumTagId::model()->findAll();

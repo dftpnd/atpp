@@ -5838,3 +5838,8 @@ li.menu_editprofile a{
     width: 97%;
     height: 100px;
 }
+.ui-widget-content {
+    background:#FFFFFF;
+    border: 1px solid #AAAAAA;
+    color: #222222;
+}

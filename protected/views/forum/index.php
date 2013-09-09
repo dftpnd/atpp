@@ -1,7 +1,10 @@
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
 <?php if (!Yii::app()->user->isGuest): ?>
     <div class="create_forum" onclick="openUpdateForum(0)"><input type="submit" value="Задать вопрос"/></div>
 <?php endif; ?>
+<?php if(isset($_GET['tag_id'])):?>
+    <a href="/forum/index" class="classic">Убрать сортировку</a>
+<?php endif;?>
+
 
 <div class="anchor"></div>
 <div class="forum_area">

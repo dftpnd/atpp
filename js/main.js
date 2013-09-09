@@ -76,7 +76,9 @@ function changePage(url) {
                 $('#content').html(data);
                 $('title').text($('#page_title').text());
                 $('#page_title').remove();
-                //console.log($.cookie);
+                if(url == "/forum/index"){
+
+                }
 
                 history.pushState({
                     title: data.title,
