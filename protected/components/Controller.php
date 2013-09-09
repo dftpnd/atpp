@@ -12,19 +12,22 @@ class Controller extends SBaseController
         $cs = Yii::app()->clientScript;
         $cs->registerCoreScript('jquery');
         $cs->registerCoreScript('jquery.ui');
+<<<<<<< HEAD
 
 //        $cs->registerScriptFile($this->createUrl('/js/jquery-2.0.3.min.js'));
 //        $cs->registerScriptFile($this->createUrl('/js/jquery-ui.min.js'));
 //        $cs->registerScriptFile($this->createUrl('/js/yiiactiveform.js'));
+=======
+>>>>>>> c13856915a5b4f5b681ae2ea581398d275091544
         $cs->registerScriptFile($this->createUrl('/js/jquery.md5.js'));
         $cs->registerScriptFile($this->createUrl('/js/jquery.scrollTo.min.js'));
         $cs->registerScriptFile($this->createUrl('/js/nprogress.js'));
         $cs->registerScriptFile($this->createUrl('/js/fileuploader.js'));
         $cs->registerScriptFile($this->createUrl('/js/amcharts.js'));
         $cs->registerScriptFile($this->createUrl('/js/amcharts_ui.js'));
-        $cs->registerScriptFile($this->createUrl('/js/jq-scrool_old.js'));
+        $cs->registerScriptFile($this->createUrl('/js/fixed_table_header.js'));
         $cs->registerScriptFile($this->createUrl('/js/door.js'));
-        $cs->registerScriptFile($this->createUrl('/js/maine.js'));
+        $cs->registerScriptFile($this->createUrl('/js/main.js'));
     }
 
 }

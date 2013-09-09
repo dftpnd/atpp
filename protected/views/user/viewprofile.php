@@ -103,7 +103,7 @@ if (isset($_GET['id'])) {
         <div class="anchor"></div>
         <div class="medal">
           <span title="Средний балл успеваемости">
-            <?php if (isset($profile->mean)) echo $profile->mean ?>
+            <?php if (isset($profile->mean)) echo (int)$profile->mean ?>
           </span>
         </div>
         <div class="anchor"></div>
