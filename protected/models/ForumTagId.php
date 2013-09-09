@@ -37,7 +37,7 @@ class ForumTagId extends CActiveRecord
 	public function relations()
 	{
 		return array(
-
+           // 'tags'=> array(self::BELONGS_TO, 'ForumTag', 'tag_id')
 		);
 	}
 

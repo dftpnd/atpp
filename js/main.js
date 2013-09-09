@@ -77,7 +77,9 @@ function changePage(url) {
                 $('title').text($('#page_title').text());
                 $('#page_title').remove();
                 if(url == "/forum/index"){
-
+                    $('#content').addClass('fc_important')
+                }else{
+                    $('#content').removeClass('fc_important')
                 }
 
                 history.pushState({
