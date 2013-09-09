@@ -55,22 +55,12 @@ $('html').click(function (e) {
 
 
 function handlerAnchors(href) {
-
-
     var href_inner = href + "";
-
-    if (send['start_async_page'] == 'send')
-        return false;
-
-
     send['start_async_page'] = 'send';
-
-
-    changePage(href_inner, true);
+    changePage(href_inner);
 
 }
-function changePage(url, history_push) {
-
+function changePage(url) {
     NProgress.set(0.5);
     $.ajax({
         type: "POST",
