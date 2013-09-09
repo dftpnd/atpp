@@ -38,9 +38,14 @@ class ForumController extends Controller
 
     public function actionOpenUpdateForum($id)
     {
+        $tags = array();
         $criteria = new CDbCriteria();
         $criteria->order = 't.name ASC';
         $predmets = Predmet::model()->findAll($criteria);
+        $tags_base = ForumTagId::model()->findAll();
+
+        foreach ($tags_base as $tag_base)
+            $tags[] = $tag_base->name;
 
         $html = $this->renderPartial('_open_update_forum',
             array(
@@ -49,7 +54,7 @@ class ForumController extends Controller
 
             ), true);
 
-        echo json_encode(array('html' => $html, 'status' => 'success'));
+        echo json_encode(array('html' => $html, 'status' => 'success', 'tags' => $tags));
     }
 
     public function actionUpdateForum($id)
