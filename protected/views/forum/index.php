@@ -32,7 +32,7 @@
                         ?>
                         <?php echo $j . ' ' . MyHelper::getRusMonth($m) . ' ' . $y; ?>
                     </div>
-                    <a class="classic" href="/asd/asd"><?php echo MyHelper::getUsername($forum->user_id) ?></a>
+                    <a class="classic" href="/user/ViewProfile"><?php echo MyHelper::getUsername($forum->user_id) ?></a>
                     <div class="forum_content_text">
                         <?php echo $forum->content; ?>
                     </div>

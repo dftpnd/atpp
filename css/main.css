@@ -66,7 +66,8 @@ select{
 }
 input[type="password"],
 input[type="text"],
-input[type="email"]
+input[type="email"],
+#tags
 {
     font-size:14px;
     display:block;
@@ -5858,4 +5859,8 @@ li.menu_editprofile a{
 }
 .forum_content_text{
     margin: 20px 0;
+}
+.create_forum_area{
+    width: 97%;
+    height: 100px;
 }
