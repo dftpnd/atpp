@@ -223,16 +223,36 @@ class PostController extends Controller {
             $gost_or_user = 'gost';
         }
 
-        $model = new Post('search');
-        if (isset($_GET['Post']))
-            $model->attributes = $_GET['Post'];
+        $type_1 = ObjectRating::TYPE_POST;
+        $plus_1 = ObjectRating::PLUS;
+        $minus_1 = ObjectRating::MINUS;
+        $criteria = new CDbCriteria(array(
+            'condition' => 'status=' . Post::STATUS_PUBLISHED,
+            'order' => 'create_time DESC',
+            'with' => 'commentCount',
+        ));
+        if (isset($_GET['topic'])) {
+            $topic = $_GET['topic'];
+        } else {
+            $topic = 1;
+        }
+        $criteria->addSearchCondition('topic', $topic);
+        $dataProvider = new CActiveDataProvider('Post', array(
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+            'criteria' => $criteria,
+        ));
 
 
         $title = 'Статьи';
         MyHelper::render($this, 'index', array(
-            'model' => $model,
+            'dataProvider' => $dataProvider,
             'gost_or_user' => $gost_or_user,
-                ), $title);
+            'type_1' => $type_1,
+            'plus_1' => $plus_1,
+            'minus_1' => $minus_1,
+        ), $title);
     }
 
     /**

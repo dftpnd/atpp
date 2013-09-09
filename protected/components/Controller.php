@@ -10,15 +10,12 @@ class Controller extends SBaseController
     public function init()
     {
         $cs = Yii::app()->clientScript;
-//        Yii::app()->clientScript->scriptMap['jquery.js'] = false;
-//        Yii::app()->clientScript->scriptMap['jquery-ui.js'] = false;
-        Yii::app()->clientScript->scriptMap['jquery.yiiactiveform.js'] = false;
-        Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
-
+        $cs->registerCoreScript('jquery');
+        $cs->registerCoreScript('jquery.ui');
 
 //        $cs->registerScriptFile($this->createUrl('/js/jquery-2.0.3.min.js'));
 //        $cs->registerScriptFile($this->createUrl('/js/jquery-ui.min.js'));
-        $cs->registerScriptFile($this->createUrl('/js/yiiactiveform.js'));
+//        $cs->registerScriptFile($this->createUrl('/js/yiiactiveform.js'));
         $cs->registerScriptFile($this->createUrl('/js/jquery.md5.js'));
         $cs->registerScriptFile($this->createUrl('/js/jquery.scrollTo.min.js'));
         $cs->registerScriptFile($this->createUrl('/js/nprogress.js'));

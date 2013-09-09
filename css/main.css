@@ -1,6 +1,3 @@
-/*@import url(http://fonts.googleapis.com/css?family=Forum&subset=latin,cyrillic);
-@import url(http://fonts.googleapis.com/css?family=Comfortaa&subset=latin,cyrillic);*/
-
 *{
     padding:0;
     margin:0;
@@ -20,8 +17,6 @@ h1{
     margin: 10px 0;
 }
 h1, div.title a, h4{
-    /*  font-family: 'Comfortaa', cursive!important;*/
-    /*  font-family: 'Cuprum', sans-serif!important;*/
     font-weight:normal;
 }
 
@@ -31,8 +26,6 @@ h1, div.title a, h4{
     position: relative;
     background: #fff;
     width:100%;
-    /*display: inline-block;*/
-    /*  color: #fff;*/
 }
 .pila_top{
     height:25px;
@@ -280,29 +273,29 @@ a:hover  {
 .menu ul li{
     display: block;
     float:left;
-    padding: 1px 8px 2px;
 }
 .menu ul li a{
-    border-bottom:1px solid;
+    padding: 1px 8px 2px;
+    text-decoration: underline;
 }
 .menu ul li a:hover {
     color: #fff!important;
     border:none;
 }
 
-.menu ul li.active:first-child{
+.menu ul li.active:first-child a{
     background: #505050;
 }
-.menu ul li.active:nth-child(2){
+.menu ul li.active:nth-child(2) a{
     background: #00BCF2;
 }
-.menu ul li.active:nth-child(3){
+.menu ul li.active:nth-child(3) a{
     background:  #BA141A;
 }
-.menu ul li.active:nth-child(4){
+.menu ul li.active:nth-child(4) a{
     background: #99439A;
 }
-.menu ul li.active:nth-child(5){
+.menu ul li.active:nth-child(5) a{
     background: #018a00;
 }
 /*.menu ul li:last-child:hover{
@@ -313,19 +306,19 @@ a:hover  {
     color:#404040!important;
 }*/
 
-.menu ul li:first-child:hover{
+.menu ul li:first-child:hover a{
     background: #505050;
 }
-.menu ul li:nth-child(2):hover{
+.menu ul li:nth-child(2):hover a{
     background: #00BCF2;
 }
-.menu ul li:nth-child(3):hover{
+.menu ul li:nth-child(3):hover a{
     background:  #BA141A;
 }
-.menu ul li:nth-child(4):hover{
+.menu ul li:nth-child(4):hover a{
     background: #99439A;
 }
-.menu ul li:nth-child(5):hover{
+.menu ul li:nth-child(5):hover a{
     background: #018a00;
 }
 
@@ -2064,8 +2057,8 @@ div.title a:hover{
     top: -25px;/*comment to post*/
     word-break: break-all;
     margin-right:50px;
-    /*    -webkit-transition-duration: .3s;
-        -moz-transition-duration: .3s;*/
+    /* падинг добавлен для коментов под постом*/
+    padding-top: 10px;
 }
 .comment_content:hover{
     -webkit-transition-duration: 1s;
@@ -5733,14 +5726,12 @@ li.menu_editprofile a{
 }
 .forum_content{
     width: 80%;
-    height: 500px;
-    background: blue;
 }
 .forum_tag{
     height: 500px;
-    width: 20%;
+    width: 19%;
     float: right;
-    background: red;
+    border-left: 1px solid black;
 }
 .df_lvl_1{
     display: block;
@@ -5833,3 +5824,12 @@ li.menu_editprofile a{
     100% { transform: rotate(360deg); transform: rotate(360deg); }
 }
 
+.forum{
+    padding: 20px;
+    border: 1px solid black;
+    margin: 20px;
+    position: relative;
+}
+.forum_content_text{
+
+}

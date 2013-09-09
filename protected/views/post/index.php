@@ -17,13 +17,13 @@ if (isset($_GET['topic'])) {
         <li class="<?php echo $class1; ?>">
             <?php
             echo CHtml::link('Кафедральные<div class="k_post"></div>', Yii::app()->urlManager->createUrl('post/index', array(
-                        'group' => '1')), array('async' => 'async'));
+                'group' => '1')), array('async' => 'async'));
             ?>
         </li>
         <li class="<?php echo $class2; ?>">
             <?php
             echo CHtml::link('Мировые<div class="w_post"></div>', Yii::app()->urlManager->createUrl('post/index', array(
-                        'topic' => '2')), array('async' => 'async'));
+                'topic' => '2')), array('async' => 'async'));
             ?>
         </li>
     </ul>
@@ -31,42 +31,18 @@ if (isset($_GET['topic'])) {
 <div class="content-gallery">
 
     <?php
-
-    $this->widget('application.components.PostGrid', array(
-        'id' => 'video-grid',
-        'template' => '{summary} {items} {pager}',
-        'pager' => array(
-            'maxButtonCount' => 5,
-            'firstPageLabel' => '',
-            'prevPageLabel' => '<',
-            'nextPageLabel' => '>',
-            'lastPageLabel' => '',
-            'header' => '',
+    $this->widget('zii.widgets.CListView', array(
+        'dataProvider' => $dataProvider,
+        'viewData' => array(
+            'type_1' => $type_1,
+            'plus_1' => $plus_1,
+            'minus_1' => $minus_1,
+            'gost_or_user' => $gost_or_user,
         ),
-        'itemsCssClass'=>'grid_table',
-        'dataProvider' => $model->search_my(),
+        'itemView' => '_view2',
+        'template' => "{items}\n{pager}",
 
-        'columns' => array(
-            'id',
-            array(
-                'name' => 'title',
-                'type' => 'raw',
-                'value' => 'CHtml::link(CHtml::encode($data->title), $data->url)'
-            ),
-            array(
-                'name' => 'status',
-                'value' => 'Lookup::item("PostStatus",$data->status)',
-                'filter' => Lookup::items('PostStatus'),
-            ),
-            array(
-                'name' => 'create_time',
-                'type' => 'datetime',
-                'filter' => false,
-            ),
-            array(
-                'class' => 'CButtonColumn',
-            ),
-        ),
+
     ));
     ?>
 

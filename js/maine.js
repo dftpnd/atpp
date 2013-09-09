@@ -1,7 +1,12 @@
 function is_null(mixed_var) {	// Finds whether a variable is NULL
     return ( mixed_var === null );
 }
-
+function split(val) {
+    return val.split(/,\s*/);
+}
+function extractLast(term) {
+    return split(term).pop();
+}
 
 /*====*/
 var notice_green = '1';
@@ -9,27 +14,16 @@ var notice_yellow = '2';
 var notice_red = '3';
 /*====*/
 
+function prototipeFunction(callback) {
+    NProgress.start();
+    callback();
+}
+// вызываем функцию
+
 
 send = {};
 send['start_async_page'] = '';
 
-function prototipeFunction() {
-    favicon();
-
-    NProgress.set(0.5);
-
-    closeContent();
-
-    var href_url;
-    if (my_link.attr('href') != undefined) {
-        href_url = my_link.attr('href')
-    } else {
-        href_url = my_link.parents().attr('href')
-    }
-    //console.log(href_url);
-    handlerAnchors(href_url);
-
-}
 
 $('html').click(function (e) {
     window.my_link = $(e.target);
@@ -37,11 +31,21 @@ $('html').click(function (e) {
 
     if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
 
-        NProgress.start();
+        $('#menu li').removeClass('active')
 
-        setTimeout(prototipeFunction, 100)
+        prototipeFunction(function () {
+            favicon();
+            closeContent();
 
-        NProgress.done();
+            var href_url;
+            if (my_link.attr('href') != undefined) {
+                href_url = my_link.attr('href')
+            } else {
+                href_url = my_link.parents().attr('href')
+            }
+            handlerAnchors(href_url);
+
+        });
 
     } else {
         return true;
@@ -67,10 +71,9 @@ function handlerAnchors(href) {
 }
 function changePage(url, history_push) {
 
-    NProgress.set(0.7);
+    NProgress.set(0.5);
     $.ajax({
         type: "POST",
-        async: false,
         url: url,
         dataType: "html",
         data: ({
@@ -106,7 +109,7 @@ function changePage(url, history_push) {
             NProgress.done();
             faviconEnd();
             $('.contentus').removeClass('clouset');
-
+            NProgress.done();
         }
 
     }).fail(function () {
@@ -151,10 +154,10 @@ function openContent() {
 }
 ;
 function goSpiner() {
-    alert('todo');
+    NProgress.start();
 }
 function hideSpiner() {
-    alert('todo')
+    NProgress.done();
 }
 function goGear() {
     $('.float_signal').addClass('gear');
@@ -1454,11 +1457,7 @@ function openFolder(el, e) {
 
     getOpenFolder(el.parents('.tr_files').attr('folder_id'))
 }
-$('html').click(function () {
-    closeNewFolder();
-    $('.ul_files_actions').hide();
-    closeDoor();
-});
+
 
 function closeNewFolder() {
     var el = $('.tr_files');
@@ -1702,11 +1701,65 @@ function openUpdateForum(id) {
         type: 'POST',
         dataType: 'json',
         success: function (data) {
-            NProgress.done();
-
             if (data.status == 'success') {
 
                 openDoor(data.html);
+
+                var availableTags = [
+                    "ActionScript",
+                    "AppleScript",
+                    "Asp",
+                    "BASIC",
+                    "C",
+                    "C++",
+                    "Clojure",
+                    "COBOL",
+                    "ColdFusion",
+                    "Erlang",
+                    "Fortran",
+                    "Groovy",
+                    "Haskell",
+                    "Java",
+                    "JavaScript",
+                    "Lisp",
+                    "Perl",
+                    "PHP",
+                    "Python",
+                    "Ruby",
+                    "Scala",
+                    "Scheme"
+                ];
+                $("#tags")
+                    // don't navigate away from the field on tab when selecting an item
+                    .bind("keydown", function (event) {
+                        if (event.keyCode === $.ui.keyCode.TAB &&
+                            $(this).data("ui-autocomplete").menu.active) {
+                            event.preventDefault();
+                        }
+                    })
+                    .autocomplete({
+                        minLength: 0,
+                        source: function (request, response) {
+                            // delegate back to autocomplete, but extract the last term
+                            response($.ui.autocomplete.filter(
+                                availableTags, extractLast(request.term)));
+                        },
+                        focus: function () {
+                            // prevent value inserted on focus
+                            return false;
+                        },
+                        select: function (event, ui) {
+                            var terms = split(this.value);
+                            // remove the current input
+                            terms.pop();
+                            // add the selected item
+                            terms.push(ui.item.value);
+                            // add placeholder to get the comma-and-space at the end
+                            terms.push("");
+                            this.value = terms.join(", ");
+                            return false;
+                        }
+                    });
 
                 NProgress.done();
 
@@ -1718,8 +1771,32 @@ function openUpdateForum(id) {
         }
     });
 }
-function updateForum(id) {
-    alert(id);
+function updateForum(id, el) {
+    el.addClass('loading');
+    NProgress.start();
+    $.ajax({
+        url: '/forum/updateForum?id=' + id,
+        type: 'POST',
+        dataType: 'json',
+        data: $('#create_forum').serialize(),
+        success: function (data) {
+
+            if (data.status == 'success') {
+
+            } else if (data.status == 'error') {
+                noticeOpen(data.text, notice_red);
+            }
+        },
+        complete: function () {
+            NProgress.done();
+            el.removeClass('loading');
+        },
+        error: function () {
+//            noticeOpen("Ошибка", notice_red);
+//            closeDoor();
+        }
+
+    });
 }
 $(document).on("change", '.area_radio', function () {
 
@@ -1731,4 +1808,12 @@ $(document).on("change", '.area_radio', function () {
         ) {
 
     }
+});
+$('html').on("click", '.ui-autocomplete', function (evant) {
+    evant.stopPropagation();
+});
+$('html').click(function () {
+    closeNewFolder();
+    $('.ul_files_actions').hide();
+    closeDoor();
 });
