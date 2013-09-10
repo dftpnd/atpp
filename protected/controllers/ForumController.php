@@ -5,18 +5,19 @@ class ForumController extends Controller
 
     public function actionIndex()
     {
-        //$limit = 2;
+
         $title = 'Форум';
         $criteria = new CDbCriteria();
         $criteria->order = 't.created DESC';
-        //$criteria->limit = $limit;
+  //      $criteria->limit = 1;
+//        $criteria->offset = 1;
 
 
         if (isset($_GET['tag_id'])) {
-            $criteria->condition = 'forum_tag.tag_id = ' . $_GET['tag_id'];
+           $criteria->condition = 'test_test.tag_id = ' . $_GET['tag_id'];
         }
 
-        $forums = Forum::model()->with('forum_tag')->findAll($criteria);
+        $forums = Forum::model()->with('test')->with('forum_tag')->findAll($criteria);
 
         $pages = new CPagination(count($forums));
         $pages->pageSize = 10;
