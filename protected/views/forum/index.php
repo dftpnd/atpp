@@ -17,45 +17,17 @@
             <?php if (!empty($tags)): ?>
                 <?php foreach ($tags as $tag_id => $tag): ?>
                     <a href="/forum/index?tag_id=<?php echo $tag_id; ?>">#<?php echo $tag['name']; ?>
-                        (<?php echo $tag['count']; ?>)</a></br>
+                        (<?php   echo $tag['count']; ?>)</a></br>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
     </div>
     <div class="forum_content">
-        <?php if (!empty($forums)): ?>
-            <?php foreach ($forums as $forum): ?>
-                <div class="forum">
-                    <h1><a href='/forum/view?id=<?php echo $forum->id ?>'><?php echo $forum->title; ?></a></h1>
-
-                    <div class="forum_date">
-                        <?php
-                        $m = date('m', $forum->created);
-                        $j = date('j', $forum->created);
-                        $y = date('Y', $forum->created);
-                        ?>
-                        <?php echo $j . ' ' . MyHelper::getRusMonth($m) . ' ' . $y; ?>
-                    </div>
-                    <a class="classic" href="/user/ViewProfile"><?php echo MyHelper::getUsername($forum->user_id) ?></a>
-
-                    <div class="forum_content_text">
-                        <?php echo $forum->content; ?>
-                    </div>
-                    <div class="forum_content_tags">
-
-                        <?php foreach ($forum->forum_tag as $tag_forum): ?>
-                            <?php if (isset($tag_forum->tag)): ?>
-                                <a href="/forum/index?tag_id=<?php echo $tag_forum->tag->id; ?>">#<?php echo $tag_forum->tag->name; ?></a>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+        <?php $this->widget('zii.widgets.CListView', array(
+            'dataProvider' => $dataProvider,
+            'itemView' => '/forumTag/_view',
+        )); ?>
     </div>
-    <?php $this->widget('CLinkPager', array(
-        'pages' => $pages,
-    ));?>
     <div class="anchor"></div>
 </div>
 

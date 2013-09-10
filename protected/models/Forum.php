@@ -47,6 +47,7 @@ class Forum extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'forum_tag' => array(self::HAS_MANY, 'ForumTag', 'forum_id'),
+//            'profile' => array(self::BELONGS_TO, 'profile', '', 'on' => '[t].user_id = profile.user_id'),
             //'test'=> array(self::HAS_MANY, 'ForumTag', 'tbl_forum_tag_id(forum_id, tag_id)')
             'test' => array(self::MANY_MANY, 'ForumTagId',
                 'tbl_forum_tag(forum_id, tag_id)'),

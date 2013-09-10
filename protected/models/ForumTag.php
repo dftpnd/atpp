@@ -42,7 +42,8 @@ class ForumTag extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'tag'=> array(self::BELONGS_TO, 'ForumTagId', 'tag_id')
+            'tag'=> array(self::BELONGS_TO, 'Tag', 'tag_id'),
+            'forum'=> array(self::BELONGS_TO, 'Forum', 'forum_id')
 		);
 	}
 
@@ -58,27 +59,22 @@ class ForumTag extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
+
+	public function search($tag_id)
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
 		$criteria->compare('id',$this->id);
 		$criteria->compare('forum_id',$this->forum_id);
 		$criteria->compare('tag_id',$this->tag_id);
+        $criteria->order = 'id DESC';
+
+        if($tag_id != 0){
+            $criteria->condition = 'tag_id = ' . $tag_id;
+        }
+
+
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

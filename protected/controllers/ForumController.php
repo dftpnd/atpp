@@ -5,36 +5,30 @@ class ForumController extends Controller
 
     public function actionIndex()
     {
-
-        $title = 'Форум';
-        $criteria = new CDbCriteria();
-        $criteria->order = 't.created DESC';
-  //      $criteria->limit = 1;
-//        $criteria->offset = 1;
-
-
         if (isset($_GET['tag_id'])) {
-           $criteria->condition = 'test_test.tag_id = ' . $_GET['tag_id'];
+            $tag_id = $_GET['tag_id'];
+        } else {
+            $tag_id = 0;
         }
 
-        $forums = Forum::model()->with('test')->with('forum_tag')->findAll($criteria);
-
-        $pages = new CPagination(count($forums));
-        $pages->pageSize = 10;
-        $pages->applyLimit($criteria);
-
-        $tags = ForumTagId::model()->findAll();
+        $title = 'Форум';
+        $tags = Tag::model()->findAll();
         $tags_ar = array();
+
+
+        $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search($tag_id));
+
         foreach ($tags as $tag) {
             $tags_ar[$tag->id]['count'] = ForumTag::model()->countByAttributes(array('tag_id' => $tag->id));
             $tags_ar[$tag->id]['name'] = $tag->name;
         }
 
 
+
         MyHelper::render($this, 'index', array(
             'tags' => $tags_ar,
-            'forums' => $forums,
-            'pages' => $pages
+            'dataProvider' => $dataProvider
+
         ), $title);
     }
 
@@ -44,7 +38,7 @@ class ForumController extends Controller
         $criteria = new CDbCriteria();
         $criteria->order = 't.name ASC';
         $predmets = Predmet::model()->findAll($criteria);
-        $tags_base = ForumTagId::model()->findAll();
+        $tags_base = Tag::model()->findAll();
 
         foreach ($tags_base as $tag_base)
             $tags[] = $tag_base->name;
@@ -79,7 +73,7 @@ class ForumController extends Controller
         }
 
         $at = array();
-        $tags_base = ForumTagId::model()->findAll();
+        $tags_base = Tag::model()->findAll();
         foreach ($tags_base as $tag_base) {
             $at[$tag_base->id] = $tag_base->name;
         }
@@ -94,7 +88,7 @@ class ForumController extends Controller
                 if (in_array($tag, $at)) {
                     $tag_id = array_search($tag, $at);
                 } else {
-                    $create_tag = new ForumTagId();
+                    $create_tag = new Tag();
                     $create_tag->name = $tag;
                     $create_tag->save();
                     $tag_id = $create_tag->id;
