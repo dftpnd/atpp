@@ -181,6 +181,10 @@ class MyHelper
         return $tags;
     }
 
+    public static function commentCount($forum_id)
+    {
+        return ForumComment::model()->countByAttributes(array('forum_id' => $forum_id));
+    }
 }
 
 ?>

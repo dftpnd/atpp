@@ -76,12 +76,6 @@ function changePage(url) {
                 $('#content').html(data);
                 $('title').text($('#page_title').text());
                 $('#page_title').remove();
-                if(url == "/forum/index"){
-                    $('#content').addClass('fc_important')
-                }else{
-                    $('#content').removeClass('fc_important')
-                }
-
                 history.pushState({
                     title: data.title,
                     url: url
@@ -91,18 +85,19 @@ function changePage(url) {
                 send['start_async_page'] = 'sender';
                 send['send_infinity_scroll'] = {};
 
-                $(document).scrollTop('0');
-                scroll = 0;
-
+                $('html, body').scrollTo(0, 1500, {
+                    queue: true
+                });
             }
 
 
             return false;
         },
         complete: function (data) {
-            NProgress.done();
             faviconEnd();
             $('.contentus').removeClass('clouset');
+
+
             NProgress.done();
         }
 
@@ -1789,3 +1784,31 @@ $('html').click(function () {
     closeDoor();
 });
 
+function newForumComment($el) {
+    $el.addClass('loading');
+    NProgress.start();
+
+
+    $.ajax({
+        url: '/forum/newForumComment',
+        type: 'POST',
+        dataType: 'json',
+        data: $('#new_forum_comment').serialize(),
+        success: function (data) {
+
+            if (data.status == 'success') {
+
+            } else if (data.status == 'error') {
+                noticeOpen(data.text, notice_red);
+            }
+        },
+        complete: function () {
+            NProgress.done();
+            $el.removeClass('loading');
+        },
+        error: function () {
+            noticeOpen("Ошибка", notice_red);
+        }
+
+    });
+}

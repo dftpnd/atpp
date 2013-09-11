@@ -16,13 +16,12 @@ class ForumController extends Controller
         $tags_ar = array();
 
 
-        $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search($tag_id));
+        $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search($tag_id, false));
 
         foreach ($tags as $tag) {
             $tags_ar[$tag->id]['count'] = ForumTag::model()->countByAttributes(array('tag_id' => $tag->id));
             $tags_ar[$tag->id]['name'] = $tag->name;
         }
-
 
 
         MyHelper::render($this, 'index', array(
@@ -126,6 +125,43 @@ class ForumController extends Controller
         }
 
         echo json_encode(array('status' => 'success'));
+    }
+
+    public function actionView($id)
+    {
+        $title = "Обсуждения";
+
+
+        $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search(false, $id));
+
+        $forum_tag = ForumTag::model()->findAllByAttributes(array('forum_id' => $id));
+
+        $comments = ForumComment::model()->findAllByAttributes(array('forum_id' => $id));
+
+        MyHelper::render($this, '/forum/view', array(
+            'forum_tag' => $forum_tag,
+            'comments' => $comments,
+            'dataProvider' => $dataProvider,
+            'forum_id' => $id
+
+        ), $title);
+
+    }
+
+    public function actionNewForumComment()
+    {
+
+
+        $new_comment = new ForumComment();
+
+        $new_comment->forum_id = $_POST['forum_id'];
+        $new_comment->text = $_POST['comment_text'];
+        $new_comment->created = time();
+        $new_comment->user_id = Yii::app()->user->id;
+        $new_comment->save();
+
+        echo json_encode(array('status' => 'success'));
+
     }
 
 }
