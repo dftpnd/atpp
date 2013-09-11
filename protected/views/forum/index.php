@@ -1,5 +1,10 @@
 <?php if (isset($_GET['tag_id'])): ?>
     <a href="/forum/index" class="classic" async="async" >Убрать сортировку</a>
+    <style>
+        .tag_<?php echo $_GET['tag_id'];?>{
+            background: #00FF66!important;
+        }
+    </style>
 <?php endif; ?>
 
 <?php if (!Yii::app()->user->isGuest): ?>
@@ -12,8 +17,10 @@
             <h3>Список тэгов:</h3>
             <?php if (!empty($tags)): ?>
                 <?php foreach ($tags as $tag_id => $tag): ?>
+                    <?php if($tag['count'] != 0):?>
                     <a async="async" href="/forum/index?tag_id=<?php echo $tag_id; ?>">#<?php echo $tag['name']; ?>
                         (<?php echo $tag['count']; ?>)</a></br>
+                     <?php endif;?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

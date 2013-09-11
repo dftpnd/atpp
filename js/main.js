@@ -475,6 +475,8 @@ function ObjectRating(type, object_id, value) {
                     model = $('#prepod_file_' + object_id + ' .object_state');
                 } else if (type == 6) {
                     model = $('#sp_' + object_id + ' .object_rating .object_state');
+                } else if (type == 7) {
+                    model = $('#inf_' + object_id + ' .voting .mark .score');
                 }
                 model.removeAttr('class');
                 model.addClass('score')

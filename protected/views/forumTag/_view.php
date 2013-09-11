@@ -1,12 +1,48 @@
 <?php
+//rating
+$znak_plus = '';
+$type = ObjectRating::NEW_FORUM;
+$plus = ObjectRating::PLUS;
+$minus = ObjectRating::MINUS;
+$forum_id = $data->forum->id;
+if (!Yii::app()->user->isGuest) {
+    $text_script_plus = "ObjectRating($type, $forum_id ,$plus)";
+    $text_script_minus = "ObjectRating($type, $forum_id ,$minus)";
+    $div_title_plus = 'Нравится';
+    $div_title_minus = 'Не нравится';
+} else {
+    $text_script_plus = '';
+    $text_script_minus = '';
+    $div_title_plus = $div_title_minus = 'Голосовать могут только зарегистрированные пользователи.';
+}
+
+if (!is_null($data->forum->rating)) {
+    $state = $data->forum->rating;
+    if ($state > 0) {
+        $class = 'poloj';
+        $znak_plus = '+';
+    } else if ($state < 0) {
+        $class = 'otr';
+    } else {
+        $class = 'null';
+    }
+} else {
+    $state = '0';
+    $class = 'null';
+}
+
+//avater
 $my_picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
 if (!is_null($data->forum->user->prof->file_id)) {
     $file_name = $data->forum->user->prof->uploadedfiles->name;
     $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/avatar_' . $file_name);
 }
+//data
 $m = date('m', $data->forum->created);
 $j = date('j', $data->forum->created);
 $y = date('Y', $data->forum->created);
+
+
 ?>
 
 <div class="forum">
@@ -19,23 +55,49 @@ $y = date('Y', $data->forum->created);
             <div class="forum_grid_block">
 
                 <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $data->forum->user->prof->id)), array('async' => 'async', 'class' => 'circle_picter')); ?>
-                <a async="async" class="classic" href="/user/ViewProfile"><?php echo MyHelper::getUsername($data->forum->user_id) ?></a>
+                <a async="async" class="classic"
+                   href="/user/ViewProfile"><?php echo MyHelper::getUsername($data->forum->user_id) ?></a>
 
 
             </div>
         </div>
         <div class="forum_grid_content">
             <div class="forum_grid_block">
-                <h1><a async="async" href='/forum/view?id=<?php echo $data->forum->id ?>' class="classic"><?php echo $data->forum->title; ?></a></h1>
+                <h1><a async="async" href='/forum/view?id=<?php echo $data->forum->id ?>'
+                       class="classic"><?php echo $data->forum->title; ?></a></h1>
 
                 <div class="forum_content_text">
                     <?php echo MyHelper::makeClickableLinks($data->forum->content); ?>
                 </div>
+                <div class="infopanel"  id="inf_<?php echo $data->forum->id; ?>">
+                    <div class="table_t">
+                        <div class="tr_t">
+                            <div class="td_t">
+                                <div class="prosmotr" title="Просмотры обсуждения"> 128</div>
+                            </div>
+                            <div class="td_t">
+                                <div class="comments" title="Читать комментарии">
+                                    <a href="/forum/view?id=<?php echo $data->forum->id; ?>#comments"><?php echo MyHelper::commentCount($data->forum->id); ?></a>
+                                </div>
+                            </div>
+                            <div class="td_t">
+                                <div class="voting">
+                                    <span class="plus" title="<?php echo $div_title_plus; ?>"
+                                          onclick="<?php echo $text_script_plus; ?>"></span>
 
-                <div class="forum_comment_count">
-                    <a async="async" href="/forum/view?id=<?php echo $data->forum->id; ?>#comments"><?php echo MyHelper::commentCount($data->forum->id); ?>
-                        Коментария</a>
+                                    <div class="mark">
+                                        <span class="score  <?php echo $class; ?>" title="">
+                                            <?php echo $znak_plus . $state; ?>
+                                        </span>
+                                    </div>
+                                    <span class="minus" title="<?php echo $div_title_minus; ?>"
+                                          onclick="<?php echo $text_script_minus; ?>"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -45,12 +107,14 @@ $y = date('Y', $data->forum->created);
 
     <div class="forum_content_tags">
         <?php $tegs = MyHelper::forumTag($data->forum->id); ?>
-
-        <?php foreach ($tegs as $tag): ?>
-            <?php if (isset($tag)): ?>
-                <a async="async" href="/forum/index?tag_id=<?php echo $tag->tag->id; ?>">#<?php echo $tag->tag->name; ?></a>
-            <?php endif; ?>
-        <?php endforeach; ?>
+        <?php if (!empty($tegs)): ?>
+            <?php foreach ($tegs as $tag): ?>
+                <?php if (isset($tag->tag)): ?>
+                    <a async="async" class="tag_<?php echo $tag->tag->id; ?>"
+                       href="/forum/index?tag_id=<?php echo $tag->tag->id; ?>">#<?php echo $tag->tag->name; ?></a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 
 
