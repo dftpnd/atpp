@@ -85,9 +85,11 @@ function changePage(url) {
                 send['start_async_page'] = 'sender';
                 send['send_infinity_scroll'] = {};
 
-                $('html, body').scrollTo(0, 1500, {
-                    queue: true
-                });
+                $(document).scrollTop('0');
+                scroll = 0;
+//                $('html, body').scrollTo(0, 1500, {
+//                    queue: true
+//                });
             }
 
 
@@ -96,8 +98,6 @@ function changePage(url) {
         complete: function (data) {
             faviconEnd();
             $('.contentus').removeClass('clouset');
-
-
             NProgress.done();
         }
 
