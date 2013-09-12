@@ -164,8 +164,8 @@ class Post extends CActiveRecord
     {
 
         parent::afterSave();
-
-        Tag::model()->updateFrequency($this->_oldTags, $this->tags);
+//
+//        Tag::model()->updateFrequency($this->_oldTags, $this->tags);
     }
 
     /**
@@ -179,7 +179,7 @@ class Post extends CActiveRecord
 
         Comment::model()->deleteAll('post_id=' . $this->id);
 
-        Tag::model()->updateFrequency($this->tags, '');
+        //  Tag::model()->updateFrequency($this->tags, '');
     }
 
     /**

@@ -20,9 +20,6 @@
 
 <div class="oshib"></div>
 <div class="fixed_panel_for_close" title="Закрыть" onclick="ClearFileGroup()"></div>
-<div id="ajax_loader">
-    <div id="foo"><!--spiner--></div>
-</div>
 <div class="door">
     <div class="door_box_1">
         <div class="my_cont">

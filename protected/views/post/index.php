@@ -33,6 +33,7 @@ if (isset($_GET['topic'])) {
     <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $dataProvider,
+        'cssFile' => false,
         'viewData' => array(
             'type_1' => $type_1,
             'plus_1' => $plus_1,
@@ -41,7 +42,9 @@ if (isset($_GET['topic'])) {
         ),
         'itemView' => '_view2',
         'template' => "{items}\n{pager}",
-
+        'pager' => array(
+            'cssFile' => false
+        )
 
     ));
     ?>

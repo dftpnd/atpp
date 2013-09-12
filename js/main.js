@@ -76,8 +76,6 @@ function changePage(url) {
                 $('#content').html(data);
                 $('title').text($('#page_title').text());
                 $('#page_title').remove();
-                //console.log($.cookie);
-
                 history.pushState({
                     title: data.title,
                     url: url
@@ -89,14 +87,15 @@ function changePage(url) {
 
                 $(document).scrollTop('0');
                 scroll = 0;
-
+//                $('html, body').scrollTo(0, 1500, {
+//                    queue: true
+//                });
             }
 
 
             return false;
         },
         complete: function (data) {
-            NProgress.done();
             faviconEnd();
             $('.contentus').removeClass('clouset');
             NProgress.done();
@@ -476,6 +475,8 @@ function ObjectRating(type, object_id, value) {
                     model = $('#prepod_file_' + object_id + ' .object_state');
                 } else if (type == 6) {
                     model = $('#sp_' + object_id + ' .object_rating .object_state');
+                } else if (type == 7) {
+                    model = $('#inf_' + object_id + ' .voting .mark .score');
                 }
                 model.removeAttr('class');
                 model.addClass('score')
@@ -1785,3 +1786,31 @@ $('html').click(function () {
     closeDoor();
 });
 
+function newForumComment($el) {
+    $el.addClass('loading');
+    NProgress.start();
+
+
+    $.ajax({
+        url: '/forum/newForumComment',
+        type: 'POST',
+        dataType: 'json',
+        data: $('#new_forum_comment').serialize(),
+        success: function (data) {
+
+            if (data.status == 'success') {
+
+            } else if (data.status == 'error') {
+                noticeOpen(data.text, notice_red);
+            }
+        },
+        complete: function () {
+            NProgress.done();
+            $el.removeClass('loading');
+        },
+        error: function () {
+            noticeOpen("Ошибка", notice_red);
+        }
+
+    });
+}

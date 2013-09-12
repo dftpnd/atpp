@@ -10,11 +10,11 @@
         </label>
         <label class="df_lvl_1">
             <div class="info_to_help">Содержание</div>
-            <input type="text" value="" name="Forum[content]" />
+            <textarea name="Forum[content]" class="create_forum_area"></textarea>
         </label>
         <label class="df_lvl_1">
+            <div class="info_to_help">Тэги:</div>
             <div class="ui-widget">
-                <label for="tags">Tags: </label>
                 <input id="tags" name="Forum[tags]" />
             </div>
         </label>

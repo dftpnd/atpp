@@ -175,6 +175,16 @@ class MyHelper
         return CHtml::link($link_name, Yii::app()->urlManager->createUrl($url, array('id' => $profile->id)), array('class' => 'classic', 'async' => 'async'));
     }
 
+    public static function forumTag($forum_id)
+    {
+        $tags = ForumTag::model()->findAllByAttributes(array('forum_id' => $forum_id));
+        return $tags;
+    }
+
+    public static function commentCount($forum_id)
+    {
+        return ForumComment::model()->countByAttributes(array('forum_id' => $forum_id));
+    }
 }
 
 ?>

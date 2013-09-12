@@ -5,34 +5,29 @@ class ForumController extends Controller
 
     public function actionIndex()
     {
-        $type = ObjectRating::FORUM;
-        $plus = ObjectRating::PLUS;
-        $minus = ObjectRating::MINUS;
+        if (isset($_GET['tag_id'])) {
+            $tag_id = $_GET['tag_id'];
+        } else {
+            $tag_id = 0;
+        }
+
         $title = 'Форум';
-        $athor = array();
-        if (!Yii::app()->user->isGuest)
-            $athor = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+        $tags = Tag::model()->findAll();
+        $tags_ar = array();
 
-        $criteria = new CDbCriteria();
 
-        $criteria->order = 't.last_update DESC';
+        $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search($tag_id, false));
 
-        $discussions = Discussion::model()->findAllByAttributes(array('group_id' => '999999'), $criteria);
-
-        $tags = ForumTagId::model()->findAll();
-
-        $forums = Forum::model()->findAll();
+        foreach ($tags as $tag) {
+            $tags_ar[$tag->id]['count'] = ForumTag::model()->countByAttributes(array('tag_id' => $tag->id));
+            $tags_ar[$tag->id]['name'] = $tag->name;
+        }
 
 
         MyHelper::render($this, 'index', array(
-            'athor' => $athor,
-            'profile' => $athor,
-            'type' => $type,
-            'plus' => $plus,
-            'minus' => $minus,
-            'discussions' => $discussions,
-            'tags' => $tags,
-            'forums' => $forums
+            'tags' => $tags_ar,
+            'dataProvider' => $dataProvider
+
         ), $title);
     }
 
@@ -42,7 +37,7 @@ class ForumController extends Controller
         $criteria = new CDbCriteria();
         $criteria->order = 't.name ASC';
         $predmets = Predmet::model()->findAll($criteria);
-        $tags_base = ForumTagId::model()->findAll();
+        $tags_base = Tag::model()->findAll();
 
         foreach ($tags_base as $tag_base)
             $tags[] = $tag_base->name;
@@ -77,7 +72,7 @@ class ForumController extends Controller
         }
 
         $at = array();
-        $tags_base = ForumTagId::model()->findAll();
+        $tags_base = Tag::model()->findAll();
         foreach ($tags_base as $tag_base) {
             $at[$tag_base->id] = $tag_base->name;
         }
@@ -87,12 +82,12 @@ class ForumController extends Controller
         // бегу по тегам которые пришли постом
         foreach ($tags as $tag) {
             if ($tag != '') {
-                $tag = mb_strtolower($tag);
+                $tag = mb_strtolower($tag, "UTF-8");
 
                 if (in_array($tag, $at)) {
                     $tag_id = array_search($tag, $at);
                 } else {
-                    $create_tag = new ForumTagId();
+                    $create_tag = new Tag();
                     $create_tag->name = $tag;
                     $create_tag->save();
                     $tag_id = $create_tag->id;
@@ -130,6 +125,43 @@ class ForumController extends Controller
         }
 
         echo json_encode(array('status' => 'success'));
+    }
+
+    public function actionView($id)
+    {
+        $title = "Обсуждения";
+
+
+        $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search(false, $id));
+
+        $forum_tag = ForumTag::model()->findAllByAttributes(array('forum_id' => $id));
+
+        $comments = ForumComment::model()->findAllByAttributes(array('forum_id' => $id));
+
+        MyHelper::render($this, '/forum/view', array(
+            'forum_tag' => $forum_tag,
+            'comments' => $comments,
+            'dataProvider' => $dataProvider,
+            'forum_id' => $id
+
+        ), $title);
+
+    }
+
+    public function actionNewForumComment()
+    {
+
+
+        $new_comment = new ForumComment();
+
+        $new_comment->forum_id = $_POST['forum_id'];
+        $new_comment->text = $_POST['comment_text'];
+        $new_comment->created = time();
+        $new_comment->user_id = Yii::app()->user->id;
+        $new_comment->save();
+
+        echo json_encode(array('status' => 'success'));
+
     }
 
 }

@@ -1,20 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "{{forum_tag_id}}".
+ * This is the model class for table "{{forum_comment}}".
  *
- * The followings are the available columns in table '{{forum_tag_id}}':
+ * The followings are the available columns in table '{{forum_comment}}':
  * @property integer $id
- * @property string $name
+ * @property integer $user_id
+ * @property string $text
+ * @property integer $created
+ * @property integer $rating
+ * @property integer $forum_id
  */
-class ForumTagId extends CActiveRecord
+class ForumComment extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{forum_tag_id}}';
+		return '{{forum_comment}}';
 	}
 
 	/**
@@ -25,9 +29,12 @@ class ForumTagId extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>255),
-            array('name', 'unique'),
+			array('user_id, created, forum_id', 'required'),
+			array('user_id, created, rating, forum_id', 'numerical', 'integerOnly'=>true),
+			array('text', 'safe'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, user_id, text, created, rating, forum_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -36,8 +43,9 @@ class ForumTagId extends CActiveRecord
 	 */
 	public function relations()
 	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
 		return array(
-
 		);
 	}
 
@@ -48,7 +56,11 @@ class ForumTagId extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'user_id' => 'User',
+			'text' => 'Text',
+			'created' => 'Created',
+			'rating' => 'Rating',
+			'forum_id' => 'Forum',
 		);
 	}
 
@@ -71,7 +83,11 @@ class ForumTagId extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('text',$this->text,true);
+		$criteria->compare('created',$this->created);
+		$criteria->compare('rating',$this->rating);
+		$criteria->compare('forum_id',$this->forum_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -82,7 +98,7 @@ class ForumTagId extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ForumTagId the static model class
+	 * @return ForumComment the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

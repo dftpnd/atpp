@@ -2,7 +2,7 @@
 
 class PostController extends Controller {
 
-    public $layout = 'column2';
+    //public $layout = 'column2';
 
     /**
      * @var CActiveRecord the currently loaded data model instance.
@@ -46,12 +46,6 @@ class PostController extends Controller {
     }
 
     public function actionUpdate() {
-        $cs = Yii::app()->getClientScript();
-        $cs->registerCssFile(Yii::app()->request->baseUrl . '/css/fileuploader.css');
-        $cs->registerCssFile(Yii::app()->request->baseUrl . '/css/markitup/sets/markdown/style.css');
-        $cs->registerCssFile(Yii::app()->request->baseUrl . '/css/markitup/skins/markitup/style.css');
-        $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/markitup/jquery.markitup.js');
-        $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/markitup/sets/markdown/set.js');
 
         $model = $this->loadModel();
         if (isset($_POST['Post'])) {
@@ -78,12 +72,6 @@ class PostController extends Controller {
             exit();
         }
 
-        $cs = Yii::app()->getClientScript();
-        $cs->registerCssFile(Yii::app()->request->baseUrl . '/css/fileuploader.css');
-        $cs->registerCssFile(Yii::app()->request->baseUrl . '/css/markitup/sets/markdown/style.css');
-        $cs->registerCssFile(Yii::app()->request->baseUrl . '/css/markitup/skins/markitup/style.css');
-        $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/markitup/jquery.markitup.js');
-        $cs->registerScriptFile(Yii::app()->request->baseUrl . '/js/markitup/sets/markdown/set.js');
         $model = new Post;
 
         if (isset($_POST['Post'])) {
@@ -290,6 +278,7 @@ class PostController extends Controller {
             if ($this->_model === null)
                 throw new CHttpException(404, 'The requested page does not exist.');
         }
+
         return $this->_model;
     }
 
