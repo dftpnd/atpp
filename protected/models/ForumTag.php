@@ -69,7 +69,7 @@ class ForumTag extends CActiveRecord
         $criteria->compare('tag_id', $this->tag_id);
         $criteria->order = 'id DESC';
         $criteria->group = "forum_id";
-        
+
         if ($tag_id && $tag_id != 0) {
             $criteria->condition = 'tag_id = ' . $tag_id;
         }
