@@ -1758,10 +1758,12 @@ function updateForum(id, el) {
         complete: function () {
             NProgress.done();
             el.removeClass('loading');
+            closeDoor();
+            noticeOpen("Сохранено", notice_green);
         },
         error: function () {
-//            noticeOpen("Ошибка", notice_red);
-//            closeDoor();
+            noticeOpen("Ошибка", notice_red);
+            closeDoor();
         }
 
     });

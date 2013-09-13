@@ -32,7 +32,7 @@ if (!is_null($data->forum->rating)) {
 }
 
 //avater
-$my_picter = Yii::app()->createAbsoluteUrl('i/mini_avatar.png');
+$my_picter = Yii::app()->createAbsoluteUrl('i/avatar.png');
 if (!is_null($data->forum->user->prof->file_id)) {
     $file_name = $data->forum->user->prof->uploadedfiles->name;
     $my_picter = Yii::app()->createAbsoluteUrl('uploads/avatar/avatar_' . $file_name);
@@ -73,7 +73,7 @@ $y = date('Y', $data->forum->created);
                     <div class="table_t">
                         <div class="tr_t">
                             <div class="td_t">
-                                <div class="prosmotr" title="Просмотры обсуждения"> 128</div>
+                                <div class="prosmotr" title="Просмотры обсуждения"> 0</div>
                             </div>
                             <div class="td_t">
                                 <div class="comments" title="Читать комментарии">
