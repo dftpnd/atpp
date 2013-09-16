@@ -1750,7 +1750,9 @@ function updateForum(id, el) {
         success: function (data) {
 
             if (data.status == 'success') {
-
+                closeDoor();
+                noticeOpen("Сохранено", notice_green);
+                location.reload();
             } else if (data.status == 'error') {
                 noticeOpen(data.text, notice_red);
             }
@@ -1758,8 +1760,6 @@ function updateForum(id, el) {
         complete: function () {
             NProgress.done();
             el.removeClass('loading');
-            closeDoor();
-            noticeOpen("Сохранено", notice_green);
         },
         error: function () {
             noticeOpen("Ошибка", notice_red);
@@ -1815,4 +1815,32 @@ function newForumComment($el) {
         }
 
     });
+}
+function forumDelete(id) {
+
+    if (confirm("Уверены?")) {
+        NProgress.start();
+        $.ajax({
+            url: '/forum/DeleteForum?id=' + id,
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 'success') {
+                    noticeOpen("Обсуждение удалено", notice_green);
+                    $('#f_' + id).hide('slow', function () {
+                        $('#f_' + id).remove();
+                    });
+                } else if (data.status == 'error') {
+                    noticeOpen(data.text, notice_red);
+                }
+            },
+            complete: function () {
+                NProgress.done();
+            },
+            error: function () {
+                noticeOpen("Ошибка", notice_red);
+            }
+
+        });
+    }
 }

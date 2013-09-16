@@ -34,10 +34,17 @@ class ForumController extends Controller
     public function actionOpenUpdateForum($id)
     {
         $tags = array();
-        $criteria = new CDbCriteria();
-        $criteria->order = 't.name ASC';
-        $predmets = Predmet::model()->findAll($criteria);
         $tags_base = Tag::model()->findAll();
+
+        if (!empty($id)) {
+            $forum = Forum::model()->findByPk($id);
+            if ($forum->user_id != Yii::app()->user->id) {
+                echo json_encode(array('status' => 'error', 'text' => 'Это не ваш пост'));
+                die();
+            }
+        } else {
+            $forum = new Forum();
+        }
 
         foreach ($tags_base as $tag_base)
             $tags[] = $tag_base->name;
@@ -45,7 +52,7 @@ class ForumController extends Controller
         $html = $this->renderPartial('_open_update_forum',
             array(
                 'id' => $id,
-                'predmets' => $predmets
+                'forum' => $forum
 
             ), true);
 
@@ -131,6 +138,9 @@ class ForumController extends Controller
     {
         $title = "Обсуждения";
 
+        $forum = Forum::model()->findByPk($id);
+        $forum->view++;
+        $forum->save(false);
 
         $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search(false, $id));
 
@@ -159,6 +169,23 @@ class ForumController extends Controller
         $new_comment->created = time();
         $new_comment->user_id = Yii::app()->user->id;
         $new_comment->save();
+
+        echo json_encode(array('status' => 'success'));
+
+    }
+
+    public function actionDeleteForum($id)
+    {
+
+
+        $forum = Forum::model()->findByPk($id);
+        if ($forum->user_id != Yii::app()->user->id) {
+            echo json_encode(array('status' => 'error', 'text' => 'Это не ваш пост'));
+            die();
+        }
+
+        $forum->delete();
+        ForumTag::model()->deleteAllByAttributes(array('forum_id' => $id));
 
         echo json_encode(array('status' => 'success'));
 

@@ -5201,7 +5201,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn:active, .btn.active {
-    background-color: #aeaeae    \9;
+    background-color: #aeaeae      \9;
 }
 
 .btn:hover {
@@ -5257,7 +5257,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-primary:active, .btn-primary.active {
-    background-color: #0059b3    \9;
+    background-color: #0059b3      \9;
 }
 
 .btn-warning {
@@ -5286,7 +5286,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-warning:active, .btn-warning.active {
-    background-color: #cb5200    \9;
+    background-color: #cb5200      \9;
 }
 
 .btn-danger {
@@ -5313,7 +5313,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-danger:active, .btn-danger.active {
-    background-color: #b30028    \9;
+    background-color: #b30028      \9;
 }
 
 .btn-success {
@@ -5340,7 +5340,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-success:active, .btn-success.active {
-    background-color: #28720f    \9;
+    background-color: #28720f      \9;
 }
 
 .btn-info {
@@ -5367,7 +5367,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-info:active, .btn-info.active {
-    background-color: #6f378b    \9;
+    background-color: #6f378b      \9;
 }
 
 .btn-inverse {
@@ -5394,7 +5394,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-inverse:active, .btn-inverse.active {
-    background-color: #000000    \9;
+    background-color: #000000      \9;
 }
 
 .specnaz {
@@ -7226,6 +7226,13 @@ li.menu_editprofile a {
     padding: 20px 0;
 }
 
+.forum_grid_block h1 a {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .forum_grid_content .forum_grid_block {
     padding-left: 30px;
     padding-right: 20px;
@@ -7238,7 +7245,30 @@ li.menu_editprofile a {
 }
 
 .pager .previous, .pager .next {
-    color: transparent!important;
-    overflow: hidden!important;
+    color: transparent !important;
+    overflow: hidden !important;
     font-size: 0px;
+}
+
+.manage_panel {
+    /*width: 150px;*/
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.delete_forum, .edit_forum {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.edit_forum {
+
+}
+
+.delete_forum {
+
 }
