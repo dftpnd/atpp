@@ -13,53 +13,42 @@ var notice_green = '1';
 var notice_yellow = '2';
 var notice_red = '3';
 /*====*/
-
+function getIEVersion() {
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+        var ieversion = new Number(RegExp.$1); // capture x.x portion and store as a number
+        return ieversion;
+    }
+    return -1;
+}
 function prototipeFunction(callback) {
     NProgress.start();
     callback();
 }
-// вызываем функцию
-
-
-send = {};
-send['start_async_page'] = '';
-
-
 $('html').click(function (e) {
-    window.my_link = $(e.target);
+    if (getIEVersion() == -1 && getIEVersion() < 9) {
+        window.my_link = $(e.target);
+        if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
+            $('#menu li').removeClass('active')
+            prototipeFunction(function () {
+                favicon();
+                closeContent();
+                var href_url;
+                if (my_link.attr('href') != undefined) {
+                    href_url = my_link.attr('href')
+                } else {
+                    href_url = my_link.parents().attr('href')
+                }
+                changePage(href_url);
 
+            });
 
-    if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
-
-        $('#menu li').removeClass('active')
-
-        prototipeFunction(function () {
-            favicon();
-            closeContent();
-
-            var href_url;
-            if (my_link.attr('href') != undefined) {
-                href_url = my_link.attr('href')
-            } else {
-                href_url = my_link.parents().attr('href')
-            }
-            handlerAnchors(href_url);
-
-        });
-
-    } else {
-        return true;
+        } else {
+            return true;
+        }
+        return false;
     }
-    return false;
 });
 
-
-function handlerAnchors(href) {
-    var href_inner = href + "";
-    send['start_async_page'] = 'send';
-    changePage(href_inner);
-
-}
 function changePage(url) {
     NProgress.set(0.5);
     $.ajax({
@@ -81,10 +70,7 @@ function changePage(url) {
                     url: url
                 }, data.title, url);
 
-
-                send['start_async_page'] = 'sender';
-                send['send_infinity_scroll'] = {};
-
+                menuRegulate();
                 $(document).scrollTop('0');
                 scroll = 0;
             }
@@ -118,6 +104,26 @@ function faviconEnd() {
     link.rel = 'shortcut icon';
     link.href = '/favicon.ico';
     document.getElementsByTagName('head')[0].appendChild(link);
+}
+function menuRegulate(){
+    var controller = location.href.split('/');
+
+    switch (controller[3]) {
+        case 'site':
+            $('#menu ul li').eq(0).addClass('active');
+            break;
+        case 'post':
+            $('#menu ul li').eq(1).addClass('active');
+            break;
+        case 'reestr':
+            $('#menu ul li').eq(2).addClass('active');
+            break;
+        case 'forum':
+            $('#menu ul li').eq(3).addClass('active');
+            break;
+        default:
+                break;
+    }
 }
 function parseGetParams() {
     var $_GET = {};
