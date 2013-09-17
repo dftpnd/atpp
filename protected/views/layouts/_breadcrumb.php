@@ -1,8 +1,11 @@
 <?php
 
 
-
-if (($this->href_controller != '/site') && ($this->href_controller != '/user')) {
+if (
+    ($this->href_controller != '/site') &&
+    ($this->href_controller != '/user') &&
+    ($this->href_controller != '/files')
+    ) {
 
     $cont_bread['href'] = $this->href_controller;
     $cont_bread['title'] = $this->title_controller;
