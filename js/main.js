@@ -118,6 +118,12 @@ function menuRegulate(){
         case 'reestr':
             $('#menu ul li').eq(2).addClass('active');
             break;
+        case 'library':
+            $('#menu ul li').eq(2).addClass('active');
+            break;
+        case 'project':
+            $('#menu ul li').eq(2).addClass('active');
+            break;
         case 'forum':
             $('#menu ul li').eq(3).addClass('active');
             break;
