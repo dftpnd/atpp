@@ -2,6 +2,8 @@
 
 class UserController extends Controller
 {
+    public $title_controller = 'Пользователь';
+    public $href_controller = '/user';
 
     public function actionEditProfile()
     {

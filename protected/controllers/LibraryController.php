@@ -2,6 +2,9 @@
 
 class LibraryController extends Controller {
 
+    public $title_controller = 'Библиотека';
+    public $href_controller = '/library';
+
     public function actionIndex() {
         $title = 'Библиотека';
         $institute = array();

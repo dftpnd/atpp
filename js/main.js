@@ -87,9 +87,6 @@ function changePage(url) {
 
                 $(document).scrollTop('0');
                 scroll = 0;
-//                $('html, body').scrollTo(0, 1500, {
-//                    queue: true
-//                });
             }
 
 

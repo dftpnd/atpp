@@ -3,7 +3,8 @@
 class CommentController extends Controller {
 
     public $layout = 'column2';
-
+    public $title_controller = 'Комментарии';
+    public $href_controller = '/comment';
     /**
      * @var CActiveRecord the currently loaded data model instance.
      */

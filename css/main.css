@@ -2842,14 +2842,7 @@ ul li {
     background-position: 4px 6px;
 }
 
-.breadcrumbs a {
-    color: #00BCF2;
-    text-decoration: underline;
-}
 
-.breadcrumbs {
-
-}
 
 .ent-razdel {
     /*  padding-top:30px;*/
@@ -6444,16 +6437,7 @@ div.fc-body div.fc-row div.fc-content {
     background: #eee;
 }
 
-.breadcrumb {
-    border: 2px solid blue;
-    padding: 30px;
-    position: relative;
-    z-index: 9999;
-    background: #fff;
-    top: -80px;
-    margin: 0 auto;
-    max-width: 700px;
-}
+
 
 .summ_stats {
     margin-top: 40px;
@@ -7264,11 +7248,75 @@ li.menu_editprofile a {
     margin-right: 10px;
     cursor: pointer;
 }
-
-.edit_forum {
-
+.breadcrumb {
+    list-style: none;
+    overflow: hidden;
+    font: 18px Helvetica, Arial, Sans-Serif;
 }
-
-.delete_forum {
-
+.breadcrumb li {
+    float: left;
+}
+.breadcrumb li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 0 10px 55px;
+    background: brown;                   /* fallback color */
+    background: hsla(0,0%,0%,1);
+    position: relative;
+    display: block;
+    float: left;
+}
+.breadcrumb li a:after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid hsla(0,0%,0%,1);
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    left: 100%;
+    z-index: 2;
+}
+.breadcrumb li a:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1;
+}
+.breadcrumb li:first-child a {
+    padding-left: 10px;
+}
+.breadcrumb li:nth-child(2) a       { background:        hsla(0, 0%, 40%, 1); }
+.breadcrumb li:nth-child(2) a:after { border-left-color: hsla(0, 0%, 40%, 1); }
+.breadcrumb li:nth-child(3) a       { background:        hsla(0, 0%, 60%, 1); }
+.breadcrumb li:nth-child(3) a:after { border-left-color: hsla(0, 0%, 60%, 1); }
+.breadcrumb li:nth-child(4) a       { background:        hsla(0, 0%, 80%,1); }
+.breadcrumb li:nth-child(4) a:after { border-left-color: hsla(0, 0%, 80%,1); }
+.breadcrumb li:nth-child(5) a       { background:        hsla(0, 0%, 90%,1); }
+.breadcrumb li:nth-child(5) a:after { border-left-color: hsla(0, 0%, 90%,1); }
+.breadcrumb li:last-child a {
+    background: white !important;
+    color: black;
+    pointer-events: none;
+    cursor: default;
+}
+.breadcrumb li:last-child a:after { border: 0; }
+.breadcrumb li a:hover { background: hsla(0,0%,0%,1); }
+.breadcrumb li a:hover:after { border-left-color: hsla(0,0%,0%,1) !important; }
+.breadcrumb_wrap{
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ececec;
 }

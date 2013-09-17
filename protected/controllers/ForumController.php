@@ -2,9 +2,12 @@
 
 class ForumController extends Controller
 {
+    public $title_controller = 'Форум';
+    public $href_controller = '/forum';
 
     public function actionIndex()
     {
+
         if (isset($_GET['tag_id'])) {
             $tag_id = $_GET['tag_id'];
         } else {
@@ -136,6 +139,9 @@ class ForumController extends Controller
 
     public function actionView($id)
     {
+
+
+
         $title = "Обсуждения";
 
         $forum = Forum::model()->findByPk($id);
@@ -148,13 +154,17 @@ class ForumController extends Controller
 
         $comments = ForumComment::model()->findAllByAttributes(array('forum_id' => $id));
 
+
+        $crumbs[1]['href'] = '/forum/view?id=' . $id;
+        $crumbs[1]['title'] = $forum->title;
+
         MyHelper::render($this, '/forum/view', array(
             'forum_tag' => $forum_tag,
             'comments' => $comments,
             'dataProvider' => $dataProvider,
             'forum_id' => $id
 
-        ), $title);
+        ), $title, $crumbs);
 
     }
 

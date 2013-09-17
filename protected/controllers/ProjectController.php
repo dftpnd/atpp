@@ -1,16 +1,23 @@
 <?php
 
-class ProjectController extends Controller {
+class ProjectController extends Controller
+{
 
-  public function actionIndex() {
-    $title = 'Проекты';
-    MyHelper::render($this, 'index', array(), $title);
-  }
 
-  public function actionDampfturbine() {
-    $this->pageTitle = 'Мой проект';
+    public $title_controller = 'Проекты';
+    public $href_controller = '/project';
 
-    $this->renderPartial('MyProjrct');
-  }
+    public function actionIndex()
+    {
+        $title = 'Проекты';
+        MyHelper::render($this, 'index', array(), $title);
+    }
+
+    public function actionDampfturbine()
+    {
+        $this->pageTitle = 'Мой проект';
+
+        $this->renderPartial('MyProjrct');
+    }
 
 }

@@ -6,6 +6,8 @@ class Controller extends SBaseController
     public $layout = 'column1';
     public $menu = array();
     public $breadcrumbs = array();
+    public $my_breadcrumb = '';
+
 
     public function init()
     {

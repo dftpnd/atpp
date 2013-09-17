@@ -5,6 +5,9 @@ class SiteController extends Controller
 
     public $layout = 'column1';
 
+    public $title_controller = 'Сайт';
+    public $href_controller = '/site';
+
     /**
      * Declares class-based actions.
      */
