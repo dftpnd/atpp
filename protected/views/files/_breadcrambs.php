@@ -4,20 +4,20 @@ $laste_id = key($breadcrambs);
 ?>
 
 <?php if (empty($breadcrambs)): ?>
-  <a href="/user/ViewProfile?id=<?php echo $user->prof->id; ?>" async="async" class="classic">
+  <a href="/files/ViewProfile?id=<?php echo $user->prof->id; ?>" async="async" class="classic">
     <?php echo MyHelper::getUsername($user->prof->id, true, $user, false); ?>
   </a>
   ->
-  <a href="/user/files?id=<?php echo $user->id; ?>" async="async" class="classic">
+  <a href="/files/files?id=<?php echo $user->id; ?>" async="async" class="classic">
     C:
   </a>
   <span>/</span>
 <?php else: ?>
-  <a href="/user/ViewProfile?id=<?php echo $user->prof->id; ?>" async="async" class="classic">
+  <a href="/files/ViewProfile?id=<?php echo $user->prof->id; ?>" async="async" class="classic">
     <?php echo MyHelper::getUsername($user->prof->id, true, $user, false); ?>
   </a>
   ->
-  <a href="/user/files?id=<?php echo $user->id; ?>" async="async" class="classic">
+  <a href="/files/files?id=<?php echo $user->id; ?>" async="async" class="classic">
     C:
   </a>
   <span>/</span>

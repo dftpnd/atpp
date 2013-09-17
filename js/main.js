@@ -1330,7 +1330,7 @@ function changeFolder(folder_id, e) {
 
 
     $.ajax({
-        url: '/user/ChangeFolder',
+        url: '/files/ChangeFolder',
         type: 'POST',
         dataType: 'json',
         data: ({
@@ -1358,7 +1358,7 @@ function saveChangeFolder() {
 
     loader.show();
     $.ajax({
-        url: '/user/SaveChangeFolder',
+        url: '/files/SaveChangeFolder',
         type: 'POST',
         dataType: 'json',
         data: $('.st_new :input').serialize(),
@@ -1392,7 +1392,7 @@ function deleteFolder(e) {
         if (confirm("Вы уверенны что хотите удалить " + status_attr + " «" + name_folder + "»?")) {
             loader.show();
             $.ajax({
-                url: '/user/DeleteFolder',
+                url: '/files/DeleteFolder',
                 type: 'POST',
                 dataType: 'json',
                 data: ({
@@ -1414,7 +1414,7 @@ function deleteFolder(e) {
 function updateDirectory(parent_id, author_id) {
     loader.show();
     $.ajax({
-        url: '/user/UpdateDirectory',
+        url: '/files/UpdateDirectory',
         type: 'POST',
         dataType: 'json',
         data: ({
@@ -1469,7 +1469,7 @@ function activeFolder(el, event) {
 function getOpenFolder(folder_id) {
     loader.show();
     $.ajax({
-        url: '/user/OpenFolder',
+        url: '/files/OpenFolder',
         type: 'POST',
         dataType: 'json',
         data: ({
@@ -1525,7 +1525,7 @@ function doorDownloadFile(e) {
         GET.parent_id = 0;
 
     $.ajax({
-        url: '/user/DoorDownloadFile',
+        url: '/files/DoorDownloadFile',
         type: 'POST',
         dataType: 'json',
         data: ({
