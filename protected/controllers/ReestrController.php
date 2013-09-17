@@ -7,6 +7,7 @@ class ReestrController extends Controller
     public $title_controller = 'Реестр';
     public $href_controller = '/reestr';
 
+
     public function actionIndex()
     {
         $title = 'Реестр';
@@ -25,11 +26,14 @@ class ReestrController extends Controller
             $name_group[mb_strtoupper($group->name, 'UTF-8')] = mb_strtoupper($group->name, 'UTF-8');
 
 
+        $crumbs[1]['href'] = '/reestr/GroupReestr';
+        $crumbs[1]['title'] = 'Группы';
+
         MyHelper::render($this, 'group', array(
             'groups' => $groups,
             'year' => $year,
             'name_group' => $name_group
-        ), $title);
+        ), $title, $crumbs);
     }
 
     public function actionGroup($id)
@@ -97,6 +101,12 @@ class ReestrController extends Controller
         /* определение четности недели */
         $title = $group->name . ' 1-' . $group->inseption->prefix_year;
 
+
+        $crumbs[1]['href'] = '/reestr/GroupReestr';
+        $crumbs[1]['title'] = 'Группы';
+        $crumbs[2]['href'] = '/reestr/group/' . $group->id;
+        $crumbs[2]['title'] = $title;
+
         MyHelper::render($this, 'group_card', array(
             'group' => $group,
             'profiles' => $profiles,
@@ -108,7 +118,7 @@ class ReestrController extends Controller
             'time_pair' => $time_pair,
             'semestr' => $semestr,
             'we' => $we
-        ), $title);
+        ), $title, $crumbs);
     }
 
     public function actionPredmetGroup()
@@ -158,9 +168,9 @@ class ReestrController extends Controller
         }
 
 
-        foreach ($predmas as $key => $value) {
-            $chartData[] = $predmas[$key];
-        }
+//        foreach ($predmas as $key => $value) {
+//            $chartData[] = $predmas[$key];
+//        }
 
 
         $graphs[] = array(
@@ -196,6 +206,23 @@ class ReestrController extends Controller
     {
 
         $this->render('manage_predmet', array());
+    }
+
+    public function actionPrepods()
+    {
+        $title = 'Преподователи';
+        $prepods = array();
+
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.surname ASC';
+
+        $prepods = Profile::model()->with('uploadedfiles')->findAllByAttributes(array('status' => '3'), $criteria);
+
+
+        $crumbs[2]['href'] = '/reestr/prepods';
+        $crumbs[2]['title'] = "Преподаватели";
+
+        MyHelper::render($this, '/reestr/prepods', array('models' => $prepods), $title, $crumbs);
     }
 
 }

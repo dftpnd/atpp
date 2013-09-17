@@ -20,7 +20,7 @@
           ),
           array(
               'label' => 'Мои файлы',
-              'url' => Yii::app()->urlManager->createUrl('/user/files?id=' . Yii::app()->user->id),
+              'url' => Yii::app()->urlManager->createUrl('/files/files?id=' . Yii::app()->user->id),
               'itemOptions' => array('class' => 'menu_files'),
               'linkOptions' => array(
                   'async' => 'async',

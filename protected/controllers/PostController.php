@@ -17,6 +17,7 @@ class PostController extends Controller
      */
     public function actionView()
     {
+
         if (!Yii::app()->user->isGuest) {
             $gost_or_user = 'user';
         } else {
@@ -28,9 +29,11 @@ class PostController extends Controller
         $type_1 = ObjectRating::TYPE_POST;
         $plus_1 = ObjectRating::PLUS;
         $minus_1 = ObjectRating::MINUS;
-
-
         $title = $post->title;
+
+        $crumbs[1]['href'] = '/post/' . $post->id;
+        $crumbs[1]['title'] = $post->title;
+
         MyHelper::render($this, 'view', array(
             'model' => $post,
             'comment' => $comment,
@@ -38,7 +41,7 @@ class PostController extends Controller
             'type_1' => $type_1,
             'plus_1' => $plus_1,
             'minus_1' => $minus_1,
-        ), $title);
+        ), $title, $crumbs);
     }
 
     public function actionScrapbook($post_id)

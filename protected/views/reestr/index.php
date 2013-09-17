@@ -1,12 +1,3 @@
-<h1>Реестры</h1>
-<?php
-$this->widget('zii.widgets.CBreadcrumbs', array(
-    'links' => array(
-        'Реестры'
-    ),
-    'separator' => '<span> / <span>'
-));
-?>
 <div class="table_t reestr_index">
   <div class="tr_t">
     <div class="td_t">
@@ -22,7 +13,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
       </a>
     </div>
     <div class="td_t ">
-      <a href="/user/prepods" class="aspx_5" async="async">
+      <a href="/reestr/prepods" class="aspx_5" async="async">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px"  width="94.461px" height="100px" viewBox="0 0 94.461 100" enable-background="new 0 0 94.461 100" xml:space="preserve">
         <path fill="#fff" d="M13.132,76.351c-3.601,0-6.519-2.918-6.519-6.516c0-3.604,2.918-6.522,6.519-6.522  c3.603,0,6.521,2.919,6.521,6.522C19.653,73.433,16.735,76.351,13.132,76.351"/>
         <path fill="#fff" d="M0,100V87.223c0-4.605,3.784-8.351,8.398-8.351h9.003c4.613,0,8.731,3.745,8.731,8.351V100H0z"/>

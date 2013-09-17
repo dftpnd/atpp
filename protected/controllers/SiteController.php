@@ -176,9 +176,12 @@ class SiteController extends Controller
         $title = 'Регистрация';
         $user = new User();
 
+        $crumbs[1]['href'] = 'registration';
+        $crumbs[1]['title'] = $title;
+
         MyHelper::render($this, 'registration', array(
             'user' => $user
-        ), $title);
+        ), $title, $crumbs);
     }
 
     public function actionValidatUser()
