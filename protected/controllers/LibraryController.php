@@ -1,23 +1,29 @@
 <?php
 
-class LibraryController extends Controller {
+class LibraryController extends Controller
+{
 
-    public function actionIndex() {
+    public $title_controller = 'Библиотека';
+    public $href_controller = '/library';
+    public $inherited = 'Reestr';
+
+    public function actionIndex()
+    {
         $title = 'Библиотека';
         $institute = array();
         $predmets = Predmet::model()->findAll(array('order' => 'name ASC'));
         $ins = Institute::model()->with('institutecafedra.cafedra')->findAll();
 
 
-
         MyHelper::render($this, 'index', array(
             'predmets' => $predmets,
             'institute' => $institute,
             'ins' => $ins
-                ), $title);
+        ), $title);
     }
 
-    public function actionUpload($id) {
+    public function actionUpload($id)
+    {
         $user_id = Yii::app()->user->id;
         $profile = Profile::model()->findByAttributes(array('user_id' => $user_id));
 
@@ -61,7 +67,8 @@ class LibraryController extends Controller {
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
     }
 
-    public function actionPredmet($id) {
+    public function actionPredmet($id)
+    {
         $type = ObjectRating::lIBRARY_FILES;
         $plus = ObjectRating::PLUS;
         $minus = ObjectRating::MINUS;
@@ -80,7 +87,10 @@ class LibraryController extends Controller {
         $prepods_predmet = PredmetPrepod::model()->findAllByAttributes(array('predmet_id' => $id));
         $model = Predmet::model()->findByPk($id);
 
-        $title = 'Библиотека - ' . $model->name;
+        $title = $model->name;
+
+        $crumbs[1]['href'] = '/library/predmet/' . $id;
+        $crumbs[1]['title'] = $title;
 
         MyHelper::render($this, 'predmet', array(
             'model' => $model,
@@ -91,10 +101,11 @@ class LibraryController extends Controller {
             'prepods_predmet' => $prepods_predmet,
             'profile' => $profile,
             'redact' => $redact
-                ), $title);
+        ), $title, $crumbs);
     }
 
-    public function actionPrepodpredmets() {
+    public function actionPrepodpredmets()
+    {
         $models = Predmet::model()->findAll(array('order' => 'name ASC'));
         $profile = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
         $prepodpredmets = PredmetPrepod::model()->findAllByAttributes(array('profile_id' => $profile->id));
@@ -102,7 +113,8 @@ class LibraryController extends Controller {
         echo json_encode(array('div' => $data));
     }
 
-    public function actionChangepredmets() {
+    public function actionChangepredmets()
+    {
         $profile = Profile::model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 
         if (isset($_POST['predmets_id'])) {
@@ -124,7 +136,8 @@ class LibraryController extends Controller {
         echo json_encode(array('status' => 'good'));
     }
 
-    public function actionDownloads($id) {
+    public function actionDownloads($id)
+    {
         $file = PredmetFile::model()->with('uploadedfiles')->findByPk($id);
         if (!empty($file)) {
             $ds = DIRECTORY_SEPARATOR;
@@ -146,7 +159,8 @@ class LibraryController extends Controller {
         }
     }
 
-    public function actionDeleteFile() {
+    public function actionDeleteFile()
+    {
         if (isset($_POST['file_id'])) {
             $file = PredmetFile::model()->findByPk($_POST['file_id']);
             $file->delete();
@@ -161,7 +175,8 @@ class LibraryController extends Controller {
         }
     }
 
-    public function actionEditText() {
+    public function actionEditText()
+    {
         if (isset($_POST['text']) && isset($_POST['predmet_id'])) {
             $predmet = Predmet::model()->findByPk($_POST['predmet_id']);
             $predmet->text = $_POST['text'];

@@ -78,15 +78,17 @@ class MyHelper
         return $predmas;
     }
 
-    public static function render($el, $url, $data, $title)
+    public static function render($el, $url, $data, $title, $crumbs = array())
     {
         if (isset($_POST['async'])) {
 
             echo '<div id="page_title">' . $title . '</div>';
-
+            echo $el->renderPartial('/layouts/_breadcrumb', array('crumbs' => $crumbs), true);
             echo $el->renderPartial($url, $data, true, false);
             //, 'title' => $title;
         } else {
+
+            $el->my_breadcrumb = $el->renderPartial('/layouts/_breadcrumb', array('crumbs' => $crumbs), true);
             $el->pageTitle = $title;
             $el->render($url, $data);
         }

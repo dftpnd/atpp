@@ -13,53 +13,42 @@ var notice_green = '1';
 var notice_yellow = '2';
 var notice_red = '3';
 /*====*/
-
+function getIEVersion() {
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+        var ieversion = new Number(RegExp.$1); // capture x.x portion and store as a number
+        return ieversion;
+    }
+    return -1;
+}
 function prototipeFunction(callback) {
     NProgress.start();
     callback();
 }
-// вызываем функцию
-
-
-send = {};
-send['start_async_page'] = '';
-
-
 $('html').click(function (e) {
-    window.my_link = $(e.target);
+    if (getIEVersion() == -1 && getIEVersion() < 9) {
+        window.my_link = $(e.target);
+        if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
+            $('#menu li').removeClass('active')
+            prototipeFunction(function () {
+                favicon();
+                closeContent();
+                var href_url;
+                if (my_link.attr('href') != undefined) {
+                    href_url = my_link.attr('href')
+                } else {
+                    href_url = my_link.parents().attr('href')
+                }
+                changePage(href_url);
 
+            });
 
-    if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
-
-        $('#menu li').removeClass('active')
-
-        prototipeFunction(function () {
-            favicon();
-            closeContent();
-
-            var href_url;
-            if (my_link.attr('href') != undefined) {
-                href_url = my_link.attr('href')
-            } else {
-                href_url = my_link.parents().attr('href')
-            }
-            handlerAnchors(href_url);
-
-        });
-
-    } else {
-        return true;
+        } else {
+            return true;
+        }
+        return false;
     }
-    return false;
 });
 
-
-function handlerAnchors(href) {
-    var href_inner = href + "";
-    send['start_async_page'] = 'send';
-    changePage(href_inner);
-
-}
 function changePage(url) {
     NProgress.set(0.5);
     $.ajax({
@@ -81,15 +70,9 @@ function changePage(url) {
                     url: url
                 }, data.title, url);
 
-
-                send['start_async_page'] = 'sender';
-                send['send_infinity_scroll'] = {};
-
+                menuRegulate();
                 $(document).scrollTop('0');
                 scroll = 0;
-//                $('html, body').scrollTo(0, 1500, {
-//                    queue: true
-//                });
             }
 
 
@@ -121,6 +104,32 @@ function faviconEnd() {
     link.rel = 'shortcut icon';
     link.href = '/favicon.ico';
     document.getElementsByTagName('head')[0].appendChild(link);
+}
+function menuRegulate(){
+    var controller = location.href.split('/');
+
+    switch (controller[3]) {
+        case 'site':
+            $('#menu ul li').eq(0).addClass('active');
+            break;
+        case 'post':
+            $('#menu ul li').eq(1).addClass('active');
+            break;
+        case 'reestr':
+            $('#menu ul li').eq(2).addClass('active');
+            break;
+        case 'library':
+            $('#menu ul li').eq(2).addClass('active');
+            break;
+        case 'project':
+            $('#menu ul li').eq(2).addClass('active');
+            break;
+        case 'forum':
+            $('#menu ul li').eq(3).addClass('active');
+            break;
+        default:
+                break;
+    }
 }
 function parseGetParams() {
     var $_GET = {};
@@ -1333,7 +1342,7 @@ function changeFolder(folder_id, e) {
 
 
     $.ajax({
-        url: '/user/ChangeFolder',
+        url: '/files/ChangeFolder',
         type: 'POST',
         dataType: 'json',
         data: ({
@@ -1361,7 +1370,7 @@ function saveChangeFolder() {
 
     loader.show();
     $.ajax({
-        url: '/user/SaveChangeFolder',
+        url: '/files/SaveChangeFolder',
         type: 'POST',
         dataType: 'json',
         data: $('.st_new :input').serialize(),
@@ -1395,7 +1404,7 @@ function deleteFolder(e) {
         if (confirm("Вы уверенны что хотите удалить " + status_attr + " «" + name_folder + "»?")) {
             loader.show();
             $.ajax({
-                url: '/user/DeleteFolder',
+                url: '/files/DeleteFolder',
                 type: 'POST',
                 dataType: 'json',
                 data: ({
@@ -1417,7 +1426,7 @@ function deleteFolder(e) {
 function updateDirectory(parent_id, author_id) {
     loader.show();
     $.ajax({
-        url: '/user/UpdateDirectory',
+        url: '/files/UpdateDirectory',
         type: 'POST',
         dataType: 'json',
         data: ({
@@ -1472,7 +1481,7 @@ function activeFolder(el, event) {
 function getOpenFolder(folder_id) {
     loader.show();
     $.ajax({
-        url: '/user/OpenFolder',
+        url: '/files/OpenFolder',
         type: 'POST',
         dataType: 'json',
         data: ({
@@ -1528,7 +1537,7 @@ function doorDownloadFile(e) {
         GET.parent_id = 0;
 
     $.ajax({
-        url: '/user/DoorDownloadFile',
+        url: '/files/DoorDownloadFile',
         type: 'POST',
         dataType: 'json',
         data: ({
@@ -1750,7 +1759,9 @@ function updateForum(id, el) {
         success: function (data) {
 
             if (data.status == 'success') {
-
+                closeDoor();
+                noticeOpen("Сохранено", notice_green);
+                location.reload();
             } else if (data.status == 'error') {
                 noticeOpen(data.text, notice_red);
             }
@@ -1760,8 +1771,8 @@ function updateForum(id, el) {
             el.removeClass('loading');
         },
         error: function () {
-//            noticeOpen("Ошибка", notice_red);
-//            closeDoor();
+            noticeOpen("Ошибка", notice_red);
+            closeDoor();
         }
 
     });
@@ -1813,4 +1824,32 @@ function newForumComment($el) {
         }
 
     });
+}
+function forumDelete(id) {
+
+    if (confirm("Уверены?")) {
+        NProgress.start();
+        $.ajax({
+            url: '/forum/DeleteForum?id=' + id,
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 'success') {
+                    noticeOpen("Обсуждение удалено", notice_green);
+                    $('#f_' + id).hide('slow', function () {
+                        $('#f_' + id).remove();
+                    });
+                } else if (data.status == 'error') {
+                    noticeOpen(data.text, notice_red);
+                }
+            },
+            complete: function () {
+                NProgress.done();
+            },
+            error: function () {
+                noticeOpen("Ошибка", notice_red);
+            }
+
+        });
+    }
 }

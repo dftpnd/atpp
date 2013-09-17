@@ -1,6 +1,7 @@
 <?php
 
-class PostController extends Controller {
+class PostController extends Controller
+{
 
     //public $layout = 'column2';
 
@@ -8,11 +9,15 @@ class PostController extends Controller {
      * @var CActiveRecord the currently loaded data model instance.
      */
     private $_model;
+    public $title_controller = 'Статьи';
+    public $href_controller = '/post';
 
     /**
      * Displays a particular model.
      */
-    public function actionView() {
+    public function actionView()
+    {
+
         if (!Yii::app()->user->isGuest) {
             $gost_or_user = 'user';
         } else {
@@ -24,9 +29,11 @@ class PostController extends Controller {
         $type_1 = ObjectRating::TYPE_POST;
         $plus_1 = ObjectRating::PLUS;
         $minus_1 = ObjectRating::MINUS;
-
-
         $title = $post->title;
+
+        $crumbs[1]['href'] = '/post/' . $post->id;
+        $crumbs[1]['title'] = $post->title;
+
         MyHelper::render($this, 'view', array(
             'model' => $post,
             'comment' => $comment,
@@ -34,18 +41,20 @@ class PostController extends Controller {
             'type_1' => $type_1,
             'plus_1' => $plus_1,
             'minus_1' => $minus_1,
-                ), $title);
+        ), $title, $crumbs);
     }
 
-    public function actionScrapbook($post_id) {
+    public function actionScrapbook($post_id)
+    {
         $model = Post::model()->with('filetopost', 'filetopost.file')->findByAttributes(array('id' => $post_id));
         $title = 'Фотогалерея';
         MyHelper::render($this, 'scrapbook', array(
             'model' => $model,
-                ), $title);
+        ), $title);
     }
 
-    public function actionUpdate() {
+    public function actionUpdate()
+    {
 
         $model = $this->loadModel();
         if (isset($_POST['Post'])) {
@@ -59,7 +68,8 @@ class PostController extends Controller {
         ));
     }
 
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $title = 'Создать пост';
         $user_id = Yii::app()->user->id;
         $profile = Profile::model()->findByAttributes(array('user_id' => $user_id));
@@ -102,10 +112,11 @@ class PostController extends Controller {
 
         MyHelper::render($this, 'create', array(
             'model' => $model,
-                ), $title);
+        ), $title);
     }
 
-    public function actionUploadPE() {
+    public function actionUploadPE()
+    {
         $uf = DIRECTORY_SEPARATOR;
         $basePath = Yii::app()->basePath . "{$uf}..{$uf}uploads{$uf}";
         $basePathDefalt = Yii::app()->basePath . "{$uf}..{$uf}uploads{$uf}oli_";
@@ -126,12 +137,12 @@ class PostController extends Controller {
             $result['file_id'] = $Uploadedfiles->id;
 
             $img = Yii::app()->ih
-                    ->load($basePath . $Uploadedfiles->name);
+                ->load($basePath . $Uploadedfiles->name);
             $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/' . $Uploadedfiles->name);
 
             if ($img->width > 1000) {
-                $img->resize(900, 800)//обрезаем изображение для фотогалерии
-                        ->save($basePath . 'oli_' . $Uploadedfiles->name);
+                $img->resize(900, 800) //обрезаем изображение для фотогалерии
+                    ->save($basePath . 'oli_' . $Uploadedfiles->name);
                 $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/oli_' . $Uploadedfiles->name);
             } else {
                 $source = $basePath . $Uploadedfiles->name;
@@ -140,8 +151,8 @@ class PostController extends Controller {
             }
 
             if ($img->width > 650) {
-                $img->resize(650, 500)//обрезаем изображение для поста
-                        ->save($basePath . '/sm_' . $Uploadedfiles->name);
+                $img->resize(650, 500) //обрезаем изображение для поста
+                    ->save($basePath . '/sm_' . $Uploadedfiles->name);
                 $result['file_url'] = Yii::app()->createAbsoluteUrl('uploads/sm_' . $Uploadedfiles->name);
             } else {
                 $source = $basePath . $Uploadedfiles->name; //делаем копию для маленького изображения
@@ -149,16 +160,17 @@ class PostController extends Controller {
                 copy($source, $dest);
             }
             $img->crop(220, 220)
-                    ->save(Yii::app()->basePath . '/../uploads/thumb_' . $Uploadedfiles->name);
+                ->save(Yii::app()->basePath . '/../uploads/thumb_' . $Uploadedfiles->name);
 
             $img->resize(45, 45)
-                    ->save(Yii::app()->basePath . '/../uploads/mini_' . $Uploadedfiles->name);
+                ->save(Yii::app()->basePath . '/../uploads/mini_' . $Uploadedfiles->name);
             $result['file_url_mini'] = Yii::app()->createAbsoluteUrl('uploads/mini_' . $Uploadedfiles->name);
         }
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
     }
 
-    public function actionDeletePicterPost() {
+    public function actionDeletePicterPost()
+    {
         $uf = DIRECTORY_SEPARATOR;
         if (isset($_POST['id'])) {
             $model = Uploadedfiles::model()->findByPk($_POST['id']);
@@ -186,7 +198,8 @@ class PostController extends Controller {
         exit();
     }
 
-    public function actionDelete() {
+    public function actionDelete()
+    {
         if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
             $model = $this->loadModel();
@@ -196,15 +209,15 @@ class PostController extends Controller {
             $model->delete();
             if (!isset($_GET['ajax']))
                 $this->redirect(array('index'));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**
      * Lists all models.
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         if (!Yii::app()->user->isGuest) {
             $gost_or_user = 'user';
         } else {
@@ -246,7 +259,8 @@ class PostController extends Controller {
     /**
      * Manages all models.
      */
-    public function actionAdmin() {
+    public function actionAdmin()
+    {
         $model = new Post('search');
         if (isset($_GET['Post']))
             $model->attributes = $_GET['Post'];
@@ -255,10 +269,11 @@ class PostController extends Controller {
         $title = 'Управление постами';
         MyHelper::render($this, 'admin', array(
             'model' => $model,
-                ), $title);
+        ), $title);
     }
 
-    public function actionSuggestTags() {
+    public function actionSuggestTags()
+    {
         if (isset($_GET['q']) && ($keyword = trim($_GET['q'])) !== '') {
             $tags = Tag::model()->suggestTags($keyword);
             if ($tags !== array())
@@ -266,7 +281,8 @@ class PostController extends Controller {
         }
     }
 
-    public function loadModel() {
+    public function loadModel()
+    {
         if ($this->_model === null) {
             if (isset($_GET['id'])) {
                 if (Yii::app()->user->isGuest)
@@ -282,7 +298,8 @@ class PostController extends Controller {
         return $this->_model;
     }
 
-    protected function newComment($post) {
+    protected function newComment($post)
+    {
         $comment = new Comment;
 
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'comment-form') {
@@ -296,13 +313,14 @@ class PostController extends Controller {
             $comment->profile_id = $profile->id;
             $comment->save(false);
             if ($post->addComment($comment)) {
-                
+
             }
         }
         return $comment;
     }
 
-    public function actionAddComment() {
+    public function actionAddComment()
+    {
         if (isset($_POST['post_id'])) {
             $gost_or_user = 'user';
             $type = ObjectRating::TYPE_COM;
@@ -324,20 +342,22 @@ class PostController extends Controller {
                 'type' => $type,
                 'plus' => $plus,
                 'minus' => $minus,
-                    ), true);
+            ), true);
             echo json_encode(array('div' => $data));
         }
     }
 
-    public function actionMyPost() {
+    public function actionMyPost()
+    {
         $posts = Post::model()->findAllByAttributes(array('author_id' => Yii::app()->user->id));
         $title = 'Мои статьи';
         MyHelper::render($this, 'my_post', array(
             'posts' => $posts,
-                ), $title);
+        ), $title);
     }
 
-    public function actionDeleteMyPost($id) {
+    public function actionDeleteMyPost($id)
+    {
         $post = Post::model()->findByPk($id);
 
         if (Yii::app()->user->id === $post->author_id) {

@@ -5,6 +5,9 @@ class SiteController extends Controller
 
     public $layout = 'column1';
 
+    public $title_controller = 'Сайт';
+    public $href_controller = '/site';
+
     /**
      * Declares class-based actions.
      */
@@ -173,9 +176,12 @@ class SiteController extends Controller
         $title = 'Регистрация';
         $user = new User();
 
+        $crumbs[1]['href'] = 'registration';
+        $crumbs[1]['title'] = $title;
+
         MyHelper::render($this, 'registration', array(
             'user' => $user
-        ), $title);
+        ), $title, $crumbs);
     }
 
     public function actionValidatUser()

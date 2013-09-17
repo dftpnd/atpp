@@ -2,9 +2,12 @@
 
 class ForumController extends Controller
 {
+    public $title_controller = 'Форум';
+    public $href_controller = '/forum';
 
     public function actionIndex()
     {
+
         if (isset($_GET['tag_id'])) {
             $tag_id = $_GET['tag_id'];
         } else {
@@ -34,10 +37,17 @@ class ForumController extends Controller
     public function actionOpenUpdateForum($id)
     {
         $tags = array();
-        $criteria = new CDbCriteria();
-        $criteria->order = 't.name ASC';
-        $predmets = Predmet::model()->findAll($criteria);
         $tags_base = Tag::model()->findAll();
+
+        if (!empty($id)) {
+            $forum = Forum::model()->findByPk($id);
+            if ($forum->user_id != Yii::app()->user->id) {
+                echo json_encode(array('status' => 'error', 'text' => 'Это не ваш пост'));
+                die();
+            }
+        } else {
+            $forum = new Forum();
+        }
 
         foreach ($tags_base as $tag_base)
             $tags[] = $tag_base->name;
@@ -45,7 +55,7 @@ class ForumController extends Controller
         $html = $this->renderPartial('_open_update_forum',
             array(
                 'id' => $id,
-                'predmets' => $predmets
+                'forum' => $forum
 
             ), true);
 
@@ -129,8 +139,14 @@ class ForumController extends Controller
 
     public function actionView($id)
     {
+
+
+
         $title = "Обсуждения";
 
+        $forum = Forum::model()->findByPk($id);
+        $forum->view++;
+        $forum->save(false);
 
         $dataProvider = new CActiveDataProvider('ForumTag', ForumTag::model()->search(false, $id));
 
@@ -138,13 +154,17 @@ class ForumController extends Controller
 
         $comments = ForumComment::model()->findAllByAttributes(array('forum_id' => $id));
 
+
+        $crumbs[1]['href'] = '/forum/view?id=' . $id;
+        $crumbs[1]['title'] = $forum->title;
+
         MyHelper::render($this, '/forum/view', array(
             'forum_tag' => $forum_tag,
             'comments' => $comments,
             'dataProvider' => $dataProvider,
             'forum_id' => $id
 
-        ), $title);
+        ), $title, $crumbs);
 
     }
 
@@ -159,6 +179,23 @@ class ForumController extends Controller
         $new_comment->created = time();
         $new_comment->user_id = Yii::app()->user->id;
         $new_comment->save();
+
+        echo json_encode(array('status' => 'success'));
+
+    }
+
+    public function actionDeleteForum($id)
+    {
+
+
+        $forum = Forum::model()->findByPk($id);
+        if ($forum->user_id != Yii::app()->user->id) {
+            echo json_encode(array('status' => 'error', 'text' => 'Это не ваш пост'));
+            die();
+        }
+
+        $forum->delete();
+        ForumTag::model()->deleteAllByAttributes(array('forum_id' => $id));
 
         echo json_encode(array('status' => 'success'));
 
