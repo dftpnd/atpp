@@ -7304,8 +7304,8 @@ li.menu_editprofile a {
 .breadcrumb li:nth-child(3) a:after { border-left-color: hsla(0, 0%, 60%, 1); }
 .breadcrumb li:nth-child(4) a       { background:        hsla(0, 0%, 80%,1); }
 .breadcrumb li:nth-child(4) a:after { border-left-color: hsla(0, 0%, 80%,1); }
-.breadcrumb li:nth-child(5) a       { background:        hsla(0, 0%, 90%,1); }
-.breadcrumb li:nth-child(5) a:after { border-left-color: hsla(0, 0%, 90%,1); }
+.breadcrumb li:nth-child(5) a       { background:        hsla(0, 0%, 85%,1); }
+.breadcrumb li:nth-child(5) a:after { border-left-color: hsla(0, 0%, 85%,1); }
 .breadcrumb li:last-child a {
     background: white !important;
     color: black;

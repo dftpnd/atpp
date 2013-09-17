@@ -6,6 +6,7 @@ class UserController extends Controller
     public $href_controller = '/user';
     public $inherited = 'Reestr';
 
+
     public function actionEditProfile()
     {
         $cs = Yii::app()->getClientScript();

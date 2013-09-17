@@ -4,12 +4,15 @@ class FilesController extends Controller
 {
     public $title_controller = 'Файлы';
     public $href_controller = '/files';
+    public $inherited = 'Reestr';
+
 
     public function actionFiles($id, $parent_id = 0)
     {
         $new = FALSE;
         $mu_path = FALSE;
         $user = User::model()->findByPk($id);
+        $profile = Profile::model()->findByAttributes(array('user_id' => $user->id));
 
         if ($user->id == Yii::app()->user->id)
             $mu_path = TRUE;
@@ -26,8 +29,13 @@ class FilesController extends Controller
         $title = 'Файлы';
         $private_status = PrivateStatus::model()->findAll();
 
-        $crumbs[1]['href'] = '/user/files';
-        $crumbs[1]['title'] = $title;
+
+        $crumbs[1]['href'] = '/reestr/group/' . $profile->group_id;
+        $crumbs[1]['title'] = 'Группы';
+        $crumbs[2]['href'] = '/user/ViewProfile/' . $profile->id;
+        $crumbs[2]['title'] = MyHelper::getUsername($user->id);
+        $crumbs[3]['href'] = '/user/files';
+        $crumbs[3]['title'] = $title;
 
         MyHelper::render($this, 'user_files', array(
             'user' => $user,
@@ -36,7 +44,7 @@ class FilesController extends Controller
             'private_status' => $private_status,
             'new' => $new,
             'mu_path' => $mu_path
-        ), $title);
+        ), $title, $crumbs);
     }
 
     public function actionChangeFolder()
