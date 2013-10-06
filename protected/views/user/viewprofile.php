@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
 
     </div>
     <div class="ajkll">
-      Последний визит <?php echo date('d-m-y G:i', $user_author->laste_enter); ?>
+      Последний визит <?php echo date('d-m-y G:i', $user_author->laste_enter);?>
     </div>
   </div>
 <?php endif; ?>
