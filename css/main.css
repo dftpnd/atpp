@@ -16,9 +16,15 @@ html, body {
     font-family: Verdana, sans-serif;
 }
 
+hr{
+    color: #CCCCCC;
+}
+
 h1 {
     margin: 10px 0;
 }
+
+
 
 h1, .title a, h4 {
     font-weight: normal;
@@ -30,6 +36,9 @@ h1, .title a, h4 {
     position: relative;
     background: #fff;
     width: 100%;
+}
+div.forum_comment{
+ border-color: #0CF;
 }
 
 .pila_top {
@@ -108,39 +117,16 @@ input[type="email"],
 
 input[type='submit'], .close, .inp_sub, input[type="button"], .submit_but {
     float: right;
+    border: medium none;
     font-size: 20px;
     height: 35px;
     font-size: 12px;
     padding: 5px 10px;
-    background-color: #eeeeee !important;
+    margin-top: 5px;
+    margin-right: 30px;
+    background-color: #2D87EF !important;
     /*    background-color: #e1e1e1 !important;*/
-    color: #282828 !important;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
-    text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1); /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1); /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1); /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
-    background-image: -ms-linear-gradient(top, #eeeeee, #e1e1e1);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#e1e1e1));
-    background-image: -webkit-linear-gradient(top, #eeeeee, #e1e1e1);
-    background-image: -o-linear-gradient(top, #eeeeee, #e1e1e1);
-    background-image: linear-gradient(top, #eeeeee, #e1e1e1);
-    background-image: -moz-linear-gradient(top, #eeeeee, #e1e1e1);
-    background-repeat: repeat-x;
-    border: 1px solid #d9d8d8;
-    *border: 0;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    border-color: #d9d8d8 #cccbcb #aeaeae;
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#eeeeee', endColorstr='#e1e1e1', GradientType=0);
-    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    color: white !important;
     user-select: none;
     cursor: pointer;
     font-family: arial, sans-serif;
@@ -151,18 +137,8 @@ input[type='submit'], .close, .inp_sub, input[type="button"], .submit_but {
 }
 
 input[type='submit']:hover, .close:hover, .inp_sub:hover, input[type="button"]:hover, .submit_but:hover {
-    background-color: #fcfcfc !important;
-    *background-color: #e8e8e8 !important;
-    background-image: -ms-linear-gradient(top, #fcfcfc, #e8e8e8);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fcfcfc), to(#e8e8e8));
-    background-image: -webkit-linear-gradient(top, #fcfcfc, #e8e8e8);
-    background-image: -o-linear-gradient(top, #fcfcfc, #e8e8e8);
-    background-image: linear-gradient(top, #fcfcfc, #e8e8e8);
-    background-image: -moz-linear-gradient(top, #fcfcfc, #e8e8e8);
-    background-repeat: repeat-x;
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#e8e8e8', GradientType=0);
-    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-    text-decoration: none;
+   background-color: black !important
+   
 }
 
 input[type='submit']:active, .close:active, .inp_sub:active, input[type="button"]:active, .active_button:active, .submit_but:active {
@@ -471,7 +447,9 @@ div.clouset {
     -webkit-transition: opacity 1s;
     -o-transition: opacity 1s;
 }
-
+.cont{
+    vertical-align: top;
+}
 .container {
     position: relative;
     z-index: 20;
@@ -7060,8 +7038,11 @@ li.menu_editprofile a {
     -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     background: #fff;
-    margin: 0 20px 20px 0;
+    margin-left: 0;
+    margin-bottom: 5px;
     position: relative;
+    border: 2px solid;
+    border-color: #0CF;
 }
 
 .forum_content_tags {
@@ -7074,8 +7055,24 @@ li.menu_editprofile a {
     background: #ffe4c6;
 }
 
-.forum .classic {
+.forum.classic {
     /*font-weight: bold;*/
+}
+
+a.clasic {
+    color:#3399FF;
+    text-decoration: underline;
+    display: block;
+    text-align:center;
+}
+
+div.datef{
+    padding: 10px;
+    background: #99439A;
+    color: #fff;
+    width:130px;
+    margin: 0;
+    position: relative;
 }
 
 .forum_content_text {
@@ -7152,9 +7149,9 @@ li.menu_editprofile a {
 }
 
 .new_forum_comment {
-    border: 1px solid black;
+    border: 8px solid black;
     padding: 20px;
-
+    border-color: #0cf;
 }
 
 .new_forum_comment textarea {
@@ -7164,7 +7161,10 @@ li.menu_editprofile a {
 
 .forum_comment {
     padding: 10px;
-    border: 1px solid black;
+    border: 2px solid black;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    width:auto;
 }
 
 .forum_date {
@@ -7209,7 +7209,6 @@ li.menu_editprofile a {
     position: relative;
     width: 70%;
 }
-
 .forum_grid_block {
     padding: 20px 0;
 }
