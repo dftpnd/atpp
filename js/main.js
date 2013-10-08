@@ -1841,3 +1841,7 @@ function forumDelete(id) {
         });
     }
 }
+//$.fn.redblock(function () {
+//    console.log(this);
+//    return this;
+//});

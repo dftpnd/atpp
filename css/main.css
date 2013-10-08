@@ -7320,3 +7320,8 @@ li.menu_editprofile a {
     margin-bottom: 15px;
     border-bottom: 2px solid #ececec;
 }
+#red_block{
+    width: 100px;
+    height: 100px;
+    background: #000000;
+}

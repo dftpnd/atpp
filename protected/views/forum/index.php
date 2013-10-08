@@ -1,3 +1,46 @@
+<div id="alf">
+    <span>В<></span>
+    <span>Б</span>
+    <span>Е</span>
+    <span>Га</span>
+    <span>Д</span>
+    <span>А</span>
+    <span>Ги</span>
+</div>
+<script>
+    $.fn.alf = function (data) {
+        var tag = 'div';
+        if(data.tag)
+            tag = data.tag;
+
+        var items = this.find(tag);
+        var leters = [];
+
+        items.each(function(index) {
+            leters[index] = $(this).html();
+        });
+
+        leters.sort(function(a, b) {
+            var compA = a.toUpperCase();
+            var compB = b.toUpperCase();
+            return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+        });
+
+        var html = '';
+        $.each(leters,function(index) {
+            html += '<'+tag+'>' +leters[index] + '</'+tag+'>' ;
+        });
+
+        this.html('').html(html);
+        return this;
+    };
+
+
+    $('#alf').alf({tag:'span'});
+
+
+</script>
+
 <?php if (isset($_GET['tag_id'])): ?>
     <a href="/forum/index" class="classic" async="async">Убрать сортировку</a>
     <style>
@@ -39,4 +82,6 @@
     </div>
     <div class="anchor"></div>
 </div>
+<div id="red_block">
 
+</div>
