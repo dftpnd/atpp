@@ -1,12 +1,3 @@
-<div id="alf">
-    <span>В<></span>
-    <span>Б</span>
-    <span>Е</span>
-    <span>Га</span>
-    <span>Д</span>
-    <span>А</span>
-    <span>Ги</span>
-</div>
 <script>
     $.fn.alf = function (data) {
         var tag = 'div';
@@ -42,7 +33,7 @@
 </script>
 
 <?php if (isset($_GET['tag_id'])): ?>
-    <a href="/forum/index" class="classic" async="async">Убрать сортировку</a>
+    <a href="/forum/index" class="classic delete_sort" async="async">Убрать сортировку</a>
     <style>
         .tag_ <?php echo $_GET['tag_id'];?> {
             background: #00FF66 !important;
@@ -62,8 +53,7 @@
             <?php if (!empty($tags)): ?>
                 <?php foreach ($tags as $tag_id => $tag): ?>
                     <?php if ($tag['count'] != 0): ?>
-                        <a async="async" href="/forum/index?tag_id=<?php echo $tag_id; ?>">#<?php echo $tag['name']; ?>
-                            (<?php echo $tag['count']; ?>)</a></br>
+                        <a async="async" href="/forum/index?tag_id=<?php echo $tag_id; ?>" title="<?php echo $tag['name']; ?>" >#<?php echo $tag['name']; ?>(<?php echo $tag['count']; ?>)</a>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -74,14 +64,17 @@
             'dataProvider' => $dataProvider,
             'itemView' => '/forumTag/_view',
             'cssFile' => false,
-            'template' => '{pager} {items}  {pager}',
+            'template' => '{items}  {pager}',
+            'afterAjaxUpdate'=> 'function(){NProgress.done();}',
+            'beforeAjaxUpdate'=> 'function(){$(document).scrollTop("0");scroll = 0;NProgress.start();}',
             'pager' => array(
-                'cssFile' => false
+                'cssFile' => false,
+
             )
         )); ?>
     </div>
     <div class="anchor"></div>
 </div>
-<div id="red_block">
 
-</div>
+
+

@@ -1,5 +1,6 @@
 <?php
-
+// это все контроллер, ищим тут нужный нам экшен
+//легче всего искать через ctrl+f
 class ForumController extends Controller
 {
     public $title_controller = 'Форум';
@@ -140,8 +141,6 @@ class ForumController extends Controller
     public function actionView($id)
     {
 
-
-
         $title = "Обсуждения";
 
         $forum = Forum::model()->findByPk($id);
@@ -158,6 +157,9 @@ class ForumController extends Controller
         $crumbs[1]['href'] = '/forum/view?id=' . $id;
         $crumbs[1]['title'] = $forum->title;
 
+        //все что тебе нужно, это посмотреть как правило в конец функции
+        //тут находится функция рендер
+        // в которую передается путь ко вьюхе)
         MyHelper::render($this, '/forum/view', array(
             'forum_tag' => $forum_tag,
             'comments' => $comments,
