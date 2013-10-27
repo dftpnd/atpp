@@ -1800,29 +1800,31 @@ $('html').click(function () {
 function newForumComment($el) {
     $el.addClass('loading');
     NProgress.start();
-
-
+    
+ 
     $.ajax({
         url: '/forum/newForumComment',
         type: 'POST',
         dataType: 'json',
         data: $('#new_forum_comment').serialize(),
         success: function (data) {
-
+        
             if (data.status == 'success') {
-
+                $("#new_forum_comment").trigger('reset');
             } else if (data.status == 'error') {
                 noticeOpen(data.text, notice_red);
             }
+            
         },
         complete: function () {
             NProgress.done();
             $el.removeClass('loading');
+            
         },
         error: function () {
             noticeOpen("Ошибка", notice_red);
         }
-
+            
     });
 }
 function forumDelete(id) {
@@ -1853,3 +1855,7 @@ function forumDelete(id) {
         });
     }
 }
+//$.fn.redblock(function () {
+//    console.log(this);
+//    return this;
+//});

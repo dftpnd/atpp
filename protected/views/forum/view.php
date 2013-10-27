@@ -9,7 +9,7 @@ $this->widget('zii.widgets.CListView', array(
     )
 ));
 ?>
-<h1>Коментариия</h1>
+<h1>Коментариии</h1>
 <a name="comments"></a>
 <?php
 //all comment
