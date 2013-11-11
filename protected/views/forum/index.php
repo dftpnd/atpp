@@ -42,7 +42,7 @@
 <?php endif; ?>
 
 <?php if (!Yii::app()->user->isGuest): ?>
-    <div class="create_forum" onclick="openUpdateForum(0)"><input type="submit" value="Создать обсуждениеvnjsdnvjknds"/></div>
+    <div class="create_forum" onclick="openUpdateForum(0)"><input type="submit" value="Создать обсуждение"/></div>
 <?php endif; ?>
 
 <div class="anchor"></div>
