@@ -1,4 +1,4 @@
-<script>
+﻿<script>
     $.fn.alf = function (data) {
         var tag = 'div';
         if(data.tag)
@@ -42,7 +42,7 @@
 <?php endif; ?>
 
 <?php if (!Yii::app()->user->isGuest): ?>
-    <div class="create_forum" onclick="openUpdateForum(0)"><input type="submit" value="Создать обсуждение"/></div>
+    <div class="create_forum" onclick="openUpdateForum(0)"><input type="submit" value="Создать обсуждениеvnjsdnvjknds"/></div>
 <?php endif; ?>
 
 <div class="anchor"></div>
