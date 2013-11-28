@@ -751,5 +751,9 @@ class SiteController extends Controller
         }
     }
 
+    public function actionGroup($id)
+    {
+        MyHelper::render($this, '/site/group_' . $id, array(), $id);
+    }
 }
 

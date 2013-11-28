@@ -268,7 +268,7 @@ a:hover {
     display: block;
     position: absolute;
     top: 155px;
-    right: 0;
+    right: 40px;
 }
 
 .menu ul {
@@ -384,6 +384,7 @@ a.current-page {
 
 #content {
     padding: 30px 40px 50px;
+    margin: 0 40px;
     -webkit-box-shadow: 1px 0px 7px rgba(239, 239, 239, 0.75);
     -moz-box-shadow: 1px 0px 7px rgba(239, 239, 239, 0.75);
     box-shadow: 1px 0px 7px rgba(239, 239, 239, 0.75);
@@ -515,7 +516,7 @@ div.clouset {
 .footer_spa {
     color: #fff;
     border-top: 1px solid #fff;
-    padding: 10px 20px;
+    padding: 10px 40px;
     position: relative;
 }
 
@@ -1849,24 +1850,6 @@ tr.filters td input[type="text"] {
 
 .bg_new_footer {
     background: url(../i/bg_new.png);
-}
-
-.gilfanov {
-    position: relative;
-    border-bottom: 1px solid black;
-    margin-bottom: 3px;
-    padding-bottom: 20px;
-}
-
-.gilfanov_foto {
-    width: 400px;
-    height: 310px;
-    background: url(../i/gilfanov2.png);
-    float: right;
-    margin-top: 25px;
-    -webkit-box-shadow: 2px 2px 8px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow: 2px 2px 8px rgba(50, 50, 50, 0.75);
-    box-shadow: 2px 2px 8px rgba(50, 50, 50, 0.75);
 }
 
 .kavichki {
@@ -5171,7 +5154,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn:active, .btn.active {
-    background-color: #aeaeae       \9;
+    background-color: #aeaeae         \9;
 }
 
 .btn:hover {
@@ -5227,7 +5210,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-primary:active, .btn-primary.active {
-    background-color: #0059b3       \9;
+    background-color: #0059b3         \9;
 }
 
 .btn-warning {
@@ -5256,7 +5239,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-warning:active, .btn-warning.active {
-    background-color: #cb5200       \9;
+    background-color: #cb5200         \9;
 }
 
 .btn-danger {
@@ -5283,7 +5266,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-danger:active, .btn-danger.active {
-    background-color: #b30028       \9;
+    background-color: #b30028         \9;
 }
 
 .btn-success {
@@ -5310,7 +5293,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-success:active, .btn-success.active {
-    background-color: #28720f       \9;
+    background-color: #28720f         \9;
 }
 
 .btn-info {
@@ -5337,7 +5320,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-info:active, .btn-info.active {
-    background-color: #6f378b       \9;
+    background-color: #6f378b         \9;
 }
 
 .btn-inverse {
@@ -5364,7 +5347,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-inverse:active, .btn-inverse.active {
-    background-color: #000000       \9;
+    background-color: #000000         \9;
 }
 
 .specnaz {
@@ -5967,7 +5950,40 @@ div.fc-body div.fc-row div.fc-content {
     height: 50px;
     position: absolute;
     top: 115px;
-    left: 0;
+    left: 40px;
+}
+
+.gilfanov {
+    display: block;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    border-bottom: 1px solid black;
+    margin-bottom: 3px;
+    padding-bottom: 20px;
+}
+
+.kv_right_block {
+    overflow: hidden;
+}
+
+.gilfanov_foto {
+
+}
+
+.gilfanov img {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.kav_block p {
+    text-indent: 40px;
+    font-size: 1.2em;
+}
+
+.kav_block h1 {
+    margin: 30px 0;
 }
 
 .predmet-box {
@@ -6215,7 +6231,7 @@ div.fc-body div.fc-row div.fc-content {
 }
 
 .authorizad #content {
-    margin-left: 188px;
+    margin-left: 220px;
 }
 
 .underwrapp {
@@ -6698,7 +6714,7 @@ div.fc-body div.fc-row div.fc-content {
 }
 
 .menu_work {
-    margin: 20px 0 0 0;
+    margin: 20px 30px 0;
     position: absolute;
     top: 0px;
     -webkit-transition-duration: .4s;
@@ -7369,8 +7385,57 @@ div.datef {
     width: 100px;
     height: 100px;
     background: #000000;
+}
 
 .delete_sort {
     margin: 15px 0;
     display: block;
+}
+
+.classic_list {
+    display: block;
+    margin: 15px 0;
+}
+
+.classic_list li {
+    display: block;
+    font-size: 1.2em;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    background: url(../i/bullet.png) no-repeat 7px 8px;
+}
+
+.classic_list li:first-child {
+    padding-left: 0;
+    background: none;
+
+}
+
+.classic_text p {
+    margin: 10px 0;
+    text-indent: 20px;
+}
+
+.classic_picter {
+    display: block;
+    max-width: 940px;
+    margin: 20px auto;
+}
+
+.picter_hint {
+    color: #777;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.patent_block {
+    text-align: center;
+}
+
+.patents {
+    display: inline-block;
+    width: 200px;
+    height: 259px;
 }

@@ -56,12 +56,11 @@
 	'SiteIeblokad',
 	'SiteRecoveryPassword',
 	'SiteHappyPass',
+	'SiteGroup',
 	'UserEditProfile',
 	'UserStats',
 	'UserViewStudent',
 	'UserCompareStudent',
-	'UserPredmetfile',
-	'UserMyGroup',
 	'UserClassmateBlokked',
 	'UserUploadfilegroup',
 	'UserDeleteFileGroup',
@@ -83,13 +82,6 @@
 	'UserDeleteStudent',
 	'UserBanStudent',
 	'UserRazBanStudent',
-	'UserFiles',
-	'UserChangeFolder',
-	'UserDeleteFolder',
-	'UserUpdateDirectory',
-	'UserSaveChangeFolder',
-	'UserOpenFolder',
-	'UserDownloads',
 	'UserViewFake'
 );
 ?>
