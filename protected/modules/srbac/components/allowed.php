@@ -57,6 +57,7 @@
 	'SiteRecoveryPassword',
 	'SiteHappyPass',
 	'SiteGroup',
+	'SiteGilfanov',
 	'UserEditProfile',
 	'UserStats',
 	'UserViewStudent',

@@ -755,5 +755,10 @@ class SiteController extends Controller
     {
         MyHelper::render($this, '/site/group_' . $id, array(), $id);
     }
+    public function actionGilfanov()
+    {
+        $title = 'Гильфанов Камиль Хабибович';
+        MyHelper::render($this, '/site/gilfanov', array(), $title);
+    }
 }
 

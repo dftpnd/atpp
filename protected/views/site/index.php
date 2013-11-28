@@ -479,7 +479,7 @@
         (АТПП)
     </h1>
 
-    <a href="#" class="gilfanov">
+    <a href="/site/gilfanov" class="gilfanov">
         <img class="gilfanov_foto" src="/i/gilfanov.png" width="350" height="304" title="Гильфанов К.Х."/>
         Гильфанов Камиль Хабибович
     </a>
