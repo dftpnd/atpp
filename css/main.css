@@ -5154,7 +5154,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn:active, .btn.active {
-    background-color: #aeaeae         \9;
+    background-color: #aeaeae          \9;
 }
 
 .btn:hover {
@@ -5210,7 +5210,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-primary:active, .btn-primary.active {
-    background-color: #0059b3         \9;
+    background-color: #0059b3          \9;
 }
 
 .btn-warning {
@@ -5239,7 +5239,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-warning:active, .btn-warning.active {
-    background-color: #cb5200         \9;
+    background-color: #cb5200          \9;
 }
 
 .btn-danger {
@@ -5266,7 +5266,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-danger:active, .btn-danger.active {
-    background-color: #b30028         \9;
+    background-color: #b30028          \9;
 }
 
 .btn-success {
@@ -5293,7 +5293,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-success:active, .btn-success.active {
-    background-color: #28720f         \9;
+    background-color: #28720f          \9;
 }
 
 .btn-info {
@@ -5320,7 +5320,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-info:active, .btn-info.active {
-    background-color: #6f378b         \9;
+    background-color: #6f378b          \9;
 }
 
 .btn-inverse {
@@ -5347,7 +5347,7 @@ div.logo > div.logo_x > div.logo_x_3 {
 }
 
 .btn-inverse:active, .btn-inverse.active {
-    background-color: #000000         \9;
+    background-color: #000000          \9;
 }
 
 .specnaz {
@@ -5959,9 +5959,11 @@ div.fc-body div.fc-row div.fc-content {
     margin-right: 20px;
     margin-bottom: 20px;
     position: relative;
-    border-bottom: 1px solid black;
+    /*border-bottom: 1px solid black;*/
     margin-bottom: 3px;
+
     padding-bottom: 20px;
+    background: url("../i/header/footer.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
 }
 
 .kv_right_block {
@@ -7438,4 +7440,22 @@ div.datef {
     display: inline-block;
     width: 200px;
     height: 259px;
+}
+
+.prepods_spisok li {
+    display: inline-block;
+    padding-bottom: 15px;
+    text-align: center;
+    margin-right: 15px;
+    margin-bottom: 30px;
+}
+
+.prepods_spisok span {
+    display: block;
+    padding-bottom: 15px;
+    background: url("../i/header/footer.png") repeat-x scroll center bottom rgba(0, 0, 0, 0);
+}
+
+.prepods_spisok img {
+    /*width: 20%;*/
 }
