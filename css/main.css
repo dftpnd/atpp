@@ -6886,7 +6886,10 @@ li.menu_editprofile a {
     margin: 30px 0;
     padding: 10px;
 }
+.post_update{
 
+    position: relative;
+}
 .post_update .uload_list_img {
     top: 51px;
 }
