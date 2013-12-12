@@ -55,7 +55,7 @@ class PostController extends Controller
 
     public function actionUpdate()
     {
-
+        Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
         $model = $this->loadModel();
         if (isset($_POST['Post'])) {
             $model->attributes = $_POST['Post'];
@@ -377,7 +377,7 @@ class PostController extends Controller
         $uf = DIRECTORY_SEPARATOR;
 
         $basePath = Yii::app()->basePath . "{$uf}..{$uf}uploads{$uf}";
-        
+
         $new_file = $basePath . $t . $_FILES['file']['name'];
 
 
