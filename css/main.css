@@ -7459,3 +7459,6 @@ div.datef {
 .prepods_spisok img {
     /*width: 20%;*/
 }
+.redactor_editor{
+    min-height: 250px;
+}

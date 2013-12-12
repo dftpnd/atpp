@@ -26,7 +26,7 @@ class Post extends CActiveRecord
             array('status', 'in', 'range' => array(1, 2, 3)),
             array('title, show_foto', 'length', 'max' => 128),
             array('tags', 'match', 'pattern' => '/^[\w\s,]+$/', 'message' => 'Tags can only contain word characters.'),
-            array('tags', 'normalizeTags'),
+            //array('tags', 'normalizeTags'),
             array('title, status, show_foto', 'safe', 'on' => 'search'),
             array('title, content_previews, show_foto, status, topic', 'required'),
             array('title, status', 'required'),

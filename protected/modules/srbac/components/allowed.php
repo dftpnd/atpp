@@ -17,6 +17,7 @@
 	'PostView',
 	'PostScrapbook',
 	'PostIndex',
+	'PostImperaviUpload',
 	'ProjectIndex',
 	'ProjectDampfturbine',
 	'ReestrIndex',

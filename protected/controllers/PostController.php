@@ -70,6 +70,7 @@ class PostController extends Controller
 
     public function actionCreate()
     {
+        Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
         $title = 'Создать пост';
         $user_id = Yii::app()->user->id;
         $profile = Profile::model()->findByAttributes(array('user_id' => $user_id));
@@ -86,6 +87,7 @@ class PostController extends Controller
 
         if (isset($_POST['Post'])) {
             $model->attributes = $_POST['Post'];
+            $model->show_foto = 2;
             if (isset($_POST['ajax']) && $_POST['ajax'] === 'myForm') {
                 echo CActiveForm::validate($model);
                 Yii::app()->end();
@@ -368,4 +370,25 @@ class PostController extends Controller
         echo json_encode(array('status' => 'error'));
     }
 
+    public function actionImperaviUpload()
+    {
+        $t = time() . '_';
+
+        $uf = DIRECTORY_SEPARATOR;
+
+        $basePath = Yii::app()->basePath . "{$uf}..{$uf}uploads{$uf}";
+        
+        $new_file = $basePath . $t . $_FILES['file']['name'];
+
+
+        if (!copy($_FILES['file']['tmp_name'], $new_file)) {
+            echo "не удалось скопировать";
+        }
+
+        $array = array(
+            'filelink' => '/uploads/' . $t . $_FILES['file']['name']
+        );
+
+        echo stripslashes(json_encode($array));
+    }
 }

@@ -479,7 +479,7 @@
     (АТПП)
 </h1>
 
-<a href="/site/gilfanov" class="gilfanov">
+<a href="/site/gilfanov" class="gilfanov classic">
     <img class="gilfanov_foto" src="/i/gilfanov.png" width="350" height="304" title="Гильфанов К.Х."/>
     Гильфанов Камиль Хабибович
 </a>
@@ -634,12 +634,6 @@
                 <img width="" src="/i/prepods/anvar.jpg"/>
             </span>
         Мухаметзянов Анвар Сулейманович
-    </li>
-    <li>
-            <span>
-                <img width="" src="/i/prepods/fillipova.jpg"/>
-            </span>
-        Филиппова Маргарита Дмитриевна
     </li>
     <li>
             <span>

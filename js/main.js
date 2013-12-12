@@ -24,9 +24,11 @@ function prototipeFunction(callback) {
     NProgress.start();
     callback();
 }
+
 $('html').click(function (e) {
     if (getIEVersion() == -1 && getIEVersion() < 9) {
         window.my_link = $(e.target);
+
         if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
             $('#menu li').removeClass('active')
             prototipeFunction(function () {
@@ -39,7 +41,6 @@ $('html').click(function (e) {
                     href_url = my_link.parents().attr('href')
                 }
                 changePage(href_url);
-
             });
 
         } else {
@@ -105,7 +106,7 @@ function faviconEnd() {
     link.href = '/favicon.ico';
     document.getElementsByTagName('head')[0].appendChild(link);
 }
-function menuRegulate(){
+function menuRegulate() {
     var controller = location.href.split('/');
 
     switch (controller[3]) {
@@ -128,7 +129,7 @@ function menuRegulate(){
             $('#menu ul li').eq(3).addClass('active');
             break;
         default:
-                break;
+            break;
     }
 }
 function parseGetParams() {
@@ -231,7 +232,15 @@ $(window).resize(function () {
 });
 
 $(function () {
-
+    if (window.history && history.pushState) {
+        $(window).bind('popstate', function (e) {
+            prototipeFunction(function () {
+                favicon();
+                closeContent();
+                changePage(location.pathname);
+            });
+        });
+    }
     loader = $('#ajax_loader');
     left_menu = $('.menu_work');
 
@@ -1800,31 +1809,31 @@ $('html').click(function () {
 function newForumComment($el) {
     $el.addClass('loading');
     NProgress.start();
-    
- 
+
+
     $.ajax({
         url: '/forum/newForumComment',
         type: 'POST',
         dataType: 'json',
         data: $('#new_forum_comment').serialize(),
         success: function (data) {
-        
+
             if (data.status == 'success') {
                 $("#new_forum_comment").trigger('reset');
             } else if (data.status == 'error') {
                 noticeOpen(data.text, notice_red);
             }
-            
+
         },
         complete: function () {
             NProgress.done();
             $el.removeClass('loading');
-            
+
         },
         error: function () {
             noticeOpen("Ошибка", notice_red);
         }
-            
+
     });
 }
 function forumDelete(id) {
