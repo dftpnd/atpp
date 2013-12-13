@@ -222,22 +222,28 @@ $(window).scroll(function () {
 
 
 $(function () {
+    var history_url = new Object();
+    history_url.title = $('title').text();
+    history_url.href = location.pathname;
+
+    urlList[urlList.length] = history_url;
+
     if (window.history && history.pushState) {
 
         $(window).bind('popstate', function (e) {
 
-            if (urlList.length == 0) {
+            if (urlList.length == 1) {
                 return false;
+            } else {
+                urlList.splice(urlList.length - 1, 1);
+                var urlPos = urlList[urlList.length - 1];
+
+                prototipeFunction(function () {
+                    favicon();
+                    closeContent();
+                    changePage(urlPos.href);
+                });
             }
-
-            urlList.splice(urlList.length - 1, 1);
-            var urlPos = urlList[urlList.length - 1];
-
-            prototipeFunction(function () {
-                favicon();
-                closeContent();
-                changePage(urlPos.href);
-            });
         });
     }
     loader = $('#ajax_loader');
