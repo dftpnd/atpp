@@ -12,6 +12,8 @@ function extractLast(term) {
 var notice_green = '1';
 var notice_yellow = '2';
 var notice_red = '3';
+var urlList = new Array()
+
 /*====*/
 function getIEVersion() {
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
@@ -30,7 +32,7 @@ $('html').click(function (e) {
         window.my_link = $(e.target);
 
         if ((my_link.get(0).tagName == 'A' && my_link.attr('async') != undefined) || (my_link.parents().attr('async') != undefined )) {
-            $('#menu li').removeClass('active')
+            $('#menu li').removeClass('active');
             prototipeFunction(function () {
                 favicon();
                 closeContent();
@@ -40,6 +42,13 @@ $('html').click(function (e) {
                 } else {
                     href_url = my_link.parents().attr('href')
                 }
+
+                var history_url = new Object();
+                history_url.title = $('#page_title').text();
+                history_url.href = href_url;
+
+                urlList[urlList.length] = history_url;
+
                 changePage(href_url);
             });
 
@@ -64,14 +73,17 @@ function changePage(url) {
                 openContent();
 
                 $('#content').html(data);
-                $('title').text($('#page_title').text());
+
+                var title = $('#page_title').text();
+
+                $('title').text(title);
+
                 $('#page_title').remove();
                 history.pushState({
-                    title: data.title,
+                    title: title,
                     url: url
-                }, data.title, url);
+                }, title, url);
 
-                menuRegulate();
                 $(document).scrollTop('0');
                 scroll = 0;
             }
@@ -97,7 +109,8 @@ function favicon() {
     link.rel = 'shortcut icon';
     link.href = '/favicon.gif';
     document.getElementsByTagName('head')[0].appendChild(link);
-}
+};
+
 function faviconEnd() {
     $('link[type*=gif]').remove();
     var link = document.createElement('link');
@@ -105,33 +118,8 @@ function faviconEnd() {
     link.rel = 'shortcut icon';
     link.href = '/favicon.ico';
     document.getElementsByTagName('head')[0].appendChild(link);
-}
-function menuRegulate() {
-    var controller = location.href.split('/');
+};
 
-    switch (controller[3]) {
-        case 'site':
-            $('#menu ul li').eq(0).addClass('active');
-            break;
-        case 'post':
-            $('#menu ul li').eq(1).addClass('active');
-            break;
-        case 'reestr':
-            $('#menu ul li').eq(2).addClass('active');
-            break;
-        case 'library':
-            $('#menu ul li').eq(2).addClass('active');
-            break;
-        case 'project':
-            $('#menu ul li').eq(2).addClass('active');
-            break;
-        case 'forum':
-            $('#menu ul li').eq(3).addClass('active');
-            break;
-        default:
-            break;
-    }
-}
 function parseGetParams() {
     var $_GET = {};
     var __GET = window.location.search.substring(1).split("&");
@@ -140,30 +128,34 @@ function parseGetParams() {
         $_GET[getVar[0]] = typeof(getVar[1]) == "undefined" ? "" : getVar[1];
     }
     return $_GET;
-}
+};
+
 function closeContent() {
     $('.content_loader').show();
     $('.contentus').addClass('clouset');
 
-}
-;
-function openContent() {
+};
 
+function openContent() {
     $('.content_loader').hide();
-}
-;
+};
+
 function goSpiner() {
     NProgress.start();
-}
+};
+
 function hideSpiner() {
     NProgress.done();
-}
+};
+
 function goGear() {
     $('.float_signal').addClass('gear');
-}
+};
+
 function spotGear() {
     $('.float_signal').removeClass('gear');
-}
+};
+
 $(window).scroll(function () {
     left_menu = $('.menu_work');
     const_h = 280;
@@ -227,17 +219,24 @@ $(window).scroll(function () {
     ;
 
 });
-$(window).resize(function () {
 
-});
 
 $(function () {
     if (window.history && history.pushState) {
+
         $(window).bind('popstate', function (e) {
+
+            if (urlList.length == 0) {
+                return false;
+            }
+
+            urlList.splice(urlList.length - 1, 1);
+            var urlPos = urlList[urlList.length - 1];
+
             prototipeFunction(function () {
                 favicon();
                 closeContent();
-                changePage(location.pathname);
+                changePage(urlPos.href);
             });
         });
     }
@@ -1863,8 +1862,5 @@ function forumDelete(id) {
 
         });
     }
-}
-//$.fn.redblock(function () {
-//    console.log(this);
-//    return this;
-//});
+};
+
