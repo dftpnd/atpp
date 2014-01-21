@@ -75,7 +75,7 @@ if (isset($_GET['pin'])) {
     ?>
     <div class="anchor"></div>
   </div>
-  <?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 </div>
 <script>
   $(function(){
