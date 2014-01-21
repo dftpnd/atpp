@@ -89,8 +89,8 @@ function changePage(url) {
             }
 
             //TODO хз как по другому
-            if (typeof window.yaCounter22656568 != "undefined")
-                window.yaCounter22656568.hit(location.href, 'Ростехинвентаризация-Федеральное БТИ по РТ');
+            if (typeof window.yaCounter23692945 != "undefined")
+                window.yaCounter23692945.hit(location.href, title);
 
             return false;
         },
