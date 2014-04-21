@@ -3,3 +3,4 @@ uploads
 nbproject
 .idea
 assets
+*.DS_Store
