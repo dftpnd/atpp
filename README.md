@@ -18,20 +18,34 @@ atpp
 7) cp exemple.main.php main.php
 
 8) sudo nano main.php; 
+
    and edit line 73
+   
    db' => array(
+   
             'connectionString' => 'mysql:host=localhost;dbname=atpp',
+            
             'emulatePrepare' => true,
+            
             'username' => 'root',
+            
             'password' => '',
+            
             'charset' => 'utf8',
+            
             'tablePrefix' => 'tbl_',
+            
             'enableProfiling' => true,
+            
             'enableParamLogging' => true,
+            
   ),
+  
 9) create database atpp in /atpp/atpp.sql
 
-good luck!
+
+Good luck!
+
 
 
 http://atpp.in/
