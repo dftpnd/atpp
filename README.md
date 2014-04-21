@@ -41,7 +41,7 @@ atpp
             
   ),
   
-9) create database atpp in /atpp/atpp.sql
+9) create database "atpp" cd /atpp/atpp.sql - dump
 
 
 Good luck!
