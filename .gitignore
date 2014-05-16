@@ -1,4 +1,6 @@
 protected/config/main.php
+protected/runtime
+assets
 uploads
 nbproject
 .idea
