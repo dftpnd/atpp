@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.lightbox-0.5.css" />
+
 <?php
 $more = getenv("HTTP_REFERER");
 $post_now = 'http://' . $_SERVER['SERVER_NAME'] . '/post/' . $model->id . '?title=' . $model->title;
@@ -32,6 +32,3 @@ if ($more != $post_now) {
 <div class="reset"></div>
 
 
-
-
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.lightbox-0.5.js"></script>

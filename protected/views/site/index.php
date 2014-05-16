@@ -572,74 +572,76 @@
             <span>
                 <img width="" src="/i/prepods/podymov.jpg"/>
             </span>
-        <a href='http://podymov.atpp.in/' class="classic">Подымов Владимир Николаевич</a>
+        <a href='http://podymov.atpp.in/' class="classic">
+            Подымов<br/>
+            Владимир Николаевич</a>
     </li>
     <li>
             <span>
                  <img width="" src="/i/prepods/plotnikov.jpg"/>
             </span>
-        Плотников Владимир Витальевич
+        Плотников<br/> Владимир Витальевич
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/karpeev.jpg"/>
             </span>
-        Карпеев Сергей Викторович
+        Карпеев<br/> Сергей Викторович
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/bogdanov.jpg"/>
             </span>
-        Богданов Александр Нетфуллович
+        Богданов<br/> Александр Нетфуллович
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/bogdanova.jpg"/>
             </span>
-        Богданова Наталия Владимировна
+        Богданова<br/> Наталия Владимировна
     </li>
 
     <li>
             <span>
                 <img width="" src="/i/prepods/kirsanov.jpg"/>
             </span>
-        Кирсанов Юрий Анатольевич
+        Кирсанов<br/> Юрий Анатольевич
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/gilfanov.a.jpg"/>
             </span>
-        Гильфанов Артур Камилевич
+        Гильфанов<br/> Артур Камилевич
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/ignashina.jpg"/>
             </span>
-        Игнашина Татьяна Вячеславовна
+        Игнашина<br/> Татьяна Вячеславовна
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/rahmatulin.jpg"/>
             </span>
-        Рахматуллин Ирек Абдуллович
+        Рахматуллин<br/> Ирек Абдуллович
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/magdanov.jpg"/>
             </span>
-        Магданов Андрей Геннадьевич
+        Магданов<br/> Андрей Геннадьевич
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/ilnar.jpg"/>
             </span>
-        Сибгатуллин Ильнар Файдрахманович
+        Сибгатуллин<br/> Ильнар Файдрахманович
     </li>
     <li>
             <span>
                 <img width="" src="/i/prepods/gulsina.jpg"/>
             </span>
-        Шамсиева Гульсина Мударисовна
+        Шамсиева<br/> Гульсина Мударисовна
     </li>
 
 </ul>
