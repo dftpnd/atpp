@@ -180,7 +180,10 @@ class ForumController extends Controller
         $new_comment->text = $_POST['comment_text'];
         $new_comment->created = time();
         $new_comment->user_id = Yii::app()->user->id;
-        $new_comment->save();
+
+        if (!$new_comment->save()) {
+            echo json_encode(array('status' => 'error', 'message' => $new_comment->getErrors()));
+        }
 
         echo json_encode(array('status' => 'success'));
 
@@ -201,6 +204,18 @@ class ForumController extends Controller
 
         echo json_encode(array('status' => 'success'));
 
+    }
+
+    public function actionCommentForumDelete($id)
+    {
+        $new_comment = ForumComment::model()->findByPk($id);
+
+        if ($new_comment->user_id == Yii::app()->user->id) {
+            $new_comment->delete();
+        }
+
+
+        echo json_encode(array('status' => 'success'));
     }
 
 }

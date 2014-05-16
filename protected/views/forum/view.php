@@ -14,17 +14,12 @@ $this->widget('zii.widgets.CListView', array(
     <a name="comments"></a>
 <?php endif; ?>
 <?php
-//all comment
-
 foreach ($comments as $comment) {
     $this->renderPartial('_view_comment',
         array(
             'comment' => $comment,
         ));
 }
-
-
-
 ?>
 
 <?php if (Yii::app()->user->isGuest): ?>

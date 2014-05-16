@@ -6,6 +6,8 @@
 	'ForumUpdateForum',
 	'ForumView',
 	'ForumNewForumComment',
+	'ForumDeleteForum',
+	'ForumCommentForumDelete',
 	'ForumTagView',
 	'ForumTagCreate',
 	'ForumTagUpdate',

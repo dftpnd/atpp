@@ -37,7 +37,7 @@ $('html').click(function (e) {
                 favicon();
                 closeContent();
                 var href_url;
-                if (my_link.attr('href') != undefined) {
+                if (typeof my_link.attr('href') != "undefined") {
                     href_url = my_link.attr('href')
                 } else {
                     href_url = my_link.parents().attr('href')
@@ -78,6 +78,7 @@ function changePage(url) {
 
                 $('title').text(title);
 
+
                 $('#page_title').remove();
                 history.pushState({
                     title: title,
@@ -101,8 +102,8 @@ function changePage(url) {
         }
 
     }).fail(function () {
-            noticeOpen("Ошибка", notice_red)
-        });
+        noticeOpen("Ошибка", notice_red)
+    });
 }
 
 function favicon() {
@@ -1828,8 +1829,10 @@ function newForumComment($el) {
 
             if (data.status == 'success') {
                 $("#new_forum_comment").trigger('reset');
+                changePage(window.location);
+                noticeOpen('Сохранено', notice_green);
             } else if (data.status == 'error') {
-                noticeOpen(data.text, notice_red);
+                noticeOpen('Ошибка', notice_red);
             }
 
         },
@@ -1843,6 +1846,24 @@ function newForumComment($el) {
         }
 
     });
+}
+function commentForumDelete(id) {
+    if (confirm('Удалить?')) {
+        NProgress.start();
+        $.ajax({
+            url: '/forum/commentForumDelete',
+            type: 'GET',
+            dataType: 'json',
+            data: {id: id},
+            success: function (data) {
+                changePage(window.location);
+                noticeOpen('Удалено', notice_green);
+            },
+            complete: function () {
+                NProgress.done();
+            }
+        });
+    }
 }
 function forumDelete(id) {
 

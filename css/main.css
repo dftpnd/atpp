@@ -7170,6 +7170,7 @@ div.datef {
     border: 8px solid black;
     padding: 20px;
     border-color: #0cf;
+    margin-left: 100px;
 }
 
 .new_forum_comment textarea {
@@ -7181,6 +7182,7 @@ div.datef {
     padding: 10px;
     margin: 20px 0 20px 100px;
     background: #eee;
+    position: relative;
 }
 
 .forum_date {
@@ -7466,14 +7468,50 @@ div.datef {
     min-height: 250px;
 }
 
-.user-forum-comment {
+.user-forum-comment .circle_picter {
+    width: 45px !important;
+    height: 45px !important;
+    text-align: center;
+    display: inline-block !important;
+    float: left;
+}
 
+.user-forum-comment .clasic {
+    display: inline-block !important;
+    line-height: 45px;
+    margin-left: 15px;
+}
+
+.user-forum-comment .circle_picter img {
+    margin: 0 auto;
 }
 
 .udc-1 {
     width: 30%;
 }
 
+.ufc-date {
+    font-size: 12px;
+    color: #999;
+}
+
 .udc-2 {
 
+}
+
+.triangle-left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 20px solid #eee;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    left: -20px;
+    top: 10px
+}
+
+.ufc-content {
+    background: #fff;
+    padding: 10px;
+    margin-left: 54px;
 }
