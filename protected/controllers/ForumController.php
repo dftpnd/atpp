@@ -70,7 +70,12 @@ class ForumController extends Controller
             exit();
         }
 
-        $forum = new Forum();
+        if (empty($id)) {
+            $forum = new Forum();
+        } else {
+            $forum = Forum::model()->findByPk($id);
+        }
+
         $forum->title = $_POST['Forum']['title'];
         $forum->content = $_POST['Forum']['content'];
         $forum->created = time();
