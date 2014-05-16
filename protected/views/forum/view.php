@@ -3,14 +3,14 @@ $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,
     'itemView' => '/forumTag/_view',
     'cssFile' => false,
-    'template'=>"{items}",
+    'template' => "{items}",
     'pager' => array(
         'cssFile' => false
     )
 ));
 ?>
-<h1>Коментариии</h1>
-<a name="comments"></a>
+    <h1>Комментарии:</h1>
+    <a name="comments"></a>
 <?php
 //all comment
 
@@ -21,8 +21,17 @@ foreach ($comments as $comment) {
         ));
 }
 
-//new comment
-$this->renderPartial('_new_comment', array(
-    'forum_id' => $forum_id
-));
+
+
 ?>
+
+<?php if (Yii::app()->user->isGuest): ?>
+    <div style="margin-left: 150px">Только зарегистрированные пользователи могут оставлять комментарии. <span class="classic"
+                                                                                            onclick='EnterSite()'>Войдите</span>,
+        пожалуйста.
+    </div>
+<?php else: ?>
+    <?php $this->renderPartial('_new_comment', array(
+        'forum_id' => $forum_id
+    )); ?>
+<?php endif; ?>

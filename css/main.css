@@ -36,10 +36,6 @@ h1, .title a, h4 {
     width: 100%;
 }
 
-div.forum_comment {
-    border-color: #0CF;
-}
-
 .pila_top {
     height: 25px;
     z-index: 999;
@@ -447,8 +443,9 @@ div.clouset {
     -o-transition: opacity 1s;
 }
 
-.cont {
+td.cont {
     vertical-align: top;
+    border-bottom: 1px solid black;
 }
 
 .container {
@@ -7182,10 +7179,8 @@ div.datef {
 
 .forum_comment {
     padding: 10px;
-    border: 2px solid black;
-    margin-top: 0px;
-    margin-bottom: 5px;
-    width: auto;
+    margin: 20px 0 20px 100px;
+    background: #eee;
 }
 
 .forum_date {
@@ -7232,7 +7227,7 @@ div.datef {
 }
 
 .forum_grid_block {
-    padding: 20px 0;
+    padding: 20px;
 }
 
 .forum_grid_block h1 a, .forum_tag_obert a {
@@ -7469,4 +7464,16 @@ div.datef {
 
 .redactor_editor {
     min-height: 250px;
+}
+
+.user-forum-comment {
+
+}
+
+.udc-1 {
+    width: 30%;
+}
+
+.udc-2 {
+
 }

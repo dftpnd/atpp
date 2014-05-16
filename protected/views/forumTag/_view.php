@@ -106,7 +106,7 @@
                             <div class="tr_t">
                                 <div class="td_t">
                                     <div class="prosmotr"
-                                         title="Просмотры обсуждения"><?php echo $data->forum->view; ?></div>
+                                         title="Просмотры обсуждения"><?php echo isset($data->forum) ? $data->forum->view : ''; ?></div>
                                 </div>
                                 <div class="td_t">
                                     <div class="comments" title="Читать комментарии">
