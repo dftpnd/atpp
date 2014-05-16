@@ -87,7 +87,7 @@
 
                     <?php echo CHtml::link("<img  src='$my_picter' />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $data->forum->user->prof->id)), array('async' => 'async', 'class' => 'circle_picter')); ?>
                     <a async="async" class="classic"
-                       href="/user/ViewProfile"><?php echo MyHelper::getUsername($data->forum->user_id) ?></a>
+                       href="/user/ViewProfile/<?php echo $data->forum->user->prof->id ?>"><?php echo MyHelper::getUsername($data->forum->user_id) ?></a>
 
 
                 </div>

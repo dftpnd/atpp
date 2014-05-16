@@ -39,8 +39,10 @@ $dop_srtyle = $default ? 'width=45px' : '';
             </div>
         <?php endif; ?>
         <div class="triangle-left"></div>
-        <?php echo CHtml::link("<img  src='{$my_picter}' {$dop_srtyle} />", Yii::app()->urlManager->createUrl('/user/ViewProfile', array('id' => $comment->user->prof->id)), array('async' => 'async', 'class' => 'circle_picter')); ?>
-        <a href="#" class="clasic"><?php echo MyHelper::getUsername($comment->user_id); ?></a>
+
+        <?php echo CHtml::link("<img  src='{$my_picter}' {$dop_srtyle} />", Yii::app()->urlManager->createUrl("/user/ViewProfile", array('id' => $comment->user->prof->id)), array('async' => 'async', 'class' => 'circle_picter')); ?>
+        <a href="/user/ViewProfile/<?php echo $comment->user->prof->id; ?>"
+           class="clasic"><?php echo MyHelper::getUsername($comment->user_id); ?></a>
         <span class="ufc-date"><?php echo $j . ' ' . MyHelper::getRusMonth($m) . ' ' . $y; ?></span>
 
         <div class="anchor"></div>
