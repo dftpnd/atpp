@@ -35,8 +35,3 @@ if ($more != $post_now) {
 
 
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.lightbox-0.5.js"></script>
-<script>
-    
-  $('#gallery a').lightBox();
-    
-</script>

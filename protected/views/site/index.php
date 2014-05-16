@@ -480,7 +480,7 @@
 </h1>
 
 <a href="/site/gilfanov" class="gilfanov classic">
-    <img class="gilfanov_foto" src="/i/gilfanov.png" width="350" height="304" title="Гильфанов К.Х."/>
+    <img class="gilfanov_foto" src="/i/gilfanov.jpg" width="200" height="252" title="Гильфанов К.Х."/>
     Гильфанов Камиль Хабибович
 </a>
 
@@ -631,9 +631,9 @@
     </li>
     <li>
             <span>
-                <img width="" src="/i/prepods/anvar.jpg"/>
+                <img width="" src="/i/prepods/ilnar.jpg"/>
             </span>
-        Мухаметзянов Анвар Сулейманович
+        Сибгатуллин Ильнар Файдрахманович
     </li>
     <li>
             <span>
