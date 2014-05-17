@@ -23,6 +23,7 @@
         <?php echo $form->error($model, 'title'); ?>
         <p class="help_hint">Заголовок должен быть наполнен смыслом, чтобы можно было понять, о чем будет пост.</p>
     </div>
+
     <div class="row">
         <div class="questions"
              title="Это поле отвечает, за то, что вы увидете перед просмотром поста, то есть его сокращенный вариант"></div>
@@ -50,6 +51,7 @@
 
         ?>
     </div>
+
     <div class="row ">
         <div class="questions" title="Напишите тут полностью;)"></div>
         <?php echo $form->labelEx($model, 'content'); ?>

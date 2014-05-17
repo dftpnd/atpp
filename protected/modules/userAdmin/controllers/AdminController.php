@@ -1,18 +1,21 @@
 <?php
 
-class AdminController extends Controller {
+class AdminController extends Controller
+{
 
     public $layout = 'main';
 
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $this->render('index');
     }
 
-    public function actionReject() {
+    public function actionReject()
+    {
         if (!isset($_GET['id']))
             throw new CHttpException(404);
 
-        $id = (int) $_GET['id'];
+        $id = (int)$_GET['id'];
         $user = User::model()->findByPk($id);
         $user->delete();
 
@@ -20,13 +23,15 @@ class AdminController extends Controller {
         $this->redirect('/userAdmin/admin/users');
     }
 
-    public function actionPodobiu() {
+    public function actionPodobiu()
+    {
         $groups = Group::model()->findAll();
         $data = $this->renderPartial('/doors/_groups_podobiu', array('groups' => $groups, 'group_id' => $_POST['group_id']), true);
         echo json_encode(array('div' => $data));
     }
 
-    public function actionInstitute() {
+    public function actionInstitute()
+    {
 
         if (isset($_POST['institute'])) {
             $institute = new Institute();
@@ -51,7 +56,8 @@ class AdminController extends Controller {
         $this->render('institute', array('institutes' => $institutes));
     }
 
-    public function actiondeleteInstitute() {
+    public function actiondeleteInstitute()
+    {
         if (isset($_POST['institute_id'])) {
             $ins = Institute::model()->findByPk($_POST['institute_id']);
             $ins_caf = InstituteCafedra::model()->findAllByAttributes(array('institute_id' => $_POST['institute_id']));
@@ -66,7 +72,8 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionZapolnit() {
+    public function actionZapolnit()
+    {
         if (!isset($_POST['group_id']) || !isset($_POST['group_podobiu']))
             die('нет пост параметров');
 
@@ -83,7 +90,8 @@ class AdminController extends Controller {
         echo json_encode(array('status' => 'good'));
     }
 
-    public function actionGetGroupLeader() {
+    public function actionGetGroupLeader()
+    {
         if (!isset($_POST['id']))
             exit();
         $model = Profile::model()->findByPk($_POST['id']);
@@ -91,7 +99,8 @@ class AdminController extends Controller {
         $model->save();
     }
 
-    public function actionDeleteGroupLeader() {
+    public function actionDeleteGroupLeader()
+    {
         if (!isset($_POST['id']))
             exit();
 
@@ -100,18 +109,30 @@ class AdminController extends Controller {
         $model->save();
     }
 
-    public function actionUsers() {
-        $model = User::model()->with('prof')->findAll();
+    public function actionUsers()
+    {
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('id', $this->id);
+        $criteria->with = array('prof');
+        $criteria->order = 'prof.name ASC';
+
+
+        $model = User::model()->findAll($criteria);
+
+
         $this->render('users', array('model' => $model));
     }
 
-    public function actionBanuser($id) {
+    public function actionBanuser($id)
+    {
         $user = User::model()->findByPk($id);
         $user->active = 0;
         $user->save(false);
     }
 
-    public function actionDeleteUser() {
+    public function actionDeleteUser()
+    {
         $user = User::model()->deleteByPk($_POST['user_id']);
 
         if ($_POST['profile_id'] != 0)
@@ -120,14 +141,16 @@ class AdminController extends Controller {
         echo json_encode(array('status' => 'good'));
     }
 
-    public function actionMail() {
+    public function actionMail()
+    {
         $criteria = new CDbCriteria; //добавляется критерий выборки
         $criteria->order = 'id DESC'; //задается критерий выборки по айдишнику начиная с последнего
         $letters = ContactForm::model()->findAll($criteria);
         $this->render('mail', array('letters' => $letters));
     }
 
-    public function actionGroupview($group) {
+    public function actionGroupview($group)
+    {
         //говно миграция
 //        $lkps = PredmetSemestrGroup::model()->findAll();
 //        $index = 1;
@@ -144,13 +167,13 @@ class AdminController extends Controller {
 //------------------------------------
 
 
-
         $model = Group::model()->findByPk($group);
         $psg_model = PredmetSemestrGroup::model()->with('predmet')->findAllByAttributes(array('group_id' => $group));
         $this->render('groupview', array('model' => $model, 'psg_model' => $psg_model));
     }
 
-    public function actionInfogroup() {
+    public function actionInfogroup()
+    {
         $group = $_POST['group_id'];
         $model = Group::model()->findByPk($group);
 
@@ -159,7 +182,8 @@ class AdminController extends Controller {
         echo json_encode(array('div' => $data));
     }
 
-    public function actionsaveInfogroup() {
+    public function actionsaveInfogroup()
+    {
         $group_id = $_POST['group_id'];
         $model = Group::model()->findByPk($group_id);
         $model->attributes = $_POST['Group'];
@@ -171,7 +195,8 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionCreateTaskPlan() {
+    public function actionCreateTaskPlan()
+    {
         if (isset($_POST['group'])) {
             $group = $_POST['group'];
             $model = Group::model()->findByPk($group);
@@ -182,7 +207,8 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionSelectPredmets() {
+    public function actionSelectPredmets()
+    {
         if (isset($_POST['group'])) {
             $group = $_POST['group'];
             $model = Group::model()->findByPk($group);
@@ -200,7 +226,7 @@ class AdminController extends Controller {
                         $PSG->group_id = $group;
                         $PSG->hash_psg = PredmetSemestrGroup::model()->hash_psg_model($PSG->predmet_id, $PSG->group_id, $PSG->semestr_id);
                         if ($PSG->save()) {
-                            
+
                         } else {
                             continue;
                             var_dump($predmet);
@@ -238,7 +264,8 @@ class AdminController extends Controller {
 // $this->render('groupview', array('model' => $model));
     }
 
-    public function actionPredmetedet($id) {
+    public function actionPredmetedet($id)
+    {
         if (isset($id)) {
             $caf_id = '';
             if (isset($_POST['Predmet'])) {
@@ -266,7 +293,8 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionAproveModer() {
+    public function actionAproveModer()
+    {
 //        $criteria = new CDbCriteria;
 //        $criteria->compare('active', '0');
 //        $dataProvider = new CActiveDataProvider('User', array(
@@ -280,7 +308,8 @@ class AdminController extends Controller {
 //        $this->render('aproveuser', array('model' => $dataProvider));
     }
 
-    public function actionPredmet() {
+    public function actionPredmet()
+    {
         $model = new Predmet;
 
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'predmet-predmet-form') {
@@ -299,7 +328,8 @@ class AdminController extends Controller {
         $this->render('predmet', array('model' => $model, 'data' => $data));
     }
 
-    public function actionGroup() {
+    public function actionGroup()
+    {
         $model = new Group;
         $gyc = GroupYearCreate::model()->findAll();
 
@@ -338,7 +368,8 @@ class AdminController extends Controller {
         $this->render('group', array('model' => $model, 'group' => $group, 'user' => $user, 'gyc' => $gyc));
     }
 
-    public function actionDeleteGroup() {
+    public function actionDeleteGroup()
+    {
         if (isset($_POST['group_id'])) {
             $group_id = $_POST['group_id'];
             $data = Group::model()->deleteByPk($group_id);
@@ -346,12 +377,12 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionUpdateGroup() {
+    public function actionUpdateGroup()
+    {
         if (isset($_POST['group_id'])) {
             $data = Group::model()->findByPk($_POST['group_id']);
             $data->id_year_create = $_POST['zxc'];
-            $data->name = $_POST['value'];
-            ;
+            $data->name = $_POST['value'];;
             if (Group::searchUniqueGroup($data->name, $data->id_year_create)) {
                 $data->update();
             } else {
@@ -365,7 +396,8 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionDeletePredmet() {
+    public function actionDeletePredmet()
+    {
         if (isset($_POST['predmet_id'])) {
             $predmet_id = $_POST['predmet_id'];
             $data = Predmet::model()->deleteByPk($predmet_id);
@@ -373,7 +405,8 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionUpdatePredmet() {
+    public function actionUpdatePredmet()
+    {
         if (isset($_POST['predmet_id'])) {
             $name = $_POST['value'];
             $predmet_id = $_POST['predmet_id'];
@@ -384,7 +417,8 @@ class AdminController extends Controller {
         }
     }
 
-    public function actionGroupUsers() {
+    public function actionGroupUsers()
+    {
         if (!isset($_POST['id']))
             exit();
         $profile = Profile::model()->findAllByAttributes(array('group_id' => $_POST['id']));
@@ -392,7 +426,8 @@ class AdminController extends Controller {
         echo json_encode(array('div' => $data));
     }
 
-    public function actionEditList() {
+    public function actionEditList()
+    {
         if (!isset($_POST['group_id']) || !isset($_POST['semestr_id']))
             exit();
 
@@ -412,7 +447,8 @@ class AdminController extends Controller {
         echo json_encode(array('div' => $data_2, 'predmets' => $data));
     }
 
-    public function actionWeek() {
+    public function actionWeek()
+    {
         $data_1 = '';
         $data_2 = '';
 
