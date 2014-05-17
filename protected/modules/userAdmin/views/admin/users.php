@@ -1,9 +1,9 @@
 <div class='tabnav'>
     <ul class="tabnav-tabs">
-        <l1 class="razdel1" >
+        <l1 class="razdel1">
             <a href="#" class='tabnav-tab selected'>Новые пользователи</a>
         </l1>
-        <l1 class="razdel2" >
+        <l1 class="razdel2">
             <a href="#" class='tabnav-tab'>Все пользователи</a>
         </l1>
     </ul>
@@ -18,10 +18,14 @@
             <div class="td_t">&nbsp;</div>
             <div class="td_t">&nbsp;</div>
         </div>
+        <?php $numm = 1; ?>
         <?php foreach ($model as $user): ?>
             <div class="tr_t" id="user_<?php echo $user->id; ?>">
                 <div class="td_t">
-                    <?php echo $user->id; ?>
+                    <?php
+                    echo $numm;
+                    $numm++;
+                    ?>
                 </div>
                 <div class="td_t">
                     <?php echo $user->username; ?>
@@ -57,7 +61,9 @@
                         ЗАБАНЕН
                     <?php endif; ?>
                 </div>
-                <div class="td_t"><span class="delete_user" onclick="deleteUser('<?php echo $user->id; ?>','<?php if (isset($user->prof)) echo $user->prof->id;else echo '0' ?>')">Удалить</span></div>
+                <div class="td_t"><span class="delete_user"
+                                        onclick="deleteUser('<?php echo $user->id; ?>','<?php if (isset($user->prof)) echo $user->prof->id; else echo '0' ?>')">Удалить</span>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>

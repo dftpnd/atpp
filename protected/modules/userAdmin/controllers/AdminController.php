@@ -113,7 +113,6 @@ class AdminController extends Controller
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id);
         $criteria->with = array('prof');
         $criteria->order = 'prof.name ASC';
 
