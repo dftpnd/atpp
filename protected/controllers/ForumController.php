@@ -95,6 +95,9 @@ class ForumController extends Controller
 
 
         $tags = explode(", ", $_POST['Forum']['tags']);
+
+
+
         // бегу по тегам которые пришли постом
         foreach ($tags as $tag) {
             if ($tag != '') {
@@ -108,12 +111,11 @@ class ForumController extends Controller
                     $create_tag->save();
                     $tag_id = $create_tag->id;
                 }
-
-
                 //тэги которые дожны быть в посте
                 $forum_tag_id[] = $tag_id;
-
             }
+
+
         }
 
         $array_aft = array();
