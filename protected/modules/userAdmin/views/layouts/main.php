@@ -55,5 +55,5 @@
 </div>
 </body>
 </html>
-
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/door.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/admin.js"></script>
