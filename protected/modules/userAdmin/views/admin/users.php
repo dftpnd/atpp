@@ -52,9 +52,6 @@
                 </div>
                 <div class="td_t">
 
-                </div>
-                <div class="td_t">
-
                     <?php if ($user->active == 1): ?>
                         <?php echo CHtml::link('Забанить', Yii::app()->urlManager->createUrl('/userAdmin/admin/banuser', array('id' => $user->id))); ?>
                     <?php else: ?>
